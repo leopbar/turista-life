@@ -38,6 +38,14 @@ export const Section = styled.section<{ tone?: 'cream' | 'mist' | 'white' }>(({ 
   tone === 'white' && tw`bg-white`,
 ])
 
+/** Luz verde pulsante de "estou aqui agora". */
+export const LiveDot = ({ size = 10 }: { size?: number }) => (
+  <span aria-hidden="true" tw="relative inline-flex shrink-0" style={{ width: size, height: size }}>
+    <span tw="absolute inline-flex h-full w-full animate-ping rounded-full bg-live-400 opacity-75" />
+    <span tw="relative inline-flex h-full w-full rounded-full bg-live-400 shadow-[0_0_8px_2px_rgba(74,222,128,.7)]" />
+  </span>
+)
+
 /** Avião com rastro pontilhado, assinatura visual da marca. */
 export const PlaneTrail = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 120 48" fill="none" aria-hidden="true">

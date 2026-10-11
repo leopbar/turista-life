@@ -3,6 +3,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        /** Luz verde de "ao vivo" para os indicadores de onde a Laura está agora. */
+        live: { 400: '#4ADE80', 500: '#22C55E', 700: '#15803D' },
         pine: {
           950: '#082624',
           900: '#0B302E',

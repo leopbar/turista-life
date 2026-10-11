@@ -4,7 +4,7 @@ import {
   GOAL, allStops, countries, diaryPage as page, videoCount, ytThumb, ytUrl,
   type Country, type Milestone, type Stop, type Video,
 } from '../diaryContent'
-import { Container, PageHero } from '../components/ui'
+import { Container, LiveDot, PageHero } from '../components/ui'
 import { RouteMap } from '../components/RouteMap'
 import { Arrow, Check, Close, Pin, Play } from '../components/icons'
 
@@ -44,7 +44,7 @@ export function DiaryPage() {
             <p tw="font-sans text-xs font-semibold uppercase tracking-[.16em] text-pine-800">A rota</p>
             <h2 tw="font-serif text-[2rem] font-bold leading-tight text-ink">Por onde eu já passei</h2>
             <p tw="font-sans text-[15px] leading-relaxed text-muted">
-              Clique numa parada para ir direto ao capítulo. O ponto laranja é onde eu estou agora.
+              Clique numa parada para ir direto ao capítulo. A luz verde mostra onde eu estou agora.
             </p>
             <ol tw="mt-2 flex flex-col gap-2">
               {countries.map((c) => (
@@ -129,10 +129,10 @@ function Rail({ label, sub, node = 'dot', children }: { label?: string; sub?: st
           node === 'dot' && tw`bg-pine-800`,
           node === 'flag' && tw`h-[26px] w-[26px] -translate-x-1 bg-sun-500 lg:-translate-x-1`,
           node === 'money' && tw`bg-white ring-pine-800 ring-[3px]`,
-          node === 'now' && tw`bg-sun-500`,
+          node === 'now' && tw`bg-live-400 shadow-[0_0_10px_3px_rgba(74,222,128,.7)]`,
         ]}
       >
-        {node === 'now' && <span tw="absolute inline-flex h-full w-full animate-ping rounded-full bg-sun-500 opacity-60" />}
+        {node === 'now' && <span tw="absolute inline-flex h-full w-full animate-ping rounded-full bg-live-400 opacity-70" />}
       </span>
       <div tw="min-w-0">
         {(label || sub) && (
@@ -224,8 +224,8 @@ function StopCard({ stop }: { stop: Stop }) {
               </div>
               {stop.badge && <span tw="rounded-full bg-sun-500/10 px-3 py-1.5 font-sans text-[12px] font-semibold text-sun-600">{stop.badge}</span>}
               {stop.current && (
-                <span tw="inline-flex items-center gap-2 rounded-full bg-sun-500 px-3 py-1.5 font-sans text-[12px] font-semibold text-white">
-                  <span tw="h-2 w-2 rounded-full bg-white" /> Estou aqui agora
+                <span tw="inline-flex items-center gap-2 rounded-full bg-live-500/10 px-3 py-1.5 font-sans text-[12px] font-semibold text-live-700 ring-1 ring-live-500/30">
+                  <LiveDot size={8} /> Estou aqui agora
                 </span>
               )}
             </header>

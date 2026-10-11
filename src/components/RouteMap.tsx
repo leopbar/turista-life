@@ -148,8 +148,8 @@ export function RouteMap() {
                   cx={x}
                   cy={y}
                   r="14"
-                  fill="#F07A2A"
-                  opacity=".35"
+                  fill="#4ADE80"
+                  opacity=".45"
                   css={css`
                     transform-origin: ${x}px ${y}px;
                     animation: ping 1.8s ease-out infinite;
@@ -158,7 +158,8 @@ export function RouteMap() {
                   `}
                 />
               )}
-              <circle cx={x} cy={y} r={n.current ? 11 : 8} fill={n.current ? '#F07A2A' : '#F8F6F1'} stroke="#0F3D3A" strokeWidth="3" />
+              <circle cx={x} cy={y} r={n.current ? 11 : 8} fill={n.current ? '#4ADE80' : '#F8F6F1'}
+                style={n.current ? { filter: 'drop-shadow(0 0 8px rgba(74,222,128,.9))' } : undefined} stroke="#0F3D3A" strokeWidth="3" />
               <text x={tx} y={y - 4} textAnchor={left ? 'end' : 'start'} fill="#F8F6F1" fontFamily="Poppins, sans-serif" fontSize="26" fontWeight="600" style={halo}>
                 {n.label}
               </text>

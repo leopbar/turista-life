@@ -109,7 +109,7 @@ export function ProductsPage() {
       </Section>
 
       {/* FAQ */}
-      <Section tone="white">
+      <Section tone="white" id="faq" tw="scroll-mt-24">
         <Container tw="grid gap-10 lg:grid-cols-[minmax(0,320px)_1fr]">
           <div tw="flex flex-col gap-4">
             <Eyebrow>Dúvidas</Eyebrow>

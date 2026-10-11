@@ -1,6 +1,6 @@
 import tw from 'twin.macro'
 import { about, journey } from '../content'
-import { Button, Container, Eyebrow, Lead, Section, SmartLink, Title } from './ui'
+import { Button, Container, Eyebrow, Lead, LiveDot, Section, SmartLink, Title } from './ui'
 import { Arrow, Mountain, Pin } from './icons'
 
 export function About() {
@@ -52,7 +52,7 @@ function JourneyCard() {
                 <span
                   css={[
                     tw`relative z-10 h-2.5 w-2.5 shrink-0 rounded-full`,
-                    current ? tw`bg-sun-500 ring-4 ring-sun-500/30` : done ? tw`bg-white` : tw`bg-white/40`,
+                    current ? tw`bg-live-400 ring-4 ring-live-400/30 shadow-[0_0_10px_2px_rgba(74,222,128,.6)]` : done ? tw`bg-white` : tw`bg-white/40`,
                   ]}
                 />
                 {i < journey.stops.length - 1 && (
@@ -75,10 +75,7 @@ function JourneyCard() {
           {journey.cta.label} <Arrow />
         </SmartLink>
         <span tw="inline-flex items-center gap-1.5 font-sans text-[12px] text-white/80">
-          <span tw="relative flex h-2 w-2">
-            <span tw="absolute inline-flex h-full w-full animate-ping rounded-full bg-sun-500 opacity-75" />
-            <span tw="relative inline-flex h-2 w-2 rounded-full bg-sun-500" />
-          </span>
+          <LiveDot size={9} />
           <Pin width={14} height={14} /> Agora em {journey.now}
         </span>
       </div>

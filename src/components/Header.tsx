@@ -4,13 +4,28 @@ import tw from 'twin.macro'
 import { links, nav } from '../content'
 import { Container, Logo, SmartLink } from './ui'
 import { Close, Menu, Search } from './icons'
+import { SearchDialog } from '../search/SearchDialog'
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [searching, setSearching] = useState(false)
   const { pathname, hash } = useLocation()
   const isActive = (href: string) => (href === '/' ? pathname === '/' && !hash : href === pathname + hash)
   useEffect(() => setOpen(false), [pathname, hash])
+
+  // Atalhos: Ctrl+K (ou Cmd+K) e "/" abrem a busca, fora de campos de texto.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const typing = e.target instanceof Element && e.target.closest('input, textarea, [contenteditable]')
+      if ((e.key === 'k' && (e.ctrlKey || e.metaKey)) || (e.key === '/' && !typing)) {
+        e.preventDefault()
+        setSearching(true)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -51,7 +66,7 @@ export function Header() {
         </nav>
 
         <div tw="flex items-center gap-2">
-          <button type="button" aria-label="Buscar" tw="hidden h-10 w-10 place-items-center rounded-full text-white/90 hover:bg-white/10 sm:grid">
+          <button type="button" aria-label="Buscar no site (Ctrl+K)" title="Buscar (Ctrl+K)" onClick={() => setSearching(true)} tw="grid h-10 w-10 place-items-center rounded-full text-white/90 hover:bg-white/10">
             <Search />
           </button>
           <a
@@ -85,6 +100,7 @@ export function Header() {
           </Container>
         </nav>
       )}
+      <SearchDialog open={searching} onClose={() => setSearching(false)} />
     </header>
   )
 }
