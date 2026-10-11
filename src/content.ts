@@ -29,7 +29,7 @@ export const hero = {
     'Eu sou a Laura, gaúcha de Porto Alegre. Depois de 3 anos e meio na Austrália, coloquei a mochila nas costas para viajar o mundo sozinha enquanto construo uma vida trabalhando pela internet. Aqui eu mostro tudo, sem romantizar.',
   cta: { label: 'Assista o começo da história', href: yt('pwwxtfpaVNs') },
   signature: ['O momento', 'certo é', 'agora.'],
-  image: '/images/hero.jpg',
+  image: import.meta.env.BASE_URL + 'images/hero.jpg',
 }
 
 export const about = {
@@ -40,7 +40,7 @@ export const about = {
     'Em 2026 um problema no visto virou o empurrão que faltava: transformei o fim de um ciclo no começo do meu sonho. Hoje o mundo é a minha casa, e cada passo vira conteúdo aqui.',
   ],
   cta: { label: 'Conheça minha história', href: '/sobre' },
-  polaroid: { image: '/images/sydney.jpg', caption: ['De Sydney', 'para o mundo!'] },
+  polaroid: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', caption: ['De Sydney', 'para o mundo!'] },
 }
 
 export const journey = {
@@ -79,7 +79,7 @@ export const products: { eyebrow: string; title: string; text: string; items: Pr
       note: '7 dias de garantia',
       cta: 'Saiba mais',
       href: 'https://pay.kiwify.com.br/a7BpARM',
-      cover: { image: '/images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' },
+      cover: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' },
     },
     {
       kind: 'Guia de destino',
@@ -89,7 +89,7 @@ export const products: { eyebrow: string; title: string; text: string; items: Pr
       cta: 'Me avise',
       href: '/produtos#guia-bali',
       soon: true,
-      cover: { image: '/images/bali.jpg', top: 'Guia completo', title: 'Bali', tone: 'sun' },
+      cover: { image: import.meta.env.BASE_URL + 'images/bali.jpg', top: 'Guia completo', title: 'Bali', tone: 'sun' },
     },
     {
       kind: 'Material gratuito',
@@ -97,7 +97,7 @@ export const products: { eyebrow: string; title: string; text: string; items: Pr
       text: 'Os primeiros passos para construir uma carreira que você possa levar para qualquer lugar do mundo.',
       cta: 'Quero receber',
       href: 'https://turista-life-laura-irigoyen-ifwilc.subscribepage.io/',
-      cover: { image: '/images/work.jpg', top: 'Guia gratuito', title: 'Liberdade Geográfica', tone: 'sky' },
+      cover: { image: import.meta.env.BASE_URL + 'images/work.jpg', top: 'Guia gratuito', title: 'Liberdade Geográfica', tone: 'sky' },
     },
     {
       kind: 'Material gratuito',
@@ -105,7 +105,7 @@ export const products: { eyebrow: string; title: string; text: string; items: Pr
       text: 'Checklist com os aprendizados que teriam me poupado tempo e dinheiro.',
       cta: 'Quero receber',
       href: 'https://turista-life-laura-irigoyen-nehwou.subscribepage.io/',
-      cover: { image: '/images/opera.jpg', top: 'Checklist', title: 'Austrália', tone: 'pine' },
+      cover: { image: import.meta.env.BASE_URL + 'images/opera.jpg', top: 'Checklist', title: 'Austrália', tone: 'pine' },
     },
   ],
 }
@@ -145,7 +145,7 @@ export const brands = {
   ],
   cta: { label: 'Quero ser parceiro', href: `mailto:${links.email}?subject=Parceria%20Turista%20Life` },
   secondary: { label: 'Ver mídia kit', href: '/midia-kit' },
-  image: '/images/brands.jpg',
+  image: import.meta.env.BASE_URL + 'images/brands.jpg',
 }
 
 export const diary = {
@@ -154,9 +154,9 @@ export const diary = {
   text: 'Cada destino vira episódio: o que vale a pena, o que decepciona, quanto custa e como se virar sozinha.',
   cta: { label: 'Ver o diário completo', href: '/diario' },
   posts: [
-    { tag: 'Indonésia', title: 'A realidade dos lugares mais paradisíacos de Bali', image: '/images/v-nusa.jpg', href: yt('TtBuGZLTSog') },
-    { tag: 'Tailândia', title: 'Cheguei sozinha na Tailândia… e não era o que eu imaginava', image: '/images/v-bangkok.jpg', href: yt('Hc4nMTf6fDg') },
-    { tag: 'Austrália', title: 'O país onde todo brasileiro quer morar', image: '/images/v-sydney.jpg', href: yt('hKqoB9HA9uM') },
+    { tag: 'Indonésia', title: 'A realidade dos lugares mais paradisíacos de Bali', image: import.meta.env.BASE_URL + 'images/v-nusa.jpg', href: yt('TtBuGZLTSog') },
+    { tag: 'Tailândia', title: 'Cheguei sozinha na Tailândia… e não era o que eu imaginava', image: import.meta.env.BASE_URL + 'images/v-bangkok.jpg', href: yt('Hc4nMTf6fDg') },
+    { tag: 'Austrália', title: 'O país onde todo brasileiro quer morar', image: import.meta.env.BASE_URL + 'images/v-sydney.jpg', href: yt('hKqoB9HA9uM') },
   ],
 }
 

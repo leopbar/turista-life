@@ -25,7 +25,7 @@ export const productsPage = {
     script: 'Na prática, sem enrolação',
     title: 'Guias e e-books para você chegar preparado',
     text: 'Tudo o que eu aprendi vivendo 3 anos e meio na Austrália e viajando sozinha pela Ásia, transformado em material direto ao ponto.',
-    image: '/images/bali.jpg',
+    image: import.meta.env.BASE_URL + 'images/bali.jpg',
   },
   filters: [
     { id: 'todos', label: 'Todos' },
@@ -54,38 +54,38 @@ export const productsPage = {
     ],
     guarantee: '7 dias de garantia',
     cta: { label: 'Quero o e-book', href: 'https://pay.kiwify.com.br/a7BpARM' },
-    cover: { image: '/images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' } as Product['cover'],
+    cover: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' } as Product['cover'],
   },
   catalog: [
     {
       id: 'ebook-australia', category: 'ebook', kind: 'E-book', title: 'Como encontrar um trabalho na Austrália',
       text: 'Currículo australiano, plataformas de emprego, direitos e mentalidade. 7 dias de garantia.',
       status: 'available', href: 'https://pay.kiwify.com.br/a7BpARM',
-      cover: { image: '/images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' },
+      cover: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' },
     },
     {
       id: 'guia-bali', category: 'guia', kind: 'Guia de destino', title: 'Guia de Bali',
       text: 'Dois meses na ilha resumidos: Canggu, Ubud, Gili, Nusa Penida e Uluwatu, quanto custa, como se locomover, cuidados com água e comida e o que vale (ou não) a pena.',
       status: 'soon',
-      cover: { image: '/images/bali.jpg', top: 'Guia completo', title: 'Bali', tone: 'sun' },
+      cover: { image: import.meta.env.BASE_URL + 'images/bali.jpg', top: 'Guia completo', title: 'Bali', tone: 'sun' },
     },
     {
       id: 'guia-tailandia', category: 'guia', kind: 'Guia de destino', title: 'Guia da Tailândia',
       text: 'Bangkok, Chiang Mai e as praias do sul, com a época certa de ir (aprendi do jeito difícil) e como equilibrar trabalho e passeio.',
       status: 'planned',
-      cover: { image: '/images/v-bangkok.jpg', top: 'Em produção', title: 'Tailândia', tone: 'pine' },
+      cover: { image: import.meta.env.BASE_URL + 'images/v-bangkok.jpg', top: 'Em produção', title: 'Tailândia', tone: 'pine' },
     },
     {
       id: 'guia-liberdade', category: 'gratis', kind: 'Material gratuito', title: 'Guia Liberdade Geográfica',
       text: 'Os primeiros passos para construir uma carreira que você possa levar para qualquer lugar do mundo.',
       status: 'free', href: 'https://turista-life-laura-irigoyen-ifwilc.subscribepage.io/',
-      cover: { image: '/images/work.jpg', top: 'Guia gratuito', title: 'Liberdade Geográfica', tone: 'sky' },
+      cover: { image: import.meta.env.BASE_URL + 'images/work.jpg', top: 'Guia gratuito', title: 'Liberdade Geográfica', tone: 'sky' },
     },
     {
       id: 'checklist-australia', category: 'gratis', kind: 'Material gratuito', title: '5 coisas que eu faria diferente antes de ir para a Austrália',
       text: 'Checklist com cinco aprendizados que teriam me poupado tempo e dinheiro na chegada.',
       status: 'free', href: 'https://turista-life-laura-irigoyen-nehwou.subscribepage.io/',
-      cover: { image: '/images/opera.jpg', top: 'Checklist', title: 'Austrália', tone: 'pine' },
+      cover: { image: import.meta.env.BASE_URL + 'images/opera.jpg', top: 'Checklist', title: 'Austrália', tone: 'pine' },
     },
   ] as CatalogItem[],
   faq: [
@@ -121,7 +121,7 @@ export const recsPage = {
     script: 'Testado na estrada',
     title: 'O que eu realmente uso para viajar e trabalhar',
     text: 'Eu só indico o que uso no dia a dia. Com meus links e cupons você economiza e ainda apoia o meu trabalho, sem pagar nada a mais por isso.',
-    image: '/images/v-nusa.jpg',
+    image: import.meta.env.BASE_URL + 'images/v-nusa.jpg',
     position: '50% 30%',
   },
   groups: [
@@ -187,7 +187,7 @@ export const mediaKit = {
     script: 'Para marcas',
     title: 'Uma audiência que confia no que eu recomendo',
     text: 'Brasileiros que sonham em viajar, morar fora e trabalhar de qualquer lugar acompanham a minha jornada real, com números abertos todo mês.',
-    image: '/images/brands.jpg',
+    image: import.meta.env.BASE_URL + 'images/brands.jpg',
   },
   updated: 'Números de outubro de 2026',
   stats: [
@@ -202,7 +202,7 @@ export const mediaKit = {
       'Gaúcha de Porto Alegre e formada em Turismo, morou 3 anos e meio em Sydney trabalhando com hospitalidade, hotelaria e numa agência de intercâmbio.',
       'Em julho de 2026 deixou a vida estável para viajar o mundo sozinha e documentar, mês a mês, a construção de uma renda 100% online. Faz tudo sozinha: roteiro, gravação, edição e estratégia.',
     ],
-    image: '/images/sydney.jpg',
+    image: import.meta.env.BASE_URL + 'images/sydney.jpg',
   },
   audience: [
     { title: 'Quem me acompanha', text: 'Brasileiros que moram fora ou querem morar, intercambistas e quem sonha com trabalho remoto.' },
@@ -210,9 +210,9 @@ export const mediaKit = {
     { title: 'Por que confiam', text: 'Eu mostro o que dá certo e o que dá errado, inclusive quanto ganho e gasto. Só recomendo o que uso.' },
   ],
   pillars: [
-    { title: 'Viagem sem filtro', text: 'Vlogs pela Ásia mostrando a realidade dos destinos: custos, perrengues e o que vale a pena.', image: '/images/v-nusa.jpg' },
-    { title: 'Vida no exterior', text: 'Austrália, Working Holiday, trabalho e o dia a dia de quem mora fora.', image: '/images/v-sydney.jpg' },
-    { title: 'Liberdade geográfica', text: 'A série mensal "tentando viver da internet", com metas e números abertos.', image: '/images/work.jpg' },
+    { title: 'Viagem sem filtro', text: 'Vlogs pela Ásia mostrando a realidade dos destinos: custos, perrengues e o que vale a pena.', image: import.meta.env.BASE_URL + 'images/v-nusa.jpg' },
+    { title: 'Vida no exterior', text: 'Austrália, Working Holiday, trabalho e o dia a dia de quem mora fora.', image: import.meta.env.BASE_URL + 'images/v-sydney.jpg' },
+    { title: 'Liberdade geográfica', text: 'A série mensal "tentando viver da internet", com metas e números abertos.', image: import.meta.env.BASE_URL + 'images/work.jpg' },
   ],
   formats: [
     { title: 'Reels e TikTok', text: 'Vídeos curtos integrados ao conteúdo de viagem.' },

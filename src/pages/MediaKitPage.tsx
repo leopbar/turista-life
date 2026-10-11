@@ -155,7 +155,7 @@ function Contact() {
   }
   return (
     <section tw="relative overflow-hidden bg-pine-950 py-16 sm:py-20">
-      <img src="/images/hero.jpg" alt="" tw="absolute inset-0 h-full w-full object-cover opacity-30" />
+      <img src={import.meta.env.BASE_URL + 'images/hero.jpg'} alt="" tw="absolute inset-0 h-full w-full object-cover opacity-30" />
       <Container tw="relative flex flex-col items-center gap-5 text-center text-white">
         <Mail width={32} height={32} />
         <h2 tw="font-serif text-[2.2rem] font-bold leading-tight sm:text-[2.6rem]">{kit.contact.title}</h2>

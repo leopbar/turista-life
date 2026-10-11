@@ -56,7 +56,7 @@ export const diaryPage = {
     script: 'Acompanhe a jornada',
     title: 'De Sydney para o mundo: a rota até aqui',
     text: 'Cada parada da viagem, resumida: o que eu vi, o que eu amei, o que me decepcionou e os vídeos completos de cada lugar. E, entre um destino e outro, os números reais de cada mês tentando viver da internet.',
-    image: '/images/diario/nusa-2.jpg',
+    image: import.meta.env.BASE_URL + 'images/diario/nusa-2.jpg',
   },
   startDate: '2026-07-01',
   departure: {
@@ -64,7 +64,7 @@ export const diaryPage = {
     place: 'Sydney, Austrália',
     period: 'Junho de 2026',
     text: 'Depois de 3 anos e meio em Sydney, um problema no visto virou o empurrão que faltava. Em vez de procurar outro caminho para ficar, transformei o fim de um ciclo no começo do sonho: viajar o mundo enquanto construo uma renda 100% online.',
-    image: '/images/diario/partida-1.jpg',
+    image: import.meta.env.BASE_URL + 'images/diario/partida-1.jpg',
     video: { id: 'pwwxtfpaVNs', title: 'Por que estou indo embora da Austrália?', duration: '24:36' } as Video,
   },
   next: {
@@ -110,9 +110,9 @@ export const countries: Country[] = [
         ],
         tip: 'Só água de garrafa e sempre peça capacete ao motorista: muitos têm um guardado na moto.',
         images: [
-          { src: '/images/diario/canggu-1.jpg', alt: 'Vista aérea da praia de Canggu' },
-          { src: '/images/diario/canggu-2.jpg', alt: 'Rua de Canggu ao lado de um arrozal' },
-          { src: '/images/diario/canggu-3.jpg', alt: 'Laura numa rua de Canggu' },
+          { src: import.meta.env.BASE_URL + 'images/diario/canggu-1.jpg', alt: 'Vista aérea da praia de Canggu' },
+          { src: import.meta.env.BASE_URL + 'images/diario/canggu-2.jpg', alt: 'Rua de Canggu ao lado de um arrozal' },
+          { src: import.meta.env.BASE_URL + 'images/diario/canggu-3.jpg', alt: 'Laura numa rua de Canggu' },
         ],
         videos: [
           { id: 'qPqpePK8oFM', title: 'Larguei tudo pra tentar viver da internet! Essa é a realidade', duration: '30:19' },
@@ -147,9 +147,9 @@ export const countries: Country[] = [
         ],
         tip: 'Para turistar, 4 dias bastam. Eu fiquei 14 e foi demais. Chegue cedo em todos os pontos.',
         images: [
-          { src: '/images/diario/ubud-1.jpg', alt: 'Arrozal e coqueiros em Ubud' },
-          { src: '/images/diario/ubud-2.jpg', alt: 'Cachoeira na floresta perto de Ubud' },
-          { src: '/images/diario/ubud-3.jpg', alt: 'Laura diante de um muro esculpido em pedra' },
+          { src: import.meta.env.BASE_URL + 'images/diario/ubud-1.jpg', alt: 'Arrozal e coqueiros em Ubud' },
+          { src: import.meta.env.BASE_URL + 'images/diario/ubud-2.jpg', alt: 'Cachoeira na floresta perto de Ubud' },
+          { src: import.meta.env.BASE_URL + 'images/diario/ubud-3.jpg', alt: 'Laura diante de um muro esculpido em pedra' },
         ],
         videos: [{ id: '8B9nxMnWFlE', title: 'Conheci o lado mais famoso de Bali… e me decepcionei', duration: '24:29' }],
       },
@@ -189,9 +189,9 @@ export const countries: Country[] = [
         ],
         tip: 'Confira sempre a conta: cobraram o pedido de outra mesa na minha.',
         images: [
-          { src: '/images/diario/gili-1.jpg', alt: 'Barcos na praia de água turquesa em Gili' },
-          { src: '/images/diario/gili-2.jpg', alt: 'Laura na praia de Gili Trawangan' },
-          { src: '/images/diario/gili-3.jpg', alt: 'Laura sorrindo numa rua de Gili' },
+          { src: import.meta.env.BASE_URL + 'images/diario/gili-1.jpg', alt: 'Barcos na praia de água turquesa em Gili' },
+          { src: import.meta.env.BASE_URL + 'images/diario/gili-2.jpg', alt: 'Laura na praia de Gili Trawangan' },
+          { src: import.meta.env.BASE_URL + 'images/diario/gili-3.jpg', alt: 'Laura sorrindo numa rua de Gili' },
         ],
         videos: [{ id: 'TtBuGZLTSog', title: 'A realidade dos lugares mais paradisíacos de Bali', duration: '40:32' }],
       },
@@ -214,9 +214,9 @@ export const countries: Country[] = [
         ],
         tip: 'Não alugue moto. Vá com guia de carro e comece o mais cedo possível.',
         images: [
-          { src: '/images/diario/nusa-1.jpg', alt: 'Falésia de Kelingking em Nusa Penida' },
-          { src: '/images/diario/nusa-2.jpg', alt: 'Arco de pedra de Broken Beach' },
-          { src: '/images/diario/nusa-3.jpg', alt: 'Laura em Nusa Penida' },
+          { src: import.meta.env.BASE_URL + 'images/diario/nusa-1.jpg', alt: 'Falésia de Kelingking em Nusa Penida' },
+          { src: import.meta.env.BASE_URL + 'images/diario/nusa-2.jpg', alt: 'Arco de pedra de Broken Beach' },
+          { src: import.meta.env.BASE_URL + 'images/diario/nusa-3.jpg', alt: 'Laura em Nusa Penida' },
         ],
         videos: [{ id: 'TtBuGZLTSog', title: 'A realidade dos lugares mais paradisíacos de Bali', duration: '40:32' }],
       },
@@ -244,9 +244,9 @@ export const countries: Country[] = [
         ],
         tip: 'Economizar numa hospedagem mal localizada saiu caro em moto. E compre Havaianas no Brasil: aqui custam R$ 100.',
         images: [
-          { src: '/images/diario/uluwatu-1.jpg', alt: 'Praia vista do alto da falésia em Uluwatu' },
-          { src: '/images/diario/uluwatu-2.jpg', alt: 'Mar turquesa entre árvores em Uluwatu' },
-          { src: '/images/diario/uluwatu-3.jpg', alt: 'Laura de óculos escuros em Uluwatu' },
+          { src: import.meta.env.BASE_URL + 'images/diario/uluwatu-1.jpg', alt: 'Praia vista do alto da falésia em Uluwatu' },
+          { src: import.meta.env.BASE_URL + 'images/diario/uluwatu-2.jpg', alt: 'Mar turquesa entre árvores em Uluwatu' },
+          { src: import.meta.env.BASE_URL + 'images/diario/uluwatu-3.jpg', alt: 'Laura de óculos escuros em Uluwatu' },
         ],
         videos: [{ id: 'rtEBiuBCNxE', title: 'Depois de 2 meses em Bali, fui parar onde menos esperava', duration: '30:33' }],
       },
@@ -271,7 +271,7 @@ export const countries: Country[] = [
         pros: ['Limpa, segura e tranquila', 'Transporte público excelente', 'Qualidade de vida visível'],
         cons: ['Isolada e cara para chegar', 'Cidade vazia demais (talvez pelo inverno)'],
         tip: 'Compare rotas com escala: às vezes sai mais barato e ainda rende um destino novo. E se vier de Bali, traga roupa de frio: eu tive que comprar assim que cheguei.',
-        images: [{ src: '/images/diario/perth-2.jpg', alt: 'Laura de casaco na Austrália' }],
+        images: [{ src: import.meta.env.BASE_URL + 'images/diario/perth-2.jpg', alt: 'Laura de casaco na Austrália' }],
         videos: [],
       },
       {
@@ -297,9 +297,9 @@ export const countries: Country[] = [
         cons: ['Um dos custos de vida mais altos do mundo', 'Longe de tudo, e da família', 'Visto sempre incerto para imigrante'],
         tip: 'Dá para conhecer Sydney inteira de transporte público: em 3 anos eu nunca precisei de carro.',
         images: [
-          { src: '/images/diario/sydney-1.jpg', alt: 'Praia de Sydney vista do alto' },
-          { src: '/images/diario/sydney-2.jpg', alt: 'Laura com a Opera House ao fundo' },
-          { src: '/images/diario/sydney-3.jpg', alt: 'Laura em Manly' },
+          { src: import.meta.env.BASE_URL + 'images/diario/sydney-1.jpg', alt: 'Praia de Sydney vista do alto' },
+          { src: import.meta.env.BASE_URL + 'images/diario/sydney-2.jpg', alt: 'Laura com a Opera House ao fundo' },
+          { src: import.meta.env.BASE_URL + 'images/diario/sydney-3.jpg', alt: 'Laura em Manly' },
         ],
         videos: [{ id: 'hKqoB9HA9uM', title: 'O país onde todo brasileiro quer morar!', duration: '23:38' }],
       },
@@ -325,9 +325,9 @@ export const countries: Country[] = [
         cons: ['Chuva e enchentes em setembro', 'Pouco inglês fora das áreas turísticas', 'Tuk-tuk caro para turista', 'Um pouco mais cara que Bali'],
         tip: 'Não vá para Bangkok em setembro. E fuja dos "pega-turista" no Mercado Flutuante.',
         images: [
-          { src: '/images/diario/bangkok-1.jpg', alt: 'Buda dourado gigante perto de Bangkok' },
-          { src: '/images/diario/bangkok-2.jpg', alt: 'Barcos no Mercado Flutuante' },
-          { src: '/images/diario/bangkok-3.jpg', alt: 'Mercado do Trem com barracas sobre os trilhos' },
+          { src: import.meta.env.BASE_URL + 'images/diario/bangkok-1.jpg', alt: 'Buda dourado gigante perto de Bangkok' },
+          { src: import.meta.env.BASE_URL + 'images/diario/bangkok-2.jpg', alt: 'Barcos no Mercado Flutuante' },
+          { src: import.meta.env.BASE_URL + 'images/diario/bangkok-3.jpg', alt: 'Mercado do Trem com barracas sobre os trilhos' },
         ],
         videos: [{ id: 'Hc4nMTf6fDg', title: 'Cheguei SOZINHA na Tailândia… e não era o que eu imaginava', duration: '41:00' }],
       },
@@ -343,7 +343,7 @@ export const countries: Country[] = [
         pros: ['Mais tranquila que Bangkok', 'Toda estruturada para o turismo'],
         cons: ['Choveu tanto que não deu para gravar na rua'],
         tip: 'Quando recomendam 4 dias, eu fico 7: três para turistar e o resto para trabalhar.',
-        images: [{ src: '/images/diario/tailandia-1.jpg', alt: 'Laura trabalhando no aeroporto' }],
+        images: [{ src: import.meta.env.BASE_URL + 'images/diario/tailandia-1.jpg', alt: 'Laura trabalhando no aeroporto' }],
         videos: [],
       },
       {
@@ -384,4 +384,4 @@ export const videoCount = new Set([
 ]).size
 
 export const ytUrl = (id: string) => `https://www.youtube.com/watch?v=${id}`
-export const ytThumb = (id: string) => `/images/videos/${id}.jpg`
+export const ytThumb = (id: string) => `${import.meta.env.BASE_URL}images/videos/${id}.jpg`

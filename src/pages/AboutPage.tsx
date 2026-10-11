@@ -102,7 +102,7 @@ export function AboutPage() {
 
       {/* Frase */}
       <section tw="relative overflow-hidden bg-pine-900 py-20 text-white">
-        <img src="/images/diario/canggu-1.jpg" alt="" tw="absolute inset-0 h-full w-full object-cover opacity-25" />
+        <img src={import.meta.env.BASE_URL + 'images/diario/canggu-1.jpg'} alt="" tw="absolute inset-0 h-full w-full object-cover opacity-25" />
         <Container tw="relative flex flex-col items-center gap-6 text-center">
           <PlaneTrail tw="w-24 text-sun-500" />
           <blockquote tw="max-w-[820px] font-serif text-[1.7rem] font-semibold leading-snug sm:text-[2.2rem] [text-wrap: balance]">

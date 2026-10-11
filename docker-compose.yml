@@ -1,0 +1,13 @@
+# Publicação no VPS: o container escuta só em 127.0.0.1:3010.
+# O nginx do servidor repassa https://lbai.dev/turista-life/ para cá.
+services:
+  turista-life:
+    build:
+      context: .
+      args:
+        BASE_PATH: /turista-life/
+    image: turista-life
+    container_name: turista-life
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3010:80"

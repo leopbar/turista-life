@@ -53,7 +53,7 @@ export function RecommendationsPage() {
               </ul>
             </div>
             <figure tw="relative mx-auto w-[220px] rotate-[3deg] bg-white p-3 pb-12 shadow-card">
-              <img src="/images/v-bangkok.jpg" alt="Laura em Bangkok, na Tailândia" tw="aspect-square w-full object-cover" />
+              <img src={import.meta.env.BASE_URL + 'images/v-bangkok.jpg'} alt="Laura em Bangkok, na Tailândia" tw="aspect-square w-full object-cover" />
               <figcaption tw="absolute bottom-3 left-4 font-script text-[20px] text-pine-900">Bangkok, Tailândia</figcaption>
             </figure>
           </aside>

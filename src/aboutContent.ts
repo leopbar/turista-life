@@ -11,7 +11,7 @@ export const aboutPage = {
     script: 'Prazer, Laura',
     title: 'Gaúcha, turismóloga e aprendendo a viver sem endereço fixo',
     text: 'Morei 3 anos e meio na Austrália, larguei a vida estável e hoje viajo o mundo sozinha enquanto construo uma renda pela internet. Aqui está a história inteira.',
-    image: '/images/diario/uluwatu-1.jpg',
+    image: import.meta.env.BASE_URL + 'images/diario/uluwatu-1.jpg',
     position: '50% 60%',
   },
   intro: {
@@ -21,7 +21,7 @@ export const aboutPage = {
       'Em 2022 abriu o visto Working Holiday para brasileiros, com só 500 vagas por ano. Apliquei sem grandes expectativas e consegui. Nunca tinha sonhado em morar na Austrália, mas sempre quis conhecer. Foram 3 anos e meio que mudaram tudo.',
       'Hoje eu documento a construção da minha liberdade geográfica: viajar o mundo trabalhando pela internet, mostrando o que dá certo, o que dá errado e quanto eu ganho e gasto. Sem romantizar.',
     ],
-    portrait: { src: '/images/sydney.jpg', alt: 'Laura de boné em Sydney', caption: 'Laura Irigoyen' },
+    portrait: { src: import.meta.env.BASE_URL + 'images/sydney.jpg', alt: 'Laura de boné em Sydney', caption: 'Laura Irigoyen' },
     facts: ['Porto Alegre, RS', 'Formada em Turismo', '3,5 anos na Austrália', 'Na estrada desde julho de 2026', 'Viajo sozinha'],
   },
   timeline: [
@@ -75,7 +75,7 @@ export const aboutPage = {
     title: 'Por trás de cada vídeo',
     text: 'Ninguém trabalha comigo. Eu planejo, escrevo o roteiro, gravo, edito, posto em quatro redes, respondo mensagens, negocio parcerias e ainda organizo passagens, hospedagens e vistos. Parece só um videozinho, mas não é.',
     steps: ['Planejar', 'Roteirizar', 'Gravar', 'Editar', 'Publicar'],
-    image: '/images/work.jpg',
+    image: import.meta.env.BASE_URL + 'images/work.jpg',
   },
   cta: {
     title: 'Vem comigo nessa jornada?',

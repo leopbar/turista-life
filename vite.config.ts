@@ -2,6 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
+  // Caminho onde o site é publicado. Local: "/". No servidor: BASE_PATH=/turista-life/ (ver Dockerfile).
+  base: process.env.BASE_PATH || '/',
   plugins: [
     react({
       jsxImportSource: '@emotion/react',
