@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import tw, { css } from 'twin.macro'
 import { allStops } from '../diaryContent'
 import { BALI_INSET, MAIN_MAP, type MapLayer } from '../mapData'
+import { LiveDot } from './ui'
 
 /** Mercator igual ao do d3 (scale + translate), para posicionar as cidades sobre os contornos. */
 const project = (m: MapLayer, [lat, lon]: [number, number]) => [
@@ -93,11 +94,6 @@ export function RouteMap() {
           strokeWidth="3"
           strokeDasharray="2 10"
           strokeLinecap="round"
-          css={css`
-            animation: dash 40s linear infinite;
-            @keyframes dash { to { stroke-dashoffset: -600; } }
-            @media (prefers-reduced-motion: reduce) { animation: none; }
-          `}
         />
 
         {/* Ligação Bali → zoom */}
@@ -143,23 +139,7 @@ export function RouteMap() {
           const tx = left ? x - 18 : x + 18
           return (
             <a key={`${n.id}-${i}`} href={`#${n.id}`} aria-label={`${n.label}: ir para o capítulo`}>
-              {n.current && (
-                <circle
-                  cx={x}
-                  cy={y}
-                  r="14"
-                  fill="#4ADE80"
-                  opacity=".45"
-                  css={css`
-                    transform-origin: ${x}px ${y}px;
-                    animation: ping 1.8s ease-out infinite;
-                    @keyframes ping { to { transform: scale(2.6); opacity: 0; } }
-                    @media (prefers-reduced-motion: reduce) { animation: none; }
-                  `}
-                />
-              )}
-              <circle cx={x} cy={y} r={n.current ? 11 : 8} fill={n.current ? '#4ADE80' : '#F8F6F1'}
-                style={n.current ? { filter: 'drop-shadow(0 0 8px rgba(74,222,128,.9))' } : undefined} stroke="#0F3D3A" strokeWidth="3" />
+              <circle cx={x} cy={y} r={n.current ? 0 : 8} fill={n.current ? 'transparent' : '#F8F6F1'} stroke="#0F3D3A" strokeWidth="3" />
               <text x={tx} y={y - 4} textAnchor={left ? 'end' : 'start'} fill="#F8F6F1" fontFamily="Poppins, sans-serif" fontSize="26" fontWeight="600" style={halo}>
                 {n.label}
               </text>
@@ -170,6 +150,16 @@ export function RouteMap() {
           )
         })}
       </svg>
+      {/* Luz de "agora" como camada HTML: anima só opacidade, sem redesenhar o SVG. */}
+      {nodes.filter((n) => n.current).map((n) => (
+        <span
+          key={n.id}
+          tw="pointer-events-none absolute"
+          style={{ left: `${(n.xy[0] / MAIN_MAP.width) * 100}%`, top: `${(n.xy[1] / MAIN_MAP.height) * 100}%`, transform: 'translate(-50%, -50%)' }}
+        >
+          <LiveDot size={14} />
+        </span>
+      ))}
       <p tw="absolute left-4 bottom-3 font-sans text-[10px] text-white/40">Mapa: Natural Earth</p>
     </div>
   )

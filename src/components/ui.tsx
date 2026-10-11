@@ -39,12 +39,27 @@ export const Section = styled.section<{ tone?: 'cream' | 'mist' | 'white' }>(({ 
 ])
 
 /** Luz verde pulsante de "estou aqui agora". */
-export const LiveDot = ({ size = 10 }: { size?: number }) => (
-  <span aria-hidden="true" tw="relative inline-flex shrink-0" style={{ width: size, height: size }}>
-    <span tw="absolute inline-flex h-full w-full animate-ping rounded-full bg-live-400 opacity-75" />
-    <span tw="relative inline-flex h-full w-full rounded-full bg-live-400 shadow-[0_0_8px_2px_rgba(74,222,128,.7)]" />
-  </span>
-)
+export function LiveDot({ size = 10 }: { size?: number }) {
+  // Tamanho par e brilho com o triplo do tamanho: tudo cai em pixel inteiro, sem meio pixel oscilando.
+  const s = Math.round(size / 2) * 2
+  const glow = s * 3
+  return (
+    <span aria-hidden="true" tw="relative inline-block shrink-0" style={{ width: s, height: s }}>
+      <span
+        className="live-glow"
+        tw="pointer-events-none absolute rounded-full"
+        style={{
+          width: glow,
+          height: glow,
+          left: -s,
+          top: -s,
+          background: 'radial-gradient(circle, rgba(74,222,128,.7) 0%, rgba(74,222,128,.28) 32%, rgba(74,222,128,0) 68%)',
+        }}
+      />
+      <span tw="absolute inset-0 rounded-full bg-live-400" />
+    </span>
+  )
+}
 
 /** Avião com rastro pontilhado, assinatura visual da marca. */
 export const PlaneTrail = ({ className }: { className?: string }) => (

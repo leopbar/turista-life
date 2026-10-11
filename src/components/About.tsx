@@ -49,12 +49,11 @@ function JourneyCard() {
           return (
             <li key={stop} tw="relative flex flex-1 flex-col items-start last:flex-none">
               <span tw="flex w-full items-center">
-                <span
-                  css={[
-                    tw`relative z-10 h-2.5 w-2.5 shrink-0 rounded-full`,
-                    current ? tw`bg-live-400 ring-4 ring-live-400/30 shadow-[0_0_10px_2px_rgba(74,222,128,.6)]` : done ? tw`bg-white` : tw`bg-white/40`,
-                  ]}
-                />
+                {current ? (
+                  <span tw="relative z-10"><LiveDot size={10} /></span>
+                ) : (
+                  <span css={[tw`relative z-10 h-2.5 w-2.5 shrink-0 rounded-full`, done ? tw`bg-white` : tw`bg-white/40`]} />
+                )}
                 {i < journey.stops.length - 1 && (
                   <span css={[tw`h-[2px] flex-1`, done ? tw`bg-sun-500` : tw`bg-white/25`]} />
                 )}
@@ -75,7 +74,7 @@ function JourneyCard() {
           {journey.cta.label} <Arrow />
         </SmartLink>
         <span tw="inline-flex items-center gap-1.5 font-sans text-[12px] text-white/80">
-          <LiveDot size={9} />
+          <LiveDot size={10} />
           <Pin width={14} height={14} /> Agora em {journey.now}
         </span>
       </div>

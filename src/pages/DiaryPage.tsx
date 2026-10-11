@@ -129,10 +129,10 @@ function Rail({ label, sub, node = 'dot', children }: { label?: string; sub?: st
           node === 'dot' && tw`bg-pine-800`,
           node === 'flag' && tw`h-[26px] w-[26px] -translate-x-1 bg-sun-500 lg:-translate-x-1`,
           node === 'money' && tw`bg-white ring-pine-800 ring-[3px]`,
-          node === 'now' && tw`bg-live-400 shadow-[0_0_10px_3px_rgba(74,222,128,.7)]`,
+          node === 'now' && tw`bg-transparent ring-0`,
         ]}
       >
-        {node === 'now' && <span tw="absolute inline-flex h-full w-full animate-ping rounded-full bg-live-400 opacity-70" />}
+        {node === 'now' && <LiveDot size={16} />}
       </span>
       <div tw="min-w-0">
         {(label || sub) && (

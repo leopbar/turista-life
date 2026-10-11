@@ -8,5 +8,6 @@ export default defineConfig({
       babel: { plugins: ['babel-plugin-macros'] },
     }),
   ],
-  server: { port: Number(process.env.PORT) || 5173 },
+  // Porta fixa: a 5173 padrão costuma estar ocupada pelo Docker nesta máquina.
+  server: { port: Number(process.env.PORT) || 4321, strictPort: true },
 })

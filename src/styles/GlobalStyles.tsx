@@ -7,9 +7,28 @@ const custom = css`
     ${tw`bg-cream font-sans text-ink antialiased`}
   }
   :focus-visible { ${tw`outline-none ring-2 ring-sun-500 ring-offset-2`} }
+  /* Luz verde de "online": só a opacidade de um brilho já desenhado sobe e desce, devagar. */
+  @keyframes live-glow {
+    0%, 100% { opacity: .25; }
+    50% { opacity: 1; }
+  }
+  .live-glow {
+    animation: live-glow 2.6s ease-in-out infinite;
+    will-change: opacity;
+  }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    /* Animações rodam uma vez só. Sem o iteration-count, uma animação infinita com 0,01ms pisca sem parar. */
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+    }
+    /* A luz de "online" não se move nem muda de tamanho: só esmaece. Por isso continua pulsando. */
+    .live-glow {
+      animation-duration: 2.6s !important;
+      animation-iteration-count: infinite !important;
+    }
   }
 `
 
