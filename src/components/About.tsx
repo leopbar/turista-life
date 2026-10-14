@@ -13,7 +13,7 @@ export function About() {
           {about.paragraphs.map((p) => (
             <Lead key={p.slice(0, 12)}>{p}</Lead>
           ))}
-          <Button variant="outline" href={about.cta.href} target="_blank" rel="noreferrer" tw="self-start">
+          <Button variant="outline" href={about.cta.href} tw="self-start">
             {about.cta.label} <Arrow />
           </Button>
         </div>

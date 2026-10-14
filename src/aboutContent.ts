@@ -80,7 +80,7 @@ export const aboutPage = {
   cta: {
     title: 'Vem comigo nessa jornada?',
     text: 'Eu conto tudo em tempo real no YouTube, no Instagram e no TikTok.',
-    cta: { label: 'Acompanhe a jornada', href: '/destinos' },
+    cta: { label: 'Acompanhe a jornada', href: links.youtube },
   },
   socials: links,
 }

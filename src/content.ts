@@ -59,7 +59,7 @@ export const journey = {
     'Depois de 3 anos e meio na Austrália, comecei uma nova fase: viajar pelo mundo enquanto construo um negócio digital. Minha meta é alcançar uma renda online e transformar esse projeto em uma fonte de liberdade geográfica. Compartilho os bastidores, os números reais, as conquistas e os desafios dessa construção. Sem fórmulas mágicas, apenas o processo real.',
   stops: journeyStops,
   current: journeyStops.length - 1,
-  cta: { label: 'Acompanhe a jornada', href: '/destinos' },
+  cta: { label: 'Acompanhe a jornada', href: links.youtube },
 }
 
 export type Product = {
