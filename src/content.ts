@@ -22,6 +22,7 @@ export const nav = [
   { label: 'Recomendações', href: '/recomendacoes' },
   { label: 'Parcerias', href: '/parcerias' },
   { label: 'Destinos', href: '/destinos' },
+  { label: 'Blog', href: '/blog' },
 ]
 
 export const hero = {

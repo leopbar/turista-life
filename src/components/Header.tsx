@@ -11,7 +11,8 @@ export function Header() {
   const [open, setOpen] = useState(false)
   const [searching, setSearching] = useState(false)
   const { pathname, hash } = useLocation()
-  const isActive = (href: string) => (href === '/' ? pathname === '/' && !hash : href === pathname + hash)
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' && !hash : href === pathname + hash || (href === '/blog' && pathname.startsWith('/blog/'))
   useEffect(() => setOpen(false), [pathname, hash])
 
   // Atalhos: Ctrl+K (ou Cmd+K) e "/" abrem a busca, fora de campos de texto.

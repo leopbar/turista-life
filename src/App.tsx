@@ -3,6 +3,10 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { AboutPage } from './pages/AboutPage'
+import { BlogArticlePage } from './pages/BlogArticlePage'
+import { BlogDestinationPage } from './pages/BlogDestinationPage'
+import { BlogPage } from './pages/BlogPage'
+import { articles, destinations } from './blog/blogData'
 import { DiaryPage } from './pages/DiaryPage'
 import { HomePage } from './pages/HomePage'
 import { MediaKitPage } from './pages/MediaKitPage'
@@ -17,6 +21,9 @@ const titles: Record<string, string> = {
   '/recomendacoes': 'Recomendações · Turista Life',
   '/parcerias': 'Parcerias · Turista Life',
   '/destinos': 'Destinos · Turista Life',
+  '/blog': 'Blog · Turista Life',
+  ...Object.fromEntries(destinations.map((d) => [`/blog/destino/${d.id}`, `${d.name}: guia, dicas e vídeos · Turista Life`])),
+  ...Object.fromEntries(articles.map((a) => [`/blog/${a.slug}`, `${a.title} · Turista Life`])),
   '/sobre': 'Sobre mim · Turista Life',
   ...Object.fromEntries(productPages.map((p) => [`/produtos/${p.slug}`, `${p.title} · Turista Life`])),
 }
@@ -54,6 +61,9 @@ export default function App() {
           <Route path="/recomendacoes" element={<RecommendationsPage />} />
           <Route path="/parcerias" element={<MediaKitPage />} />
           <Route path="/destinos" element={<DiaryPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/destino/:id" element={<BlogDestinationPage />} />
+          <Route path="/blog/:slug" element={<BlogArticlePage />} />
           <Route path="/midia-kit" element={<Redirect to="/parcerias" />} />
           <Route path="/diario" element={<Redirect to="/destinos" />} />
           <Route path="/sobre" element={<AboutPage />} />

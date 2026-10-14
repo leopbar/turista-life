@@ -4,8 +4,9 @@
  */
 import { allMilestones, allStops, countries, diaryPage, ytUrl } from '../diaryContent'
 import { mediaKit, productsPage, recsPage } from '../pagesContent'
+import { articles, categoryLabel, countryName, destinationById, destinations } from '../blog/blogData'
 
-export type SearchGroup = 'Páginas' | 'Destinos' | 'Produtos' | 'Recomendações' | 'Vídeos' | 'Dúvidas'
+export type SearchGroup = 'Páginas' | 'Blog' | 'Destinos' | 'Produtos' | 'Recomendações' | 'Vídeos' | 'Dúvidas'
 
 export type SearchItem = {
   id: string
@@ -17,12 +18,13 @@ export type SearchItem = {
   keywords?: string
 }
 
-export const GROUP_ORDER: SearchGroup[] = ['Páginas', 'Destinos', 'Produtos', 'Recomendações', 'Vídeos', 'Dúvidas']
+export const GROUP_ORDER: SearchGroup[] = ['Páginas', 'Blog', 'Destinos', 'Produtos', 'Recomendações', 'Vídeos', 'Dúvidas']
 
 const pages: SearchItem[] = [
   { id: 'p-home', group: 'Páginas', title: 'Início', subtitle: 'Página inicial', href: '/', keywords: 'home turista life laura' },
   { id: 'p-sobre', group: 'Páginas', title: 'Sobre mim', subtitle: 'A história da Laura', href: '/sobre', keywords: 'laura irigoyen porto alegre historia quem turismo working holiday' },
   { id: 'p-diario', group: 'Páginas', title: 'Destinos', subtitle: 'A rota, os guias por país e os vídeos', href: '/destinos', keywords: 'diario de bordo blog jornada viagem mapa rota timeline linha do tempo episodio' },
+  { id: 'p-blog', group: 'Páginas', title: 'Blog', subtitle: 'Guias, dicas e custos por destino', href: '/blog', keywords: 'artigos posts dicas roteiro quanto custa onde ficar transporte' },
   { id: 'p-produtos', group: 'Páginas', title: 'Produtos', subtitle: 'E-books, guias e materiais gratuitos', href: '/produtos', keywords: 'loja comprar ebook guia' },
   { id: 'p-recs', group: 'Páginas', title: 'Recomendações', subtitle: 'O que eu uso para viajar e trabalhar', href: '/recomendacoes', keywords: 'cupom desconto afiliado indicacoes' },
   { id: 'p-midia', group: 'Páginas', title: 'Parcerias', subtitle: 'Mídia kit e contato para marcas', href: '/parcerias', keywords: 'midia kit marcas parceria publicidade publi ugc contato comercial numeros seguidores' },
@@ -37,7 +39,7 @@ const pages: SearchItem[] = [
   })),
 ]
 
-const destinations: SearchItem[] = [
+const destinationItems: SearchItem[] = [
   ...countries.map((c) => ({
     id: `c-${c.id}`,
     group: 'Destinos' as const,
@@ -55,6 +57,29 @@ const destinations: SearchItem[] = [
       subtitle: `${country?.name ?? ''} · ${s.current ? 'onde estou agora' : s.stay}`,
       href: `/destinos#${s.id}`,
       keywords: `${country?.name ?? ''} ${s.highlights.join(' ')}`,
+    }
+  }),
+]
+
+
+const blogItems: SearchItem[] = [
+  ...destinations.map((d) => ({
+    id: `bd-${d.id}`,
+    group: 'Blog' as const,
+    title: `${d.name}: guia do destino`,
+    subtitle: `${countryName(d.country)} · artigos, vídeos e recomendações`,
+    href: `/blog/destino/${d.id}`,
+    keywords: `${d.tagline} ${d.intro}`,
+  })),
+  ...articles.map((a) => {
+    const d = destinationById(a.destination)!
+    return {
+      id: `ba-${a.slug}`,
+      group: 'Blog' as const,
+      title: a.title,
+      subtitle: `${d.name} · ${categoryLabel(a.category)}`,
+      href: `/blog/${a.slug}`,
+      keywords: `${d.name} ${countryName(d.country)} ${a.excerpt}`,
     }
   }),
 ]
@@ -102,7 +127,7 @@ const extras: SearchItem[] = [
   { id: 'x-contato', group: 'Páginas', title: 'Contato comercial', subtitle: mediaKit.contact.email, href: '/parcerias', keywords: 'email parceria marca falar' },
 ]
 
-export const SEARCH_INDEX: SearchItem[] = [...pages, ...destinations, ...productItems, ...recItems, ...videos.values(), ...faq, ...extras]
+export const SEARCH_INDEX: SearchItem[] = [...pages, ...blogItems, ...destinationItems, ...productItems, ...recItems, ...videos.values(), ...faq, ...extras]
 
 /** Sugestões quando o campo ainda está vazio. */
 export const POPULAR = ['p-diario', 'c-indonesia', 'pr-ebook-australia', 'r-dinheiro-0', 's-krabi']
