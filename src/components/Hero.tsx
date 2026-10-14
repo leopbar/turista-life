@@ -1,7 +1,11 @@
 import tw, { css } from 'twin.macro'
 import { hero } from '../content'
-import { Button, Container, PlaneTrail } from './ui'
+import { Button, Container, PlaneTrail, SmartLink } from './ui'
 import { Play } from './icons'
+
+const rise = (delay: number) => css`animation: rise .8s ${delay}s cubic-bezier(.2,.7,.1,1) both;
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { animation: none; }`
 
 export function Hero() {
   return (
@@ -24,29 +28,28 @@ export function Hero() {
 
       <Container tw="relative">
         <div tw="max-w-[560px]">
-          <h1 tw="font-script text-white [text-wrap: balance]">
-            {hero.titleLines.map((line, i) => (
-              <span
-                key={line}
-                css={[
-                  tw`block leading-[1.02]`,
-                  i === 0 ? tw`text-[52px] sm:text-[64px]` : tw`text-[44px] sm:text-[58px]`,
-                  css`animation: rise .8s ${0.1 + i * 0.12}s cubic-bezier(.2,.7,.1,1) both;
-                    @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
-                    @media (prefers-reduced-motion: reduce) { animation: none; }`,
-                ]}
-              >
-                {line}
-              </span>
-            ))}
+          <h1 tw="font-script text-[52px] leading-[1.02] text-white [text-wrap: balance] sm:text-[64px]" css={rise(0.1)}>
+            {hero.title}
           </h1>
-          <p tw="mt-6 max-w-[480px] font-sans text-[15px] leading-relaxed text-white/90">{hero.text}</p>
-          <Button variant="sun" href={hero.cta.href} target="_blank" rel="noreferrer" tw="mt-8 pl-3">
-            <span tw="grid h-7 w-7 place-items-center rounded-full bg-white text-sun-500">
-              <Play width={14} height={14} />
-            </span>
-            {hero.cta.label}
-          </Button>
+          <p tw="mt-4 font-sans text-xl font-semibold leading-snug text-white [text-wrap: balance] sm:text-2xl" css={rise(0.22)}>
+            {hero.subtitle}
+          </p>
+          <p tw="mt-5 max-w-[480px] font-sans text-[15px] leading-relaxed text-white/90">{hero.text}</p>
+          {/* No celular: dois botões empilhados com a mesma largura. A partir de sm: botão + link lado a lado. */}
+          <div tw="mt-8 flex flex-col gap-3 sm:(flex-row flex-wrap items-center gap-x-6 gap-y-4)">
+            <Button variant="sun" href={hero.cta.href} tw="w-full sm:w-auto">
+              {hero.cta.label}
+            </Button>
+            <SmartLink
+              href={hero.story.href}
+              tw="inline-flex w-full items-center justify-center gap-2 rounded-full border-[1.5px] border-white/70 h-11 px-6 font-sans text-sm font-semibold text-white/90 no-underline transition-colors hover:(bg-white/10 text-white) sm:(h-auto w-auto justify-start rounded-none border-0 p-0 hover:bg-transparent)"
+            >
+              <span tw="grid place-items-center sm:(h-7 w-7 rounded-full border-[1.5px] border-white/70)">
+                <Play width={12} height={12} />
+              </span>
+              {hero.story.label}
+            </SmartLink>
+          </div>
         </div>
       </Container>
 

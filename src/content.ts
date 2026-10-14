@@ -24,10 +24,12 @@ export const nav = [
 ]
 
 export const hero = {
-  titleLines: ['Turista Life', 'Larguei tudo pra', 'conhecer o mundo.'],
+  title: 'Viajar mais. Viver mais.',
+  subtitle: 'Construir uma vida com liberdade.',
   text:
-    'Eu sou a Laura, gaúcha de Porto Alegre. Depois de 3 anos e meio na Austrália, coloquei a mochila nas costas para viajar o mundo sozinha enquanto construo uma vida trabalhando pela internet. Aqui eu mostro tudo, sem romantizar.',
-  cta: { label: 'Assista o começo da história', href: yt('pwwxtfpaVNs') },
+    'Eu sou a Laura! Depois de mais de 3 anos vivendo na Austrália, decidi explorar o mundo enquanto construo minha liberdade geográfica. Aqui compartilho os bastidores dessa jornada, sem romantizar, além de guias dos destinos por onde já passei, dicas práticas e ferramentas para você viajar também.',
+  cta: { label: 'Explore os destinos', href: '/diario' },
+  story: { label: 'Assista o começo da história', href: yt('pwwxtfpaVNs') },
   signature: ['O momento', 'certo é', 'agora.'],
   image: import.meta.env.BASE_URL + 'images/hero.jpg',
 }
