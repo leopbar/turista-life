@@ -1,38 +1,70 @@
+import { useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import tw from 'twin.macro'
-import { recsPage as page, type RecItem } from '../pagesContent'
-import { CouponButton } from '../components/Recommendations'
-import { Container, CtaBand, PageHero, Section, SmartLink, PlaneTrail } from '../components/ui'
-import { Arrow, Check, RecIcon } from '../components/icons'
+import { recsPage as page } from '../pagesContent'
+import { RecCard, SoonCard } from '../components/Recommendations'
+import { Container, CtaBand, PageHero, Section, PlaneTrail } from '../components/ui'
+import { Check } from '../components/icons'
+
+const ALL = 'todas'
+const fromHash = (hash: string) => (page.categories.some((c) => c.id === hash.slice(1)) ? hash.slice(1) : ALL)
 
 export function RecommendationsPage() {
+  const { hash } = useLocation()
+  const [active, setActive] = useState(() => fromHash(hash))
+  const listRef = useRef<HTMLDivElement>(null)
+
+  /* links com #categoria (ex.: vindos da busca) já abrem filtrados */
+  useEffect(() => setActive(fromHash(hash)), [hash])
+
+  const choose = (id: string) => {
+    setActive(id)
+    window.history.replaceState(window.history.state, '', id === ALL ? window.location.pathname : `#${id}`)
+    const top = listRef.current?.getBoundingClientRect().top ?? 0
+    if (top < 0) listRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const shown = active === ALL ? page.categories : page.categories.filter((c) => c.id === active)
+  const chips = [{ id: ALL, label: 'Todas' }, ...page.categories]
+
   return (
     <>
       <PageHero {...page.hero} />
 
-      {/* Atalhos por categoria */}
-      <nav aria-label="Categorias" tw="sticky top-20 z-30 border-b border-line bg-cream/95 backdrop-blur-md">
+      {/* Filtro por categoria */}
+      <nav aria-label="Filtrar por categoria" tw="sticky top-20 z-30 border-b border-line bg-cream/95 backdrop-blur-md">
         <Container tw="flex gap-2 overflow-x-auto py-3 [scrollbar-width: none]">
-          {page.groups.map((g) => (
-            <a key={g.id} href={`#${g.id}`} tw="shrink-0 whitespace-nowrap rounded-full bg-white px-4 py-2 font-sans text-[13px] font-medium text-pine-900 no-underline ring-1 ring-line transition hover:(bg-pine-800 text-white ring-pine-800)">
-              {g.title}
-            </a>
-          ))}
+          {chips.map((c) => {
+            const on = c.id === active
+            return (
+              <button
+                key={c.id}
+                type="button"
+                aria-pressed={on}
+                onClick={() => choose(c.id)}
+                css={[
+                  tw`shrink-0 whitespace-nowrap rounded-full px-4 py-2 font-sans text-[13px] font-medium ring-1 transition`,
+                  on ? tw`bg-pine-800 text-white ring-pine-800` : tw`bg-white text-pine-900 ring-line hover:(ring-pine-800)`,
+                ]}
+              >
+                {c.label}
+              </button>
+            )
+          })}
         </Container>
       </nav>
 
       <Section tone="cream">
         <Container tw="grid gap-12 lg:grid-cols-[1fr_minmax(0,320px)] lg:items-start">
-          <div tw="flex flex-col gap-14">
-            {page.groups.map((g) => (
+          <div ref={listRef} tw="flex scroll-mt-40 flex-col gap-14">
+            {shown.map((g) => (
               <section key={g.id} id={g.id} tw="scroll-mt-40" aria-labelledby={`${g.id}-t`}>
                 <h2 id={`${g.id}-t`} tw="flex items-center gap-3 font-serif text-[1.7rem] font-bold text-ink">
                   {g.title}
                   <span aria-hidden="true" tw="h-px flex-1 bg-line" />
                 </h2>
                 <div tw="mt-6 grid gap-5 md:grid-cols-2">
-                  {g.items.map((item) => (
-                    <RecCard key={item.title} item={item} />
-                  ))}
+                  {g.items.length ? g.items.map((item, i) => <RecCard key={item.title} item={item} index={i} wide={g.items.length === 1} />) : <SoonCard category={g} />}
                 </div>
               </section>
             ))}
@@ -62,35 +94,5 @@ export function RecommendationsPage() {
 
       <CtaBand {...page.cta} />
     </>
-  )
-}
-
-function RecCard({ item }: { item: RecItem }) {
-  const I = RecIcon[item.icon]
-  return (
-    <article tw="flex flex-col rounded-[18px] border border-line bg-white p-6 transition duration-300 hover:(-translate-y-1 border-transparent shadow-lift)">
-      <div tw="flex items-start gap-4">
-        <span tw="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-pine-800 text-white">
-          <I />
-        </span>
-        <h3 tw="pt-1 font-sans text-[16px] font-semibold leading-snug text-pine-900">{item.title}</h3>
-      </div>
-      <p tw="mt-4 font-sans text-[13.5px] leading-relaxed text-muted">
-        <span tw="font-semibold text-pine-800">Por que eu uso: </span>
-        {item.why}
-      </p>
-      {item.perk && (
-        <p tw="mt-3 inline-flex self-start rounded-lg bg-sun-500/10 px-3 py-1.5 font-sans text-[12px] font-medium text-sun-600">{item.perk}</p>
-      )}
-      <div css={[tw`mt-auto flex flex-wrap items-center gap-3 pt-5`, item.coupon ? tw`justify-between` : tw`justify-end`]}>
-        {item.coupon && <CouponButton code={item.coupon} />}
-        <SmartLink
-          href={item.href}
-          tw="inline-flex items-center gap-2 rounded-full bg-pine-900 px-5 py-2.5 font-sans text-[13px] font-semibold text-white no-underline transition hover:bg-sun-500"
-        >
-          {item.cta} <Arrow />
-        </SmartLink>
-      </div>
-    </article>
   )
 }

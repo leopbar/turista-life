@@ -2,7 +2,7 @@
  * Conteúdo das páginas internas: /produtos, /recomendacoes e /parcerias.
  * Fonte: canal youtube.com/@turistalife, Linktree, página do e-book na Kiwify (out/2026).
  */
-import { links, type Product, type Recommendation } from './content'
+import { links, type Product } from './content'
 
 /* ------------------------------------------------------------------ */
 /* /produtos                                                           */
@@ -207,14 +207,79 @@ export const productPages: ProductPage[] = [
 /* ------------------------------------------------------------------ */
 
 export type RecItem = {
-  icon: Recommendation['icon']
+  /** Marca: logo oficial em /images/logos ou, sem logo, o nome em texto. */
+  brand: { name: string; logo?: string }
+  /** Foto da viagem da Laura que abre o card. */
+  image: string
+  position?: string
+  /** Onde ela usou (aparece em letra cursiva sobre a foto). */
+  place?: string
   title: string
   why: string
   perk?: string
   coupon?: string
   cta: string
   href: string
+  /** Aparece também na seção de recomendações da home. */
+  featured?: boolean
 }
+
+export type RecCategory = {
+  id: string
+  title: string
+  /** Rótulo curto do filtro. */
+  label: string
+  icon: 'card' | 'bed' | 'plane' | 'ticket' | 'sim' | 'shield' | 'car' | 'laptop' | 'passport'
+  /** Sem itens: a categoria aparece com um card "Em breve". */
+  items: RecItem[]
+}
+
+const img = (f: string) => import.meta.env.BASE_URL + 'images/' + f
+const logo = (f: string) => import.meta.env.BASE_URL + 'images/logos/' + f
+
+const recCategories: RecCategory[] = [
+  {
+    id: 'dinheiro', title: 'Dinheiro e cartões internacionais', label: 'Dinheiro e cartões', icon: 'card',
+    items: [
+      { brand: { name: 'Nomad', logo: logo('nomad.svg') }, image: img('diario/bangkok-2.jpg'), place: 'Bali e Tailândia', title: 'Conta global Nomad', why: 'O cartão que eu uso em tudo. Funcionou em todos os lugares de Bali e da Tailândia e desconta na moeda local.', perk: 'Até US$ 20 ou €20 de cashback na primeira conversão', coupon: 'TURISTALIFE', cta: 'Abrir minha conta', href: 'https://link.nomadglobal.com/wIQT/TURISTALIFE', featured: true },
+    ],
+  },
+  {
+    id: 'hospedagens', title: 'Hospedagens', label: 'Hospedagens', icon: 'bed',
+    items: [
+      { brand: { name: 'Agoda', logo: logo('agoda.svg') }, image: img('diario/gili-1.jpg'), title: 'O hotel em que fiquei em Krabi', why: 'Um pouco acima da média que eu costumo pagar, mas pelo que entrega saiu barato. Eu levo horas lendo avaliações antes de reservar.', cta: 'Ver hotel', href: 'https://agoda.tpm.li/ws5fHCJo', featured: true },
+    ],
+  },
+  {
+    id: 'passagens', title: 'Passagens aéreas', label: 'Passagens aéreas', icon: 'plane',
+    items: [
+      { brand: { name: 'Agência de viagens' }, image: img('diario/partida-1.jpg'), position: '38% 30%', title: 'Passagens aéreas mais baratas', why: 'Onde eu compro as passagens da viagem. Dica: às vezes duas conexões saem mais barato que o voo direto.', cta: 'Ver ofertas', href: 'https://agencia.iddas.com.br/so/eyzdkw13', featured: true },
+    ],
+  },
+  {
+    id: 'passeios', title: 'Passeios e experiências', label: 'Passeios', icon: 'ticket',
+    items: [
+      { brand: { name: 'GetYourGuide', logo: logo('getyourguide.svg') }, image: img('diario/ubud-2.jpg'), title: 'Passeios no mundo todo', why: 'Em lugares grandes eu prefiro ir com guia local: entendo a história e não fico perdida.', perk: 'Desconto com o cupom', coupon: 'TURISTALIFE5', cta: 'Ver passeios', href: 'https://gyg.me/turistalife-app', featured: true },
+      { brand: { name: 'GetYourGuide', logo: logo('getyourguide.svg') }, image: img('diario/bangkok-3.jpg'), place: 'Bangkok', title: 'Mercado do Trem + Mercado Flutuante', why: 'O passeio que eu fiz em Bangkok, com guia e saída de um ponto de encontro no centro. Vale muito a pena.', coupon: 'TURISTALIFE5', cta: 'Ver passeio', href: 'https://getyourguide.tpm.li/SKiGC8qK' },
+    ],
+  },
+  { id: 'internet', title: 'Internet e eSIM', label: 'Internet e eSIM', icon: 'sim', items: [] },
+  { id: 'seguros', title: 'Seguros de viagem', label: 'Seguros', icon: 'shield', items: [] },
+  { id: 'carro', title: 'Aluguel de carro', label: 'Aluguel de carro', icon: 'car', items: [] },
+  {
+    id: 'renda', title: 'Trabalho e renda online', label: 'Renda online', icon: 'laptop',
+    items: [
+      { brand: { name: 'Hotmart', logo: logo('hotmart.svg') }, image: img('work.jpg'), title: 'Como estou aprendendo a ganhar dinheiro online', why: 'A formação que estou fazendo: são mais de 12 profissões que permitem trabalhar de qualquer lugar.', cta: 'Conhecer', href: 'https://go.hotmart.com/W105546619I' },
+    ],
+  },
+  {
+    id: 'australia', title: 'Para quem vai para a Austrália', label: 'Austrália', icon: 'passport',
+    items: [
+      { brand: { name: 'Assessoria de imigração' }, image: img('diario/sydney-2.jpg'), position: '50% 30%', title: 'Agente de imigração', why: 'O time que acompanhou o meu processo do início ao fim e me ajudou quando meu visto deu problema. Recomendo de olhos fechados.', cta: 'Agendar conversa', href: 'https://calendly.com/d/cxwy-bw6-hsr' },
+      { brand: { name: 'E-book Turista Life' }, image: img('sydney.jpg'), place: 'Sydney e Cairns', title: 'E-book: trabalho na Austrália', why: 'Tudo o que eu aprendi conseguindo emprego em cinco áreas diferentes em Sydney e Cairns.', cta: 'Ver e-book', href: '/produtos' },
+    ],
+  },
+]
 
 export const recsPage = {
   hero: {
@@ -225,41 +290,8 @@ export const recsPage = {
     image: import.meta.env.BASE_URL + 'images/v-nusa.jpg',
     position: '50% 30%',
   },
-  groups: [
-    {
-      id: 'dinheiro', title: 'Dinheiro na viagem',
-      items: [
-        { icon: 'card', title: 'Conta global Nomad', why: 'É o cartão que eu uso em tudo. Funcionou em absolutamente todos os lugares de Bali e da Tailândia, desconta na moeda local e eu centralizo os gastos num só lugar para fugir de taxas.', perk: 'Até US$ 20 ou €20 de cashback na primeira conversão', coupon: 'TURISTALIFE', cta: 'Abrir minha conta', href: 'https://link.nomadglobal.com/wIQT/TURISTALIFE' },
-      ],
-    },
-    {
-      id: 'passeios', title: 'Passeios e experiências',
-      items: [
-        { icon: 'ticket', title: 'Passeios no mundo todo', why: 'Em lugares grandes eu prefiro ir com guia local: entendo a história e não fico perdida. É na GetYourGuide que eu reservo meus tours.', perk: 'Desconto com o cupom', coupon: 'TURISTALIFE5', cta: 'Ver passeios', href: 'https://gyg.me/turistalife-app' },
-        { icon: 'ticket', title: 'Mercado do Trem + Mercado Flutuante', why: 'O passeio que eu fiz em Bangkok, com guia e saída de um ponto de encontro no centro. Vale muito a pena.', coupon: 'TURISTALIFE5', cta: 'Ver passeio', href: 'https://getyourguide.tpm.li/SKiGC8qK' },
-      ],
-    },
-    {
-      id: 'transporte', title: 'Passagens e hospedagem',
-      items: [
-        { icon: 'plane', title: 'Passagens aéreas mais baratas', why: 'Onde eu compro as passagens da viagem. Dica: às vezes duas conexões saem mais barato que o voo direto, e ainda dá para conhecer uma cidade nova.', cta: 'Ver ofertas', href: 'https://agencia.iddas.com.br/so/eyzdkw13' },
-        { icon: 'bed', title: 'O hotel em que fiquei em Krabi', why: 'Um pouco acima da média que eu costumo pagar, mas pelo que entrega saiu barato. Eu levo horas lendo avaliações antes de reservar.', cta: 'Ver hotel', href: 'https://agoda.tpm.li/ws5fHCJo' },
-      ],
-    },
-    {
-      id: 'renda', title: 'Trabalho e renda online',
-      items: [
-        { icon: 'laptop', title: 'Como estou aprendendo a ganhar dinheiro online', why: 'A formação que estou fazendo para entender as possibilidades de trabalho remoto: são mais de 12 profissões que permitem trabalhar de qualquer lugar.', cta: 'Conhecer', href: 'https://go.hotmart.com/W105546619I' },
-      ],
-    },
-    {
-      id: 'australia', title: 'Para quem vai para a Austrália',
-      items: [
-        { icon: 'passport', title: 'Agente de imigração', why: 'O time que acompanhou o meu processo do início ao fim e me ajudou a montar a estratégia de datas quando meu visto deu problema. Recomendo de olhos fechados.', cta: 'Agendar conversa', href: 'https://calendly.com/d/cxwy-bw6-hsr' },
-        { icon: 'card', title: 'E-book: trabalho na Austrália', why: 'Tudo o que eu aprendi conseguindo emprego em cinco áreas diferentes em Sydney e Cairns.', cta: 'Ver e-book', href: '/produtos' },
-      ],
-    },
-  ] as { id: string; title: string; items: RecItem[] }[],
+  categories: recCategories,
+  soon: 'Estou separando a minha indicação para esta categoria. Em breve aparece aqui.',
   tips: {
     title: 'Minhas regras para gastar menos',
     items: [

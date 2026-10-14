@@ -30,5 +30,8 @@ export const RecIcon = {
   plane: (p: SVGProps<SVGSVGElement>) => <svg {...base(p)}><path d="M10.5 13.5L3 11l1.5-1.5 8 .5 4.5-4.5a2 2 0 013 3L15.5 13l.5 8L14.5 22.5 12 15z" /></svg>,
   bed: (p: SVGProps<SVGSVGElement>) => <svg {...base(p)}><path d="M3 19V6M3 15h18v4M21 15v-3a3 3 0 00-3-3h-7v6" /><circle cx="7" cy="11" r="2" /></svg>,
   laptop: (p: SVGProps<SVGSVGElement>) => <svg {...base(p)}><rect x="4" y="5" width="16" height="11" rx="1.5" /><path d="M2 19h20" /></svg>,
+  sim: (p: SVGProps<SVGSVGElement>) => <svg {...base(p)}><path d="M7 2.5h7l4.5 4.5v13a1.5 1.5 0 01-1.5 1.5H7A1.5 1.5 0 015.5 20V4A1.5 1.5 0 017 2.5z" /><rect x="8.5" y="11" width="7" height="7" rx="1" /><path d="M12 11v7M8.5 14.5h7" /></svg>,
+  shield: (p: SVGProps<SVGSVGElement>) => <svg {...base(p)}><path d="M12 2.5l7.5 3v6c0 4.6-3.2 8.4-7.5 10-4.3-1.6-7.5-5.4-7.5-10v-6z" /><path d="M8.5 12l2.5 2.5 4.5-5" /></svg>,
+  car: (p: SVGProps<SVGSVGElement>) => <svg {...base(p)}><path d="M3.5 16.5v-4l2-5.5A2 2 0 017.4 5.5h9.2a2 2 0 011.9 1.5l2 5.5v4" /><path d="M2.5 12.5h19v4a1 1 0 01-1 1h-17a1 1 0 01-1-1z" /><path d="M5.5 17.5V20M18.5 17.5V20" /><circle cx="7" cy="15" r=".8" fill="currentColor" /><circle cx="17" cy="15" r=".8" fill="currentColor" /></svg>,
   passport: (p: SVGProps<SVGSVGElement>) => <svg {...base(p)}><rect x="5" y="2.5" width="14" height="19" rx="2" /><circle cx="12" cy="10" r="3.5" /><path d="M9 17h6" /></svg>,
 }

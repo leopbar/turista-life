@@ -68,14 +68,14 @@ const productItems: SearchItem[] = [...productsPage.catalog, ...productsPage.fre
   keywords: `${p.text} ${p.cover.title}`,
 }))
 
-const recItems: SearchItem[] = recsPage.groups.flatMap((g) =>
+const recItems: SearchItem[] = recsPage.categories.flatMap((g) =>
   g.items.map((r, i) => ({
     id: `r-${g.id}-${i}`,
     group: 'Recomendações' as const,
     title: r.title,
     subtitle: r.coupon ? `Cupom ${r.coupon}` : g.title,
     href: `/recomendacoes#${g.id}`,
-    keywords: `${g.title} ${r.coupon ?? ''} ${r.perk ?? ''} ${r.why}`,
+    keywords: `${g.title} ${r.brand.name} ${r.coupon ?? ''} ${r.perk ?? ''} ${r.why}`,
   })),
 )
 

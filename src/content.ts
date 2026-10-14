@@ -116,27 +116,10 @@ export const products: { eyebrow: string; title: string; text: string; items: Pr
   ],
 }
 
-export type Recommendation = {
-  icon: 'card' | 'ticket' | 'plane' | 'bed' | 'laptop' | 'passport'
-  title: string
-  text: string
-  coupon?: string
-  cta: string
-  href: string
-}
-
-export const recommendations: { eyebrow: string; title: string; text: string; items: Recommendation[] } = {
+export const recommendations = {
   eyebrow: 'Recomendações',
   title: 'O que eu realmente uso',
   text: 'Só recomendo o que eu uso na estrada. Usando meus links e cupons você economiza e ainda apoia o canal.',
-  items: [
-    { icon: 'card', title: 'Conta global Nomad', text: 'O cartão que funcionou em todo lugar, de Bali à Tailândia. Até US$ 20 de cashback.', coupon: 'TURISTALIFE', cta: 'Abrir conta', href: 'https://link.nomadglobal.com/wIQT/TURISTALIFE' },
-    { icon: 'ticket', title: 'Passeios no mundo todo', text: 'Tours com guia local pela GetYourGuide, com desconto.', coupon: 'TURISTALIFE5', cta: 'Ver passeios', href: 'https://gyg.me/turistalife-app' },
-    { icon: 'plane', title: 'Passagens aéreas', text: 'Onde eu compro as passagens mais baratas da viagem.', cta: 'Ver ofertas', href: 'https://agencia.iddas.com.br/so/eyzdkw13' },
-    { icon: 'bed', title: 'Hospedagens', text: 'O hotel em que eu fiquei em Krabi, com ótimo custo-benefício.', cta: 'Ver hotel', href: 'https://agoda.tpm.li/ws5fHCJo' },
-    { icon: 'laptop', title: 'Renda online', text: 'Como estou aprendendo a ganhar dinheiro pela internet: mais de 12 profissões.', cta: 'Conhecer', href: 'https://go.hotmart.com/W105546619I' },
-    { icon: 'passport', title: 'Imigração Austrália', text: 'O agente de imigração que acompanhou meu processo do início ao fim.', cta: 'Agendar conversa', href: 'https://calendly.com/d/cxwy-bw6-hsr' },
-  ],
 }
 
 export const brands = {
