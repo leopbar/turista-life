@@ -37,8 +37,10 @@ export const about = {
   eyebrow: 'Sobre a Turista Life',
   title: 'Como tudo começou?',
   paragraphs: [
-    'Formada em Turismo, em 2022 consegui uma das 500 vagas do Working Holiday para brasileiros e fui para Sydney. Foram 3 anos e meio, cinco áreas diferentes (de garçonete a escritório) e nenhuma semana desempregada.',
-    'Em 2026 um problema no visto virou o empurrão que faltava: transformei o fim de um ciclo no começo do meu sonho. Hoje o mundo é a minha casa, e cada passo vira conteúdo aqui.',
+    'Em 2022, com uma passagem para Sydney e um Working Holiday Visa aprovado, embarquei para a Austrália sem imaginar o quanto aquela decisão mudaria minha vida.',
+    'Foram 3 anos e meio vivendo do outro lado do mundo, trabalhando em diferentes áreas, aprendendo inglês, juntando dinheiro e descobrindo que existiam muitas formas de viver.',
+    'Em 2026, um imprevisto com meu visto antecipou uma decisão que eu já sonhava tomar: colocar a mochila nas costas e explorar o mundo.',
+    'Hoje, enquanto viajo sozinha, estou usando minha reserva financeira para construir minha renda online e documentando tudo pelo caminho: os desafios, as conquistas e os bastidores reais de uma vida em construção.',
   ],
   cta: { label: 'Conheça minha história', href: '/sobre' },
   polaroid: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', caption: ['De Sydney', 'para o mundo!'] },
