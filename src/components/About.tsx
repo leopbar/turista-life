@@ -1,7 +1,7 @@
 import tw from 'twin.macro'
 import { about, journey } from '../content'
 import { Button, Container, Eyebrow, Lead, LiveDot, Section, SmartLink, Title } from './ui'
-import { Arrow, Mountain, Pin } from './icons'
+import { Arrow, Mountain } from './icons'
 
 export function About() {
   return (
@@ -39,8 +39,7 @@ function JourneyCard() {
     <article tw="relative overflow-hidden rounded-[20px] bg-pine-800 p-7 text-white shadow-lift sm:p-8">
       <Mountain tw="absolute top-6 right-6 text-white/90" />
       <p tw="font-sans text-[11px] font-semibold uppercase tracking-[.16em] text-white/80">{journey.eyebrow}</p>
-      <h3 tw="mt-3 font-serif text-[30px] font-bold leading-tight">{journey.episode}</h3>
-      <p tw="font-serif text-xl font-semibold leading-snug">{journey.title}</p>
+      <h3 tw="mt-3 pr-12 font-serif text-[24px] font-bold uppercase leading-tight tracking-[.02em] sm:text-[28px]">{journey.title}</h3>
 
       <ol tw="mt-6 flex items-center" aria-label="Rota da viagem">
         {journey.stops.map((stop, i) => {
@@ -66,18 +65,12 @@ function JourneyCard() {
 
       <p tw="mt-5 max-w-[420px] font-sans text-[14px] leading-relaxed text-white/85">{journey.text}</p>
 
-      <div tw="mt-6 flex flex-wrap items-center gap-4">
-        <SmartLink
-          href={journey.cta.href}
-          tw="inline-flex items-center gap-2 rounded-full border-[1.5px] border-white/70 px-5 py-2.5 font-sans text-[13px] font-semibold text-white no-underline transition hover:(bg-white text-pine-900)"
-        >
-          {journey.cta.label} <Arrow />
-        </SmartLink>
-        <span tw="inline-flex items-center gap-1.5 font-sans text-[12px] text-white/80">
-          <LiveDot size={10} />
-          <Pin width={14} height={14} /> Agora em {journey.now}
-        </span>
-      </div>
+      <SmartLink
+        href={journey.cta.href}
+        tw="mt-6 inline-flex items-center gap-2 rounded-full border-[1.5px] border-white/70 px-5 py-2.5 font-sans text-[13px] font-semibold text-white no-underline transition hover:(bg-white text-pine-900)"
+      >
+        {journey.cta.label} <Arrow />
+      </SmartLink>
     </article>
   )
 }
