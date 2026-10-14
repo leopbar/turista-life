@@ -10,11 +10,14 @@ import { links, type Product, type Recommendation } from './content'
 
 export type CatalogItem = {
   id: string
-  category: 'guia' | 'ebook' | 'servico'
   kind: string
   title: string
   text: string
   status: 'available' | 'soon' | 'planned' | 'free'
+  /** Preço exibido nos produtos disponíveis (ex.: "R$ 49"). */
+  price?: string
+  /** Botão de compra dos produtos disponíveis. */
+  cta?: string
   href?: string
   /** Mensagem depois de entrar na lista de espera (padrão: "quando o {título} sair"). */
   notify?: string
@@ -29,18 +32,20 @@ export const productsPage = {
     text: 'Tudo o que eu aprendi vivendo 3 anos e meio na Austrália e viajando sozinha pela Ásia, transformado em material direto ao ponto.',
     image: import.meta.env.BASE_URL + 'images/bali.jpg',
   },
-  filters: [
-    { id: 'todos', label: 'Todos' },
-    { id: 'guia', label: 'Guias de destinos' },
-    { id: 'ebook', label: 'E-books e ferramentas' },
-    { id: 'servico', label: 'Consultorias e serviços' },
-  ] as const,
-  /** Categorias do catálogo, na ordem em que aparecem em "Todos". */
-  categories: [
-    { id: 'guia', title: 'Guias de destinos', text: 'Regiões, custos, transporte e cuidados de cada lugar onde eu vivi e viajei. Novos guias a cada destino.' },
-    { id: 'ebook', title: 'E-books e ferramentas', text: 'Materiais para planejar sua vida no exterior: e-books, checklists e planners.' },
-    { id: 'servico', title: 'Consultorias e serviços', text: 'Ajuda individual para planejar a sua viagem ou a sua mudança.' },
-  ] as const,
+  /** Produtos à venda: aparecem antes e com mais destaque que os próximos lançamentos. */
+  available: {
+    eyebrow: 'Disponíveis agora',
+    title: 'Pronto para baixar',
+    text: 'Materiais completos, que você compra hoje e recebe na hora no seu e-mail.',
+  },
+  upcoming: {
+    eyebrow: 'Próximos lançamentos',
+    title: 'O que vem por aí',
+    text: 'Guias e serviços em produção. Deixe seu e-mail e seja avisado no dia do lançamento.',
+  },
+  // TODO(dúvida Laura): página de inscrição no MailerLite (subscribepage.io) para a lista de espera.
+  // Enquanto estiver vazio, o "Me avise" mostra a confirmação mas não guarda o e-mail.
+  waitlistUrl: '',
   featured: {
     kind: 'E-book',
     title: 'Como encontrar um trabalho na Austrália',
@@ -66,39 +71,40 @@ export const productsPage = {
   },
   catalog: [
     {
-      id: 'guia-bali', category: 'guia', kind: 'Guia de destino', title: 'Guia de Bali',
+      id: 'guia-bali', kind: 'Guia de destino', title: 'Guia de Bali',
       text: 'Dois meses na ilha resumidos: Canggu, Ubud, Gili, Nusa Penida e Uluwatu, quanto custa, como se locomover, cuidados com água e comida e o que vale (ou não) a pena.',
-      status: 'soon',
+      // TODO(dúvida Laura): link do checkout na Kiwify. Sem ele, o botão aparece mas não leva a lugar nenhum.
+      status: 'available', price: 'R$ 49', cta: 'Quero o guia',
       cover: { image: import.meta.env.BASE_URL + 'images/bali.jpg', top: 'Guia completo', title: 'Bali', tone: 'sun' },
     },
     {
-      id: 'guia-tailandia', category: 'guia', kind: 'Guia de destino', title: 'Guia da Tailândia',
+      id: 'guia-tailandia', kind: 'Guia de destino', title: 'Guia da Tailândia',
       text: 'Bangkok, Chiang Mai e as praias do sul, com a época certa de ir (aprendi do jeito difícil) e como equilibrar trabalho e passeio.',
       status: 'planned',
       cover: { image: import.meta.env.BASE_URL + 'images/v-bangkok.jpg', top: 'Em produção', title: 'Tailândia', tone: 'pine' },
     },
     {
       // TODO: texto e foto provisórios, aguardando material da Laura
-      id: 'guia-vietna', category: 'guia', kind: 'Guia de destino', title: 'Guia do Vietnã',
+      id: 'guia-vietna', kind: 'Guia de destino', title: 'Guia do Vietnã',
       text: 'Roteiro, custos, transporte entre as cidades e o que eu aprendi na prática viajando pelo país.',
       status: 'planned',
       cover: { image: import.meta.env.BASE_URL + 'images/hero.jpg', top: 'Em produção', title: 'Vietnã', tone: 'sun' },
     },
     {
-      id: 'guia-proximo', category: 'guia', kind: 'Guia de destino', title: 'Próximos destinos',
+      id: 'guia-proximo', kind: 'Guia de destino', title: 'Próximos destinos',
       text: 'A cada lugar novo, um guia novo. Deixe seu e-mail e saiba qual é o próximo antes de todo mundo.',
       status: 'soon', notify: 'Combinado! Você fica sabendo assim que o próximo guia sair.',
       cover: { image: import.meta.env.BASE_URL + 'images/v-nusa.jpg', top: 'Novo guia', title: 'Próximo destino', tone: 'sky' },
     },
     {
-      id: 'ebook-australia', category: 'ebook', kind: 'E-book', title: 'Como encontrar um trabalho na Austrália',
+      id: 'ebook-australia', kind: 'E-book', title: 'Como encontrar um trabalho na Austrália',
       text: 'Currículo australiano, plataformas de emprego, direitos e mentalidade. 7 dias de garantia.',
-      status: 'available', href: 'https://pay.kiwify.com.br/a7BpARM',
+      status: 'available', cta: 'Quero o e-book', href: 'https://pay.kiwify.com.br/a7BpARM',
       cover: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' },
     },
     {
       // TODO: texto provisório, aguardando a definição dos serviços da Laura
-      id: 'consultoria', category: 'servico', kind: 'Consultoria', title: 'Consultoria individual',
+      id: 'consultoria', kind: 'Consultoria', title: 'Consultoria individual',
       text: 'Uma conversa para montar o seu plano: destino, custos, trabalho remoto e primeiros passos fora do Brasil.',
       status: 'soon', notify: 'Combinado! Você recebe um aviso assim que as consultorias abrirem.',
       cover: { image: import.meta.env.BASE_URL + 'images/work.jpg', top: 'Em breve', title: 'Consultoria', tone: 'pine' },
@@ -112,23 +118,22 @@ export const productsPage = {
   },
   free: [
     {
-      id: 'guia-liberdade', category: 'ebook', kind: 'Material gratuito', title: 'Guia Liberdade Geográfica',
+      id: 'guia-liberdade', kind: 'Material gratuito', title: 'Guia Liberdade Geográfica',
       text: 'Os primeiros passos para construir uma carreira que você possa levar para qualquer lugar do mundo.',
       status: 'free', href: 'https://turista-life-laura-irigoyen-ifwilc.subscribepage.io/',
       cover: { image: import.meta.env.BASE_URL + 'images/work.jpg', top: 'Guia gratuito', title: 'Liberdade Geográfica', tone: 'sky' },
     },
     {
-      id: 'checklist-australia', category: 'ebook', kind: 'Material gratuito', title: '5 coisas que eu faria diferente antes de ir para a Austrália',
+      id: 'checklist-australia', kind: 'Material gratuito', title: '5 coisas que eu faria diferente antes de ir para a Austrália',
       text: 'Checklist com cinco aprendizados que teriam me poupado tempo e dinheiro na chegada.',
       status: 'free', href: 'https://turista-life-laura-irigoyen-nehwou.subscribepage.io/',
       cover: { image: import.meta.env.BASE_URL + 'images/opera.jpg', top: 'Checklist', title: 'Austrália', tone: 'pine' },
     },
   ] as CatalogItem[],
   faq: [
-    { q: 'Como recebo o e-book?', a: 'A compra é processada pela Kiwify. Assim que o pagamento é aprovado, o acesso chega no seu e-mail.' },
+    { q: 'Como recebo o e-book ou o Guia de Bali?', a: 'A compra é processada pela Kiwify. Assim que o pagamento é aprovado, o acesso chega no seu e-mail.' },
     { q: 'E se eu não gostar?', a: 'Você tem 7 dias de garantia. Se não fizer sentido para você, é só pedir o reembolso dentro desse prazo.' },
     { q: 'O e-book serve para quem ainda não tem visto?', a: 'Sim, ele ajuda a planejar antes de embarcar. Para dúvidas de visto, indico o agente de imigração que acompanhou o meu processo, na página de recomendações.' },
-    { q: 'Quando sai o Guia de Bali?', a: 'Ele está em fase final. Deixe seu e-mail na lista e você fica sabendo primeiro.' },
   ],
   cta: {
     title: 'Não sabe por onde começar?',

@@ -92,10 +92,10 @@ export const products: { eyebrow: string; title: string; text: string; items: Pr
       kind: 'Guia de destino',
       title: 'Guia de Bali',
       text: 'Tudo o que eu queria saber antes de passar dois meses na ilha: regiões, custos, transporte e cuidados.',
-      note: 'Em breve',
-      cta: 'Me avise',
+      note: 'R$ 49',
+      cta: 'Quero o guia',
+      // TODO(dúvida Laura): trocar pelo checkout da Kiwify quando o link existir
       href: '/produtos#guia-bali',
-      soon: true,
       cover: { image: import.meta.env.BASE_URL + 'images/bali.jpg', top: 'Guia completo', title: 'Bali', tone: 'sun' },
     },
     {

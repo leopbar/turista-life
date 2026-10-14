@@ -63,7 +63,7 @@ const productItems: SearchItem[] = [...productsPage.catalog, ...productsPage.fre
   id: `pr-${p.id}`,
   group: 'Produtos',
   title: p.title,
-  subtitle: p.kind + (p.status === 'soon' ? ' · em breve' : p.status === 'planned' ? ' · em produção' : p.status === 'free' ? ' · grátis' : ''),
+  subtitle: p.kind + (p.status === 'soon' ? ' · em breve' : p.status === 'planned' ? ' · em produção' : p.status === 'free' ? ' · grátis' : p.price ? ` · ${p.price}` : ''),
   href: `/produtos#${p.id}`,
   keywords: `${p.text} ${p.cover.title}`,
 }))

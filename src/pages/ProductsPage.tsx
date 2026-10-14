@@ -5,8 +5,6 @@ import { BookCover } from '../components/Products'
 import { Button, Container, CtaBand, Eyebrow, Lead, PageHero, Section, SmartLink, Title } from '../components/ui'
 import { Arrow, Check } from '../components/icons'
 
-type Filter = (typeof page.filters)[number]['id']
-
 const statusLabel: Record<CatalogItem['status'], string> = {
   available: 'Disponível',
   soon: 'Em breve',
@@ -15,10 +13,8 @@ const statusLabel: Record<CatalogItem['status'], string> = {
 }
 
 export function ProductsPage() {
-  const [filter, setFilter] = useState<Filter>('todos')
-  const groups = page.categories
-    .filter((c) => filter === 'todos' || c.id === filter)
-    .map((c) => ({ ...c, items: page.catalog.filter((p) => p.category === c.id) }))
+  const available = page.catalog.filter((p) => p.status === 'available')
+  const upcoming = page.catalog.filter((p) => p.status === 'soon' || p.status === 'planned')
   const f = page.featured
 
   return (
@@ -76,45 +72,35 @@ export function ProductsPage() {
         </Container>
       </Section>
 
-      {/* Catálogo com filtro */}
-      <Section tone="mist">
+      {/* Disponíveis para compra: maior destaque */}
+      <Section tone="mist" id="disponiveis" tw="scroll-mt-24">
         <Container tw="flex flex-col gap-8">
-          <div tw="flex flex-wrap items-end justify-between gap-6">
-            <div tw="flex flex-col gap-3">
-              <Eyebrow>Catálogo</Eyebrow>
-              <Title>Todos os materiais</Title>
-            </div>
-            <div role="tablist" aria-label="Filtrar produtos" tw="flex flex-wrap gap-2">
-              {page.filters.map((opt) => (
-                <button
-                  key={opt.id}
-                  role="tab"
-                  aria-selected={filter === opt.id}
-                  onClick={() => setFilter(opt.id)}
-                  css={[
-                    tw`rounded-full px-4 py-2 font-sans text-[13px] font-medium transition`,
-                    filter === opt.id ? tw`bg-pine-800 text-white` : tw`bg-white text-pine-900 hover:bg-white/70`,
-                  ]}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
+          <div tw="flex max-w-[560px] flex-col gap-3">
+            <Eyebrow>{page.available.eyebrow}</Eyebrow>
+            <Title>{page.available.title}</Title>
+            <Lead>{page.available.text}</Lead>
           </div>
+          <div tw="grid gap-6 lg:grid-cols-2">
+            {available.map((p) => (
+              <AvailableCard key={p.id} item={p} />
+            ))}
+          </div>
+        </Container>
+      </Section>
 
-          {groups.map((g, i) => (
-            <div key={g.id} css={[tw`flex flex-col gap-5`, i > 0 && tw`mt-4 border-t border-line pt-10`]}>
-              <div tw="flex flex-col gap-1.5">
-                <h3 tw="font-serif text-[24px] font-bold leading-tight text-pine-900">{g.title}</h3>
-                <p tw="max-w-[560px] font-sans text-[14px] leading-relaxed text-muted">{g.text}</p>
-              </div>
-              <div tw="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {g.items.map((p) => (
-                  <CatalogCard key={p.id} item={p} />
-                ))}
-              </div>
-            </div>
-          ))}
+      {/* Próximos lançamentos: visual mais leve, com lista de espera */}
+      <Section tone="white" id="proximos" tw="scroll-mt-24">
+        <Container tw="flex flex-col gap-8">
+          <div tw="flex max-w-[560px] flex-col gap-3">
+            <Eyebrow>{page.upcoming.eyebrow}</Eyebrow>
+            <Title>{page.upcoming.title}</Title>
+            <Lead>{page.upcoming.text}</Lead>
+          </div>
+          <div tw="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {upcoming.map((p) => (
+              <UpcomingCard key={p.id} item={p} />
+            ))}
+          </div>
         </Container>
       </Section>
 
@@ -128,7 +114,7 @@ export function ProductsPage() {
           </div>
           <div tw="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {page.free.map((p) => (
-              <CatalogCard key={p.id} item={p} />
+              <FreeCard key={p.id} item={p} />
             ))}
           </div>
         </Container>
@@ -160,35 +146,76 @@ export function ProductsPage() {
   )
 }
 
-function CatalogCard({ item }: { item: CatalogItem }) {
-  const waitlist = item.status === 'soon' || item.status === 'planned'
+function AvailableCard({ item }: { item: CatalogItem }) {
+  const button = tw`inline-flex items-center justify-center gap-2 rounded-full bg-sun-500 px-6 py-3 font-sans text-[14px] font-semibold text-white no-underline transition hover:bg-sun-600`
+  return (
+    <article id={item.id} className="group" tw="grid scroll-mt-28 gap-6 rounded-[22px] bg-white p-6 shadow-card ring-2 ring-transparent transition duration-300 hover:(-translate-y-1 shadow-lift ring-sun-500/30) sm:grid-cols-[200px_1fr]">
+      <div tw="relative rounded-2xl bg-cream py-7">
+        <BookCover cover={item.cover} />
+        <span tw="absolute top-3 left-3 rounded-full bg-pine-800 px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-wider text-white">
+          {statusLabel.available}
+        </span>
+      </div>
+      <div tw="flex flex-col">
+        <p tw="font-sans text-[13px] text-muted">{item.kind}</p>
+        <h3 tw="mt-0.5 font-serif text-[22px] font-bold leading-tight text-pine-900">{item.title}</h3>
+        <p tw="mt-2 font-sans text-[13.5px] leading-relaxed text-muted">{item.text}</p>
+        <div tw="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-5">
+          {item.href ? (
+            <SmartLink href={item.href} css={button}>
+              {item.cta} <Arrow />
+            </SmartLink>
+          ) : (
+            // TODO: sem link de compra ainda (ver dúvidas para a Laura)
+            <span css={button}>
+              {item.cta} <Arrow />
+            </span>
+          )}
+          {item.price && <span tw="font-serif text-[24px] font-bold text-pine-900">{item.price}</span>}
+        </div>
+      </div>
+    </article>
+  )
+}
+
+function UpcomingCard({ item }: { item: CatalogItem }) {
+  return (
+    <article id={item.id} tw="flex scroll-mt-28 flex-col rounded-[18px] bg-mist/60 p-4 ring-1 ring-line">
+      <div tw="relative rounded-xl bg-white/70 py-4 opacity-90">
+        <BookCover cover={item.cover} />
+        <span tw="absolute top-2.5 right-2.5 rounded-full bg-white px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-wider text-pine-800 ring-1 ring-line">
+          {statusLabel[item.status]}
+        </span>
+      </div>
+      <p tw="mt-4 font-sans text-[12px] text-muted">{item.kind}</p>
+      <h3 tw="mt-0.5 font-sans text-[15px] font-semibold leading-snug text-ink">{item.title}</h3>
+      <p tw="mt-1.5 font-sans text-[12.5px] leading-relaxed text-muted">{item.text}</p>
+      <div tw="mt-auto pt-4">
+        <Waitlist product={item.title} notify={item.notify} />
+      </div>
+    </article>
+  )
+}
+
+function FreeCard({ item }: { item: CatalogItem }) {
   return (
     <article id={item.id} className="group" tw="flex scroll-mt-28 flex-col rounded-[18px] bg-white p-5 shadow-card transition duration-300 hover:(-translate-y-1 shadow-lift)">
       <div tw="relative rounded-xl bg-cream py-6">
         <BookCover cover={item.cover} />
-        <span
-          css={[
-            tw`absolute top-3 right-3 rounded-full px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-wider`,
-            item.status === 'free' ? tw`bg-pine-800 text-white` : item.status === 'available' ? tw`bg-white text-pine-800 ring-1 ring-line` : tw`bg-sun-500 text-white`,
-          ]}
-        >
-          {statusLabel[item.status]}
+        <span tw="absolute top-3 right-3 rounded-full bg-pine-800 px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-wider text-white">
+          {statusLabel.free}
         </span>
       </div>
       <p tw="mt-5 font-sans text-[13px] text-muted">{item.kind}</p>
       <h3 tw="mt-0.5 font-sans text-[16px] font-semibold leading-snug text-ink">{item.title}</h3>
       <p tw="mt-2 font-sans text-[13px] leading-relaxed text-muted">{item.text}</p>
       <div tw="mt-auto pt-5">
-        {waitlist ? (
-          <Waitlist product={item.title} notify={item.notify} />
-        ) : (
-          <SmartLink
-            href={item.href!}
-            tw="inline-flex w-full items-center justify-center gap-2 rounded-full bg-pine-900 px-4 py-3 font-sans text-[13px] font-semibold text-white no-underline transition hover:bg-pine-700"
-          >
-            {item.status === 'free' ? 'Quero receber' : 'Saiba mais'} <Arrow />
-          </SmartLink>
-        )}
+        <SmartLink
+          href={item.href!}
+          tw="inline-flex w-full items-center justify-center gap-2 rounded-full bg-pine-900 px-4 py-3 font-sans text-[13px] font-semibold text-white no-underline transition hover:bg-pine-700"
+        >
+          Quero receber <Arrow />
+        </SmartLink>
       </div>
     </article>
   )
@@ -198,7 +225,9 @@ function Waitlist({ product, notify }: { product: string; notify?: string }) {
   const [sent, setSent] = useState(false)
   const submit = (e: FormEvent) => {
     e.preventDefault()
-    setSent(true) // TODO: enviar para a lista de e-mails da Laura com a tag do produto
+    // Opção provisória até a integração de e-mail (PRO-29): abre a página de inscrição do MailerLite.
+    if (page.waitlistUrl) window.open(page.waitlistUrl, '_blank', 'noopener')
+    setSent(true)
   }
   if (sent) return <p tw="rounded-xl bg-mist p-3 text-center font-sans text-[13px] text-pine-900">{notify ?? `Combinado! Você recebe um aviso quando o ${product} sair.`}</p>
   const id = `wl-${product.toLowerCase().replace(/\W+/g, '-')}`
@@ -206,7 +235,7 @@ function Waitlist({ product, notify }: { product: string; notify?: string }) {
     <form onSubmit={submit} tw="flex items-center rounded-full bg-cream p-1 pl-4 ring-1 ring-line focus-within:ring-pine-800">
       <label htmlFor={id} tw="sr-only">Seu e-mail para ser avisado</label>
       <input id={id} type="email" required placeholder="Seu e-mail" tw="min-w-0 flex-1 bg-transparent font-sans text-[13px] text-ink outline-none" />
-      <button type="submit" tw="rounded-full bg-sun-500 px-4 py-2.5 font-sans text-[12px] font-semibold text-white hover:bg-sun-600">Me avise</button>
+      <button type="submit" tw="rounded-full bg-pine-800 px-4 py-2.5 font-sans text-[12px] font-semibold text-white hover:bg-pine-700">Me avise</button>
     </form>
   )
 }
