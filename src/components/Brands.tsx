@@ -19,11 +19,12 @@ export function Brands() {
           <p tw="font-sans text-xs font-semibold uppercase tracking-[.16em] text-white/85">{brands.eyebrow}</p>
           <h2 tw="font-serif text-[2rem] font-bold leading-[1.1] sm:text-[2.4rem] [text-wrap: balance]">{brands.title}</h2>
           <p tw="font-sans text-[14px] leading-relaxed text-white/85">{brands.text}</p>
-          <div tw="mt-2 flex flex-wrap gap-3">
-            <Button variant="sun" href={brands.cta.href}>
+          {/* No celular: botões empilhados com a mesma largura, como na capa. A partir de sm: lado a lado. */}
+          <div tw="mt-2 flex flex-col gap-3 sm:(flex-row flex-wrap)">
+            <Button variant="sun" href={brands.cta.href} tw="w-full sm:w-auto">
               {brands.cta.label} <Arrow />
             </Button>
-            <Button variant="ghostLight" href={brands.secondary.href}>
+            <Button variant="ghostLight" href={brands.secondary.href} tw="w-full sm:w-auto">
               {brands.secondary.label}
             </Button>
           </div>
