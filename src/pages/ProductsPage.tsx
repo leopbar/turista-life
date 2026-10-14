@@ -16,7 +16,9 @@ const statusLabel: Record<CatalogItem['status'], string> = {
 
 export function ProductsPage() {
   const [filter, setFilter] = useState<Filter>('todos')
-  const items = page.catalog.filter((p) => filter === 'todos' || p.category === filter)
+  const groups = page.categories
+    .filter((c) => filter === 'todos' || c.id === filter)
+    .map((c) => ({ ...c, items: page.catalog.filter((p) => p.category === c.id) }))
   const f = page.featured
 
   return (
@@ -100,8 +102,32 @@ export function ProductsPage() {
             </div>
           </div>
 
+          {groups.map((g, i) => (
+            <div key={g.id} css={[tw`flex flex-col gap-5`, i > 0 && tw`mt-4 border-t border-line pt-10`]}>
+              <div tw="flex flex-col gap-1.5">
+                <h3 tw="font-serif text-[24px] font-bold leading-tight text-pine-900">{g.title}</h3>
+                <p tw="max-w-[560px] font-sans text-[14px] leading-relaxed text-muted">{g.text}</p>
+              </div>
+              <div tw="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {g.items.map((p) => (
+                  <CatalogCard key={p.id} item={p} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </Container>
+      </Section>
+
+      {/* Materiais gratuitos, separados dos produtos pagos */}
+      <Section tone="cream">
+        <Container tw="flex flex-col gap-8">
+          <div tw="flex max-w-[560px] flex-col gap-3">
+            <Eyebrow>{page.freeSection.eyebrow}</Eyebrow>
+            <Title>{page.freeSection.title}</Title>
+            <Lead>{page.freeSection.text}</Lead>
+          </div>
           <div tw="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((p) => (
+            {page.free.map((p) => (
               <CatalogCard key={p.id} item={p} />
             ))}
           </div>
@@ -154,7 +180,7 @@ function CatalogCard({ item }: { item: CatalogItem }) {
       <p tw="mt-2 font-sans text-[13px] leading-relaxed text-muted">{item.text}</p>
       <div tw="mt-auto pt-5">
         {waitlist ? (
-          <Waitlist product={item.title} />
+          <Waitlist product={item.title} notify={item.notify} />
         ) : (
           <SmartLink
             href={item.href!}
@@ -168,13 +194,13 @@ function CatalogCard({ item }: { item: CatalogItem }) {
   )
 }
 
-function Waitlist({ product }: { product: string }) {
+function Waitlist({ product, notify }: { product: string; notify?: string }) {
   const [sent, setSent] = useState(false)
   const submit = (e: FormEvent) => {
     e.preventDefault()
     setSent(true) // TODO: enviar para a lista de e-mails da Laura com a tag do produto
   }
-  if (sent) return <p tw="rounded-xl bg-mist p-3 text-center font-sans text-[13px] text-pine-900">Combinado! Você recebe um aviso quando o {product} sair.</p>
+  if (sent) return <p tw="rounded-xl bg-mist p-3 text-center font-sans text-[13px] text-pine-900">{notify ?? `Combinado! Você recebe um aviso quando o ${product} sair.`}</p>
   const id = `wl-${product.toLowerCase().replace(/\W+/g, '-')}`
   return (
     <form onSubmit={submit} tw="flex items-center rounded-full bg-cream p-1 pl-4 ring-1 ring-line focus-within:ring-pine-800">

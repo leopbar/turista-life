@@ -10,12 +10,14 @@ import { links, type Product, type Recommendation } from './content'
 
 export type CatalogItem = {
   id: string
-  category: 'ebook' | 'guia' | 'gratis'
+  category: 'guia' | 'ebook' | 'servico'
   kind: string
   title: string
   text: string
   status: 'available' | 'soon' | 'planned' | 'free'
   href?: string
+  /** Mensagem depois de entrar na lista de espera (padrão: "quando o {título} sair"). */
+  notify?: string
   cover: Product['cover']
 }
 
@@ -29,9 +31,15 @@ export const productsPage = {
   },
   filters: [
     { id: 'todos', label: 'Todos' },
-    { id: 'ebook', label: 'E-books' },
-    { id: 'guia', label: 'Guias de destino' },
-    { id: 'gratis', label: 'Gratuitos' },
+    { id: 'guia', label: 'Guias de destinos' },
+    { id: 'ebook', label: 'E-books e ferramentas' },
+    { id: 'servico', label: 'Consultorias e serviços' },
+  ] as const,
+  /** Categorias do catálogo, na ordem em que aparecem em "Todos". */
+  categories: [
+    { id: 'guia', title: 'Guias de destinos', text: 'Regiões, custos, transporte e cuidados de cada lugar onde eu vivi e viajei. Novos guias a cada destino.' },
+    { id: 'ebook', title: 'E-books e ferramentas', text: 'Materiais para planejar sua vida no exterior: e-books, checklists e planners.' },
+    { id: 'servico', title: 'Consultorias e serviços', text: 'Ajuda individual para planejar a sua viagem ou a sua mudança.' },
   ] as const,
   featured: {
     kind: 'E-book',
@@ -58,12 +66,6 @@ export const productsPage = {
   },
   catalog: [
     {
-      id: 'ebook-australia', category: 'ebook', kind: 'E-book', title: 'Como encontrar um trabalho na Austrália',
-      text: 'Currículo australiano, plataformas de emprego, direitos e mentalidade. 7 dias de garantia.',
-      status: 'available', href: 'https://pay.kiwify.com.br/a7BpARM',
-      cover: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' },
-    },
-    {
       id: 'guia-bali', category: 'guia', kind: 'Guia de destino', title: 'Guia de Bali',
       text: 'Dois meses na ilha resumidos: Canggu, Ubud, Gili, Nusa Penida e Uluwatu, quanto custa, como se locomover, cuidados com água e comida e o que vale (ou não) a pena.',
       status: 'soon',
@@ -76,13 +78,47 @@ export const productsPage = {
       cover: { image: import.meta.env.BASE_URL + 'images/v-bangkok.jpg', top: 'Em produção', title: 'Tailândia', tone: 'pine' },
     },
     {
-      id: 'guia-liberdade', category: 'gratis', kind: 'Material gratuito', title: 'Guia Liberdade Geográfica',
+      // TODO: texto e foto provisórios, aguardando material da Laura
+      id: 'guia-vietna', category: 'guia', kind: 'Guia de destino', title: 'Guia do Vietnã',
+      text: 'Roteiro, custos, transporte entre as cidades e o que eu aprendi na prática viajando pelo país.',
+      status: 'planned',
+      cover: { image: import.meta.env.BASE_URL + 'images/hero.jpg', top: 'Em produção', title: 'Vietnã', tone: 'sun' },
+    },
+    {
+      id: 'guia-proximo', category: 'guia', kind: 'Guia de destino', title: 'Próximos destinos',
+      text: 'A cada lugar novo, um guia novo. Deixe seu e-mail e saiba qual é o próximo antes de todo mundo.',
+      status: 'soon', notify: 'Combinado! Você fica sabendo assim que o próximo guia sair.',
+      cover: { image: import.meta.env.BASE_URL + 'images/v-nusa.jpg', top: 'Novo guia', title: 'Próximo destino', tone: 'sky' },
+    },
+    {
+      id: 'ebook-australia', category: 'ebook', kind: 'E-book', title: 'Como encontrar um trabalho na Austrália',
+      text: 'Currículo australiano, plataformas de emprego, direitos e mentalidade. 7 dias de garantia.',
+      status: 'available', href: 'https://pay.kiwify.com.br/a7BpARM',
+      cover: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' },
+    },
+    {
+      // TODO: texto provisório, aguardando a definição dos serviços da Laura
+      id: 'consultoria', category: 'servico', kind: 'Consultoria', title: 'Consultoria individual',
+      text: 'Uma conversa para montar o seu plano: destino, custos, trabalho remoto e primeiros passos fora do Brasil.',
+      status: 'soon', notify: 'Combinado! Você recebe um aviso assim que as consultorias abrirem.',
+      cover: { image: import.meta.env.BASE_URL + 'images/work.jpg', top: 'Em breve', title: 'Consultoria', tone: 'pine' },
+    },
+  ] as CatalogItem[],
+  /** Materiais gratuitos: ficam fora do catálogo pago, em seção própria. */
+  freeSection: {
+    eyebrow: 'Grátis',
+    title: 'Materiais gratuitos',
+    text: 'Para dar o primeiro passo sem gastar nada. Chegam direto no seu e-mail.',
+  },
+  free: [
+    {
+      id: 'guia-liberdade', category: 'ebook', kind: 'Material gratuito', title: 'Guia Liberdade Geográfica',
       text: 'Os primeiros passos para construir uma carreira que você possa levar para qualquer lugar do mundo.',
       status: 'free', href: 'https://turista-life-laura-irigoyen-ifwilc.subscribepage.io/',
       cover: { image: import.meta.env.BASE_URL + 'images/work.jpg', top: 'Guia gratuito', title: 'Liberdade Geográfica', tone: 'sky' },
     },
     {
-      id: 'checklist-australia', category: 'gratis', kind: 'Material gratuito', title: '5 coisas que eu faria diferente antes de ir para a Austrália',
+      id: 'checklist-australia', category: 'ebook', kind: 'Material gratuito', title: '5 coisas que eu faria diferente antes de ir para a Austrália',
       text: 'Checklist com cinco aprendizados que teriam me poupado tempo e dinheiro na chegada.',
       status: 'free', href: 'https://turista-life-laura-irigoyen-nehwou.subscribepage.io/',
       cover: { image: import.meta.env.BASE_URL + 'images/opera.jpg', top: 'Checklist', title: 'Austrália', tone: 'pine' },

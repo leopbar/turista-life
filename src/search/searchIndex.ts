@@ -59,7 +59,7 @@ const destinations: SearchItem[] = [
   }),
 ]
 
-const productItems: SearchItem[] = productsPage.catalog.map((p) => ({
+const productItems: SearchItem[] = [...productsPage.catalog, ...productsPage.free].map((p) => ({
   id: `pr-${p.id}`,
   group: 'Produtos',
   title: p.title,
