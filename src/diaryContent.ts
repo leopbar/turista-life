@@ -52,7 +52,7 @@ export const GOAL = 5000
 
 export const diaryPage = {
   hero: {
-    eyebrow: 'Diário',
+    eyebrow: 'Destinos',
     script: 'Acompanhe a jornada',
     title: 'De Sydney para o mundo: a rota até aqui',
     text: 'Cada parada da viagem, resumida: o que eu vi, o que eu amei, o que me decepcionou e os vídeos completos de cada lugar. E, entre um destino e outro, os números reais de cada mês tentando viver da internet.',

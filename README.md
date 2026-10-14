@@ -22,8 +22,8 @@ Build de produção: `npm run build` (saída em `dist/`). Por ser uma SPA com ro
 | Arquivo | Conteúdo |
 |---|---|
 | `src/content.ts` | Página inicial, menu, links e redes |
-| `src/pagesContent.ts` | Produtos, Recomendações e Mídia kit |
-| `src/diaryContent.ts` | Diário de bordo: paradas, fechamentos de mês e vídeos |
+| `src/pagesContent.ts` | Produtos, Recomendações e Parcerias (mídia kit) |
+| `src/diaryContent.ts` | Destinos (diário de bordo): paradas, fechamentos de mês e vídeos |
 | `src/aboutContent.ts` | Sobre mim |
 
 O mapa da rota usa contornos do [Natural Earth](https://www.naturalearthdata.com/) (domínio público), gerados por `node scripts/build-map.mjs`.

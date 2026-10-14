@@ -1,5 +1,5 @@
 /**
- * Conteúdo das páginas internas: /produtos, /recomendacoes e /midia-kit.
+ * Conteúdo das páginas internas: /produtos, /recomendacoes e /parcerias.
  * Fonte: canal youtube.com/@turistalife, Linktree, página do e-book na Kiwify (out/2026).
  */
 import { links, type Product, type Recommendation } from './content'
@@ -178,12 +178,12 @@ export const recsPage = {
 }
 
 /* ------------------------------------------------------------------ */
-/* /midia-kit                                                          */
+/* /parcerias                                                          */
 /* ------------------------------------------------------------------ */
 
 export const mediaKit = {
   hero: {
-    eyebrow: 'Mídia kit',
+    eyebrow: 'Parcerias',
     script: 'Para marcas',
     title: 'Uma audiência que confia no que eu recomendo',
     text: 'Brasileiros que sonham em viajar, morar fora e trabalhar de qualquer lugar acompanham a minha jornada real, com números abertos todo mês.',

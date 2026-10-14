@@ -18,9 +18,8 @@ export const nav = [
   { label: 'Sobre mim', href: '/sobre' },
   { label: 'Produtos', href: '/produtos' },
   { label: 'Recomendações', href: '/recomendacoes' },
-  { label: 'Marcas', href: '/midia-kit' },
-  { label: 'Diário', href: '/diario' },
-  { label: 'Membros', href: '/#membros' },
+  { label: 'Parcerias', href: '/parcerias' },
+  { label: 'Destinos', href: '/destinos' },
 ]
 
 export const hero = {
@@ -28,7 +27,7 @@ export const hero = {
   subtitle: 'Construir uma vida com liberdade.',
   text:
     'Eu sou a Laura! Depois de mais de 3 anos vivendo na Austrália, decidi explorar o mundo enquanto construo minha liberdade geográfica. Aqui compartilho os bastidores dessa jornada, sem romantizar, além de guias dos destinos por onde já passei, dicas práticas e ferramentas para você viajar também.',
-  cta: { label: 'Explore os destinos', href: '/diario' },
+  cta: { label: 'Explore os destinos', href: '/destinos' },
   story: { label: 'Assista o começo da história', href: yt('pwwxtfpaVNs') },
   signature: ['O momento', 'certo é', 'agora.'],
   image: import.meta.env.BASE_URL + 'images/hero.jpg',
@@ -54,7 +53,7 @@ export const journey = {
   now: 'Krabi, Tailândia',
   stops: ['Sydney', 'Bali', 'Perth', 'Tailândia'],
   current: 3,
-  cta: { label: 'Acompanhe a jornada', href: '/diario' },
+  cta: { label: 'Acompanhe a jornada', href: '/destinos' },
 }
 
 export type Product = {
@@ -146,15 +145,15 @@ export const brands = {
     { icon: 'users', value: '+125 mil', label: 'pessoas em 4 redes' },
   ],
   cta: { label: 'Quero ser parceiro', href: `mailto:${links.email}?subject=Parceria%20Turista%20Life` },
-  secondary: { label: 'Ver mídia kit', href: '/midia-kit' },
+  secondary: { label: 'Ver parcerias e mídia kit', href: '/parcerias' },
   image: import.meta.env.BASE_URL + 'images/brands.jpg',
 }
 
 export const diary = {
-  eyebrow: 'Diário de bordo · Guia por país',
+  eyebrow: 'Destinos · Guia por país',
   title: 'Dicas, roteiros e a vida real na estrada',
   text: 'Cada destino vira episódio: o que vale a pena, o que decepciona, quanto custa e como se virar sozinha.',
-  cta: { label: 'Ver o diário completo', href: '/diario' },
+  cta: { label: 'Ver todos os destinos', href: '/destinos' },
   posts: [
     { tag: 'Indonésia', title: 'A realidade dos lugares mais paradisíacos de Bali', image: import.meta.env.BASE_URL + 'images/v-nusa.jpg', href: yt('TtBuGZLTSog') },
     { tag: 'Tailândia', title: 'Cheguei sozinha na Tailândia… e não era o que eu imaginava', image: import.meta.env.BASE_URL + 'images/v-bangkok.jpg', href: yt('Hc4nMTf6fDg') },

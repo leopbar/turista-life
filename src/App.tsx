@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { AboutPage } from './pages/AboutPage'
@@ -13,8 +13,8 @@ const titles: Record<string, string> = {
   '/': 'Turista Life · Laura Irigoyen',
   '/produtos': 'Produtos · Turista Life',
   '/recomendacoes': 'Recomendações · Turista Life',
-  '/midia-kit': 'Mídia kit · Turista Life',
-  '/diario': 'Diário de bordo · Turista Life',
+  '/parcerias': 'Parcerias · Turista Life',
+  '/destinos': 'Destinos · Turista Life',
   '/sobre': 'Sobre mim · Turista Life',
 }
 
@@ -32,6 +32,12 @@ function ScrollManager() {
   return null
 }
 
+/** Endereços antigos (/midia-kit, /diario) levam para os novos, mantendo a âncora. */
+function Redirect({ to }: { to: string }) {
+  const { hash } = useLocation()
+  return <Navigate to={to + hash} replace />
+}
+
 export default function App() {
   return (
     <>
@@ -42,8 +48,10 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/produtos" element={<ProductsPage />} />
           <Route path="/recomendacoes" element={<RecommendationsPage />} />
-          <Route path="/midia-kit" element={<MediaKitPage />} />
-          <Route path="/diario" element={<DiaryPage />} />
+          <Route path="/parcerias" element={<MediaKitPage />} />
+          <Route path="/destinos" element={<DiaryPage />} />
+          <Route path="/midia-kit" element={<Redirect to="/parcerias" />} />
+          <Route path="/diario" element={<Redirect to="/destinos" />} />
           <Route path="/sobre" element={<AboutPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>

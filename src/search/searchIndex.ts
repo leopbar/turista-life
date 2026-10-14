@@ -22,17 +22,17 @@ export const GROUP_ORDER: SearchGroup[] = ['Páginas', 'Destinos', 'Produtos', '
 const pages: SearchItem[] = [
   { id: 'p-home', group: 'Páginas', title: 'Início', subtitle: 'Página inicial', href: '/', keywords: 'home turista life laura' },
   { id: 'p-sobre', group: 'Páginas', title: 'Sobre mim', subtitle: 'A história da Laura', href: '/sobre', keywords: 'laura irigoyen porto alegre historia quem turismo working holiday' },
-  { id: 'p-diario', group: 'Páginas', title: 'Diário de bordo', subtitle: 'A rota, os destinos e os vídeos', href: '/diario', keywords: 'jornada viagem mapa rota timeline linha do tempo episodio' },
+  { id: 'p-diario', group: 'Páginas', title: 'Destinos', subtitle: 'A rota, os guias por país e os vídeos', href: '/destinos', keywords: 'diario de bordo blog jornada viagem mapa rota timeline linha do tempo episodio' },
   { id: 'p-produtos', group: 'Páginas', title: 'Produtos', subtitle: 'E-books, guias e materiais gratuitos', href: '/produtos', keywords: 'loja comprar ebook guia' },
   { id: 'p-recs', group: 'Páginas', title: 'Recomendações', subtitle: 'O que eu uso para viajar e trabalhar', href: '/recomendacoes', keywords: 'cupom desconto afiliado indicacoes' },
-  { id: 'p-midia', group: 'Páginas', title: 'Mídia kit', subtitle: 'Parcerias com marcas', href: '/midia-kit', keywords: 'marcas parceria publicidade publi ugc contato comercial numeros seguidores' },
+  { id: 'p-midia', group: 'Páginas', title: 'Parcerias', subtitle: 'Mídia kit e contato para marcas', href: '/parcerias', keywords: 'midia kit marcas parceria publicidade publi ugc contato comercial numeros seguidores' },
   { id: 'p-membros', group: 'Páginas', title: 'Área de membros', subtitle: 'Em breve: lista de espera', href: '/#membros', keywords: 'membros exclusivo comunidade' },
   ...allMilestones.map((m) => ({
     id: `p-${m.id}`,
     group: 'Páginas' as const,
     title: `Fechamento do ${m.month.split(' · ')[0]}`,
     subtitle: `Quanto ganhei em ${m.month.split(' · ')[1]}`,
-    href: `/diario#${m.id}`,
+    href: `/destinos#${m.id}`,
     keywords: 'renda dinheiro ganhei liberdade geografica meta mes resultados',
   })),
 ]
@@ -43,7 +43,7 @@ const destinations: SearchItem[] = [
     group: 'Destinos' as const,
     title: c.name,
     subtitle: c.period,
-    href: `/diario#${c.id}`,
+    href: `/destinos#${c.id}`,
     keywords: c.id === 'indonesia' ? 'bali' : '',
   })),
   ...allStops.map((s) => {
@@ -53,7 +53,7 @@ const destinations: SearchItem[] = [
       group: 'Destinos' as const,
       title: s.city,
       subtitle: `${country?.name ?? ''} · ${s.current ? 'onde estou agora' : s.stay}`,
-      href: `/diario#${s.id}`,
+      href: `/destinos#${s.id}`,
       keywords: `${country?.name ?? ''} ${s.highlights.join(' ')}`,
     }
   }),
@@ -99,7 +99,7 @@ const faq: SearchItem[] = productsPage.faq.map((f, i) => ({
 }))
 
 const extras: SearchItem[] = [
-  { id: 'x-contato', group: 'Páginas', title: 'Contato comercial', subtitle: mediaKit.contact.email, href: '/midia-kit', keywords: 'email parceria marca falar' },
+  { id: 'x-contato', group: 'Páginas', title: 'Contato comercial', subtitle: mediaKit.contact.email, href: '/parcerias', keywords: 'email parceria marca falar' },
 ]
 
 export const SEARCH_INDEX: SearchItem[] = [...pages, ...destinations, ...productItems, ...recItems, ...videos.values(), ...faq, ...extras]
