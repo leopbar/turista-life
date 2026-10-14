@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from 'react'
 import tw from 'twin.macro'
-import { diary, members } from '../content'
+import { diary, newsletter } from '../content'
 import { Button, Container, Eyebrow, Lead, Section, Title } from './ui'
-import { Arrow, Check, Crown, Lock, Play } from './icons'
+import { Arrow, Check, Mail, Play } from './icons'
 
 export function Diary() {
   return (
@@ -43,42 +43,39 @@ export function Diary() {
         </ul>
         </div>
 
-        <MembersCard />
+        <NewsletterCard />
       </Container>
     </Section>
   )
 }
 
-function MembersCard() {
+function NewsletterCard() {
   const [sent, setSent] = useState(false)
   const submit = (e: FormEvent) => {
     e.preventDefault()
-    setSent(true) // TODO: conectar à ferramenta de e-mail (MailerLite/subscribepage) quando a área de membros existir
+    setSent(true) // TODO(dúvida Laura): conectar à página de inscrição da newsletter no MailerLite (mesma lista do rodapé)
   }
   return (
-    <aside id="membros" tw="flex flex-col rounded-[20px] bg-pine-800 p-7 text-white shadow-lift">
-      <div tw="flex items-center justify-between">
-        <p tw="flex items-center gap-2 font-sans text-[11px] font-semibold uppercase tracking-[.16em] text-white/85">
-          <Lock width={16} height={16} /> {members.eyebrow}
-        </p>
-        <span tw="rounded-full bg-sun-500 px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-wider">{members.note}</span>
-      </div>
-      <h3 tw="mt-4 font-serif text-[22px] font-bold leading-snug">{members.title}</h3>
+    <aside id="newsletter" tw="flex flex-col rounded-[20px] bg-pine-800 p-7 text-white shadow-lift">
+      <p tw="flex items-center gap-2 font-sans text-[11px] font-semibold uppercase tracking-[.16em] text-white/85">
+        <Mail width={16} height={16} /> {newsletter.eyebrow}
+      </p>
+      <h3 tw="mt-4 font-serif text-[22px] font-bold leading-snug">{newsletter.title}</h3>
       <ul tw="mt-4 flex flex-col gap-2">
-        {members.bullets.map((b) => (
+        {newsletter.bullets.map((b) => (
           <li key={b} tw="flex items-start gap-2 font-sans text-[13px] text-white/90">
             <Check tw="mt-0.5 shrink-0 text-sun-500" /> {b}
           </li>
         ))}
       </ul>
       {sent ? (
-        <p tw="mt-6 rounded-xl bg-white/10 p-4 font-sans text-[13px]">Pronto! Você vai ser uma das primeiras a saber quando abrir.</p>
+        <p tw="mt-6 rounded-xl bg-white/10 p-4 font-sans text-[13px]">{newsletter.sent}</p>
       ) : (
         <form onSubmit={submit} tw="mt-6 flex flex-col gap-3">
-          <label htmlFor="members-email" tw="sr-only">Seu e-mail</label>
-          <input id="members-email" type="email" required placeholder="Seu e-mail" tw="rounded-full border border-white/30 bg-white/10 px-4 py-2.5 font-sans text-[13px] text-white placeholder:text-white/60 focus:(outline-none border-white)" />
+          <label htmlFor="newsletter-email" tw="sr-only">Seu e-mail</label>
+          <input id="newsletter-email" type="email" required placeholder="Seu e-mail" tw="rounded-full border border-white/30 bg-white/10 px-4 py-2.5 font-sans text-[13px] text-white placeholder:text-white/60 focus:(outline-none border-white)" />
           <button type="submit" tw="inline-flex items-center justify-center gap-2 rounded-full border-[1.5px] border-white/80 px-5 py-2.5 font-sans text-[13px] font-semibold text-white transition hover:(bg-white text-pine-900)">
-            <Crown /> {members.cta}
+            <Mail width={18} height={18} /> {newsletter.cta}
           </button>
         </form>
       )}

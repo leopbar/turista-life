@@ -149,12 +149,12 @@ export const diary = {
   ],
 }
 
-export const members = {
-  eyebrow: 'Área de membros',
-  title: 'Os bastidores que não cabem nas redes',
-  bullets: ['Números e estratégias do mês, abertos', 'Guias e cupons exclusivos', 'Criação de conteúdo na prática', 'Comunidade de quem quer viver viajando'],
-  cta: 'Entrar na lista de espera',
-  note: 'Em breve',
+export const newsletter = {
+  eyebrow: 'Newsletter',
+  title: 'Inspiração de viagem direto no seu e-mail',
+  bullets: ['Dicas práticas e roteiros de viagem', 'Recomendações e cupons exclusivos', 'Lançamentos de guias em primeira mão', 'Bastidores da jornada que não vão para as redes'],
+  cta: 'Quero receber',
+  sent: 'Pronto! A próxima edição chega no seu e-mail.',
 }
 
 export const footer = {

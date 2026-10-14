@@ -26,7 +26,7 @@ const pages: SearchItem[] = [
   { id: 'p-produtos', group: 'Páginas', title: 'Produtos', subtitle: 'E-books, guias e materiais gratuitos', href: '/produtos', keywords: 'loja comprar ebook guia' },
   { id: 'p-recs', group: 'Páginas', title: 'Recomendações', subtitle: 'O que eu uso para viajar e trabalhar', href: '/recomendacoes', keywords: 'cupom desconto afiliado indicacoes' },
   { id: 'p-midia', group: 'Páginas', title: 'Parcerias', subtitle: 'Mídia kit e contato para marcas', href: '/parcerias', keywords: 'midia kit marcas parceria publicidade publi ugc contato comercial numeros seguidores' },
-  { id: 'p-membros', group: 'Páginas', title: 'Área de membros', subtitle: 'Em breve: lista de espera', href: '/#membros', keywords: 'membros exclusivo comunidade' },
+  { id: 'p-newsletter', group: 'Páginas', title: 'Newsletter', subtitle: 'Dicas, roteiros e cupons por e-mail', href: '/#newsletter', keywords: 'newsletter email e-mail inscrever novidades cupons dicas' },
   ...allMilestones.map((m) => ({
     id: `p-${m.id}`,
     group: 'Páginas' as const,
