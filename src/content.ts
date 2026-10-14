@@ -84,8 +84,8 @@ export const products: { eyebrow: string; title: string; text: string; items: Pr
       title: 'Como encontrar um trabalho na Austrália',
       text: 'Currículo australiano, sites que funcionam, setores que mais contratam brasileiros e a mentalidade certa.',
       note: '7 dias de garantia',
-      cta: 'Saiba mais',
-      href: 'https://pay.kiwify.com.br/a7BpARM',
+      cta: 'Conhecer o e-book',
+      href: '/produtos/trabalho-na-australia',
       cover: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' },
     },
     {
@@ -93,9 +93,8 @@ export const products: { eyebrow: string; title: string; text: string; items: Pr
       title: 'Guia de Bali',
       text: 'Tudo o que eu queria saber antes de passar dois meses na ilha: regiões, custos, transporte e cuidados.',
       note: 'R$ 49',
-      cta: 'Quero o guia',
-      // TODO(dúvida Laura): trocar pelo checkout da Kiwify quando o link existir
-      href: '/produtos#guia-bali',
+      cta: 'Conhecer o guia',
+      href: '/produtos/guia-de-bali',
       cover: { image: import.meta.env.BASE_URL + 'images/bali.jpg', top: 'Guia completo', title: 'Bali', tone: 'sun' },
     },
     {

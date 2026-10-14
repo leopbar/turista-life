@@ -2,8 +2,8 @@ import { useState, type FormEvent } from 'react'
 import tw from 'twin.macro'
 import { productsPage as page, type CatalogItem } from '../pagesContent'
 import { BookCover } from '../components/Products'
-import { Button, Container, CtaBand, Eyebrow, Lead, PageHero, Section, SmartLink, Title } from '../components/ui'
-import { Arrow, Check } from '../components/icons'
+import { Container, CtaBand, Eyebrow, Lead, PageHero, Section, SmartLink, Title } from '../components/ui'
+import { Arrow } from '../components/icons'
 
 const statusLabel: Record<CatalogItem['status'], string> = {
   available: 'Disponível',
@@ -15,62 +15,10 @@ const statusLabel: Record<CatalogItem['status'], string> = {
 export function ProductsPage() {
   const available = page.catalog.filter((p) => p.status === 'available')
   const upcoming = page.catalog.filter((p) => p.status === 'soon' || p.status === 'planned')
-  const f = page.featured
 
   return (
     <>
       <PageHero {...page.hero} />
-
-      {/* Destaque: e-book */}
-      <Section tone="cream">
-        <Container tw="grid items-center gap-12 lg:grid-cols-[minmax(0,380px)_1fr]">
-          <div tw="relative rounded-[24px] bg-mist py-12" className="group">
-            <BookCover cover={f.cover} large />
-            <span tw="absolute top-5 left-5 rounded-full bg-sun-500 px-3 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-wider text-white">
-              Mais vendido
-            </span>
-          </div>
-
-          <div tw="flex flex-col gap-5">
-            <Eyebrow>{f.kind}</Eyebrow>
-            <Title>{f.title}</Title>
-            <p tw="font-script text-[24px] leading-snug text-sun-600">{f.promise}</p>
-            <Lead>{f.text}</Lead>
-
-            <div tw="grid gap-6 pt-2 md:grid-cols-2">
-              <div>
-                <h3 tw="font-sans text-[13px] font-semibold uppercase tracking-[.14em] text-pine-800">É para você se</h3>
-                <ul tw="mt-3 flex flex-col gap-2.5">
-                  {f.forWho.map((t) => (
-                    <li key={t} tw="flex gap-2 font-sans text-[13.5px] leading-relaxed text-muted">
-                      <Check tw="mt-1 shrink-0 text-sun-500" /> {t}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3 tw="font-sans text-[13px] font-semibold uppercase tracking-[.14em] text-pine-800">O que você vai encontrar</h3>
-                <ol tw="mt-3 flex flex-col gap-2.5">
-                  {f.chapters.map((c, i) => (
-                    <li key={c} tw="flex gap-3 font-sans text-[13.5px] leading-relaxed text-ink">
-                      <span tw="font-serif text-[15px] font-bold text-sun-600 tabular-nums">{String(i + 1).padStart(2, '0')}</span> {c}
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </div>
-
-            <div tw="mt-2 flex flex-wrap items-center gap-4">
-              <Button variant="sun" href={f.cta.href}>
-                {f.cta.label} <Arrow />
-              </Button>
-              <span tw="inline-flex items-center gap-2 font-sans text-[13px] font-medium text-pine-700">
-                <Check /> {f.guarantee}
-              </span>
-            </div>
-          </div>
-        </Container>
-      </Section>
 
       {/* Disponíveis para compra: maior destaque */}
       <Section tone="mist" id="disponiveis" tw="scroll-mt-24">
@@ -161,16 +109,9 @@ function AvailableCard({ item }: { item: CatalogItem }) {
         <h3 tw="mt-0.5 font-serif text-[22px] font-bold leading-tight text-pine-900">{item.title}</h3>
         <p tw="mt-2 font-sans text-[13.5px] leading-relaxed text-muted">{item.text}</p>
         <div tw="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-5">
-          {item.href ? (
-            <SmartLink href={item.href} css={button}>
-              {item.cta} <Arrow />
-            </SmartLink>
-          ) : (
-            // TODO: sem link de compra ainda (ver dúvidas para a Laura)
-            <span css={button}>
-              {item.cta} <Arrow />
-            </span>
-          )}
+          <SmartLink href={item.page!} css={button}>
+            {item.cta} <Arrow />
+          </SmartLink>
           {item.price && <span tw="font-serif text-[24px] font-bold text-pine-900">{item.price}</span>}
         </div>
       </div>

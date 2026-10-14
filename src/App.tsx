@@ -6,7 +6,9 @@ import { AboutPage } from './pages/AboutPage'
 import { DiaryPage } from './pages/DiaryPage'
 import { HomePage } from './pages/HomePage'
 import { MediaKitPage } from './pages/MediaKitPage'
+import { ProductPage } from './pages/ProductPage'
 import { ProductsPage } from './pages/ProductsPage'
+import { productPages } from './pagesContent'
 import { RecommendationsPage } from './pages/RecommendationsPage'
 
 const titles: Record<string, string> = {
@@ -16,6 +18,7 @@ const titles: Record<string, string> = {
   '/parcerias': 'Parcerias · Turista Life',
   '/destinos': 'Destinos · Turista Life',
   '/sobre': 'Sobre mim · Turista Life',
+  ...Object.fromEntries(productPages.map((p) => [`/produtos/${p.slug}`, `${p.title} · Turista Life`])),
 }
 
 /** Ao trocar de página: vai ao topo, ou à âncora (/#sobre, /produtos#guia-bali). */
@@ -47,6 +50,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/produtos" element={<ProductsPage />} />
+          <Route path="/produtos/:slug" element={<ProductPage />} />
           <Route path="/recomendacoes" element={<RecommendationsPage />} />
           <Route path="/parcerias" element={<MediaKitPage />} />
           <Route path="/destinos" element={<DiaryPage />} />

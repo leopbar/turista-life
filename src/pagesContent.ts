@@ -19,6 +19,8 @@ export type CatalogItem = {
   /** Botão de compra dos produtos disponíveis. */
   cta?: string
   href?: string
+  /** Página individual do produto (ex.: "/produtos/guia-de-bali"); o botão do card leva até ela. */
+  page?: string
   /** Mensagem depois de entrar na lista de espera (padrão: "quando o {título} sair"). */
   notify?: string
   cover: Product['cover']
@@ -46,35 +48,11 @@ export const productsPage = {
   // TODO(dúvida Laura): página de inscrição no MailerLite (subscribepage.io) para a lista de espera.
   // Enquanto estiver vazio, o "Me avise" mostra a confirmação mas não guarda o e-mail.
   waitlistUrl: '',
-  featured: {
-    kind: 'E-book',
-    title: 'Como encontrar um trabalho na Austrália',
-    promise: '3 anos na Austrália. 5 áreas diferentes. Nenhuma semana desempregada.',
-    text: 'O e-book que eu gostaria de ter tido no meu primeiro dia em Sydney: os setores que mais contratam brasileiros, os sites que realmente funcionam e as estratégias para não perder tempo fazendo do jeito errado.',
-    forWho: [
-      'Você está pensando em trabalhar na Austrália e não sabe por onde começar.',
-      'Acabou de chegar e precisa do primeiro emprego antes de queimar a reserva.',
-      'Já está lá, mas travou num trabalho ruim e quer mudar de área.',
-      'Cansou de conselho genérico e quer ouvir de quem viveu o processo.',
-    ],
-    chapters: [
-      'O currículo australiano não é o que você pensa',
-      'Esqueça o que você sabe sobre procurar emprego',
-      'As plataformas de emprego: como usar sem depender delas',
-      'O inglês importa mais do que te falaram',
-      'Seus direitos como trabalhador',
-      'Mentalidade: a parte que ninguém ensina',
-    ],
-    guarantee: '7 dias de garantia',
-    cta: { label: 'Quero o e-book', href: 'https://pay.kiwify.com.br/a7BpARM' },
-    cover: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' } as Product['cover'],
-  },
   catalog: [
     {
       id: 'guia-bali', kind: 'Guia de destino', title: 'Guia de Bali',
       text: 'Dois meses na ilha resumidos: Canggu, Ubud, Gili, Nusa Penida e Uluwatu, quanto custa, como se locomover, cuidados com água e comida e o que vale (ou não) a pena.',
-      // TODO(dúvida Laura): link do checkout na Kiwify. Sem ele, o botão aparece mas não leva a lugar nenhum.
-      status: 'available', price: 'R$ 49', cta: 'Quero o guia',
+      status: 'available', price: 'R$ 49', cta: 'Conhecer o guia', page: '/produtos/guia-de-bali',
       cover: { image: import.meta.env.BASE_URL + 'images/bali.jpg', top: 'Guia completo', title: 'Bali', tone: 'sun' },
     },
     {
@@ -99,7 +77,7 @@ export const productsPage = {
     {
       id: 'ebook-australia', kind: 'E-book', title: 'Como encontrar um trabalho na Austrália',
       text: 'Currículo australiano, plataformas de emprego, direitos e mentalidade. 7 dias de garantia.',
-      status: 'available', cta: 'Quero o e-book', href: 'https://pay.kiwify.com.br/a7BpARM',
+      status: 'available', cta: 'Conhecer o e-book', page: '/produtos/trabalho-na-australia',
       cover: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' },
     },
     {
@@ -141,6 +119,88 @@ export const productsPage = {
     cta: { label: 'Quero o guia grátis', href: 'https://turista-life-laura-irigoyen-ifwilc.subscribepage.io/' },
   },
 }
+
+/* ------------------------------------------------------------------ */
+/* /produtos/:slug (página individual de cada produto pago)            */
+/* ------------------------------------------------------------------ */
+
+export type ProductPage = {
+  slug: string
+  kind: string
+  title: string
+  /** Frase de efeito, em letra cursiva. */
+  promise: string
+  text: string
+  forWho: string[]
+  chapters: string[]
+  /** Sem preço definido, a página mostra só o botão de compra. */
+  price?: string
+  guarantee?: string
+  /** Sem href, o botão aparece mas não leva a lugar nenhum (checkout pendente). */
+  buy: { label: string; href?: string }
+  faq: { q: string; a: string }[]
+  image: string
+  cover: Product['cover']
+}
+
+const [faqDelivery, faqGuarantee, faqVisa] = productsPage.faq
+
+export const productPages: ProductPage[] = [
+  {
+    slug: 'trabalho-na-australia',
+    kind: 'E-book',
+    title: 'Como encontrar um trabalho na Austrália',
+    promise: '3 anos na Austrália. 5 áreas diferentes. Nenhuma semana desempregada.',
+    text: 'O e-book que eu gostaria de ter tido no meu primeiro dia em Sydney: os setores que mais contratam brasileiros, os sites que realmente funcionam e as estratégias para não perder tempo fazendo do jeito errado.',
+    forWho: [
+      'Você está pensando em trabalhar na Austrália e não sabe por onde começar.',
+      'Acabou de chegar e precisa do primeiro emprego antes de queimar a reserva.',
+      'Já está lá, mas travou num trabalho ruim e quer mudar de área.',
+      'Cansou de conselho genérico e quer ouvir de quem viveu o processo.',
+    ],
+    chapters: [
+      'O currículo australiano não é o que você pensa',
+      'Esqueça o que você sabe sobre procurar emprego',
+      'As plataformas de emprego: como usar sem depender delas',
+      'O inglês importa mais do que te falaram',
+      'Seus direitos como trabalhador',
+      'Mentalidade: a parte que ninguém ensina',
+    ],
+    // TODO(dúvida Laura): preço do e-book (PRO-08 / PRO-18).
+    guarantee: '7 dias de garantia',
+    buy: { label: 'Quero o e-book', href: 'https://pay.kiwify.com.br/a7BpARM' },
+    faq: [faqDelivery, faqGuarantee, faqVisa],
+    image: import.meta.env.BASE_URL + 'images/sydney.jpg',
+    cover: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' },
+  },
+  {
+    // TODO(dúvida Laura): frase, "para quem" e "o que vai encontrar" são provisórios, montados a partir da descrição do guia.
+    slug: 'guia-de-bali',
+    kind: 'Guia de destino',
+    title: 'Guia de Bali',
+    promise: 'Dois meses na ilha, resumidos para você aproveitar sem perrengue.',
+    text: 'Tudo o que eu queria saber antes de passar dois meses em Bali: qual região combina com você, quanto custa de verdade, como se locomover, os cuidados com água e comida e o que vale (ou não) a pena.',
+    forWho: [
+      'Você vai para Bali pela primeira vez e não sabe qual região escolher.',
+      'Quer saber quanto vai gastar de verdade antes de fechar a viagem.',
+      'Quer evitar os perrengues mais comuns com transporte, água e comida.',
+      'Prefere a visão de quem morou dois meses na ilha a um roteiro genérico.',
+    ],
+    chapters: [
+      'Canggu, Ubud, Gili, Nusa Penida e Uluwatu: o perfil de cada região',
+      'Quanto custa: hospedagem, comida e passeios',
+      'Como se locomover pela ilha',
+      'Cuidados com água e comida',
+      'O que vale (e o que não vale) a pena',
+    ],
+    price: 'R$ 49',
+    // TODO(dúvida Laura): garantia de 7 dias vale para o guia? E o link do checkout na Kiwify.
+    buy: { label: 'Quero o guia' },
+    faq: [faqDelivery],
+    image: import.meta.env.BASE_URL + 'images/bali.jpg',
+    cover: { image: import.meta.env.BASE_URL + 'images/bali.jpg', top: 'Guia completo', title: 'Bali', tone: 'sun' },
+  },
+]
 
 /* ------------------------------------------------------------------ */
 /* /recomendacoes                                                      */
