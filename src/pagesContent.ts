@@ -310,24 +310,57 @@ export const mediaKit = {
     { title: 'Do que eles gostam', text: 'Viagem com orçamento real, vida no exterior, Austrália, Sudeste Asiático, finanças de viagem e renda online.' },
     { title: 'Por que confiam', text: 'Eu mostro o que dá certo e o que dá errado, inclusive quanto ganho e gasto. Só recomendo o que uso.' },
   ],
-  pillars: [
-    { title: 'Viagem sem filtro', text: 'Vlogs pela Ásia mostrando a realidade dos destinos: custos, perrengues e o que vale a pena.', image: import.meta.env.BASE_URL + 'images/v-nusa.jpg' },
-    { title: 'Vida no exterior', text: 'Austrália, Working Holiday, trabalho e o dia a dia de quem mora fora.', image: import.meta.env.BASE_URL + 'images/v-sydney.jpg' },
-    { title: 'Liberdade geográfica', text: 'A série mensal "tentando viver da internet", com metas e números abertos.', image: import.meta.env.BASE_URL + 'images/work.jpg' },
+  /* Blocos de audiência (MID-06): ficam ocultos enquanto `items` estiver vazio.
+     Preencher quando a Laura enviar os dados. Ex.: { value: '62%', label: 'mulheres', note: 'Instagram' } */
+  audienceData: [
+    { title: 'Principais países', items: [] as { value: string; label: string; note?: string }[] },
+    { title: 'Principais cidades', items: [] as { value: string; label: string; note?: string }[] },
+    { title: 'Faixa etária', items: [] as { value: string; label: string; note?: string }[] },
+    { title: 'Gênero', items: [] as { value: string; label: string; note?: string }[] },
+    { title: 'Alcance recente', items: [] as { value: string; label: string; note?: string }[] },
   ],
-  formats: [
-    { title: 'Reels e TikTok', text: 'Vídeos curtos integrados ao conteúdo de viagem.' },
-    { title: 'Vídeo no YouTube', text: 'Inserção dentro dos vlogs ou vídeo dedicado.' },
-    { title: 'Stories', text: 'Sequências de uso real durante a viagem, com link.' },
-    { title: 'UGC', text: 'Conteúdo para a marca usar nos próprios canais e anúncios.' },
-    { title: 'Parcerias recorrentes', text: 'Contratos de 3 a 6 meses acompanhando a jornada.' },
-    { title: 'Experiências e permutas', text: 'Passeios, hospedagens e serviços vividos e mostrados na prática.' },
+  pillars: [
+    {
+      title: 'Viagem sem filtro',
+      text: 'Vlogs pela Ásia mostrando a realidade dos destinos: custos, perrengues e o que vale a pena.',
+      brands: 'passeios, hospedagem, seguro viagem, companhias aéreas e equipamentos de viagem.',
+      image: import.meta.env.BASE_URL + 'images/v-nusa.jpg',
+    },
+    {
+      title: 'Vida no exterior',
+      text: 'Austrália, Working Holiday, trabalho e o dia a dia de quem mora fora.',
+      brands: 'intercâmbio e educação, contas globais e câmbio, serviços para quem mora fora.',
+      image: import.meta.env.BASE_URL + 'images/v-sydney.jpg',
+    },
+    {
+      title: 'Liberdade geográfica',
+      text: 'A série mensal "tentando viver da internet", com metas e números abertos.',
+      brands: 'trabalho remoto, ferramentas digitais, cursos online e finanças.',
+      image: import.meta.env.BASE_URL + 'images/work.jpg',
+    },
+  ],
+  formatGroups: [
+    {
+      title: 'Conteúdo nas minhas redes sociais',
+      text: 'Sua marca aparece para a minha audiência, integrada ao conteúdo de viagem.',
+      items: ['Reels e TikTok', 'Stories', 'Integrações em vídeos no YouTube'],
+    },
+    {
+      title: 'Produção de conteúdo para marcas',
+      text: 'Conteúdo exclusivo para a sua marca usar nos próprios canais, sem precisar ser publicado nas minhas redes.',
+      items: ['UGC', 'Conteúdos para anúncios pagos, mediante condições específicas de uso'],
+    },
+    {
+      title: 'Projetos personalizados',
+      text: 'Formatos sob medida para objetivos maiores.',
+      items: ['Campanhas', 'Experiências e hospedagens', 'Parcerias recorrentes', 'Projetos especiais'],
+    },
   ],
   fits: ['Contas globais e câmbio', 'Passeios e turismo', 'Hospedagem', 'Seguro viagem', 'Intercâmbio e educação', 'Equipamentos de viagem', 'Trabalho remoto', 'Companhias aéreas'],
   steps: [
     { title: 'Conversa', text: 'Você me conta o objetivo da campanha.' },
     { title: 'Proposta', text: 'Envio formatos, datas e valores sob medida.' },
-    { title: 'Produção', text: 'Crio o conteúdo no destino em que eu estiver.' },
+    { title: 'Produção', text: 'Produzo o conteúdo combinado. UGC e materiais exclusivos podem ser feitos de qualquer lugar.' },
     { title: 'Relatório', text: 'Você recebe os resultados da campanha.' },
   ],
   contact: {

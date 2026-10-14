@@ -60,6 +60,9 @@ export function MediaKitPage() {
         </Container>
       </Section>
 
+      {/* Audiência em números (aparece só quando houver dados) */}
+      <AudienceData />
+
       {/* Pilares */}
       <Section tone="mist">
         <Container tw="flex flex-col gap-8">
@@ -76,6 +79,9 @@ export function MediaKitPage() {
                 <div tw="p-5">
                   <h3 tw="font-serif text-[20px] font-bold text-ink">{p.title}</h3>
                   <p tw="mt-2 font-sans text-[13.5px] leading-relaxed text-muted">{p.text}</p>
+                  <p tw="mt-4 border-t border-line pt-4 font-sans text-[13px] leading-relaxed text-ink">
+                    <strong tw="font-semibold text-sun-600">Para marcas de:</strong> {p.brands}
+                  </p>
                 </div>
               </article>
             ))}
@@ -83,30 +89,35 @@ export function MediaKitPage() {
         </Container>
       </Section>
 
-      {/* Formatos + marcas que combinam */}
+      {/* Formatos em 3 grupos + marcas que combinam */}
       <Section tone="cream">
-        <Container tw="grid gap-12 lg:grid-cols-[1fr_minmax(0,360px)]">
-          <div tw="flex flex-col gap-8">
-            <div tw="flex flex-col gap-3">
-              <Eyebrow>Formatos</Eyebrow>
-              <Title>Como podemos trabalhar juntos</Title>
-            </div>
-            <ul tw="grid gap-4 sm:grid-cols-2">
-              {kit.formats.map((f) => (
-                <li key={f.title} tw="flex gap-3 rounded-[16px] border border-line bg-white p-5">
-                  <span tw="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-sun-500/10 text-sun-600"><Check /></span>
-                  <div>
-                    <h3 tw="font-sans text-[14px] font-semibold text-pine-900">{f.title}</h3>
-                    <p tw="mt-1 font-sans text-[13px] leading-relaxed text-muted">{f.text}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+        <Container tw="flex flex-col gap-8">
+          <div tw="flex flex-col gap-3">
+            <Eyebrow>Formatos</Eyebrow>
+            <Title>Como podemos trabalhar juntos</Title>
           </div>
-          <aside tw="self-start rounded-[20px] bg-pine-800 p-7 text-white shadow-lift">
-            <p tw="font-script text-[26px] leading-none text-sun-500">Combina com</p>
-            <h2 tw="mt-2 font-serif text-[22px] font-bold">Marcas de viagem, dinheiro e trabalho remoto</h2>
-            <ul tw="mt-5 flex flex-wrap gap-2">
+          <div tw="grid gap-5 lg:grid-cols-3">
+            {kit.formatGroups.map((g) => (
+              <article key={g.title} tw="flex flex-col rounded-[18px] border border-line bg-white p-6">
+                <h3 tw="font-serif text-[20px] font-bold leading-snug text-pine-900">{g.title}</h3>
+                <p tw="mt-2 font-sans text-[13.5px] leading-relaxed text-muted">{g.text}</p>
+                <ul tw="mt-5 flex flex-col gap-3 border-t border-line pt-5">
+                  {g.items.map((item) => (
+                    <li key={item} tw="flex items-start gap-3 font-sans text-[14px] leading-snug text-ink">
+                      <span tw="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-sun-500/10 text-sun-600"><Check width={14} height={14} /></span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <aside tw="flex flex-col gap-4 rounded-[20px] bg-pine-800 p-7 text-white shadow-lift lg:flex-row lg:items-center lg:gap-8">
+            <div tw="shrink-0">
+              <p tw="font-script text-[26px] leading-none text-sun-500">Combina com</p>
+              <h2 tw="mt-2 font-serif text-[22px] font-bold lg:max-w-[300px]">Marcas de viagem, dinheiro e trabalho remoto</h2>
+            </div>
+            <ul tw="flex flex-wrap gap-2">
               {kit.fits.map((f) => (
                 <li key={f} tw="rounded-full bg-white/10 px-3 py-1.5 font-sans text-[12.5px] text-white/90">{f}</li>
               ))}
@@ -139,6 +150,40 @@ export function MediaKitPage() {
 
       <Contact />
     </>
+  )
+}
+
+function AudienceData() {
+  const groups = kit.audienceData.filter((g) => g.items.length > 0)
+  if (groups.length === 0) return null
+  return (
+    <Section tone="white">
+      <Container tw="flex flex-col gap-8">
+        <div tw="flex flex-col gap-3">
+          <Eyebrow>Audiência</Eyebrow>
+          <Title>Quem assiste ao meu conteúdo</Title>
+        </div>
+        <div tw="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {groups.map((g) => (
+            <div key={g.title} tw="overflow-hidden rounded-[20px] bg-white shadow-lift">
+              <h3 tw="border-b border-line px-6 py-4 font-sans text-[12px] font-semibold uppercase tracking-[.14em] text-pine-800">{g.title}</h3>
+              <ul tw="grid grid-cols-2">
+                {g.items.map((it, i) => (
+                  <li
+                    key={it.label}
+                    css={[tw`flex flex-col gap-1 p-6`, i % 2 === 1 && tw`border-l border-line`, i >= 2 && tw`border-t border-line`]}
+                  >
+                    <span tw="font-serif text-[1.9rem] font-bold leading-none text-pine-800 tabular-nums">{it.value}</span>
+                    <span tw="mt-1 font-sans text-[13px] font-medium text-ink">{it.label}</span>
+                    {it.note && <span tw="font-sans text-[12px] text-muted">{it.note}</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </Section>
   )
 }
 

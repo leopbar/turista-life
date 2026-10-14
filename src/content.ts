@@ -143,7 +143,7 @@ export const brands = {
   eyebrow: 'Para marcas',
   title: 'Vamos construir algo incrível juntos?',
   text:
-    'Uma comunidade de brasileiros que sonham em viajar, morar fora e trabalhar de qualquer lugar. Conteúdo real, sem romantizar, e recomendações em que a audiência confia.',
+    'Turista Life é um projeto de criação de conteúdo para quem quer viajar, morar fora e trabalhar de qualquer lugar. Para marcas, produzo vídeos, UGC e campanhas que falam com uma audiência engajada e que confia nas minhas recomendações.',
   stats: [
     { icon: 'ig', value: '110 mil', label: 'seguidores no Instagram' },
     { icon: 'play', value: '3,4 mi', label: 'views no vídeo mais visto' },
