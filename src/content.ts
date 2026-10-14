@@ -29,7 +29,7 @@ export const hero = {
     'Eu sou a Laura! Depois de mais de 3 anos vivendo na Austrália, decidi explorar o mundo enquanto construo minha liberdade geográfica. Aqui compartilho os bastidores dessa jornada, sem romantizar, além de guias dos destinos por onde já passei, dicas práticas e ferramentas para você viajar também.',
   cta: { label: 'Explore os destinos', href: '/destinos' },
   story: { label: 'Assista o começo da história', href: yt('pwwxtfpaVNs') },
-  signature: ['O momento', 'certo é', 'agora.'],
+  signature: ['O mundo', 'pode ser', 'sua casa.'],
   image: import.meta.env.BASE_URL + 'images/hero.jpg',
 }
 
