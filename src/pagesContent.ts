@@ -321,7 +321,7 @@ const recCategories: RecCategory[] = [
   {
     id: 'passagens', title: 'Passagens aéreas', label: 'Passagens aéreas', icon: 'plane',
     items: [
-      { brand: { name: 'Agência de viagens' }, image: img('diario/partida-1.jpg'), position: '38% 30%', title: 'Passagens aéreas mais baratas', why: 'Onde eu compro as passagens da viagem. Dica: às vezes duas conexões saem mais barato que o voo direto.', cta: 'Ver ofertas', href: 'https://agencia.iddas.com.br/so/eyzdkw13', featured: true },
+      { brand: { name: 'Seu Destino Agência de Viagens', logo: logo('seu-destino.png') }, image: img('diario/partida-1.jpg'), position: '38% 30%', title: 'Passagens aéreas mais baratas', why: 'Onde eu compro as passagens da viagem. Dica: às vezes duas conexões saem mais barato que o voo direto.', cta: 'Ver ofertas', href: 'https://agencia.iddas.com.br/so/eyzdkw13', featured: true },
     ],
   },
   {
@@ -343,7 +343,7 @@ const recCategories: RecCategory[] = [
   {
     id: 'australia', title: 'Para quem vai para a Austrália', label: 'Austrália', icon: 'passport',
     items: [
-      { brand: { name: 'Assessoria de imigração' }, image: img('diario/sydney-2.jpg'), position: '50% 30%', title: 'Agente de imigração', why: 'O time que acompanhou o meu processo do início ao fim e me ajudou quando meu visto deu problema. Recomendo de olhos fechados.', cta: 'Agendar conversa', href: 'https://calendly.com/d/cxwy-bw6-hsr' },
+      { brand: { name: 'Healy Daloia Group', logo: logo('healy-daloia.png') }, image: img('diario/sydney-2.jpg'), position: '50% 30%', title: 'Agente de imigração', why: 'O time que acompanhou o meu processo do início ao fim e me ajudou quando meu visto deu problema. Recomendo de olhos fechados.', cta: 'Agendar conversa', href: 'https://calendly.com/d/cxwy-bw6-hsr' },
       { brand: { name: 'E-book Turista Life' }, image: img('sydney.jpg'), place: 'Sydney e Cairns', title: 'E-book: trabalho na Austrália', why: 'Tudo o que eu aprendi conseguindo emprego em cinco áreas diferentes em Sydney e Cairns.', cta: 'Ver e-book', href: '/produtos' },
     ],
   },
