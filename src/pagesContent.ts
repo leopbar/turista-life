@@ -467,7 +467,7 @@ export const mediaKit = {
   steps: [
     { title: 'Conversa', text: 'Você me conta o objetivo da campanha.' },
     { title: 'Proposta', text: 'Envio formatos, datas e valores sob medida.' },
-    { title: 'Produção', text: 'Produzo o conteúdo combinado. UGC e materiais exclusivos podem ser feitos de qualquer lugar.' },
+    { title: 'Produção', text: 'Produzo o conteúdo combinado.' },
     { title: 'Relatório', text: 'Você recebe os resultados da campanha.' },
   ],
   contact: {
