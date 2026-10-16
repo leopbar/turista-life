@@ -87,6 +87,13 @@ export const productsPage = {
       status: 'soon', notify: 'Combinado! Você recebe um aviso assim que as consultorias abrirem.',
       cover: { image: import.meta.env.BASE_URL + 'images/work.jpg', top: 'Em breve', title: 'Consultoria', tone: 'pine' },
     },
+    {
+      // TODO(dúvida Laura): nome, texto e formato da comunidade são provisórios.
+      id: 'comunidade', kind: 'Comunidade', title: 'Comunidade Turista Life',
+      text: 'Um espaço para trocar experiências com quem também quer viajar, morar fora ou trabalhar de qualquer lugar, com conteúdos exclusivos e conversas comigo.',
+      status: 'soon', notify: 'Combinado! Você recebe um aviso assim que a comunidade abrir.',
+      cover: { image: import.meta.env.BASE_URL + 'images/v-sydney.jpg', top: 'Em breve', title: 'Comunidade', tone: 'sky' },
+    },
   ] as CatalogItem[],
   /** Materiais gratuitos: ficam fora do catálogo pago, em seção própria. */
   freeSection: {

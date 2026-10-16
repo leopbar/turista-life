@@ -44,7 +44,7 @@ export function ProductsPage() {
             <Title>{page.upcoming.title}</Title>
             <Lead>{page.upcoming.text}</Lead>
           </div>
-          <div tw="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div tw="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {upcoming.map((p) => (
               <UpcomingCard key={p.id} item={p} />
             ))}
