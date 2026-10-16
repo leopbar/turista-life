@@ -77,7 +77,7 @@ export const productsPage = {
     {
       id: 'ebook-australia', kind: 'E-book', title: 'Como encontrar um trabalho na Austrália',
       text: 'Currículo australiano, plataformas de emprego, direitos e mentalidade. 7 dias de garantia.',
-      status: 'available', cta: 'Conhecer o e-book', page: '/produtos/trabalho-na-australia',
+      status: 'available', price: 'R$ 67', cta: 'Conhecer o e-book', page: '/produtos/trabalho-na-australia',
       cover: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', top: 'E-book', title: 'Trabalho na Austrália', tone: 'pine' },
     },
     {
@@ -166,7 +166,7 @@ export const productPages: ProductPage[] = [
       'Seus direitos como trabalhador',
       'Mentalidade: a parte que ninguém ensina',
     ],
-    // TODO(dúvida Laura): preço do e-book (PRO-08 / PRO-18).
+    price: 'R$ 67',
     guarantee: '7 dias de garantia',
     buy: { label: 'Quero o e-book', href: 'https://pay.kiwify.com.br/a7BpARM' },
     faq: [faqDelivery, faqGuarantee, faqVisa],

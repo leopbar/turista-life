@@ -108,11 +108,16 @@ function AvailableCard({ item }: { item: CatalogItem }) {
         <p tw="font-sans text-[13px] text-muted">{item.kind}</p>
         <h3 tw="mt-0.5 font-serif text-[22px] font-bold leading-tight text-pine-900">{item.title}</h3>
         <p tw="mt-2 font-sans text-[13.5px] leading-relaxed text-muted">{item.text}</p>
-        <div tw="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-5">
+        <div tw="mt-auto flex flex-col items-start gap-3 pt-5">
+          {item.price && (
+            <p tw="flex flex-col">
+              <span tw="font-sans text-[11px] uppercase tracking-[.14em] text-muted">Valor</span>
+              <span tw="font-serif text-[24px] font-bold leading-tight text-pine-900">{item.price}</span>
+            </p>
+          )}
           <SmartLink href={item.page!} css={button}>
             {item.cta} <Arrow />
           </SmartLink>
-          {item.price && <span tw="font-serif text-[24px] font-bold text-pine-900">{item.price}</span>}
         </div>
       </div>
     </article>
