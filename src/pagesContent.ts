@@ -51,7 +51,7 @@ export const productsPage = {
   catalog: [
     {
       id: 'guia-bali', kind: 'Guia de destino', title: 'Guia de Bali',
-      text: 'Dois meses na ilha resumidos: Canggu, Ubud, Gili, Nusa Penida e Uluwatu, quanto custa, como se locomover, cuidados com água e comida e o que vale (ou não) a pena.',
+      text: 'Dois meses na ilha resumidos: Canggu, Ubud, Gili, Nusa Penida e Uluwatu, quanto custa, como se locomover, cuidados com água e comida e o que vale (ou não) a pena. 7 dias de garantia.',
       status: 'available', price: 'R$ 49', cta: 'Conhecer o guia', page: '/produtos/guia-de-bali',
       cover: { image: import.meta.env.BASE_URL + 'images/bali.jpg', top: 'Guia completo', title: 'Bali', tone: 'sun' },
     },
@@ -194,9 +194,9 @@ export const productPages: ProductPage[] = [
       'O que vale (e o que não vale) a pena',
     ],
     price: 'R$ 49',
-    // TODO(dúvida Laura): garantia de 7 dias vale para o guia? E o link do checkout na Kiwify.
-    buy: { label: 'Quero o guia' },
-    faq: [faqDelivery],
+    guarantee: '7 dias de garantia',
+    buy: { label: 'Quero o guia', href: 'https://pay.kiwify.com.br/2niMQP6' },
+    faq: [faqDelivery, faqGuarantee],
     image: import.meta.env.BASE_URL + 'images/bali.jpg',
     cover: { image: import.meta.env.BASE_URL + 'images/bali.jpg', top: 'Guia completo', title: 'Bali', tone: 'sun' },
   },
