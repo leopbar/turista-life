@@ -37,7 +37,7 @@ export const productsPage = {
   /** Produtos à venda: aparecem antes e com mais destaque que os próximos lançamentos. */
   available: {
     eyebrow: 'Disponíveis agora',
-    title: 'Pronto para baixar',
+    title: 'Prontos para te ajudar',
     text: 'Materiais completos, que você compra hoje e recebe na hora no seu e-mail.',
   },
   upcoming: {
