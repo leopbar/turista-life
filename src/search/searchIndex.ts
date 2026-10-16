@@ -6,7 +6,7 @@ import { allMilestones, allStops, countries, diaryPage, ytUrl } from '../diaryCo
 import { mediaKit, productsPage, recsPage } from '../pagesContent'
 import { articles, categoryLabel, countryName, destinationById, destinations } from '../blog/blogData'
 
-export type SearchGroup = 'Páginas' | 'Blog' | 'Destinos' | 'Produtos' | 'Recomendações' | 'Vídeos' | 'Dúvidas'
+export type SearchGroup = 'Páginas' | 'Blog' | 'Diário' | 'Produtos' | 'Recomendações' | 'Vídeos' | 'Dúvidas'
 
 export type SearchItem = {
   id: string
@@ -18,12 +18,12 @@ export type SearchItem = {
   keywords?: string
 }
 
-export const GROUP_ORDER: SearchGroup[] = ['Páginas', 'Blog', 'Destinos', 'Produtos', 'Recomendações', 'Vídeos', 'Dúvidas']
+export const GROUP_ORDER: SearchGroup[] = ['Páginas', 'Blog', 'Diário', 'Produtos', 'Recomendações', 'Vídeos', 'Dúvidas']
 
 const pages: SearchItem[] = [
   { id: 'p-home', group: 'Páginas', title: 'Início', subtitle: 'Página inicial', href: '/', keywords: 'home turista life laura' },
   { id: 'p-sobre', group: 'Páginas', title: 'Sobre mim', subtitle: 'A história da Laura', href: '/sobre', keywords: 'laura irigoyen porto alegre historia quem turismo working holiday' },
-  { id: 'p-diario', group: 'Páginas', title: 'Destinos', subtitle: 'A rota, os guias por país e os vídeos', href: '/destinos', keywords: 'diario de bordo blog jornada viagem mapa rota timeline linha do tempo episodio' },
+  { id: 'p-diario', group: 'Páginas', title: 'Diário', subtitle: 'A rota, os guias por país e os vídeos', href: '/diario', keywords: 'diario de bordo blog jornada viagem mapa rota timeline linha do tempo episodio' },
   { id: 'p-blog', group: 'Páginas', title: 'Blog', subtitle: 'Guias, dicas e custos por destino', href: '/blog', keywords: 'artigos posts dicas roteiro quanto custa onde ficar transporte' },
   { id: 'p-produtos', group: 'Páginas', title: 'Produtos', subtitle: 'E-books, guias e materiais gratuitos', href: '/produtos', keywords: 'loja comprar ebook guia' },
   { id: 'p-recs', group: 'Páginas', title: 'Recomendações', subtitle: 'O que eu uso para viajar e trabalhar', href: '/recomendacoes', keywords: 'cupom desconto afiliado indicacoes' },
@@ -34,7 +34,7 @@ const pages: SearchItem[] = [
     group: 'Páginas' as const,
     title: `Fechamento do ${m.month.split(' · ')[0]}`,
     subtitle: `Quanto ganhei em ${m.month.split(' · ')[1]}`,
-    href: `/destinos#${m.id}`,
+    href: `/diario#${m.id}`,
     keywords: 'renda dinheiro ganhei liberdade geografica meta mes resultados',
   })),
 ]
@@ -42,20 +42,20 @@ const pages: SearchItem[] = [
 const destinationItems: SearchItem[] = [
   ...countries.map((c) => ({
     id: `c-${c.id}`,
-    group: 'Destinos' as const,
+    group: 'Diário' as const,
     title: c.name,
     subtitle: c.period,
-    href: `/destinos#${c.id}`,
+    href: `/diario#${c.id}`,
     keywords: c.id === 'indonesia' ? 'bali' : '',
   })),
   ...allStops.map((s) => {
     const country = countries.find((c) => c.items.includes(s))
     return {
       id: `s-${s.id}`,
-      group: 'Destinos' as const,
+      group: 'Diário' as const,
       title: s.city,
       subtitle: `${country?.name ?? ''} · ${s.current ? 'onde estou agora' : s.stay}`,
-      href: `/destinos#${s.id}`,
+      href: `/diario#${s.id}`,
       keywords: `${country?.name ?? ''} ${s.highlights.join(' ')}`,
     }
   }),

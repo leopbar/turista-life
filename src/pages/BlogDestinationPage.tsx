@@ -124,7 +124,7 @@ export function BlogDestinationPage() {
               <ul tw="mt-4 flex flex-col divide-y divide-line">
                 {stops.map((s) => (
                   <li key={s!.id}>
-                    <Link to={`/destinos#${s!.id}`} className="group" tw="flex items-center justify-between gap-3 py-3 no-underline">
+                    <Link to={`/diario#${s!.id}`} className="group" tw="flex items-center justify-between gap-3 py-3 no-underline">
                       <span>
                         <span tw="block font-sans text-[14px] font-semibold text-pine-900">{s!.city}</span>
                         <span tw="block font-sans text-[12px] text-muted">{s!.stay}{s!.badge ? ` · ${s!.badge}` : ''}</span>

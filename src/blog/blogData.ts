@@ -110,7 +110,7 @@ export type Destination = {
   position?: string
   guide: GuideId
   recs: RecRef[]
-  /** Paradas da rota em /destinos (âncoras). */
+  /** Paradas da rota em /diario (âncoras). */
   stops: string[]
   videos: { id: string; title: string; duration?: string; poster: string; vertical?: boolean }[]
 }

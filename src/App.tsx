@@ -20,7 +20,7 @@ const titles: Record<string, string> = {
   '/produtos': 'Produtos · Turista Life',
   '/recomendacoes': 'Recomendações · Turista Life',
   '/parcerias': 'Parcerias · Turista Life',
-  '/destinos': 'Destinos · Turista Life',
+  '/diario': 'Diário · Turista Life',
   '/blog': 'Blog · Turista Life',
   ...Object.fromEntries(destinations.map((d) => [`/blog/destino/${d.id}`, `${d.name}: guia, dicas e vídeos · Turista Life`])),
   ...Object.fromEntries(articles.map((a) => [`/blog/${a.slug}`, `${a.title} · Turista Life`])),
@@ -42,7 +42,7 @@ function ScrollManager() {
   return null
 }
 
-/** Endereços antigos (/midia-kit, /diario) levam para os novos, mantendo a âncora. */
+/** Endereços antigos (/midia-kit, /destinos) levam para os novos, mantendo a âncora. */
 function Redirect({ to }: { to: string }) {
   const { hash } = useLocation()
   return <Navigate to={to + hash} replace />
@@ -60,12 +60,12 @@ export default function App() {
           <Route path="/produtos/:slug" element={<ProductPage />} />
           <Route path="/recomendacoes" element={<RecommendationsPage />} />
           <Route path="/parcerias" element={<MediaKitPage />} />
-          <Route path="/destinos" element={<DiaryPage />} />
+          <Route path="/diario" element={<DiaryPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/destino/:id" element={<BlogDestinationPage />} />
           <Route path="/blog/:slug" element={<BlogArticlePage />} />
           <Route path="/midia-kit" element={<Redirect to="/parcerias" />} />
-          <Route path="/diario" element={<Redirect to="/destinos" />} />
+          <Route path="/destinos" element={<Redirect to="/diario" />} />
           <Route path="/sobre" element={<AboutPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>

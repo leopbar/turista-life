@@ -21,7 +21,7 @@ export const nav = [
   { label: 'Produtos', href: '/produtos' },
   { label: 'Recomendações', href: '/recomendacoes' },
   { label: 'Parcerias', href: '/parcerias' },
-  { label: 'Destinos', href: '/destinos' },
+  { label: 'Diário', href: '/diario' },
   { label: 'Blog', href: '/blog' },
 ]
 
@@ -139,10 +139,10 @@ export const brands = {
 }
 
 export const diary = {
-  eyebrow: 'Destinos · Guia por país',
+  eyebrow: 'Diário · Guia por país',
   title: 'Dicas, roteiros e a vida real na estrada',
   text: 'Cada destino vira episódio: o que vale a pena, o que decepciona, quanto custa e como se virar sozinha.',
-  cta: { label: 'Ver todos os destinos', href: '/destinos' },
+  cta: { label: 'Ver o diário da viagem', href: '/diario' },
   posts: [
     { tag: 'Indonésia', title: 'A realidade dos lugares mais paradisíacos de Bali', image: import.meta.env.BASE_URL + 'images/v-nusa.jpg', href: yt('TtBuGZLTSog') },
     { tag: 'Tailândia', title: 'Cheguei sozinha na Tailândia… e não era o que eu imaginava', image: import.meta.env.BASE_URL + 'images/v-bangkok.jpg', href: yt('Hc4nMTf6fDg') },

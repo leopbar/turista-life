@@ -5,7 +5,7 @@ import tw from 'twin.macro'
 import { GROUP_ORDER, POPULAR, search, type SearchItem } from './searchIndex'
 import { Arrow, Close, Pin, Play, Search } from '../components/icons'
 
-const groupIcon = (g: SearchItem['group']) => (g === 'Destinos' ? Pin : g === 'Vídeos' ? Play : Arrow)
+const groupIcon = (g: SearchItem['group']) => (g === 'Diário' ? Pin : g === 'Vídeos' ? Play : Arrow)
 
 /** Busca com sugestões enquanto digita. Abre pela lupa do cabeçalho ou com Ctrl+K / "/". */
 export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
