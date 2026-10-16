@@ -9,24 +9,28 @@ const rise = (delay: number) => css`animation: rise .8s ${delay}s cubic-bezier(.
 
 export function Hero() {
   return (
-    <section id="inicio" tw="relative flex min-h-[620px] items-center overflow-hidden bg-pine-950 pt-24 pb-16 sm:min-h-[680px]">
+    // Até lg (1023px): foto em faixa própria no topo (340px) e o texto abaixo, para o texto não cobrir o rosto da Laura.
+    // A partir de lg: foto de fundo com o texto à esquerda.
+    <section id="inicio" tw="relative overflow-hidden bg-pine-950 pb-12 lg:(flex min-h-[680px] items-center pt-24 pb-16)">
       <img
         src={hero.image}
-        alt="Broken Beach, em Nusa Penida, gravada pela Laura na viagem por Bali"
-        tw="absolute inset-0 h-full w-full object-cover"
-        css={css`object-position: 70% 40%; animation: heroZoom 18s ease-out both;
+        alt="Laura sorrindo no mirante da Diamond Beach, em Nusa Penida, com o mar turquesa ao fundo"
+        tw="relative block h-[340px] w-full object-cover lg:(absolute inset-0 h-full)"
+        css={css`object-position: 70% 35%;
+          @media (min-width: 1024px) { object-position: 70% 40%; animation: heroZoom 18s ease-out both; }
           @keyframes heroZoom { from { transform: scale(1.08); } to { transform: scale(1); } }
           @media (prefers-reduced-motion: reduce) { animation: none; }`}
       />
       <div
         aria-hidden="true"
-        tw="absolute inset-0"
-        css={css`background:
-          linear-gradient(90deg, rgba(8,38,36,.88) 0%, rgba(8,38,36,.55) 42%, rgba(8,38,36,.05) 75%),
-          linear-gradient(180deg, rgba(8,38,36,.55) 0%, transparent 25%, transparent 80%, rgba(8,38,36,.4) 100%);`}
+        tw="absolute inset-x-0 top-0 h-[340px] lg:(inset-0 h-auto)"
+        css={css`background: linear-gradient(180deg, rgba(8,38,36,.55) 0%, transparent 30%);
+          @media (min-width: 1024px) { background:
+            linear-gradient(90deg, rgba(8,38,36,.88) 0%, rgba(8,38,36,.55) 42%, rgba(8,38,36,.05) 75%),
+            linear-gradient(180deg, rgba(8,38,36,.55) 0%, transparent 25%, transparent 80%, rgba(8,38,36,.4) 100%); }`}
       />
 
-      <Container tw="relative">
+      <Container tw="relative pt-8 lg:pt-0">
         <div tw="max-w-[560px]">
           <h1 tw="font-script text-[52px] leading-[1.02] text-white [text-wrap: balance] sm:text-[64px]" css={rise(0.1)}>
             {hero.title}
@@ -53,7 +57,7 @@ export function Hero() {
         </div>
       </Container>
 
-      <div tw="absolute right-6 bottom-10 hidden text-white md:block lg:right-14" aria-hidden="true">
+      <div tw="absolute right-6 bottom-10 hidden text-white lg:(block right-14)" aria-hidden="true">
         <p tw="font-script text-[32px] leading-[1.05] -rotate-6">
           {hero.signature.map((l, i) => (
             <span key={l} tw="block" css={css`padding-left: ${i * 18}px;`}>{l}</span>

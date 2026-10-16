@@ -33,7 +33,7 @@ export const hero = {
   cta: { label: 'Explore a Turista Life', href: '/blog' },
   story: { label: 'Assista o começo da história', href: yt('pwwxtfpaVNs') },
   signature: ['O mundo', 'pode ser', 'sua casa.'],
-  image: import.meta.env.BASE_URL + 'images/hero.jpg',
+  image: import.meta.env.BASE_URL + 'images/hero-laura.jpg',
 }
 
 export const about = {
