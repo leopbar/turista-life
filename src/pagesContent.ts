@@ -406,15 +406,16 @@ export const mediaKit = {
   about: {
     title: 'Quem é a Laura',
     paragraphs: [
-      'Gaúcha de Porto Alegre e formada em Turismo, morou 3 anos e meio em Sydney trabalhando com hospitalidade, hotelaria e numa agência de intercâmbio.',
-      'Em julho de 2026 deixou a vida estável para viajar o mundo sozinha e documentar, mês a mês, a construção de uma renda 100% online. Faz tudo sozinha: roteiro, gravação, edição e estratégia.',
+      'Sou gaúcha, formada em Turismo, e vivi três anos e meio na Austrália antes de começar a viajar o mundo sozinha.',
+      'Hoje, compartilho minha jornada construindo uma renda online enquanto exploro novos destinos, criando conteúdos sobre viagens, experiências reais, liberdade geográfica e ferramentas que facilitam a vida de quem quer conhecer o mundo.',
+      'Na Turista Life, transformo experiências em conteúdos autênticos, informativos e envolventes, conectando marcas a uma comunidade que busca viajar mais e viver com mais liberdade.',
     ],
     image: import.meta.env.BASE_URL + 'images/sydney.jpg',
   },
   audience: [
-    { title: 'Quem me acompanha', text: 'Brasileiros que moram fora ou querem morar, intercambistas e quem sonha com trabalho remoto.' },
-    { title: 'Do que eles gostam', text: 'Viagem com orçamento real, vida no exterior, Austrália, Sudeste Asiático, finanças de viagem e renda online.' },
-    { title: 'Por que confiam', text: 'Eu mostro o que dá certo e o que dá errado, inclusive quanto ganho e gasto. Só recomendo o que uso.' },
+    { title: 'Quem me acompanha', text: 'Brasileiros que sonham em viajar mais, morar fora ou construir uma vida com mais liberdade. Pessoas interessadas em intercâmbio, viagens solo, trabalho remoto e novas possibilidades de viver.' },
+    { title: 'Do que eles gostam', text: 'Viagens reais, destinos pelo mundo, custos, dicas práticas, vida no exterior e os bastidores de quem está construindo uma renda online para viver com liberdade geográfica.' },
+    { title: 'Por que confiam', text: 'Compartilho minhas experiências de forma autêntica, sem romantizar: mostro os acertos, os perrengues, quanto gasto e os desafios dessa jornada. Recomendo apenas produtos e serviços que realmente uso e fazem sentido para mim.' },
   ],
   /* Blocos de audiência (MID-06): ficam ocultos enquanto `items` estiver vazio.
      Preencher quando a Laura enviar os dados. Ex.: { value: '62%', label: 'mulheres', note: 'Instagram' } */
@@ -428,21 +429,21 @@ export const mediaKit = {
   pillars: [
     {
       title: 'Viagem sem filtro',
-      text: 'Vlogs pela Ásia mostrando a realidade dos destinos: custos, perrengues e o que vale a pena.',
-      brands: 'passeios, hospedagem, seguro viagem, companhias aéreas e equipamentos de viagem.',
+      text: 'Exploro destinos pelo mundo mostrando experiências reais, custos, roteiros, perrengues e descobertas de quem vive cada lugar de perto.',
+      brands: 'hospedagem, passeios, seguro viagem, companhias aéreas, eSIMs, equipamentos e serviços de viagem.',
       image: import.meta.env.BASE_URL + 'images/v-nusa.jpg',
     },
     {
-      title: 'Vida no exterior',
-      text: 'Austrália, Working Holiday, trabalho e o dia a dia de quem mora fora.',
-      brands: 'intercâmbio e educação, contas globais e câmbio, serviços para quem mora fora.',
-      image: import.meta.env.BASE_URL + 'images/v-sydney.jpg',
+      title: 'Liberdade geográfica',
+      text: 'Documento os bastidores de construir minha renda online enquanto viajo o mundo: estratégias, desafios, metas, resultados e aprendizados reais pelo caminho.',
+      brands: 'ferramentas digitais, tecnologia, trabalho remoto, empreendedorismo, educação online e serviços financeiros.',
+      image: import.meta.env.BASE_URL + 'images/work.jpg',
     },
     {
-      title: 'Liberdade geográfica',
-      text: 'A série mensal "tentando viver da internet", com metas e números abertos.',
-      brands: 'trabalho remoto, ferramentas digitais, cursos online e finanças.',
-      image: import.meta.env.BASE_URL + 'images/work.jpg',
+      title: 'Viagem solo feminina',
+      text: 'Viajo o mundo sozinha e compartilho os desafios, aprendizados e a liberdade de explorar novos destinos por conta própria, incentivando outras mulheres a viverem suas próprias experiências.',
+      brands: 'moda, beleza, autocuidado, segurança, tecnologia, acessórios e produtos para mulheres viajantes.',
+      image: import.meta.env.BASE_URL + 'images/hero-laura.jpg',
     },
   ],
   formatGroups: [
