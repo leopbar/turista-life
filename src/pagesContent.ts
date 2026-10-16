@@ -336,11 +336,16 @@ const recCategories: RecCategory[] = [
   {
     id: 'internet', title: 'Internet e eSIM', label: 'Internet e eSIM', icon: 'sim',
     items: [
-      { brand: { name: 'Saily', logo: logo('saily.svg') }, image: img('esim.jpg'), position: '50% 40%', title: 'eSIM para viajar conectada', why: 'Eu instalo antes de embarcar e já chego com internet, sem precisar procurar chip no aeroporto.', coupon: 'TURISTALIFE', cta: 'Ver planos', href: 'https://saily.tpm.li/jCyIGknB' },
+      { brand: { name: 'Saily', logo: logo('saily.svg') }, image: img('esim.jpg'), position: '50% 40%', title: 'eSIM para viajar conectada', why: 'Nunca me deixa na mão, tem sinal até nas ilhas.', coupon: 'TURISTALIFE', cta: 'Ver planos', href: 'https://saily.tpm.li/jCyIGknB' },
     ],
   },
   { id: 'seguros', title: 'Seguros de viagem', label: 'Seguros', icon: 'shield', items: [] },
-  { id: 'carro', title: 'Aluguel de carro', label: 'Aluguel de carro', icon: 'car', items: [] },
+  {
+    id: 'carro', title: 'Aluguel de carro', label: 'Aluguel de carro', icon: 'car',
+    items: [
+      { brand: { name: 'Trip.com', logo: logo('tripcom.svg') }, image: img('aluguel-carro.jpg'), position: '25% 50%', title: 'Aluguel de carro no mundo todo', why: 'A plataforma une muitos serviços e funciona perfeitamente para aluguel de carro em qualquer lugar do mundo.', cta: 'Ver carros', href: 'https://trip.tpm.li/p3wfxcAS' },
+    ],
+  },
   {
     id: 'australia', title: 'Para quem vai para a Austrália', label: 'Austrália', icon: 'passport',
     items: [
