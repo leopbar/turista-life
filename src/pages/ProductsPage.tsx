@@ -157,10 +157,10 @@ function FreeCard({ item }: { item: CatalogItem }) {
       <p tw="mt-2 font-sans text-[13px] leading-relaxed text-muted">{item.text}</p>
       <div tw="mt-auto pt-5">
         <SmartLink
-          href={item.href!}
+          href={item.page!}
           tw="inline-flex w-full items-center justify-center gap-2 rounded-full bg-pine-900 px-4 py-3 font-sans text-[13px] font-semibold text-white no-underline transition hover:bg-pine-700"
         >
-          Quero receber <Arrow />
+          {item.cta} <Arrow />
         </SmartLink>
       </div>
     </article>

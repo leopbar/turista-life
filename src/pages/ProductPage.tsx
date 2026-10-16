@@ -6,7 +6,7 @@ import { BookCover } from '../components/Products'
 import { Container, Eyebrow, Section, SmartLink, Title } from '../components/ui'
 import { Arrow, Check } from '../components/icons'
 
-/** Página individual de um produto pago, no modelo da antiga vitrine do e-book. */
+/** Página individual de um produto pago ou material gratuito, no modelo da antiga vitrine do e-book. */
 export function ProductPage() {
   const { slug } = useParams()
   const p = productPages.find((x) => x.slug === slug)
@@ -66,7 +66,7 @@ export function ProductPage() {
           </div>
           <div tw="flex flex-col gap-5">
             <Eyebrow>O que você vai encontrar</Eyebrow>
-            <Title>Por dentro {p.kind === 'E-book' ? 'do e-book' : 'do guia'}</Title>
+            <Title>Por dentro {p.kind === 'E-book' ? 'do e-book' : p.kind.startsWith('Checklist') ? 'do checklist' : 'do guia'}</Title>
             <ol tw="flex flex-col divide-y divide-line rounded-2xl bg-white px-5 shadow-card">
               {p.chapters.map((c, i) => (
                 <li key={c} tw="flex gap-4 py-4 font-sans text-[14.5px] leading-relaxed text-ink">
@@ -101,7 +101,7 @@ export function ProductPage() {
         </Section>
       )}
 
-      {/* Compra, repetida no fim da página */}
+      {/* Compra (ou inscrição, no material gratuito), repetida no fim da página */}
       <section tw="bg-cream py-16">
         <Container>
           <div tw="grid items-center gap-8 rounded-[24px] bg-pine-800 px-7 py-10 text-white sm:grid-cols-[auto_1fr] sm:px-12" className="group">
@@ -127,7 +127,9 @@ export function ProductPage() {
       >
         <div tw="min-w-0">
           <p tw="truncate font-sans text-[12px] text-muted">{p.title}</p>
-          {p.price ? (
+          {p.free ? (
+            <p tw="font-serif text-[20px] font-bold leading-tight text-pine-900">Grátis</p>
+          ) : p.price ? (
             <p tw="font-serif text-[20px] font-bold leading-tight text-pine-900">{p.price}</p>
           ) : (
             p.guarantee && <p tw="font-sans text-[13px] font-semibold text-pine-800">{p.guarantee}</p>
@@ -143,10 +145,10 @@ function BuyBox({ p }: { p: Page }) {
   return (
     <div tw="flex flex-col gap-3">
       <div tw="flex flex-wrap items-center gap-x-6 gap-y-4">
-        {p.price && (
+        {(p.free || p.price) && (
           <p tw="flex flex-col">
             <span tw="font-sans text-[12px] uppercase tracking-[.14em] text-white/70">Valor</span>
-            <span tw="font-serif text-[2.4rem] font-bold leading-none text-white">{p.price}</span>
+            <span tw="font-serif text-[2.4rem] font-bold leading-none text-white">{p.free ? 'Grátis' : p.price}</span>
           </p>
         )}
         <BuyButton p={p} />
@@ -157,7 +159,7 @@ function BuyBox({ p }: { p: Page }) {
             <Check tw="text-sun-500" /> {p.guarantee}
           </span>
         )}
-        <span>Pagamento pela Kiwify · acesso pelo seu e-mail</span>
+        <span>{p.free ? 'Sem custo · chega direto no seu e-mail' : 'Pagamento pela Kiwify · acesso pelo seu e-mail'}</span>
       </p>
     </div>
   )

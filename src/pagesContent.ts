@@ -105,13 +105,13 @@ export const productsPage = {
     {
       id: 'guia-liberdade', kind: 'Material gratuito', title: 'Guia Liberdade Geográfica',
       text: 'Os primeiros passos para construir uma carreira que você possa levar para qualquer lugar do mundo.',
-      status: 'free', href: 'https://turista-life-laura-irigoyen-ifwilc.subscribepage.io/',
+      status: 'free', cta: 'Conhecer o guia', page: '/produtos/guia-liberdade-geografica',
       cover: { image: import.meta.env.BASE_URL + 'images/work.jpg', top: 'Guia gratuito', title: 'Liberdade Geográfica', tone: 'sky' },
     },
     {
       id: 'checklist-australia', kind: 'Material gratuito', title: '5 coisas que eu faria diferente antes de ir para a Austrália',
       text: 'Checklist com cinco aprendizados que teriam me poupado tempo e dinheiro na chegada.',
-      status: 'free', href: 'https://turista-life-laura-irigoyen-nehwou.subscribepage.io/',
+      status: 'free', cta: 'Conhecer o checklist', page: '/produtos/checklist-australia',
       cover: { image: import.meta.env.BASE_URL + 'images/opera.jpg', top: 'Checklist', title: 'Austrália', tone: 'pine' },
     },
   ] as CatalogItem[],
@@ -128,7 +128,7 @@ export const productsPage = {
 }
 
 /* ------------------------------------------------------------------ */
-/* /produtos/:slug (página individual de cada produto pago)            */
+/* /produtos/:slug (página individual de cada produto e material grátis) */
 /* ------------------------------------------------------------------ */
 
 export type ProductPage = {
@@ -142,6 +142,8 @@ export type ProductPage = {
   chapters: string[]
   /** Sem preço definido, a página mostra só o botão de compra. */
   price?: string
+  /** Material gratuito: selo "Grátis" no lugar do preço e botão para a inscrição no MailerLite. */
+  free?: boolean
   guarantee?: string
   /** Sem href, o botão aparece mas não leva a lugar nenhum (checkout pendente). */
   buy: { label: string; href?: string }
@@ -151,6 +153,12 @@ export type ProductPage = {
 }
 
 const [faqDelivery, faqGuarantee, faqVisa] = productsPage.faq
+
+const faqFree = [
+  { q: 'É grátis mesmo?', a: 'Sim. Você só precisa deixar o seu nome e o seu e-mail, sem cartão e sem pegadinha.' },
+  { q: 'Como eu recebo?', a: 'Depois do cadastro, o material chega no seu e-mail. Se não aparecer em alguns minutos, confira a caixa de spam ou a aba Promoções.' },
+  { q: 'Vou receber outros e-mails?', a: 'Você passa a receber as novidades do Turista Life, como dicas e lançamentos de guias. Dá para sair da lista quando quiser, com um clique.' },
+]
 
 export const productPages: ProductPage[] = [
   {
@@ -206,6 +214,59 @@ export const productPages: ProductPage[] = [
     faq: [faqDelivery, faqGuarantee],
     image: import.meta.env.BASE_URL + 'images/bali.jpg',
     cover: { image: import.meta.env.BASE_URL + 'images/bali.jpg', top: 'Guia completo', title: 'Bali', tone: 'sun' },
+  },
+  {
+    // TODO(dúvida Laura): frase, "para quem" e "o que vai encontrar" são provisórios, montados a partir da descrição do material.
+    slug: 'guia-liberdade-geografica',
+    kind: 'Guia gratuito',
+    title: 'Guia Liberdade Geográfica',
+    promise: 'O primeiro passo para trabalhar de qualquer lugar do mundo.',
+    text: 'Os primeiros passos para construir uma carreira que você possa levar para qualquer lugar: o que eu aprendi saindo do Brasil, vivendo na Austrália e viajando pela Ásia enquanto trabalhava.',
+    forWho: [
+      'Você sonha em viajar ou morar fora, mas não sabe como manter uma renda.',
+      'Quer trabalhar de forma remota e não sabe por onde começar.',
+      'Sente que o seu trabalho atual te prende a um lugar só.',
+      'Quer um plano realista, sem promessa de dinheiro fácil.',
+    ],
+    chapters: [
+      'O que é liberdade geográfica (e o que ela não é)',
+      'Profissões e caminhos que dá para levar para qualquer lugar',
+      'Como começar sem largar tudo de uma vez',
+      'Organização financeira antes de sair do Brasil',
+      'Os primeiros passos para esta semana',
+    ],
+    free: true,
+    buy: { label: 'Quero receber', href: 'https://turista-life-laura-irigoyen-ifwilc.subscribepage.io/' },
+    faq: faqFree,
+    image: import.meta.env.BASE_URL + 'images/work.jpg',
+    cover: { image: import.meta.env.BASE_URL + 'images/work.jpg', top: 'Guia gratuito', title: 'Liberdade Geográfica', tone: 'sky' },
+  },
+  {
+    // TODO(dúvida Laura): frase, "para quem" e "o que vai encontrar" são provisórios, montados a partir da descrição do material.
+    slug: 'checklist-australia',
+    kind: 'Checklist gratuito',
+    title: '5 coisas que eu faria diferente antes de ir para a Austrália',
+    promise: 'Os aprendizados que teriam me poupado tempo e dinheiro.',
+    text: 'Depois de 3 anos e meio na Austrália, juntei num checklist as cinco coisas que eu faria diferente antes de embarcar, para você chegar mais preparado do que eu cheguei.',
+    forWho: [
+      'Você está planejando ir para a Austrália e quer evitar os erros mais comuns.',
+      'Já tem data para embarcar e quer revisar o que falta antes de ir.',
+      'Quer chegar com mais reserva e menos perrengue nas primeiras semanas.',
+      'Prefere aprender com a experiência de quem já viveu lá.',
+    ],
+    // TODO(dúvida Laura): os 5 itens reais do checklist.
+    chapters: [
+      'Planejamento financeiro antes de embarcar',
+      'Inglês: o que eu teria estudado antes',
+      'Documentos e currículo prontos antes de chegar',
+      'Onde morar nas primeiras semanas',
+      'A mentalidade para o primeiro emprego',
+    ],
+    free: true,
+    buy: { label: 'Quero receber', href: 'https://turista-life-laura-irigoyen-nehwou.subscribepage.io/' },
+    faq: faqFree,
+    image: import.meta.env.BASE_URL + 'images/opera.jpg',
+    cover: { image: import.meta.env.BASE_URL + 'images/opera.jpg', top: 'Checklist', title: 'Austrália', tone: 'pine' },
   },
 ]
 
