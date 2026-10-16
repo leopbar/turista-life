@@ -29,7 +29,7 @@ export const hero = {
   title: 'Viajar mais. Viver mais.',
   subtitle: 'Construir uma vida com liberdade.',
   text:
-    'Eu sou a Laura! Depois de mais de 3 anos vivendo na Austrália, decidi explorar o mundo enquanto construo minha liberdade geográfica. Aqui compartilho os bastidores dessa jornada, sem romantizar, além de guias dos destinos por onde já passei, dicas práticas e ferramentas para você viajar também.',
+    'Eu sou a Laura! Depois de mais de 3 anos vivendo na Austrália, decidi explorar o mundo enquanto construo minha renda online para viver com liberdade geográfica. Aqui compartilho os bastidores reais dessa jornada, sem romantizar, além de guias de viagem, dicas práticas e ferramentas para ajudar você a viajar também.',
   cta: { label: 'Explore a Turista Life', href: '/#sobre' },
   story: { label: 'Assista o começo da história', href: yt('pwwxtfpaVNs') },
   signature: ['O mundo', 'pode ser', 'sua casa.'],
