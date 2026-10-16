@@ -30,7 +30,7 @@ export const hero = {
   subtitle: 'Construir uma vida com liberdade.',
   text:
     'Eu sou a Laura! Depois de mais de 3 anos vivendo na Austrália, decidi explorar o mundo enquanto construo minha renda online para viver com liberdade geográfica. Aqui compartilho os bastidores reais dessa jornada, sem romantizar, além de guias de viagem, dicas práticas e ferramentas para ajudar você a viajar também.',
-  cta: { label: 'Explore a Turista Life', href: '/#sobre' },
+  cta: { label: 'Explore a Turista Life', href: '/blog' },
   story: { label: 'Assista o começo da história', href: yt('pwwxtfpaVNs') },
   signature: ['O mundo', 'pode ser', 'sua casa.'],
   image: import.meta.env.BASE_URL + 'images/hero.jpg',
