@@ -55,7 +55,7 @@ export function RecCard({ item, category, index = 0, wide = false }: { item: Rec
           </span>
         )}
         {item.place && (
-          <span tw="absolute bottom-3 right-4 inline-flex items-center gap-1 font-script text-[20px] leading-none text-white [text-shadow: 0 1px 6px rgba(0,0,0,.45)]">
+          <span tw="absolute right-4 top-4 inline-flex md:(top-auto bottom-3) items-center gap-1 font-script text-[20px] leading-none text-white [text-shadow: 0 1px 6px rgba(0,0,0,.45)]">
             <Pin width={14} height={14} /> {item.place}
           </span>
         )}
@@ -114,7 +114,7 @@ export function SoonCard({ category }: { category: RecCategory }) {
   )
 }
 
-const featured = recsPage.categories.flatMap((c) => c.items.filter((i) => i.featured).map((item) => ({ item, category: c.label })))
+const featured = recsPage.categories.flatMap((c) => c.items.filter((i) => i.featured && !i.hidden).map((item) => ({ item, category: c.label })))
 
 export function Recommendations() {
   return (

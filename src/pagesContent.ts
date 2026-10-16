@@ -290,6 +290,8 @@ export type RecItem = {
   href: string
   /** Aparece também na seção de recomendações da home. */
   featured?: boolean
+  /** Fora da página /recomendacoes (e da home e da busca); continua disponível para os artigos do blog. */
+  hidden?: boolean
 }
 
 export type RecCategory = {
@@ -309,37 +311,36 @@ const recCategories: RecCategory[] = [
   {
     id: 'dinheiro', title: 'Dinheiro e cartões internacionais', label: 'Dinheiro e cartões', icon: 'card',
     items: [
-      { brand: { name: 'Nomad', logo: logo('nomad.svg') }, image: img('diario/bangkok-2.jpg'), place: 'Bali e Tailândia', title: 'Conta global Nomad', why: 'O cartão que eu uso em tudo. Funcionou em todos os lugares de Bali e da Tailândia e desconta na moeda local.', perk: 'Até US$ 20 ou €20 de cashback na primeira conversão', coupon: 'TURISTALIFE', cta: 'Abrir minha conta', href: 'https://link.nomadglobal.com/wIQT/TURISTALIFE', featured: true },
+      { brand: { name: 'Nomad', logo: logo('nomad.svg') }, image: img('nomad-cartao.jpg'), position: '55% 45%', place: 'Aceito em mais de 180 países', title: 'Conta global Nomad', why: 'O cartão que eu uso em tudo. Funciona em todos os lugares de Bali e da Tailândia e desconta na moeda local.', perk: 'Até US$ 20 ou €20 de cashback na primeira conversão', coupon: 'TURISTALIFE', cta: 'Abrir minha conta', href: 'https://link.nomadglobal.com/wIQT/TURISTALIFE', featured: true },
     ],
   },
   {
     id: 'hospedagens', title: 'Hospedagens', label: 'Hospedagens', icon: 'bed',
     items: [
-      { brand: { name: 'Agoda', logo: logo('agoda.svg') }, image: img('diario/gili-1.jpg'), title: 'O hotel em que fiquei em Krabi', why: 'Um pouco acima da média que eu costumo pagar, mas pelo que entrega saiu barato. Eu levo horas lendo avaliações antes de reservar.', cta: 'Ver hotel', href: 'https://agoda.tpm.li/ws5fHCJo', featured: true },
+      { brand: { name: 'Agoda', logo: logo('agoda.svg') }, image: img('diario/gili-1.jpg'), title: 'Por onde eu reservo meus hotéis', why: 'A plataforma em que eu encontro os melhores preços de hospedagem.', cta: 'Reserve agora', href: 'https://agoda.tpm.li/8ZqW2yUX', featured: true },
     ],
   },
   {
     id: 'passagens', title: 'Passagens aéreas', label: 'Passagens aéreas', icon: 'plane',
     items: [
-      { brand: { name: 'Seu Destino Agência de Viagens', logo: logo('seu-destino.png') }, image: img('diario/partida-1.jpg'), position: '38% 30%', title: 'Passagens aéreas mais baratas', why: 'Onde eu compro as passagens da viagem. Dica: às vezes duas conexões saem mais barato que o voo direto.', cta: 'Ver ofertas', href: 'https://agencia.iddas.com.br/so/eyzdkw13', featured: true },
+      { brand: { name: 'Seu Destino Agência de Viagens', logo: logo('seu-destino.png') }, image: img('diario/partida-1.jpg'), position: '38% 30%', title: 'Passagens aéreas mais baratas', why: 'Eles normalmente conseguem preços muito mais vantajosos do que encontro sozinha. Além da economia, conto com o suporte da equipe durante todo o processo.', cta: 'Fazer uma cotação', href: 'https://agencia.iddas.com.br/so/eyzdkw13', featured: true },
     ],
   },
   {
     id: 'passeios', title: 'Passeios e experiências', label: 'Passeios', icon: 'ticket',
     items: [
       { brand: { name: 'GetYourGuide', logo: logo('getyourguide.svg') }, image: img('diario/ubud-2.jpg'), title: 'Passeios no mundo todo', why: 'Em lugares grandes eu prefiro ir com guia local: entendo a história e não fico perdida.', perk: 'Desconto com o cupom', coupon: 'TURISTALIFE5', cta: 'Ver passeios', href: 'https://gyg.me/turistalife-app', featured: true },
-      { brand: { name: 'GetYourGuide', logo: logo('getyourguide.svg') }, image: img('diario/bangkok-3.jpg'), place: 'Bangkok', title: 'Mercado do Trem + Mercado Flutuante', why: 'O passeio que eu fiz em Bangkok, com guia e saída de um ponto de encontro no centro. Vale muito a pena.', coupon: 'TURISTALIFE5', cta: 'Ver passeio', href: 'https://getyourguide.tpm.li/SKiGC8qK' },
+      { brand: { name: 'GetYourGuide', logo: logo('getyourguide.svg') }, image: img('diario/bangkok-3.jpg'), place: 'Bangkok', title: 'Mercado do Trem + Mercado Flutuante', why: 'O passeio que eu fiz em Bangkok, com guia e saída de um ponto de encontro no centro. Vale muito a pena.', coupon: 'TURISTALIFE5', cta: 'Ver passeio', href: 'https://getyourguide.tpm.li/SKiGC8qK', hidden: true },
     ],
   },
-  { id: 'internet', title: 'Internet e eSIM', label: 'Internet e eSIM', icon: 'sim', items: [] },
+  {
+    id: 'internet', title: 'Internet e eSIM', label: 'Internet e eSIM', icon: 'sim',
+    items: [
+      { brand: { name: 'Saily', logo: logo('saily.svg') }, image: img('esim.jpg'), position: '50% 40%', title: 'eSIM para viajar conectada', why: 'Eu instalo antes de embarcar e já chego com internet, sem precisar procurar chip no aeroporto.', coupon: 'TURISTALIFE', cta: 'Ver planos', href: 'https://saily.tpm.li/jCyIGknB' },
+    ],
+  },
   { id: 'seguros', title: 'Seguros de viagem', label: 'Seguros', icon: 'shield', items: [] },
   { id: 'carro', title: 'Aluguel de carro', label: 'Aluguel de carro', icon: 'car', items: [] },
-  {
-    id: 'renda', title: 'Trabalho e renda online', label: 'Renda online', icon: 'laptop',
-    items: [
-      { brand: { name: 'Hotmart', logo: logo('hotmart.svg') }, image: img('work.jpg'), title: 'Como estou aprendendo a ganhar dinheiro online', why: 'A formação que estou fazendo: são mais de 12 profissões que permitem trabalhar de qualquer lugar.', cta: 'Conhecer', href: 'https://go.hotmart.com/W105546619I' },
-    ],
-  },
   {
     id: 'australia', title: 'Para quem vai para a Austrália', label: 'Austrália', icon: 'passport',
     items: [

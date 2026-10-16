@@ -48,7 +48,7 @@ export const tailandiaArticles: Article[] = [
       { type: 'video', id: 'r2Crin2dNoA', title: 'O que eu queria saber antes de chegar em Bangkok', vertical: true, poster: img('bangkok-dicas-songwat') },
       { type: 'p', text: 'E uma coisa que me deixou tranquila: em nenhum momento eu me senti insegura em Bangkok, nem andando sozinha à noite. Muita gente chama a Tailândia de "Brasil da Ásia" e eu entendi o porquê: o povo é criativo, engraçado e receptivo.' },
       { type: 'guide', text: 'Estou preparando o Guia da Tailândia, com Bangkok, Chiang Mai e as praias do sul. Deixa o teu e-mail para saber quando sair.' },
-      { type: 'recs', items: [{ cat: 'passeios', i: 1 }, { cat: 'dinheiro', i: 0 }, { cat: 'internet' }] },
+      { type: 'recs', items: [{ cat: 'passeios', i: 1 }, { cat: 'dinheiro', i: 0 }, { cat: 'internet', i: 0 }] },
     ],
   },
   {
@@ -84,7 +84,7 @@ export const tailandiaArticles: Article[] = [
       { type: 'tip', title: 'Economiza os R$ 40 da roupa', text: 'Vai de calça leve ou saia comprida e leva uma camiseta ou um lenço para cobrir os ombros. Eles são bem rigorosos com o dress code.' },
       { type: 'video', id: 'KRsdL9T0z2s', title: 'Quanto custa conhecer os 3 templos de Bangkok?', vertical: true, poster: img('bangkok-templos-arun') },
       { type: 'guide', text: 'No Guia da Tailândia vão estar os custos de cada passeio, a melhor ordem para visitar os templos e onde ficar perto deles.' },
-      { type: 'recs', items: [{ cat: 'passeios', i: 0 }, { cat: 'dinheiro', i: 0 }, { cat: 'internet' }] },
+      { type: 'recs', items: [{ cat: 'passeios', i: 0 }, { cat: 'dinheiro', i: 0 }, { cat: 'internet', i: 0 }] },
     ],
   },
   {
@@ -149,7 +149,7 @@ export const tailandiaArticles: Article[] = [
       { type: 'video', id: 'Hc4nMTf6fDg', title: 'Cheguei SOZINHA na Tailândia… e não era o que eu imaginava' },
       { type: 'p', text: 'Mesmo com a chuva, uma semana em Bangkok foi o tempo ideal para mim. Dá para fazer os principais pontos com calma e ainda sobra tempo para se perder pelas ruas.' },
       { type: 'guide', text: 'No Guia da Tailândia vou contar a melhor época para cada região, uma coisa que eu aprendi do jeito difícil.' },
-      { type: 'recs', items: [{ cat: 'seguros' }, { cat: 'internet' }, { cat: 'passagens', i: 0 }] },
+      { type: 'recs', items: [{ cat: 'seguros' }, { cat: 'internet', i: 0 }, { cat: 'passagens', i: 0 }] },
     ],
   },
   {
@@ -182,7 +182,7 @@ export const tailandiaArticles: Article[] = [
       { type: 'h2', text: 'E Chiang Mai?' },
       { type: 'p', text: 'Depois do caos de Bangkok, Chiang Mai foi onde eu desacelerei. É uma cidade de montanha, histórica e cheia de templos, sem praia. Choveu tanto que eu quase não consegui gravar na rua, mas organizei ali toda a minha temporada de três meses pela Ásia. Quando recomendam 4 dias, eu fico 7: três para turistar e o resto para trabalhar.' },
       { type: 'guide', text: 'Chiang Mai e Chiang Rai vão estar no Guia da Tailândia, que estou preparando. Deixa o teu e-mail para saber quando sair.' },
-      { type: 'recs', items: [{ cat: 'passeios', i: 0 }, { cat: 'dinheiro', i: 0 }, { cat: 'internet' }] },
+      { type: 'recs', items: [{ cat: 'passeios', i: 0 }, { cat: 'dinheiro', i: 0 }, { cat: 'internet', i: 0 }] },
     ],
   },
 ]

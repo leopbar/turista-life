@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import tw from 'twin.macro'
-import { recsPage as page } from '../pagesContent'
+import { recsPage as page, type RecCategory } from '../pagesContent'
 import { RecCard, SoonCard } from '../components/Recommendations'
 import { Container, CtaBand, PageHero, Section, PlaneTrail } from '../components/ui'
 import { Check } from '../components/icons'
 
 const ALL = 'todas'
+const visible = (g: RecCategory) => g.items.filter((i) => !i.hidden)
 const fromHash = (hash: string) => (page.categories.some((c) => c.id === hash.slice(1)) ? hash.slice(1) : ALL)
 
 export function RecommendationsPage() {
@@ -64,7 +65,7 @@ export function RecommendationsPage() {
                   <span aria-hidden="true" tw="h-px flex-1 bg-line" />
                 </h2>
                 <div tw="mt-6 grid gap-5 md:grid-cols-2">
-                  {g.items.length ? g.items.map((item, i) => <RecCard key={item.title} item={item} index={i} wide={g.items.length === 1} />) : <SoonCard category={g} />}
+                  {visible(g).length ? visible(g).map((item, i) => <RecCard key={item.title} item={item} index={i} wide={visible(g).length === 1} />) : <SoonCard category={g} />}
                 </div>
               </section>
             ))}

@@ -90,7 +90,7 @@ export const baliArticles: Article[] = [
       ] },
       { type: 'tip', text: 'Em Uluwatu, eu economizei numa hospedagem mal localizada e gastei horrores de moto. Na hora de reservar, olha a localização com o mesmo cuidado que tu olha o preço.' },
       { type: 'guide', text: 'No Guia de Bali eu detalho o perfil de cada uma dessas regiões, quanto custa ficar em cada uma e como montar a tua rota.' },
-      { type: 'recs', items: [{ cat: 'hospedagens' }, { cat: 'dinheiro', i: 0 }, { cat: 'passagens', i: 0 }] },
+      { type: 'recs', items: [{ cat: 'hospedagens', i: 0 }, { cat: 'dinheiro', i: 0 }, { cat: 'passagens', i: 0 }] },
     ],
   },
   {
@@ -124,7 +124,7 @@ export const baliArticles: Article[] = [
       { type: 'h2', text: 'O que eu deixaria fora com pouco tempo' },
       { type: 'p', text: 'Com 15 dias, eu não ficaria mais de duas noites nas ilhas. E em Ubud, eu priorizaria os arrozais e os templos às cachoeiras com fila para foto. Chegar cedo em todos os pontos faz toda a diferença.' },
       { type: 'guide', text: 'Quer o roteiro com custos, transporte entre as regiões e os cuidados com água e comida? Está tudo no Guia de Bali.' },
-      { type: 'recs', items: [{ cat: 'passeios', i: 0 }, { cat: 'passagens', i: 0 }, { cat: 'internet' }] },
+      { type: 'recs', items: [{ cat: 'passeios', i: 0 }, { cat: 'passagens', i: 0 }, { cat: 'internet', i: 0 }] },
     ],
   },
   {
@@ -168,7 +168,7 @@ export const baliArticles: Article[] = [
       { type: 'img', image: { src: img('bali-custo-havaianas'), alt: 'Havaianas com etiqueta de preço numa loja de Uluwatu' }, caption: 'Compra tuas Havaianas no Brasil.' },
       { type: 'tip', title: 'Bali é barata?', text: 'É acessível, principalmente se tu ganha em outra moeda. Mas, pelo que eu pesquisei e vivi, Bali acaba sendo mais cara que outros países da Ásia justamente por causa do turismo. E Uluwatu foi a região mais cara de todas.' },
       { type: 'guide', text: 'No Guia de Bali eu organizei os custos de hospedagem, comida e passeios por região, para tu montar o teu orçamento antes de ir.' },
-      { type: 'recs', items: [{ cat: 'dinheiro', i: 0 }, { cat: 'passeios', i: 0 }, { cat: 'internet' }] },
+      { type: 'recs', items: [{ cat: 'dinheiro', i: 0 }, { cat: 'passeios', i: 0 }, { cat: 'internet', i: 0 }] },
     ],
   },
   {
@@ -203,7 +203,7 @@ export const baliArticles: Article[] = [
       { type: 'p', text: 'Em Nusa Penida não tem aplicativo: é táxi, com preço negociado. As estradas são esburacadas, íngremes e sem luz à noite. Por favor, não aluga moto para passear sozinho por lá: pega um guia com carro. Em Gili é o oposto: não tem carro nem moto a gasolina. É bicicleta, motinho elétrica ou charrete, e a volta na ilha tem uns 7 km, tudo plano.' },
       { type: 'video', id: 'TtBuGZLTSog', title: 'A realidade dos lugares mais paradisíacos de Bali' },
       { type: 'guide', text: 'No Guia de Bali tem como se locomover em cada região, quanto custa e como organizar os barcos entre as ilhas.' },
-      { type: 'recs', items: [{ cat: 'passeios', i: 0 }, { cat: 'internet' }, { cat: 'seguros' }] },
+      { type: 'recs', items: [{ cat: 'passeios', i: 0 }, { cat: 'internet', i: 0 }, { cat: 'seguros' }] },
     ],
   },
   {
@@ -312,7 +312,7 @@ export const baliArticles: Article[] = [
         'Ir com guia de carro em Nusa Penida em vez de alugar moto.',
       ] },
       { type: 'guide', text: 'O Guia de Bali foi feito exatamente para isso: tu chegar sabendo o que eu só aprendi errando.' },
-      { type: 'recs', items: [{ cat: 'dinheiro', i: 0 }, { cat: 'hospedagens' }, { cat: 'seguros' }] },
+      { type: 'recs', items: [{ cat: 'dinheiro', i: 0 }, { cat: 'hospedagens', i: 0 }, { cat: 'seguros' }] },
     ],
   },
   {

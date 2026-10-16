@@ -132,7 +132,7 @@ export const destinations: Destination[] = [
     ],
     image: blogImg('bali-regioes-nusa'),
     guide: 'guia-bali',
-    recs: [{ cat: 'dinheiro', i: 0 }, { cat: 'passeios', i: 0 }, { cat: 'passagens', i: 0 }, { cat: 'seguros' }, { cat: 'internet' }],
+    recs: [{ cat: 'dinheiro', i: 0 }, { cat: 'passeios', i: 0 }, { cat: 'passagens', i: 0 }, { cat: 'seguros' }, { cat: 'internet', i: 0 }],
     stops: ['canggu', 'ubud', 'gili', 'nusa-penida', 'uluwatu'],
     videos: [
       { id: 'qPqpePK8oFM', title: 'Larguei tudo pra tentar viver da internet! Essa é a realidade', duration: '30:19', poster: thumb('qPqpePK8oFM') },
@@ -156,7 +156,7 @@ export const destinations: Destination[] = [
     ],
     image: blogImg('bangkok-mercados-capa'),
     guide: 'guia-tailandia',
-    recs: [{ cat: 'passeios', i: 1 }, { cat: 'dinheiro', i: 0 }, { cat: 'passagens', i: 0 }, { cat: 'internet' }, { cat: 'seguros' }],
+    recs: [{ cat: 'passeios', i: 1 }, { cat: 'dinheiro', i: 0 }, { cat: 'passagens', i: 0 }, { cat: 'internet', i: 0 }, { cat: 'seguros' }],
     stops: ['bangkok'],
     videos: [
       { id: 'Hc4nMTf6fDg', title: 'Cheguei SOZINHA na Tailândia… e não era o que eu imaginava', duration: '41:00', poster: thumb('Hc4nMTf6fDg') },
@@ -179,7 +179,7 @@ export const destinations: Destination[] = [
     ],
     image: blogImg('chiang-rai-capa'),
     guide: 'guia-tailandia',
-    recs: [{ cat: 'passeios', i: 0 }, { cat: 'dinheiro', i: 0 }, { cat: 'internet' }],
+    recs: [{ cat: 'passeios', i: 0 }, { cat: 'dinheiro', i: 0 }, { cat: 'internet', i: 0 }],
     stops: ['chiang-mai'],
     videos: [{ id: 'GC5yz_90vIE', title: 'Os templos mais famosos da Tailândia me surpreenderam', poster: blogImg('chiang-rai-azul'), vertical: true }],
   },
