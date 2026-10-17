@@ -188,25 +188,21 @@ function NewItem({ def, onClose, onCreated }: { def: CollectionDef; onClose: () 
 /* ------------------------------------------------------------------ */
 
 const MONTHS = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
-const sameDay = (a: Date, b: Date) => a.toDateString() === b.toDateString()
 
-/** Data curta, como nas caixas de e-mail: "14:32", "Ontem", "17 out", "3 mar 2025". */
-function shortDate(iso: string) {
-  const onlyDate = /^\d{4}-\d{2}-\d{2}$/.test(iso)
-  const d = onlyDate ? new Date(`${iso}T12:00:00`) : parseDate(iso)
-  const now = new Date()
-  const yesterday = new Date(now)
-  yesterday.setDate(now.getDate() - 1)
-  if (sameDay(d, now)) return onlyDate ? 'Hoje' : d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
-  if (sameDay(d, yesterday)) return 'Ontem'
-  return `${d.getDate()} ${MONTHS[d.getMonth()]}${d.getFullYear() !== now.getFullYear() ? ` ${d.getFullYear()}` : ''}`
+/** Data e hora curtas: "17 out, 14:32" (com o ano quando não é o ano atual: "3 mar 2025, 09:10").
+ *  `day` (AAAA-MM-DD) troca o dia quando o item tem "Data de publicação"; a hora vem de `at`. */
+function dateTime(at: string, day?: string | null) {
+  const t = parseDate(at)
+  const d = day ? new Date(`${day}T12:00:00`) : t
+  const year = d.getFullYear() !== new Date().getFullYear() ? ` ${d.getFullYear()}` : ''
+  return `${d.getDate()} ${MONTHS[d.getMonth()]}${year}, ${t.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`
 }
 
 /** Itens com "Data de publicação" mostram essa data; os outros, quando foram ao ar ou a última edição. */
 function rowDate(d: DocMeta): { text: string; hint: string } {
-  if (d.date) return { text: shortDate(d.date), hint: `Data de publicação: ${d.date.split('-').reverse().join('/')}` }
-  if (d.status === 'novo' || !d.publishedAt) return { text: shortDate(d.draftUpdatedAt), hint: `Rascunho editado ${timeAgo(d.draftUpdatedAt)}` }
-  return { text: shortDate(d.publishedAt), hint: `No ar desde ${formatDateTime(d.publishedAt)}` }
+  if (d.status === 'novo' || !d.publishedAt) return { text: dateTime(d.draftUpdatedAt, d.date), hint: `Rascunho editado ${timeAgo(d.draftUpdatedAt)}` }
+  if (d.date) return { text: dateTime(d.publishedAt, d.date), hint: `Data de publicação: ${d.date.split('-').reverse().join('/')}` }
+  return { text: dateTime(d.publishedAt), hint: `No ar desde ${formatDateTime(d.publishedAt)}` }
 }
 
 const onTouch = { '@media (hover: none)': tw`hidden` }
@@ -245,12 +241,17 @@ function InboxRow({ d, title, extra, drag, onTop }: {
         <span tw="min-w-0 flex-1">
           <span css={[tw`line-clamp-2 font-sans text-[14.5px] leading-snug text-ink sm:line-clamp-1`, changed ? tw`font-semibold` : tw`font-normal`]}>{title ?? d.label}</span>
           {sub && <span tw="mt-0.5 block truncate font-sans text-[12px] text-muted">{sub}</span>}
+          {/* No celular, situação e data descem para baixo do título */}
+          <span tw="mt-1.5 flex items-center gap-2 sm:hidden">
+            <StatusChip d={d} />
+            <span title={date.hint} css={[tw`font-sans text-[12px]`, changed ? tw`font-semibold text-ink` : tw`text-muted`]}>{date.text}</span>
+          </span>
         </span>
-        {(d.status !== 'publicado' || d.scheduledAt) && <StatusChip d={d} />}
+        <span tw="hidden sm:inline-flex"><StatusChip d={d} /></span>
       </Link>
 
-      {(drag || onTop) && (
-        <span tw="flex shrink-0 items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100" css={onTouch}>
+      {d.collection && (
+        <span tw="flex w-[92px] shrink-0 items-center justify-end gap-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100" css={onTouch}>
           {drag && <span aria-hidden="true" title="Arraste para mudar a ordem" tw="cursor-grab px-1 font-sans text-[15px] text-muted">⠿</span>}
           {onTop && (
             <button
@@ -263,7 +264,7 @@ function InboxRow({ d, title, extra, drag, onTop }: {
         </span>
       )}
 
-      <span title={date.hint} css={[tw`w-[58px] shrink-0 text-right font-sans text-[12.5px]`, changed ? tw`font-semibold text-ink` : tw`text-muted`]}>
+      <span title={date.hint} css={[tw`hidden w-[104px] shrink-0 text-right font-sans text-[12.5px] leading-snug sm:block`, changed ? tw`font-semibold text-ink` : tw`text-muted`]}>
         {date.text}
       </span>
 
