@@ -5,17 +5,18 @@
  */
 
 import { countries } from './diaryContent'
+import { doc } from './cms/runtime'
 
-export const links = {
+export const links = doc('geral.links', {
   youtube: 'https://www.youtube.com/@turistalife',
   instagram: 'https://www.instagram.com/turista.life/',
   tiktok: 'https://www.tiktok.com/@turistalife',
   email: 'contatoturistalife@gmail.com',
-}
+})
 
 const yt = (id: string) => `https://youtu.be/${id}`
 
-export const nav = [
+export const nav = doc('geral.nav', { items: [
   { label: 'Início', href: '/' },
   { label: 'Sobre mim', href: '/sobre' },
   { label: 'Produtos', href: '/produtos' },
@@ -23,9 +24,9 @@ export const nav = [
   { label: 'Parcerias', href: '/parcerias' },
   { label: 'Diário', href: '/diario' },
   { label: 'Blog', href: '/blog' },
-]
+] }).items
 
-export const hero = {
+export const hero = doc('inicio.hero', {
   title: 'Viajar mais. Viver mais.',
   subtitle: 'Construir uma vida com liberdade.',
   text:
@@ -34,9 +35,9 @@ export const hero = {
   story: { label: 'Assista o começo da história', href: yt('pwwxtfpaVNs') },
   signature: ['O mundo', 'pode ser', 'sua casa.'],
   image: import.meta.env.BASE_URL + 'images/hero-laura.jpg',
-}
+})
 
-export const about = {
+export const about = doc('inicio.about', {
   eyebrow: 'Sobre a Turista Life',
   title: 'Como tudo começou?',
   paragraphs: [
@@ -47,21 +48,24 @@ export const about = {
   ],
   cta: { label: 'Conheça minha história', href: '/sobre' },
   polaroid: { image: import.meta.env.BASE_URL + 'images/sydney.jpg', caption: ['De Sydney', 'para o mundo!'] },
-}
+})
 
 // Países da rota, na ordem, sem repetir: a partida (Austrália) + os países do diário.
-// O último é o país atual; entra um país novo em diaryContent.ts e a home se atualiza sozinha.
-const journeyStops = [...new Set(['Austrália', ...countries.map((c) => c.name)])]
+// O último é o país atual; entra um país novo no diário e a home se atualiza sozinha.
+const journeyStops = () => [...new Set(['Austrália', ...countries.map((c) => c.name)])]
 
-export const journey = {
+export const journey = doc('inicio.journey', {
   eyebrow: 'Em qual episódio estamos?',
   title: 'Construindo minha liberdade geográfica',
   text:
     'Depois de 3 anos e meio na Austrália, comecei uma nova fase: viajar pelo mundo enquanto construo um negócio digital. Minha meta é alcançar uma renda online e transformar esse projeto em uma fonte de liberdade geográfica. Compartilho os bastidores, os números reais, as conquistas e os desafios dessa construção. Sem fórmulas mágicas, apenas o processo real.',
-  stops: journeyStops,
-  current: journeyStops.length - 1,
   cta: { label: 'Acompanhe a jornada', href: links.youtube },
-}
+}) as { eyebrow: string; title: string; text: string; cta: { label: string; href: string }; stops: string[]; current: number }
+// Calculados a partir do diário (não são editáveis aqui, por isso não entram no documento).
+Object.defineProperties(journey, {
+  stops: { get: journeyStops, enumerable: false },
+  current: { get: () => journeyStops().length - 1, enumerable: false },
+})
 
 export type Product = {
   kind: string
@@ -75,7 +79,7 @@ export type Product = {
   soon?: boolean
 }
 
-export const products: { eyebrow: string; title: string; text: string; items: Product[] } = {
+export const products = doc<{ eyebrow: string; title: string; text: string; items: Product[] }>('inicio.products', {
   eyebrow: 'Produtos digitais',
   title: 'Leve a Turista Life com você',
   text: 'Tudo o que eu aprendi na prática, organizado para você planejar melhor, economizar e chegar preparado.',
@@ -115,15 +119,15 @@ export const products: { eyebrow: string; title: string; text: string; items: Pr
       cover: { image: import.meta.env.BASE_URL + 'images/opera.jpg', top: 'Checklist', title: 'Austrália', tone: 'pine' },
     },
   ],
-}
+})
 
-export const recommendations = {
+export const recommendations = doc('inicio.recommendations', {
   eyebrow: 'Recomendações',
   title: 'O que eu realmente uso',
   text: 'Só recomendo o que eu uso na estrada. Usando meus links e cupons você economiza e ainda apoia o canal.',
-}
+})
 
-export const brands = {
+export const brands = doc('inicio.brands', {
   eyebrow: 'Para marcas',
   title: 'Vamos construir algo incrível juntos?',
   text:
@@ -136,9 +140,9 @@ export const brands = {
   cta: { label: 'Quero ser parceiro', href: `mailto:${links.email}?subject=Parceria%20Turista%20Life` },
   secondary: { label: 'Ver parcerias e mídia kit', href: '/parcerias' },
   image: import.meta.env.BASE_URL + 'images/brands.jpg',
-}
+})
 
-export const diary = {
+export const diary = doc('inicio.diary', {
   eyebrow: 'Diário · Guia por país',
   title: 'Dicas, roteiros e a vida real na estrada',
   text: 'Cada destino vira episódio: o que vale a pena, o que decepciona, quanto custa e como se virar sozinha.',
@@ -148,17 +152,23 @@ export const diary = {
     { tag: 'Tailândia', title: 'Cheguei sozinha na Tailândia… e não era o que eu imaginava', image: import.meta.env.BASE_URL + 'images/v-bangkok.jpg', href: yt('Hc4nMTf6fDg') },
     { tag: 'Austrália', title: 'O país onde todo brasileiro quer morar', image: import.meta.env.BASE_URL + 'images/v-sydney.jpg', href: yt('hKqoB9HA9uM') },
   ],
-}
+})
 
-export const newsletter = {
+export const newsletter = doc('geral.newsletter', {
   eyebrow: 'Newsletter',
   title: 'Inspiração de viagem direto no seu e-mail',
   bullets: ['Dicas práticas e roteiros de viagem', 'Recomendações e cupons exclusivos', 'Lançamentos de guias em primeira mão', 'Bastidores da jornada que não vão para as redes'],
   cta: 'Quero receber',
-  sent: 'Pronto! A próxima edição chega no seu e-mail.',
-}
+  sending: 'Enviando…',
+  // TODO(dúvida Laura): validar os textos da newsletter (confirmação por e-mail, erros e aviso de cancelamento)
+  sent: 'Quase lá! Enviamos um e-mail para você confirmar a inscrição. Confere a caixa de entrada (e o spam).',
+  invalid: 'Esse e-mail parece estar incompleto. Confere e tenta de novo?',
+  error: 'Não deu para enviar agora. Tenta de novo em alguns minutos.',
+  privacy: 'Sem spam. Você pode cancelar quando quiser.',
+})
 
-export const footer = {
+export const footer = doc('geral.footer', {
   tagline: 'Documentando a construção da minha liberdade geográfica.',
   newsletter: 'Receba as novidades da jornada por e-mail',
-}
+  sent: 'Quase lá! Confirma a inscrição no e-mail que acabamos de enviar.',
+})

@@ -4,8 +4,9 @@
  * da Austrália?") e nos títulos dos Shorts. Frases entre aspas são falas dela, levemente editadas.
  */
 import { links } from './content'
+import { doc } from './cms/runtime'
 
-export const aboutPage = {
+export const aboutPage = doc('sobre.page', {
   hero: {
     eyebrow: 'Sobre mim',
     script: 'Prazer, Laura',
@@ -57,6 +58,7 @@ export const aboutPage = {
     ],
   },
   quote: {
+    image: import.meta.env.BASE_URL + 'images/diario/canggu-1.jpg',
     text: 'Meu maior medo sempre foi o dinheiro acabar. Hoje eu entendo que o maior medo, na verdade, seria olhar para trás e pensar: eu nunca tentei.',
     author: 'Laura, no primeiro mês em Bali',
   },
@@ -82,5 +84,4 @@ export const aboutPage = {
     text: 'Eu conto tudo em tempo real no YouTube, no Instagram e no TikTok.',
     cta: { label: 'Acompanhe a jornada', href: links.youtube },
   },
-  socials: links,
-}
+})

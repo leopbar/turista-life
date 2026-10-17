@@ -41,6 +41,12 @@ class Settings:
     trust_proxy: bool
     debug: bool
     admin_dist: Path | None
+    # Cópia do site compilada para a pré-visualização (base /site/), servida pelo próprio painel.
+    site_dist: Path | None = None
+    # Alertas de segurança por e-mail (Gmail com "senha de app"). Vazio = só avisos no painel.
+    gmail_user: str = ''
+    gmail_app_password: str = ''
+    alert_to: tuple[str, ...] = ()
     session_idle_minutes: int = 60
     session_max_hours: int = 12
     temp_password_hours: int = 48
@@ -71,4 +77,8 @@ def load_settings() -> Settings:
         trust_proxy=_bool('PAINEL_TRUST_PROXY', False),
         debug=_bool('PAINEL_DEBUG', False),
         admin_dist=Path(dist) if dist else None,
+        site_dist=Path(site) if (site := os.environ.get('PAINEL_SITE_DIST')) else None,
+        gmail_user=os.environ.get('PAINEL_GMAIL_USER', '').strip(),
+        gmail_app_password=os.environ.get('PAINEL_GMAIL_APP_PASSWORD', '').replace(' ', ''),
+        alert_to=tuple(a.strip() for a in os.environ.get('PAINEL_ALERT_TO', os.environ.get('PAINEL_GMAIL_USER', '')).split(',') if a.strip()),
     )

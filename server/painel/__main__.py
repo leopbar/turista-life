@@ -17,7 +17,7 @@ from alembic import command
 from alembic.config import Config
 from sqlalchemy import select
 
-from . import audit
+from . import alerts, audit
 from .config import load_settings
 from .db import make_engine, make_sessionmaker, utcnow, write
 from .models import User
@@ -97,6 +97,8 @@ def main(argv: list[str] | None = None) -> int:
             db.add(user)
             revoke_user_sessions(db, user.id)
             audit.record(db, 'recuperacao_de_emergencia', actor_email='terminal do servidor', target=email)
+        alerts.send(settings, f'emergencia:{email}', 'Recuperação de emergência usada',
+                    f'Foi gerada uma senha provisória nova para {email} pelo terminal do servidor.')
         _print_temp(email, temp, settings.temp_password_hours)
         return 0
 

@@ -14,6 +14,8 @@ import { ProductPage } from './pages/ProductPage'
 import { ProductsPage } from './pages/ProductsPage'
 import { productPages } from './pagesContent'
 import { RecommendationsPage } from './pages/RecommendationsPage'
+import { CustomPage } from './pages/CustomPage'
+import { customPages } from './cms/pages'
 
 const titles: Record<string, string> = {
   '/': 'Turista Life · Laura Irigoyen',
@@ -26,6 +28,7 @@ const titles: Record<string, string> = {
   ...Object.fromEntries(articles.map((a) => [`/blog/${a.slug}`, `${a.title} · Turista Life`])),
   '/sobre': 'Sobre mim · Turista Life',
   ...Object.fromEntries(productPages.map((p) => [`/produtos/${p.slug}`, `${p.title} · Turista Life`])),
+  ...Object.fromEntries(customPages.map((p) => [`/${p.slug}`, `${p.title} · Turista Life`])),
 }
 
 /** Ao trocar de página: vai ao topo, ou à âncora (/#sobre, /produtos#guia-bali). */
@@ -67,6 +70,8 @@ export default function App() {
           <Route path="/midia-kit" element={<Redirect to="/parcerias" />} />
           <Route path="/destinos" element={<Redirect to="/diario" />} />
           <Route path="/sobre" element={<AboutPage />} />
+          {/* Páginas criadas no painel; endereço desconhecido leva à página inicial. */}
+          <Route path="/:slug" element={<CustomPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
       </main>

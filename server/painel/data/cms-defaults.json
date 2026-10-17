@@ -1,0 +1,4498 @@
+{
+ "docs": {
+  "geral.nav": {
+   "items": [
+    {
+     "label": "Início",
+     "href": "/"
+    },
+    {
+     "label": "Sobre mim",
+     "href": "/sobre"
+    },
+    {
+     "label": "Produtos",
+     "href": "/produtos"
+    },
+    {
+     "label": "Recomendações",
+     "href": "/recomendacoes"
+    },
+    {
+     "label": "Parcerias",
+     "href": "/parcerias"
+    },
+    {
+     "label": "Diário",
+     "href": "/diario"
+    },
+    {
+     "label": "Blog",
+     "href": "/blog"
+    }
+   ]
+  },
+  "geral.links": {
+   "youtube": "https://www.youtube.com/@turistalife",
+   "instagram": "https://www.instagram.com/turista.life/",
+   "tiktok": "https://www.tiktok.com/@turistalife",
+   "email": "contatoturistalife@gmail.com"
+  },
+  "geral.newsletter": {
+   "eyebrow": "Newsletter",
+   "title": "Inspiração de viagem direto no seu e-mail",
+   "bullets": [
+    "Dicas práticas e roteiros de viagem",
+    "Recomendações e cupons exclusivos",
+    "Lançamentos de guias em primeira mão",
+    "Bastidores da jornada que não vão para as redes"
+   ],
+   "cta": "Quero receber",
+   "sending": "Enviando…",
+   "sent": "Quase lá! Enviamos um e-mail para você confirmar a inscrição. Confere a caixa de entrada (e o spam).",
+   "invalid": "Esse e-mail parece estar incompleto. Confere e tenta de novo?",
+   "error": "Não deu para enviar agora. Tenta de novo em alguns minutos.",
+   "privacy": "Sem spam. Você pode cancelar quando quiser."
+  },
+  "geral.footer": {
+   "tagline": "Documentando a construção da minha liberdade geográfica.",
+   "newsletter": "Receba as novidades da jornada por e-mail",
+   "sent": "Quase lá! Confirma a inscrição no e-mail que acabamos de enviar."
+  },
+  "geral.textos": {
+   "blog.artigo.autora": "Laura Irigoyen",
+   "blog.artigo.continue": "Continue lendo",
+   "blog.artigo.ver-destino": "Veja todos os artigos, vídeos e o guia do destino",
+   "blog.destino.artigos": "Artigos",
+   "blog.destino.rota": "Na rota",
+   "blog.destino.videos": "Vídeos",
+   "blog.destinos.chamada": "Por destino",
+   "blog.destinos.titulo": "Escolha para onde você vai",
+   "blog.migalha": "Blog",
+   "blog.recs.titulo": "Recomendações",
+   "blog.recs.ver-todas": "Ver todas as recomendações",
+   "blog.vazio": "Ainda não tem artigo sobre esse assunto neste país. A cada destino novo, entram mais.",
+   "diario.mapa.zoom": "ZOOM EM BALI",
+   "diario.marco.ganhei": "Ganhei com a internet",
+   "diario.marco.titulo": "Construindo minha liberdade geográfica",
+   "diario.parada.contras": "Pontos fracos",
+   "diario.parada.destaques": "Pontos-chave",
+   "diario.parada.pros": "Pontos fortes",
+   "diario.parada.sem-video": "O vídeo daqui sai em breve no canal.",
+   "diario.partida.foto": "Laura em Sydney com a Opera House ao fundo",
+   "diario.proximo.botao": "Me conte primeiro",
+   "diario.proximo.ok": "Combinado! Você fica sabendo assim que eu chegar.",
+   "diario.proximo.pergunta": "Para onde eu vou depois de Krabi?",
+   "diario.rota.chamada": "A rota",
+   "diario.rota.partida": "Partida",
+   "diario.rota.proximo": "Próximo destino",
+   "diario.rota.titulo": "Por onde eu já passei",
+   "geral.dica-da-laura": "Dica da Laura",
+   "geral.em-breve": "Em breve",
+   "geral.email.rotulo": "Seu e-mail",
+   "geral.faq.chamada": "Dúvidas",
+   "geral.faq.titulo": "Perguntas frequentes",
+   "geral.migalha.inicio": "Início",
+   "inicio.capa.foto": "Laura sorrindo no mirante da Diamond Beach, em Nusa Penida, com o mar turquesa ao fundo",
+   "inicio.sobre.foto": "Laura em Sydney, na Austrália",
+   "parcerias.audiencia.chamada": "Audiência",
+   "parcerias.audiencia.titulo": "Quem assiste ao meu conteúdo",
+   "parcerias.combina.chamada": "Combina com",
+   "parcerias.combina.titulo": "Marcas de viagem, dinheiro e trabalho remoto",
+   "parcerias.formatos.chamada": "Formatos",
+   "parcerias.formatos.titulo": "Como podemos trabalhar juntos",
+   "parcerias.pilares.chamada": "Conteúdo",
+   "parcerias.pilares.marcas": "Para marcas de:",
+   "parcerias.pilares.titulo": "Os três pilares do canal",
+   "parcerias.processo.chamada": "Processo",
+   "parcerias.processo.titulo": "Do primeiro contato ao relatório",
+   "parcerias.sobre.chamada": "Sobre",
+   "parcerias.sobre.foto": "Laura Irigoyen em Sydney",
+   "parcerias.sobre.nome": "Laura Irigoyen",
+   "produto.conteudo.titulo": "O que você vai encontrar",
+   "produto.gratis": "Grátis",
+   "produto.para-quem.chamada": "Para quem é indicado",
+   "produto.para-quem.titulo": "É para você se…",
+   "produto.valor": "Valor",
+   "produtos.capa.marca": "Turista Life",
+   "produtos.espera.botao": "Me avise",
+   "produtos.espera.rotulo": "Seu e-mail para ser avisado",
+   "produtos.migalha": "Produtos",
+   "recomendacoes.cupom": "Cupom",
+   "recomendacoes.cupom.copiado": "Copiado!",
+   "recomendacoes.filtro.todas": "Todas",
+   "recomendacoes.porque": "Por que eu uso:",
+   "sobre.bastidores.foto": "Laura trabalhando no computador num café em Bali",
+   "sobre.curiosidades.chamada": "Curiosidades",
+   "sobre.historia.chamada": "Minha história",
+   "sobre.historia.titulo": "De Porto Alegre para o mundo",
+   "sobre.redes.usuario": "@turista.life",
+   "sobre.trabalhos.chamada": "Austrália",
+   "sobre.valores.chamada": "Valores"
+  },
+  "inicio.hero": {
+   "title": "Viajar mais. Viver mais.",
+   "subtitle": "Construir uma vida com liberdade.",
+   "text": "Eu sou a Laura! Depois de mais de 3 anos vivendo na Austrália, decidi explorar o mundo enquanto construo minha renda online para viver com liberdade geográfica. Aqui compartilho os bastidores reais dessa jornada, sem romantizar, além de guias de viagem, dicas práticas e ferramentas para ajudar você a viajar também.",
+   "cta": {
+    "label": "Explore a Turista Life",
+    "href": "/blog"
+   },
+   "story": {
+    "label": "Assista o começo da história",
+    "href": "https://youtu.be/pwwxtfpaVNs"
+   },
+   "signature": [
+    "O mundo",
+    "pode ser",
+    "sua casa."
+   ],
+   "image": "images/hero-laura.jpg"
+  },
+  "inicio.about": {
+   "eyebrow": "Sobre a Turista Life",
+   "title": "Como tudo começou?",
+   "paragraphs": [
+    "Em 2022, com uma passagem para Sydney e um Working Holiday Visa aprovado, embarquei para a Austrália sem imaginar o quanto aquela decisão mudaria minha vida.",
+    "Foram 3 anos e meio vivendo do outro lado do mundo, trabalhando em diferentes áreas, aprendendo inglês, juntando dinheiro e descobrindo que existiam muitas formas de viver.",
+    "Em 2026, um imprevisto com meu visto antecipou uma decisão que eu já sonhava tomar: colocar a mochila nas costas e explorar o mundo.",
+    "Hoje, enquanto viajo sozinha, estou usando minha reserva financeira para construir minha renda online e documentando tudo pelo caminho: os desafios, as conquistas e os bastidores reais de uma vida em construção."
+   ],
+   "cta": {
+    "label": "Conheça minha história",
+    "href": "/sobre"
+   },
+   "polaroid": {
+    "image": "images/sydney.jpg",
+    "caption": [
+     "De Sydney",
+     "para o mundo!"
+    ]
+   }
+  },
+  "inicio.journey": {
+   "eyebrow": "Em qual episódio estamos?",
+   "title": "Construindo minha liberdade geográfica",
+   "text": "Depois de 3 anos e meio na Austrália, comecei uma nova fase: viajar pelo mundo enquanto construo um negócio digital. Minha meta é alcançar uma renda online e transformar esse projeto em uma fonte de liberdade geográfica. Compartilho os bastidores, os números reais, as conquistas e os desafios dessa construção. Sem fórmulas mágicas, apenas o processo real.",
+   "cta": {
+    "label": "Acompanhe a jornada",
+    "href": "https://www.youtube.com/@turistalife"
+   }
+  },
+  "inicio.products": {
+   "eyebrow": "Produtos digitais",
+   "title": "Leve a Turista Life com você",
+   "text": "Tudo o que eu aprendi na prática, organizado para você planejar melhor, economizar e chegar preparado.",
+   "items": [
+    {
+     "kind": "E-book",
+     "title": "Como encontrar um trabalho na Austrália",
+     "text": "Currículo australiano, sites que funcionam, setores que mais contratam brasileiros e a mentalidade certa.",
+     "note": "7 dias de garantia",
+     "cta": "Conhecer o e-book",
+     "href": "/produtos/trabalho-na-australia",
+     "cover": {
+      "image": "images/sydney.jpg",
+      "top": "E-book",
+      "title": "Trabalho na Austrália",
+      "tone": "pine"
+     }
+    },
+    {
+     "kind": "Guia de destino",
+     "title": "Guia de Bali",
+     "text": "Tudo o que eu queria saber antes de passar dois meses na ilha: regiões, custos, transporte e cuidados.",
+     "note": "R$ 49",
+     "cta": "Conhecer o guia",
+     "href": "/produtos/guia-de-bali",
+     "cover": {
+      "image": "images/bali.jpg",
+      "top": "Guia completo",
+      "title": "Bali",
+      "tone": "sun"
+     }
+    },
+    {
+     "kind": "Material gratuito",
+     "title": "Guia Liberdade Geográfica",
+     "text": "Os primeiros passos para construir uma carreira que você possa levar para qualquer lugar do mundo.",
+     "cta": "Conhecer o guia",
+     "href": "/produtos/guia-liberdade-geografica",
+     "cover": {
+      "image": "images/work.jpg",
+      "top": "Guia gratuito",
+      "title": "Liberdade Geográfica",
+      "tone": "sky"
+     }
+    },
+    {
+     "kind": "Material gratuito",
+     "title": "5 coisas que eu faria diferente antes de ir para a Austrália",
+     "text": "Checklist com os aprendizados que teriam me poupado tempo e dinheiro.",
+     "cta": "Conhecer o checklist",
+     "href": "/produtos/checklist-australia",
+     "cover": {
+      "image": "images/opera.jpg",
+      "top": "Checklist",
+      "title": "Austrália",
+      "tone": "pine"
+     }
+    }
+   ]
+  },
+  "inicio.recommendations": {
+   "eyebrow": "Recomendações",
+   "title": "O que eu realmente uso",
+   "text": "Só recomendo o que eu uso na estrada. Usando meus links e cupons você economiza e ainda apoia o canal."
+  },
+  "inicio.brands": {
+   "eyebrow": "Para marcas",
+   "title": "Vamos construir algo incrível juntos?",
+   "text": "Turista Life é um projeto de criação de conteúdo para quem quer viajar, morar fora e trabalhar de qualquer lugar. Para marcas, produzo vídeos, UGC e campanhas que falam com uma audiência engajada e que confia nas minhas recomendações.",
+   "stats": [
+    {
+     "icon": "ig",
+     "value": "110 mil",
+     "label": "seguidores no Instagram"
+    },
+    {
+     "icon": "play",
+     "value": "3,4 mi",
+     "label": "views no vídeo mais visto"
+    },
+    {
+     "icon": "users",
+     "value": "+125 mil",
+     "label": "pessoas em 4 redes"
+    }
+   ],
+   "cta": {
+    "label": "Quero ser parceiro",
+    "href": "mailto:contatoturistalife@gmail.com?subject=Parceria%20Turista%20Life"
+   },
+   "secondary": {
+    "label": "Ver parcerias e mídia kit",
+    "href": "/parcerias"
+   },
+   "image": "images/brands.jpg"
+  },
+  "inicio.diary": {
+   "eyebrow": "Diário · Guia por país",
+   "title": "Dicas, roteiros e a vida real na estrada",
+   "text": "Cada destino vira episódio: o que vale a pena, o que decepciona, quanto custa e como se virar sozinha.",
+   "cta": {
+    "label": "Ver o diário da viagem",
+    "href": "/diario"
+   },
+   "posts": [
+    {
+     "tag": "Indonésia",
+     "title": "A realidade dos lugares mais paradisíacos de Bali",
+     "image": "images/v-nusa.jpg",
+     "href": "https://youtu.be/TtBuGZLTSog"
+    },
+    {
+     "tag": "Tailândia",
+     "title": "Cheguei sozinha na Tailândia… e não era o que eu imaginava",
+     "image": "images/v-bangkok.jpg",
+     "href": "https://youtu.be/Hc4nMTf6fDg"
+    },
+    {
+     "tag": "Austrália",
+     "title": "O país onde todo brasileiro quer morar",
+     "image": "images/v-sydney.jpg",
+     "href": "https://youtu.be/hKqoB9HA9uM"
+    }
+   ]
+  },
+  "sobre.page": {
+   "hero": {
+    "eyebrow": "Sobre mim",
+    "script": "Prazer, Laura",
+    "title": "Gaúcha, turismóloga e aprendendo a viver sem endereço fixo",
+    "text": "Morei 3 anos e meio na Austrália, larguei a vida estável e hoje viajo o mundo sozinha enquanto construo uma renda pela internet. Aqui está a história inteira.",
+    "image": "images/diario/uluwatu-1.jpg",
+    "position": "50% 60%"
+   },
+   "intro": {
+    "hello": "Oi, eu sou a Laura",
+    "paragraphs": [
+     "Sou de Porto Alegre e me formei em Turismo. Dois anos depois da faculdade eu estava naquela crise que muita gente jovem conhece: sem saber muito que rumo tomar e com vontade de viver coisas novas.",
+     "Em 2022 abriu o visto Working Holiday para brasileiros, com só 500 vagas por ano. Apliquei sem grandes expectativas e consegui. Nunca tinha sonhado em morar na Austrália, mas sempre quis conhecer. Foram 3 anos e meio que mudaram tudo.",
+     "Hoje eu documento a construção da minha liberdade geográfica: viajar o mundo trabalhando pela internet, mostrando o que dá certo, o que dá errado e quanto eu ganho e gasto. Sem romantizar."
+    ],
+    "portrait": {
+     "src": "images/sydney.jpg",
+     "alt": "Laura de boné em Sydney",
+     "caption": "Laura Irigoyen"
+    },
+    "facts": [
+     "Porto Alegre, RS",
+     "Formada em Turismo",
+     "3,5 anos na Austrália",
+     "Na estrada desde julho de 2026",
+     "Viajo sozinha"
+    ]
+   },
+   "timeline": [
+    {
+     "when": "Antes de tudo",
+     "title": "Porto Alegre",
+     "text": "Formada em Turismo, com um intercâmbio nos Estados Unidos na bagagem e muita vontade de conhecer o mundo."
+    },
+    {
+     "when": "Julho de 2022",
+     "title": "O visto que mudou tudo",
+     "text": "Aplico para o Working Holiday, um visto concorrido de trabalho e viagem para brasileiros de até 30 anos. E dá certo."
+    },
+    {
+     "when": "Dezembro de 2022",
+     "title": "Chegada em Sydney",
+     "text": "Pouco dinheiro e a pressa de começar a ganhar em dólar. Em 4 dias, consigo o primeiro emprego deixando o currículo pessoalmente."
+    },
+    {
+     "when": "Março de 2023",
+     "title": "Três meses em Cairns",
+     "text": "Mudo para o norte para estender o visto: café às 5h30 da manhã e hostel com mais 10 pessoas no quarto."
+    },
+    {
+     "when": "2023 a 2026",
+     "title": "De volta a Sydney",
+     "text": "Restaurante, café, faxina, recepção de hotel e, por fim, um trabalho de escritório numa agência de intercâmbio."
+    },
+    {
+     "when": "Março de 2025",
+     "title": "De volta à internet",
+     "text": "Decido parar de esperar o \"momento certo\" e volto a criar conteúdo sobre a vida de imigrante. Em pouco mais de um ano, mais de 100 mil pessoas me acompanham."
+    },
+    {
+     "when": "Junho de 2026",
+     "title": "O fim de um ciclo",
+     "text": "Um problema no visto vira o empurrão que faltava. Escolho ir embora e viver o sonho de viajar o mundo."
+    },
+    {
+     "when": "Julho de 2026",
+     "title": "O mundo vira casa",
+     "text": "Começo por Bali e sigo pela Ásia, tentando viver 100% da internet antes que a reserva financeira acabe.",
+     "link": {
+      "label": "Ver o diário da viagem",
+      "href": "/diario"
+     }
+    }
+   ],
+   "jobs": {
+    "title": "Cinco áreas, nenhuma semana desempregada",
+    "text": "Em 3 anos e meio na Austrália eu fiz coisas que nunca tinha imaginado fazer no Brasil, e aprendi na prática como conseguir trabalho em cada uma delas.",
+    "items": [
+     {
+      "title": "Garçonete",
+      "text": "Num restaurante tailandês, meu primeiro emprego. Durou um mês."
+     },
+     {
+      "title": "Cafés",
+      "text": "Em Sydney e em Cairns, fazendo todas as horas possíveis."
+     },
+     {
+      "title": "Faxina",
+      "text": "Trabalhei como cleaner, literalmente faxineira. E dá para pagar as contas."
+     },
+     {
+      "title": "Recepção de hotel",
+      "text": "Mais uma área nova, mais um currículo adaptado para a vaga."
+     },
+     {
+      "title": "Agência de intercâmbio",
+      "text": "Trabalho de escritório, o mais longo que tive por lá."
+     }
+    ],
+    "cta": {
+     "label": "Conheça o e-book",
+     "href": "/produtos"
+    }
+   },
+   "values": {
+    "title": "No que eu acredito",
+    "items": [
+     {
+      "title": "Sem romantizar",
+      "text": "A internet mostra recortes. Eu mostro a viagem real: os perrengues, os gastos e o que me decepciona."
+     },
+     {
+      "title": "O momento certo é agora",
+      "text": "Eu passei tempo demais esperando o momento certo. Ele nunca chega, a gente só adia os planos."
+     },
+     {
+      "title": "Constância",
+      "text": "É a parte mais difícil e a mais importante de qualquer projeto. Eu não paro."
+     },
+     {
+      "title": "Experiências antes de coisas",
+      "text": "Prefiro gastar com comida e viagem do que com objetos. Quem quer viajar o mundo não pode acumular coisas."
+     },
+     {
+      "title": "Nada acontece por acaso",
+      "text": "O que parece ruim no momento, lá na frente se explica. Foi assim com o fim da Austrália."
+     }
+    ]
+   },
+   "quote": {
+    "image": "images/diario/canggu-1.jpg",
+    "text": "Meu maior medo sempre foi o dinheiro acabar. Hoje eu entendo que o maior medo, na verdade, seria olhar para trás e pensar: eu nunca tentei.",
+    "author": "Laura, no primeiro mês em Bali"
+   },
+   "facts": {
+    "title": "Coisas que você precisa saber sobre mim",
+    "items": [
+     {
+      "title": "Amo correr",
+      "text": "Já corri muito em volta da Opera House. Em Bali, achei academia na primeira semana."
+     },
+     {
+      "title": "Supermercado é ponto turístico",
+      "text": "Em todo país novo, entro no mercado para ver o que tem e quanto custa."
+     },
+     {
+      "title": "Amo aeroportos",
+      "text": "Desde criança. Gente do mundo inteiro, horas de espera e eu feliz."
+     },
+     {
+      "title": "Prefiro o mar",
+      "text": "Cachoeira gelada e mergulho com snorkel não são comigo. Já sei: sou chata."
+     },
+     {
+      "title": "Sou organizada",
+      "text": "Agenda, planilha e metas para tudo. Eu passo horas lendo avaliações antes de reservar um quarto."
+     },
+     {
+      "title": "Meu medo na estrada",
+      "text": "Perder o passaporte e ficar doente sozinha. Confiro o passaporte o tempo inteiro."
+     }
+    ]
+   },
+   "behind": {
+    "title": "Por trás de cada vídeo",
+    "text": "Ninguém trabalha comigo. Eu planejo, escrevo o roteiro, gravo, edito, posto em quatro redes, respondo mensagens, negocio parcerias e ainda organizo passagens, hospedagens e vistos. Parece só um videozinho, mas não é.",
+    "steps": [
+     "Planejar",
+     "Roteirizar",
+     "Gravar",
+     "Editar",
+     "Publicar"
+    ],
+    "image": "images/work.jpg"
+   },
+   "cta": {
+    "title": "Vem comigo nessa jornada?",
+    "text": "Eu conto tudo em tempo real no YouTube, no Instagram e no TikTok.",
+    "cta": {
+     "label": "Acompanhe a jornada",
+     "href": "https://www.youtube.com/@turistalife"
+    }
+   }
+  },
+  "produtos.page": {
+   "hero": {
+    "eyebrow": "Produtos",
+    "script": "Na prática, sem enrolação",
+    "title": "Guias e e-books para você chegar preparado",
+    "text": "Tudo o que eu aprendi vivendo 3 anos e meio na Austrália e viajando sozinha pela Ásia, transformado em material direto ao ponto.",
+    "image": "images/bali.jpg"
+   },
+   "available": {
+    "eyebrow": "Disponíveis agora",
+    "title": "Prontos para te ajudar",
+    "text": "Materiais completos, que você compra hoje e recebe na hora no seu e-mail."
+   },
+   "upcoming": {
+    "eyebrow": "Próximos lançamentos",
+    "title": "O que vem por aí",
+    "text": "Guias e serviços em produção. Deixe seu e-mail e seja avisado no dia do lançamento."
+   },
+   "waitlistUrl": "",
+   "catalog": [
+    {
+     "id": "guia-bali",
+     "kind": "Guia de destino",
+     "title": "Guia de Bali",
+     "text": "Dois meses na ilha resumidos: Canggu, Ubud, Gili, Nusa Penida e Uluwatu, quanto custa, como se locomover, cuidados com água e comida e o que vale (ou não) a pena. 7 dias de garantia.",
+     "status": "available",
+     "price": "R$ 49",
+     "cta": "Conhecer o guia",
+     "page": "/produtos/guia-de-bali",
+     "cover": {
+      "image": "images/bali.jpg",
+      "top": "Guia completo",
+      "title": "Bali",
+      "tone": "sun"
+     }
+    },
+    {
+     "id": "guia-tailandia",
+     "kind": "Guia de destino",
+     "title": "Guia da Tailândia",
+     "text": "Bangkok, Chiang Mai e as praias do sul, com a época certa de ir (aprendi do jeito difícil) e como equilibrar trabalho e passeio.",
+     "status": "planned",
+     "cover": {
+      "image": "images/v-bangkok.jpg",
+      "top": "Em produção",
+      "title": "Tailândia",
+      "tone": "pine"
+     }
+    },
+    {
+     "id": "guia-vietna",
+     "kind": "Guia de destino",
+     "title": "Guia do Vietnã",
+     "text": "Roteiro, custos, transporte entre as cidades e o que eu aprendi na prática viajando pelo país.",
+     "status": "planned",
+     "cover": {
+      "image": "images/hero.jpg",
+      "top": "Em produção",
+      "title": "Vietnã",
+      "tone": "sun"
+     }
+    },
+    {
+     "id": "guia-proximo",
+     "kind": "Guia de destino",
+     "title": "Próximos destinos",
+     "text": "A cada lugar novo, um guia novo. Deixe seu e-mail e saiba qual é o próximo antes de todo mundo.",
+     "status": "soon",
+     "notify": "Combinado! Você fica sabendo assim que o próximo guia sair.",
+     "cover": {
+      "image": "images/v-nusa.jpg",
+      "top": "Novo guia",
+      "title": "Próximo destino",
+      "tone": "sky"
+     }
+    },
+    {
+     "id": "ebook-australia",
+     "kind": "E-book",
+     "title": "Como encontrar um trabalho na Austrália",
+     "text": "Currículo australiano, plataformas de emprego, direitos e mentalidade. 7 dias de garantia.",
+     "status": "available",
+     "price": "R$ 67",
+     "cta": "Conhecer o e-book",
+     "page": "/produtos/trabalho-na-australia",
+     "cover": {
+      "image": "images/sydney.jpg",
+      "top": "E-book",
+      "title": "Trabalho na Austrália",
+      "tone": "pine"
+     }
+    },
+    {
+     "id": "consultoria",
+     "kind": "Consultoria",
+     "title": "Consultoria individual",
+     "text": "Uma conversa para montar o seu plano: destino, custos, trabalho remoto e primeiros passos fora do Brasil.",
+     "status": "soon",
+     "notify": "Combinado! Você recebe um aviso assim que as consultorias abrirem.",
+     "cover": {
+      "image": "images/work.jpg",
+      "top": "Em breve",
+      "title": "Consultoria",
+      "tone": "pine"
+     }
+    },
+    {
+     "id": "comunidade",
+     "kind": "Comunidade",
+     "title": "Comunidade Turista Life",
+     "text": "Um espaço para trocar experiências com quem também quer viajar, morar fora ou trabalhar de qualquer lugar, com conteúdos exclusivos e conversas comigo.",
+     "status": "soon",
+     "notify": "Combinado! Você recebe um aviso assim que a comunidade abrir.",
+     "cover": {
+      "image": "images/v-sydney.jpg",
+      "top": "Em breve",
+      "title": "Comunidade",
+      "tone": "sky"
+     }
+    }
+   ],
+   "freeSection": {
+    "eyebrow": "Grátis",
+    "title": "Materiais gratuitos",
+    "text": "Para dar o primeiro passo sem gastar nada. Chegam direto no seu e-mail."
+   },
+   "free": [
+    {
+     "id": "guia-liberdade",
+     "kind": "Material gratuito",
+     "title": "Guia Liberdade Geográfica",
+     "text": "Os primeiros passos para construir uma carreira que você possa levar para qualquer lugar do mundo.",
+     "status": "free",
+     "cta": "Conhecer o guia",
+     "page": "/produtos/guia-liberdade-geografica",
+     "cover": {
+      "image": "images/work.jpg",
+      "top": "Guia gratuito",
+      "title": "Liberdade Geográfica",
+      "tone": "sky"
+     }
+    },
+    {
+     "id": "checklist-australia",
+     "kind": "Material gratuito",
+     "title": "5 coisas que eu faria diferente antes de ir para a Austrália",
+     "text": "Checklist com cinco aprendizados que teriam me poupado tempo e dinheiro na chegada.",
+     "status": "free",
+     "cta": "Conhecer o checklist",
+     "page": "/produtos/checklist-australia",
+     "cover": {
+      "image": "images/opera.jpg",
+      "top": "Checklist",
+      "title": "Austrália",
+      "tone": "pine"
+     }
+    }
+   ],
+   "faq": [
+    {
+     "q": "Como recebo o e-book ou o Guia de Bali?",
+     "a": "A compra é processada pela Kiwify. Assim que o pagamento é aprovado, o acesso chega no seu e-mail."
+    },
+    {
+     "q": "E se eu não gostar?",
+     "a": "Você tem 7 dias de garantia. Se não fizer sentido para você, é só pedir o reembolso dentro desse prazo."
+    },
+    {
+     "q": "O e-book serve para quem ainda não tem visto?",
+     "a": "Sim, ele ajuda a planejar antes de embarcar. Para dúvidas de visto, indico o agente de imigração que acompanhou o meu processo, na página de recomendações."
+    }
+   ],
+   "cta": {
+    "title": "Não sabe por onde começar?",
+    "text": "Pegue o Guia Liberdade Geográfica, é gratuito e chega no seu e-mail.",
+    "cta": {
+     "label": "Quero o guia grátis",
+     "href": "https://turista-life-laura-irigoyen-ifwilc.subscribepage.io/"
+    }
+   }
+  },
+  "recomendacoes.page": {
+   "hero": {
+    "eyebrow": "Recomendações",
+    "script": "Testado na estrada",
+    "title": "O que eu realmente uso para viajar e trabalhar",
+    "text": "Eu só indico o que uso no dia a dia. Com meus links e cupons você economiza e ainda apoia o meu trabalho, sem pagar nada a mais por isso.",
+    "image": "images/v-nusa.jpg",
+    "position": "50% 30%"
+   },
+   "categories": [
+    {
+     "id": "dinheiro",
+     "title": "Dinheiro e cartões internacionais",
+     "label": "Dinheiro e cartões",
+     "icon": "card",
+     "items": [
+      {
+       "brand": {
+        "name": "Nomad",
+        "logo": "images/logos/nomad.svg"
+       },
+       "image": "images/nomad-cartao.jpg",
+       "position": "55% 45%",
+       "place": "Aceito em mais de 180 países",
+       "title": "Conta global Nomad",
+       "why": "O cartão que eu uso em tudo. Funciona em todos os lugares de Bali e da Tailândia e desconta na moeda local.",
+       "perk": "Até US$ 20 ou €20 de cashback na primeira conversão",
+       "coupon": "TURISTALIFE",
+       "cta": "Abrir minha conta",
+       "href": "https://link.nomadglobal.com/wIQT/TURISTALIFE",
+       "featured": true
+      }
+     ]
+    },
+    {
+     "id": "hospedagens",
+     "title": "Hospedagens",
+     "label": "Hospedagens",
+     "icon": "bed",
+     "items": [
+      {
+       "brand": {
+        "name": "Agoda",
+        "logo": "images/logos/agoda.svg"
+       },
+       "image": "images/diario/gili-1.jpg",
+       "title": "Por onde eu reservo meus hotéis",
+       "why": "A plataforma em que eu encontro os melhores preços de hospedagem.",
+       "cta": "Reserve agora",
+       "href": "https://agoda.tpm.li/8ZqW2yUX",
+       "featured": true
+      }
+     ]
+    },
+    {
+     "id": "passagens",
+     "title": "Passagens aéreas",
+     "label": "Passagens aéreas",
+     "icon": "plane",
+     "items": [
+      {
+       "brand": {
+        "name": "Seu Destino Agência de Viagens",
+        "logo": "images/logos/seu-destino.png"
+       },
+       "image": "images/diario/partida-1.jpg",
+       "position": "38% 30%",
+       "title": "Passagens aéreas mais baratas",
+       "why": "Eles normalmente conseguem preços muito mais vantajosos do que encontro sozinha. Além da economia, conto com o suporte da equipe durante todo o processo.",
+       "cta": "Fazer uma cotação",
+       "href": "https://agencia.iddas.com.br/so/eyzdkw13",
+       "featured": true
+      }
+     ]
+    },
+    {
+     "id": "passeios",
+     "title": "Passeios e experiências",
+     "label": "Passeios",
+     "icon": "ticket",
+     "items": [
+      {
+       "brand": {
+        "name": "GetYourGuide",
+        "logo": "images/logos/getyourguide.svg"
+       },
+       "image": "images/diario/ubud-2.jpg",
+       "title": "Passeios no mundo todo",
+       "why": "Em lugares grandes eu prefiro ir com guia local: entendo a história e não fico perdida.",
+       "perk": "Desconto com o cupom",
+       "coupon": "TURISTALIFE5",
+       "cta": "Ver passeios",
+       "href": "https://gyg.me/turistalife-app",
+       "featured": true
+      },
+      {
+       "brand": {
+        "name": "GetYourGuide",
+        "logo": "images/logos/getyourguide.svg"
+       },
+       "image": "images/diario/bangkok-3.jpg",
+       "place": "Bangkok",
+       "title": "Mercado do Trem + Mercado Flutuante",
+       "why": "O passeio que eu fiz em Bangkok, com guia e saída de um ponto de encontro no centro. Vale muito a pena.",
+       "coupon": "TURISTALIFE5",
+       "cta": "Ver passeio",
+       "href": "https://getyourguide.tpm.li/SKiGC8qK",
+       "hidden": true
+      }
+     ]
+    },
+    {
+     "id": "internet",
+     "title": "Internet e eSIM",
+     "label": "Internet e eSIM",
+     "icon": "sim",
+     "items": [
+      {
+       "brand": {
+        "name": "Saily",
+        "logo": "images/logos/saily.svg"
+       },
+       "image": "images/esim.jpg",
+       "position": "50% 40%",
+       "title": "eSIM para viajar conectada",
+       "why": "Nunca me deixa na mão, tem sinal até nas ilhas.",
+       "coupon": "TURISTALIFE",
+       "cta": "Ver planos",
+       "href": "https://saily.tpm.li/jCyIGknB"
+      }
+     ]
+    },
+    {
+     "id": "seguros",
+     "title": "Seguros de viagem",
+     "label": "Seguros",
+     "icon": "shield",
+     "items": []
+    },
+    {
+     "id": "carro",
+     "title": "Aluguel de carro",
+     "label": "Aluguel de carro",
+     "icon": "car",
+     "items": [
+      {
+       "brand": {
+        "name": "Trip.com",
+        "logo": "images/logos/tripcom.svg"
+       },
+       "image": "images/aluguel-carro.jpg",
+       "position": "25% 50%",
+       "title": "Aluguel de carro no mundo todo",
+       "why": "A plataforma une muitos serviços e funciona perfeitamente para aluguel de carro em qualquer lugar do mundo.",
+       "cta": "Ver carros",
+       "href": "https://trip.tpm.li/p3wfxcAS"
+      }
+     ]
+    },
+    {
+     "id": "australia",
+     "title": "Para quem vai para a Austrália",
+     "label": "Austrália",
+     "icon": "passport",
+     "items": [
+      {
+       "brand": {
+        "name": "Healy Daloia Group",
+        "logo": "images/logos/healy-daloia.png"
+       },
+       "image": "images/diario/sydney-2.jpg",
+       "position": "50% 30%",
+       "title": "Agente de imigração",
+       "why": "O time que acompanhou o meu processo do início ao fim e me ajudou quando meu visto deu problema. Recomendo de olhos fechados.",
+       "cta": "Agendar conversa",
+       "href": "https://calendly.com/d/cxwy-bw6-hsr"
+      },
+      {
+       "brand": {
+        "name": "E-book Turista Life"
+       },
+       "image": "images/sydney.jpg",
+       "place": "Sydney e Cairns",
+       "title": "E-book: trabalho na Austrália",
+       "why": "Tudo o que eu aprendi conseguindo emprego em cinco áreas diferentes em Sydney e Cairns.",
+       "cta": "Ver e-book",
+       "href": "/produtos"
+      }
+     ]
+    }
+   ],
+   "soon": "Estou separando a minha indicação para esta categoria. Em breve aparece aqui.",
+   "tips": {
+    "photo": {
+     "image": "images/v-bangkok.jpg",
+     "alt": "Laura em Bangkok, na Tailândia",
+     "caption": "Bangkok, Tailândia"
+    },
+    "title": "Minhas regras para gastar menos",
+    "items": [
+     "Ando sempre com a minha garrafa de água: nos cafés ela é superfaturada.",
+     "Meta de alimentação na Tailândia: cerca de 15 dólares australianos por dia.",
+     "Café da manhã do 7-Eleven antes do aeroporto, onde tudo custa o dobro.",
+     "Dinheiro e cartão equilibrados: lugares pequenos só aceitam cash para valores baixos.",
+     "Fico mais dias em cada cidade: uma parte para passear, outra para trabalhar."
+    ]
+   },
+   "disclosure": "Alguns links desta página são de afiliado: se você comprar por eles, eu recebo uma pequena comissão, sem custo extra para você.",
+   "cta": {
+    "title": "Quer saber quanto custa cada destino?",
+    "text": "Todo mês eu abro quanto ganhei e quanto gastei viajando. Os números estão no canal.",
+    "cta": {
+     "label": "Ver no YouTube",
+     "href": "https://www.youtube.com/@turistalife"
+    }
+   }
+  },
+  "parcerias.page": {
+   "hero": {
+    "eyebrow": "Parcerias",
+    "script": "Para marcas",
+    "title": "Uma audiência que confia no que eu recomendo",
+    "text": "Brasileiros que sonham em viajar, morar fora e trabalhar de qualquer lugar acompanham a minha jornada real, com números abertos todo mês.",
+    "image": "images/brands.jpg"
+   },
+   "updated": "Números de outubro de 2026",
+   "stats": [
+    {
+     "value": "110 mil",
+     "label": "seguidores no Instagram",
+     "note": "@turista.life"
+    },
+    {
+     "value": "3,4 mi",
+     "label": "visualizações no vídeo mais visto",
+     "note": "Short sobre taxa de bagagem"
+    },
+    {
+     "value": "+5,7 mil",
+     "label": "inscritos no YouTube",
+     "note": "em 3 meses de canal"
+    },
+    {
+     "value": "9,7 mil",
+     "label": "seguidores no TikTok",
+     "note": "@turistalife"
+    }
+   ],
+   "about": {
+    "title": "Quem é a Laura",
+    "paragraphs": [
+     "Sou gaúcha, formada em Turismo, e vivi três anos e meio na Austrália antes de começar a viajar o mundo sozinha.",
+     "Hoje, compartilho minha jornada construindo uma renda online enquanto exploro novos destinos, criando conteúdos sobre viagens, experiências reais, liberdade geográfica e ferramentas que facilitam a vida de quem quer conhecer o mundo.",
+     "Na Turista Life, transformo experiências em conteúdos autênticos, informativos e envolventes, conectando marcas a uma comunidade que busca viajar mais e viver com mais liberdade."
+    ],
+    "image": "images/sydney.jpg"
+   },
+   "audience": [
+    {
+     "title": "Quem me acompanha",
+     "text": "Brasileiros que sonham em viajar mais, morar fora ou construir uma vida com mais liberdade. Pessoas interessadas em intercâmbio, viagens solo, trabalho remoto e novas possibilidades de viver."
+    },
+    {
+     "title": "Do que eles gostam",
+     "text": "Viagens reais, destinos pelo mundo, custos, dicas práticas, vida no exterior e os bastidores de quem está construindo uma renda online para viver com liberdade geográfica."
+    },
+    {
+     "title": "Por que confiam",
+     "text": "Compartilho minhas experiências de forma autêntica, sem romantizar: mostro os acertos, os perrengues, quanto gasto e os desafios dessa jornada. Recomendo apenas produtos e serviços que realmente uso e fazem sentido para mim."
+    }
+   ],
+   "audienceData": [
+    {
+     "title": "Principais países",
+     "items": []
+    },
+    {
+     "title": "Principais cidades",
+     "items": []
+    },
+    {
+     "title": "Faixa etária",
+     "items": []
+    },
+    {
+     "title": "Gênero",
+     "items": []
+    },
+    {
+     "title": "Alcance recente",
+     "items": []
+    }
+   ],
+   "pillars": [
+    {
+     "title": "Viagem sem filtro",
+     "text": "Exploro destinos pelo mundo mostrando experiências reais, custos, roteiros, perrengues e descobertas de quem vive cada lugar de perto.",
+     "brands": "hospedagem, passeios, seguro viagem, companhias aéreas, eSIMs, equipamentos e serviços de viagem.",
+     "image": "images/v-nusa.jpg"
+    },
+    {
+     "title": "Liberdade geográfica",
+     "text": "Documento os bastidores de construir minha renda online enquanto viajo o mundo: estratégias, desafios, metas, resultados e aprendizados reais pelo caminho.",
+     "brands": "ferramentas digitais, tecnologia, trabalho remoto, empreendedorismo, educação online e serviços financeiros.",
+     "image": "images/work.jpg"
+    },
+    {
+     "title": "Viagem solo feminina",
+     "text": "Viajo o mundo sozinha e compartilho os desafios, aprendizados e a liberdade de explorar novos destinos por conta própria, incentivando outras mulheres a viverem suas próprias experiências.",
+     "brands": "moda, beleza, autocuidado, segurança, tecnologia, acessórios e produtos para mulheres viajantes.",
+     "image": "images/hero-laura.jpg"
+    }
+   ],
+   "formatGroups": [
+    {
+     "title": "Conteúdo nas minhas redes sociais",
+     "text": "Sua marca aparece para a minha audiência, integrada ao conteúdo de viagem.",
+     "items": [
+      "Reels e TikTok",
+      "Stories",
+      "Integrações em vídeos no YouTube"
+     ]
+    },
+    {
+     "title": "Produção de conteúdo para marcas",
+     "text": "Conteúdo exclusivo para a sua marca usar nos próprios canais, sem precisar ser publicado nas minhas redes.",
+     "items": [
+      "UGC",
+      "Conteúdos para anúncios pagos, mediante condições específicas de uso"
+     ]
+    },
+    {
+     "title": "Projetos personalizados",
+     "text": "Formatos sob medida para objetivos maiores.",
+     "items": [
+      "Campanhas",
+      "Experiências e hospedagens",
+      "Parcerias recorrentes",
+      "Projetos especiais"
+     ]
+    }
+   ],
+   "fits": [
+    "Contas globais e câmbio",
+    "Passeios e turismo",
+    "Hospedagem",
+    "Seguro viagem",
+    "Intercâmbio e educação",
+    "Equipamentos de viagem",
+    "Trabalho remoto",
+    "Companhias aéreas"
+   ],
+   "steps": [
+    {
+     "title": "Conversa",
+     "text": "Você me conta o objetivo da campanha."
+    },
+    {
+     "title": "Proposta",
+     "text": "Envio formatos, datas e valores sob medida."
+    },
+    {
+     "title": "Produção",
+     "text": "Produzo o conteúdo combinado."
+    },
+    {
+     "title": "Relatório",
+     "text": "Você recebe os resultados da campanha."
+    }
+   ],
+   "contact": {
+    "image": "images/hero.jpg",
+    "title": "Vamos conversar?",
+    "text": "Me escreve contando sobre a sua marca. Eu respondo pessoalmente.",
+    "email": "contatoturistalife@gmail.com",
+    "cta": {
+     "label": "Enviar e-mail",
+     "href": "mailto:contatoturistalife@gmail.com?subject=Parceria%20Turista%20Life"
+    }
+   }
+  },
+  "diario.page": {
+   "goal": 5000,
+   "hero": {
+    "eyebrow": "Diário de bordo",
+    "script": "Acompanhe a jornada",
+    "title": "A rota, parada por parada",
+    "text": "Cada parada da viagem, resumida: o que eu vi, o que eu amei, o que me decepcionou e os vídeos completos de cada lugar. E, entre um destino e outro, os números reais de cada mês tentando viver da internet.",
+    "image": "images/diario/nusa-2.jpg"
+   },
+   "startDate": "2026-07-01",
+   "departure": {
+    "title": "O ponto de partida",
+    "place": "Sydney, Austrália",
+    "period": "Junho de 2026",
+    "text": "Depois de 3 anos e meio em Sydney, um problema no visto virou o empurrão que faltava. Em vez de procurar outro caminho para ficar, transformei o fim de um ciclo no começo do sonho: viajar o mundo enquanto construo uma renda 100% online.",
+    "image": "images/diario/partida-1.jpg",
+    "video": {
+     "id": "pwwxtfpaVNs",
+     "title": "Por que estou indo embora da Austrália?",
+     "duration": "24:36"
+    }
+   },
+   "next": {
+    "title": "Próximo destino",
+    "text": "A primeira temporada pela Ásia continua por mais alguns países. O próximo eu só conto quando estiver lá."
+   }
+  },
+  "diario.countries": {
+   "items": [
+    {
+     "id": "indonesia",
+     "name": "Indonésia",
+     "code": "ID",
+     "period": "Julho e agosto de 2026",
+     "intro": "Quase dois meses em Bali, o máximo do visto de turista. Escolhi a ilha para começar justamente pela estrutura para nômades digitais e pelo custo de vida.",
+     "items": [
+      {
+       "type": "stop",
+       "id": "canggu",
+       "city": "Canggu, Bali",
+       "period": "1 a 25 de julho",
+       "stay": "25 dias",
+       "coords": [
+        -8.65,
+        115.13
+       ],
+       "badge": "2º no meu ranking de Bali",
+       "summary": "A primeira parada, escolhida a dedo: o lugar de Bali com mais nômades digitais, para chegar e focar 100% no trabalho. Um caos que funciona.",
+       "highlights": [
+        "Cafés e coworkings em toda esquina, com Wi-Fi bom",
+        "Moto por aplicativo (Grab e Gojek) é o transporte do dia a dia",
+        "Oferendas balinesas na frente de casas e lojas, todos os dias",
+        "Pôr do sol na praia, com surfistas e moradores misturados"
+       ],
+       "pros": [
+        "Estrutura completa para quem trabalha online",
+        "Comer fora todos os dias sai barato",
+        "Pessoas muito simpáticas e prestativas",
+        "Rotina de praia, academia e vida saudável"
+       ],
+       "cons": [
+        "Trânsito caótico, sem calçada nem faixa de pedestre",
+        "Barulho de obras e poeira no ar",
+        "Lixo nas ruas e até na praia",
+        "Praias de areia preta, menos bonitas para turistar"
+       ],
+       "tip": "Só água de garrafa e sempre peça capacete ao motorista: muitos têm um guardado na moto.",
+       "images": [
+        {
+         "src": "images/diario/canggu-1.jpg",
+         "alt": "Vista aérea da praia de Canggu"
+        },
+        {
+         "src": "images/diario/canggu-2.jpg",
+         "alt": "Rua de Canggu ao lado de um arrozal"
+        },
+        {
+         "src": "images/diario/canggu-3.jpg",
+         "alt": "Laura numa rua de Canggu"
+        }
+       ],
+       "videos": [
+        {
+         "id": "qPqpePK8oFM",
+         "title": "Larguei tudo pra tentar viver da internet! Essa é a realidade",
+         "duration": "30:19"
+        },
+        {
+         "id": "-JAjCDJhsPw",
+         "title": "O lado de Bali que a internet esconde",
+         "duration": "22:01"
+        }
+       ]
+      },
+      {
+       "type": "stop",
+       "id": "ubud",
+       "city": "Ubud, Bali",
+       "period": "Fim de julho e início de agosto",
+       "stay": "14 dias",
+       "coords": [
+        -8.51,
+        115.26
+       ],
+       "badge": "3º no meu ranking de Bali",
+       "summary": "A Bali dos cartões-postais: arrozais, templos, cachoeiras e a Floresta dos Macacos. Lindo, mas pensado inteiro para o turismo e quase sempre lotado.",
+       "highlights": [
+        "Arrozal de Tegallalang, antes das 10h para fugir dos ônibus",
+        "Degustação de cafés e chás numa plantação",
+        "Templo do Elefante, construído no século X",
+        "Floresta dos Macacos (deixe tudo guardado)"
+       ],
+       "pros": [
+        "Concentra os passeios clássicos de Bali",
+        "Natureza e templos impressionantes",
+        "Yoga, spas e retiros por toda parte"
+       ],
+       "cons": [
+        "Calçadas estreitas e sempre cheias",
+        "Gente oferecendo passeio e táxi o tempo todo",
+        "Fila paga para foto em cachoeira",
+        "Trânsito pesado de carros e ônibus de turismo"
+       ],
+       "tip": "Para turistar, 4 dias bastam. Eu fiquei 14 e foi demais. Chegue cedo em todos os pontos.",
+       "images": [
+        {
+         "src": "images/diario/ubud-1.jpg",
+         "alt": "Arrozal e coqueiros em Ubud"
+        },
+        {
+         "src": "images/diario/ubud-2.jpg",
+         "alt": "Cachoeira na floresta perto de Ubud"
+        },
+        {
+         "src": "images/diario/ubud-3.jpg",
+         "alt": "Laura diante de um muro esculpido em pedra"
+        }
+       ],
+       "videos": [
+        {
+         "id": "8B9nxMnWFlE",
+         "title": "Conheci o lado mais famoso de Bali… e me decepcionei",
+         "duration": "24:29"
+        }
+       ]
+      },
+      {
+       "type": "milestone",
+       "id": "mes-1",
+       "month": "Mês 1 · julho",
+       "recordedAt": "Gravado em Ubud",
+       "income": 4500,
+       "spent": "Gastos em Bali: cerca de A$ 300 em dinheiro e A$ 718 no cartão, mais A$ 553 de hospedagem",
+       "bullets": [
+        "Duas publicidades pagas",
+        "Primeiras vendas como afiliada",
+        "Mais de 900 inscritos novos no YouTube"
+       ],
+       "video": {
+        "id": "wfKyB2O7MOk",
+        "title": "Meu primeiro mês tentando viver da internet (quanto ganhei?)",
+        "duration": "29:01"
+       }
+      },
+      {
+       "type": "stop",
+       "id": "gili",
+       "city": "Gili Trawangan",
+       "period": "Agosto",
+       "stay": "3 noites",
+       "coords": [
+        -8.35,
+        116.04
+       ],
+       "badge": "5º no meu ranking de Bali",
+       "summary": "Uma ilha sem carros, de bicicleta e charrete, com água cristalina e clima total de férias. Linda, mas não é a minha vibe para trabalhar sozinha.",
+       "highlights": [
+        "Volta na ilha de bicicleta: uns 7 km, tudo plano",
+        "Night market com satay e bolinho de milho",
+        "Um dos melhores lugares para snorkel e mergulho com tartarugas"
+       ],
+       "pros": [
+        "Silenciosa, sem carros nem motos a gasolina",
+        "Perfeita para mergulho e passeios de barco",
+        "Muita atividade e vida noturna"
+       ],
+       "cons": [
+        "Tudo mais caro, até a garrafa de água",
+        "Check-in do barco caótico, sem fila",
+        "Festa demais para quem quer trabalhar"
+       ],
+       "tip": "Confira sempre a conta: cobraram o pedido de outra mesa na minha.",
+       "images": [
+        {
+         "src": "images/diario/gili-1.jpg",
+         "alt": "Barcos na praia de água turquesa em Gili"
+        },
+        {
+         "src": "images/diario/gili-2.jpg",
+         "alt": "Laura na praia de Gili Trawangan"
+        },
+        {
+         "src": "images/diario/gili-3.jpg",
+         "alt": "Laura sorrindo numa rua de Gili"
+        }
+       ],
+       "videos": [
+        {
+         "id": "TtBuGZLTSog",
+         "title": "A realidade dos lugares mais paradisíacos de Bali",
+         "duration": "40:32"
+        }
+       ]
+      },
+      {
+       "type": "stop",
+       "id": "nusa-penida",
+       "city": "Nusa Penida",
+       "period": "Agosto",
+       "stay": "2 noites",
+       "coords": [
+        -8.73,
+        115.54
+       ],
+       "badge": "4º no meu ranking de Bali",
+       "summary": "As paisagens mais bonitas da viagem, e as mais disputadas. Natureza de tirar o fôlego com estrada ruim e multidão em volta.",
+       "highlights": [
+        "Diamond Beach, a minha favorita",
+        "Kelingking, o famoso \"T-Rex\"",
+        "Broken Beach, com golfinhos passando"
+       ],
+       "pros": [
+        "Entre as paisagens mais bonitas que eu já vi",
+        "Dá para fazer em bate-volta saindo de Bali"
+       ],
+       "cons": [
+        "Estradas esburacadas e perigosas",
+        "Multidão e disputa por lugar para foto",
+        "Sem aplicativo de transporte: táxi caro",
+        "Quase 4 horas de barco vindo de Gili"
+       ],
+       "tip": "Não alugue moto. Vá com guia de carro e comece o mais cedo possível.",
+       "images": [
+        {
+         "src": "images/diario/nusa-1.jpg",
+         "alt": "Falésia de Kelingking em Nusa Penida"
+        },
+        {
+         "src": "images/diario/nusa-2.jpg",
+         "alt": "Arco de pedra de Broken Beach"
+        },
+        {
+         "src": "images/diario/nusa-3.jpg",
+         "alt": "Laura em Nusa Penida"
+        }
+       ],
+       "videos": [
+        {
+         "id": "TtBuGZLTSog",
+         "title": "A realidade dos lugares mais paradisíacos de Bali",
+         "duration": "40:32"
+        }
+       ]
+      },
+      {
+       "type": "stop",
+       "id": "uluwatu",
+       "city": "Uluwatu, Bali",
+       "period": "Fim de agosto",
+       "stay": "10 dias",
+       "coords": [
+        -8.83,
+        115.09
+       ],
+       "badge": "1º no meu ranking de Bali",
+       "summary": "Praias de falésia, surf e o equilíbrio ideal entre trabalho e vida de praia. Foi onde eu mais me senti em casa em Bali.",
+       "highlights": [
+        "Bingin e Padang Padang, as praias mais famosas",
+        "Pôr do sol nos beach clubs em cima da falésia",
+        "Treinos funcionais todos os dias",
+        "Muitos brasileiros e até comida brasileira"
+       ],
+       "pros": [
+        "As praias mais bonitas de Bali",
+        "Vibe de surf, jovem e ativa",
+        "Bons cafés para trabalhar"
+       ],
+       "cons": [
+        "A região mais cara de Bali",
+        "Tudo espalhado: depende de moto",
+        "Muita escada para descer e subir das praias",
+        "Corais no fundo do mar machucam o pé"
+       ],
+       "tip": "Economizar numa hospedagem mal localizada saiu caro em moto. E compre Havaianas no Brasil: aqui custam R$ 100.",
+       "images": [
+        {
+         "src": "images/diario/uluwatu-1.jpg",
+         "alt": "Praia vista do alto da falésia em Uluwatu"
+        },
+        {
+         "src": "images/diario/uluwatu-2.jpg",
+         "alt": "Mar turquesa entre árvores em Uluwatu"
+        },
+        {
+         "src": "images/diario/uluwatu-3.jpg",
+         "alt": "Laura de óculos escuros em Uluwatu"
+        }
+       ],
+       "videos": [
+        {
+         "id": "rtEBiuBCNxE",
+         "title": "Depois de 2 meses em Bali, fui parar onde menos esperava",
+         "duration": "30:33"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "australia",
+     "name": "Austrália",
+     "code": "AU",
+     "period": "Agosto e setembro de 2026",
+     "intro": "Uma volta rápida, agora como turista: meu sobrinho nasceu enquanto eu estava em Bali e minha mãe vinha do Brasil.",
+     "items": [
+      {
+       "type": "stop",
+       "id": "perth",
+       "city": "Perth",
+       "period": "Fim de agosto",
+       "stay": "Alguns dias",
+       "coords": [
+        -31.95,
+        115.86
+       ],
+       "summary": "Voar Bali–Perth–Sydney saiu mais barato que o voo direto, então aproveitei para conhecer. Do caos de Bali para uma das cidades mais calmas que eu já vi.",
+       "highlights": [
+        "Ferry pelo rio com vista da cidade",
+        "Praias com pôr do sol no mar",
+        "Banheiros públicos e bebedouros em todo lugar"
+       ],
+       "pros": [
+        "Limpa, segura e tranquila",
+        "Transporte público excelente",
+        "Qualidade de vida visível"
+       ],
+       "cons": [
+        "Isolada e cara para chegar",
+        "Cidade vazia demais (talvez pelo inverno)"
+       ],
+       "tip": "Compare rotas com escala: às vezes sai mais barato e ainda rende um destino novo. E se vier de Bali, traga roupa de frio: eu tive que comprar assim que cheguei.",
+       "images": [
+        {
+         "src": "images/diario/perth-2.jpg",
+         "alt": "Laura de casaco na Austrália"
+        }
+       ],
+       "videos": []
+      },
+      {
+       "type": "milestone",
+       "id": "mes-2",
+       "month": "Mês 2 · agosto",
+       "recordedAt": "Gravado em Perth",
+       "income": 4300,
+       "spent": "Gastei cerca de R$ 5.462: no vermelho de novo",
+       "bullets": [
+        "YouTube passou de 4.000 inscritos e liberou as horas de monetização",
+        "Afiliados: 300% acima da meta",
+        "Facebook voltou a monetizar"
+       ],
+       "video": {
+        "id": "5qp6FXtZm2g",
+        "title": "Meu 2º mês tentando viver da internet (quanto eu ganhei?)",
+        "duration": "22:05"
+       }
+      },
+      {
+       "type": "stop",
+       "id": "sydney",
+       "city": "Sydney",
+       "period": "Setembro",
+       "stay": "Algumas semanas",
+       "coords": [
+        -33.87,
+        151.21
+       ],
+       "summary": "De volta como turista à cidade que foi casa por 3 anos e meio, para conhecer meu sobrinho e rever minha mãe. E para responder: a Austrália é tão boa quanto parece?",
+       "highlights": [
+        "Opera House e Jardim Botânico",
+        "Ferry até Manly, a minha praia favorita",
+        "Custo de vida real: cerca de A$ 700 por semana"
+       ],
+       "pros": [
+        "Segurança, inclusive para mulher sozinha",
+        "Salário mínimo acima de A$ 1.000 por semana",
+        "Transporte que funciona e praia depois do expediente"
+       ],
+       "cons": [
+        "Um dos custos de vida mais altos do mundo",
+        "Longe de tudo, e da família",
+        "Visto sempre incerto para imigrante"
+       ],
+       "tip": "Dá para conhecer Sydney inteira de transporte público: em 3 anos eu nunca precisei de carro.",
+       "images": [
+        {
+         "src": "images/diario/sydney-1.jpg",
+         "alt": "Praia de Sydney vista do alto"
+        },
+        {
+         "src": "images/diario/sydney-2.jpg",
+         "alt": "Laura com a Opera House ao fundo"
+        },
+        {
+         "src": "images/diario/sydney-3.jpg",
+         "alt": "Laura em Manly"
+        }
+       ],
+       "videos": [
+        {
+         "id": "hKqoB9HA9uM",
+         "title": "O país onde todo brasileiro quer morar!",
+         "duration": "23:38"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "tailandia",
+     "name": "Tailândia",
+     "code": "TH",
+     "period": "Setembro e outubro de 2026",
+     "intro": "Início da primeira temporada pela Ásia: três meses, vários países, com todas as passagens compradas de uma vez.",
+     "items": [
+      {
+       "type": "stop",
+       "id": "bangkok",
+       "city": "Bangkok",
+       "period": "Fim de setembro",
+       "stay": "1 semana",
+       "coords": [
+        13.75,
+        100.5
+       ],
+       "summary": "Cidade gigante e cheia de informação: templos ao lado de arranha-céus, tuk-tuks e mercados. Cheguei em plena temporada de chuva, com enchente.",
+       "highlights": [
+        "Talat Noi e a rua Song Wat",
+        "Chinatown",
+        "Mercado do Trem e Mercado Flutuante",
+        "Metrô e BTS sinalizados em inglês"
+       ],
+       "pros": [
+        "Transporte público muito bem estruturado",
+        "Muito para ver em uma semana",
+        "Me senti segura até à noite",
+        "\"O Brasil da Ásia\": povo criativo e receptivo"
+       ],
+       "cons": [
+        "Chuva e enchentes em setembro",
+        "Pouco inglês fora das áreas turísticas",
+        "Tuk-tuk caro para turista",
+        "Um pouco mais cara que Bali"
+       ],
+       "tip": "Não vá para Bangkok em setembro. E fuja dos \"pega-turista\" no Mercado Flutuante.",
+       "images": [
+        {
+         "src": "images/diario/bangkok-1.jpg",
+         "alt": "Buda dourado gigante perto de Bangkok"
+        },
+        {
+         "src": "images/diario/bangkok-2.jpg",
+         "alt": "Barcos no Mercado Flutuante"
+        },
+        {
+         "src": "images/diario/bangkok-3.jpg",
+         "alt": "Mercado do Trem com barracas sobre os trilhos"
+        }
+       ],
+       "videos": [
+        {
+         "id": "Hc4nMTf6fDg",
+         "title": "Cheguei SOZINHA na Tailândia… e não era o que eu imaginava",
+         "duration": "41:00"
+        }
+       ]
+      },
+      {
+       "type": "stop",
+       "id": "chiang-mai",
+       "city": "Chiang Mai",
+       "period": "Início de outubro",
+       "stay": "1 semana",
+       "coords": [
+        18.79,
+        98.98
+       ],
+       "summary": "A capital do norte: cidade de montanha, histórica e cheia de templos. Depois do caos de Bangkok, finalmente consegui desacelerar.",
+       "highlights": [
+        "Templos e cidade histórica",
+        "Clima de serra, sem praia",
+        "Organizei aqui a temporada de três meses pela Ásia"
+       ],
+       "pros": [
+        "Mais tranquila que Bangkok",
+        "Toda estruturada para o turismo"
+       ],
+       "cons": [
+        "Choveu tanto que não deu para gravar na rua"
+       ],
+       "tip": "Quando recomendam 4 dias, eu fico 7: três para turistar e o resto para trabalhar.",
+       "images": [
+        {
+         "src": "images/diario/tailandia-1.jpg",
+         "alt": "Laura trabalhando no aeroporto"
+        }
+       ],
+       "videos": []
+      },
+      {
+       "type": "milestone",
+       "id": "mes-3",
+       "month": "Mês 3 · setembro",
+       "recordedAt": "Gravado entre Chiang Mai e Krabi",
+       "income": 3500,
+       "bullets": [
+        "YouTube chegou a 5.700 inscritos",
+        "Guia de Bali finalizado",
+        "Parceria com uma empresa brasileira de passeios na Tailândia"
+       ],
+       "video": {
+        "id": "JuHrtf0UOSc",
+        "title": "Meu 3º mês tentando viver da internet (quanto eu ganhei?)",
+        "duration": "25:26"
+       }
+      },
+      {
+       "type": "stop",
+       "id": "krabi",
+       "city": "Krabi",
+       "period": "Outubro",
+       "stay": "Agora",
+       "coords": [
+        8.09,
+        98.91
+       ],
+       "current": true,
+       "summary": "Destino 3 na Tailândia e o começo das praias do sul. O episódio daqui ainda está sendo gravado.",
+       "highlights": [
+        "Hotel um pouco acima da média que eu pago, mas que vale cada centavo"
+       ],
+       "pros": [],
+       "cons": [],
+       "images": [],
+       "videos": []
+      }
+     ]
+    }
+   ]
+  },
+  "blog.page": {
+   "hero": {
+    "eyebrow": "Blog",
+    "script": "Guias de quem esteve lá",
+    "title": "Dicas práticas, custos reais e o que eu faria diferente",
+    "text": "Tudo o que eu vivi em cada destino, organizado por país e por assunto: onde ficar, quanto custa, como se locomover, o que vale a pena e os erros que eu cometi para você não cometer.",
+    "image": "images/blog/bali-regioes-capa.jpg",
+    "position": "50% 40%"
+   },
+   "disclosure": "Alguns links desta página são de afiliado: se você comprar por eles, eu recebo uma pequena comissão, sem custo extra para você.",
+   "soonRec": "Ainda estou escolhendo a minha indicação para esta categoria. Em breve aparece aqui."
+  },
+  "blog.categories": {
+   "items": [
+    {
+     "id": "vale-a-pena",
+     "label": "Vale a pena visitar?"
+    },
+    {
+     "id": "onde-ficar",
+     "label": "Onde se hospedar"
+    },
+    {
+     "id": "quanto-custa",
+     "label": "Quanto custa"
+    },
+    {
+     "id": "transporte",
+     "label": "Transporte"
+    },
+    {
+     "id": "o-que-fazer",
+     "label": "O que fazer"
+    },
+    {
+     "id": "erros",
+     "label": "Erros comuns"
+    },
+    {
+     "id": "experiencias",
+     "label": "Experiências"
+    },
+    {
+     "id": "curiosidades",
+     "label": "Curiosidades"
+    },
+    {
+     "id": "dicas",
+     "label": "Dicas práticas"
+    }
+   ]
+  },
+  "blog.destinations": {
+   "items": [
+    {
+     "id": "bali",
+     "name": "Bali",
+     "country": "indonesia",
+     "tagline": "Dois meses na ilha, sem filtro",
+     "intro": "Bali foi a minha primeira parada depois de sair da Austrália e o lugar onde eu comecei a construir a minha vida trabalhando com a internet. Passei por Canggu, Ubud, Gili, Nusa Penida e Uluwatu. Aqui estão as regiões, os custos reais, os passeios que valem (e os que não valem) e tudo o que eu queria saber antes de chegar.",
+     "facts": [
+      {
+       "label": "Quando eu fui",
+       "value": "Julho e agosto de 2026"
+      },
+      {
+       "label": "Quanto tempo",
+       "value": "Quase 2 meses (o máximo do visto de turista)"
+      },
+      {
+       "label": "Regiões",
+       "value": "Canggu, Ubud, Gili, Nusa Penida e Uluwatu"
+      },
+      {
+       "label": "Moeda",
+       "value": "Rupia indonésia"
+      }
+     ],
+     "image": "images/blog/bali-regioes-nusa.jpg",
+     "guide": "guia-bali",
+     "recs": [
+      {
+       "cat": "dinheiro",
+       "i": 0
+      },
+      {
+       "cat": "passeios",
+       "i": 0
+      },
+      {
+       "cat": "passagens",
+       "i": 0
+      },
+      {
+       "cat": "seguros"
+      },
+      {
+       "cat": "internet",
+       "i": 0
+      }
+     ],
+     "stops": [
+      "canggu",
+      "ubud",
+      "gili",
+      "nusa-penida",
+      "uluwatu"
+     ],
+     "videos": [
+      {
+       "id": "qPqpePK8oFM",
+       "title": "Larguei tudo pra tentar viver da internet! Essa é a realidade",
+       "duration": "30:19",
+       "poster": "images/videos/qPqpePK8oFM.jpg"
+      },
+      {
+       "id": "-JAjCDJhsPw",
+       "title": "O lado de Bali que a internet esconde",
+       "duration": "22:01",
+       "poster": "images/videos/-JAjCDJhsPw.jpg"
+      },
+      {
+       "id": "8B9nxMnWFlE",
+       "title": "Conheci o lado mais famoso de Bali… e me decepcionei",
+       "duration": "24:29",
+       "poster": "images/videos/8B9nxMnWFlE.jpg"
+      },
+      {
+       "id": "TtBuGZLTSog",
+       "title": "A realidade dos lugares mais paradisíacos de Bali",
+       "duration": "40:32",
+       "poster": "images/videos/TtBuGZLTSog.jpg"
+      },
+      {
+       "id": "rtEBiuBCNxE",
+       "title": "Depois de 2 meses em Bali, fui parar onde menos esperava",
+       "duration": "30:33",
+       "poster": "images/videos/rtEBiuBCNxE.jpg"
+      }
+     ]
+    },
+    {
+     "id": "bangkok",
+     "name": "Bangkok",
+     "country": "tailandia",
+     "tagline": "Templos, mercados e muita informação",
+     "intro": "A primeira parada da minha temporada pela Ásia. Cheguei em plena época de chuva, com enchente, e mesmo assim Bangkok me surpreendeu muito mais do que eu esperava. Aqui tem o que eu queria saber antes de chegar, quanto custa cada passeio e o que eu faria diferente.",
+     "facts": [
+      {
+       "label": "Quando eu fui",
+       "value": "Fim de setembro de 2026"
+      },
+      {
+       "label": "Quanto tempo",
+       "value": "1 semana"
+      },
+      {
+       "label": "Destaques",
+       "value": "Templos, Talat Noi, Song Wat, Mercado do Trem"
+      },
+      {
+       "label": "Moeda",
+       "value": "Baht tailandês"
+      }
+     ],
+     "image": "images/blog/bangkok-mercados-capa.jpg",
+     "guide": "guia-tailandia",
+     "recs": [
+      {
+       "cat": "passeios",
+       "i": 1
+      },
+      {
+       "cat": "dinheiro",
+       "i": 0
+      },
+      {
+       "cat": "passagens",
+       "i": 0
+      },
+      {
+       "cat": "internet",
+       "i": 0
+      },
+      {
+       "cat": "seguros"
+      }
+     ],
+     "stops": [
+      "bangkok"
+     ],
+     "videos": [
+      {
+       "id": "Hc4nMTf6fDg",
+       "title": "Cheguei SOZINHA na Tailândia… e não era o que eu imaginava",
+       "duration": "41:00",
+       "poster": "images/videos/Hc4nMTf6fDg.jpg"
+      },
+      {
+       "id": "r2Crin2dNoA",
+       "title": "O que eu queria saber antes de chegar em Bangkok",
+       "poster": "images/blog/bangkok-dicas-songwat.jpg",
+       "vertical": true
+      },
+      {
+       "id": "KRsdL9T0z2s",
+       "title": "Quanto custa conhecer os 3 templos de Bangkok?",
+       "poster": "images/blog/bangkok-templos-arun.jpg",
+       "vertical": true
+      },
+      {
+       "id": "LQ7FwzQfq14",
+       "title": "Conheci os mercados mais famosos da Tailândia por menos de R$ 100",
+       "poster": "images/blog/bangkok-mercados-capa.jpg",
+       "vertical": true
+      }
+     ]
+    },
+    {
+     "id": "chiang-mai",
+     "name": "Chiang Mai",
+     "country": "tailandia",
+     "tagline": "O norte da Tailândia, com mais calma",
+     "intro": "Depois do caos de Bangkok, Chiang Mai foi onde eu consegui desacelerar. É uma cidade de montanha, histórica e cheia de templos, e a base perfeita para um bate-volta até Chiang Rai, que destruiu a imagem que eu tinha de templo tailandês.",
+     "facts": [
+      {
+       "label": "Quando eu fui",
+       "value": "Início de outubro de 2026"
+      },
+      {
+       "label": "Quanto tempo",
+       "value": "1 semana"
+      },
+      {
+       "label": "Destaque",
+       "value": "Bate-volta a Chiang Rai"
+      },
+      {
+       "label": "Moeda",
+       "value": "Baht tailandês"
+      }
+     ],
+     "image": "images/blog/chiang-rai-capa.jpg",
+     "guide": "guia-tailandia",
+     "recs": [
+      {
+       "cat": "passeios",
+       "i": 0
+      },
+      {
+       "cat": "dinheiro",
+       "i": 0
+      },
+      {
+       "cat": "internet",
+       "i": 0
+      }
+     ],
+     "stops": [
+      "chiang-mai"
+     ],
+     "videos": [
+      {
+       "id": "GC5yz_90vIE",
+       "title": "Os templos mais famosos da Tailândia me surpreenderam",
+       "poster": "images/blog/chiang-rai-azul.jpg",
+       "vertical": true
+      }
+     ]
+    },
+    {
+     "id": "sydney",
+     "name": "Sydney",
+     "country": "australia",
+     "tagline": "A cidade que foi minha casa por 3 anos e meio",
+     "intro": "Eu morei em Sydney de 2022 a 2026 e voltei como turista para conhecer o meu sobrinho. Aqui eu conto o que ninguém resume direito: quanto se ganha, quanto se gasta, como é a qualidade de vida e o outro lado de ser imigrante na Austrália.",
+     "facts": [
+      {
+       "label": "Quanto tempo",
+       "value": "3 anos e meio morando + algumas semanas como turista"
+      },
+      {
+       "label": "Quando eu voltei",
+       "value": "Setembro de 2026"
+      },
+      {
+       "label": "Custo de vida",
+       "value": "Cerca de A$ 700 por semana (o meu)"
+      },
+      {
+       "label": "Moeda",
+       "value": "Dólar australiano"
+      }
+     ],
+     "image": "images/blog/australia-capa.jpg",
+     "position": "50% 40%",
+     "guide": "ebook-australia",
+     "recs": [
+      {
+       "cat": "australia",
+       "i": 0
+      },
+      {
+       "cat": "dinheiro",
+       "i": 0
+      },
+      {
+       "cat": "passagens",
+       "i": 0
+      },
+      {
+       "cat": "seguros"
+      }
+     ],
+     "stops": [
+      "sydney"
+     ],
+     "videos": [
+      {
+       "id": "hKqoB9HA9uM",
+       "title": "O país onde todo brasileiro quer morar!",
+       "duration": "23:38",
+       "poster": "images/videos/hKqoB9HA9uM.jpg"
+      },
+      {
+       "id": "pwwxtfpaVNs",
+       "title": "Por que estou indo embora da Austrália?",
+       "duration": "24:36",
+       "poster": "images/videos/pwwxtfpaVNs.jpg"
+      }
+     ]
+    },
+    {
+     "id": "perth",
+     "name": "Perth",
+     "country": "australia",
+     "tagline": "A cidade grande mais isolada do mundo",
+     "intro": "Perth entrou no roteiro quase por acaso: voar de Bali para Sydney com escala em Perth saiu mais barato que o voo direto. Fiquei alguns dias e entendi por que ela aparece em todo ranking de melhores cidades para viver.",
+     "facts": [
+      {
+       "label": "Quando eu fui",
+       "value": "Fim de agosto de 2026"
+      },
+      {
+       "label": "Quanto tempo",
+       "value": "Alguns dias"
+      },
+      {
+       "label": "Por que fui",
+       "value": "Escala mais barata entre Bali e Sydney"
+      },
+      {
+       "label": "Moeda",
+       "value": "Dólar australiano"
+      }
+     ],
+     "image": "images/blog/perth-capa.jpg",
+     "position": "50% 35%",
+     "guide": "ebook-australia",
+     "recs": [
+      {
+       "cat": "passagens",
+       "i": 0
+      },
+      {
+       "cat": "dinheiro",
+       "i": 0
+      },
+      {
+       "cat": "seguros"
+      }
+     ],
+     "stops": [
+      "perth"
+     ],
+     "videos": [
+      {
+       "id": "ZjmwiuHKxwU",
+       "title": "Eu vim parar na cidade grande mais isolada do mundo",
+       "poster": "images/blog/perth-rio.jpg",
+       "vertical": true
+      }
+     ]
+    }
+   ]
+  },
+  "layout.home": {
+   "sections": [
+    {
+     "id": "hero",
+     "visible": true
+    },
+    {
+     "id": "about",
+     "visible": true
+    },
+    {
+     "id": "products",
+     "visible": true
+    },
+    {
+     "id": "recommendations",
+     "visible": true
+    },
+    {
+     "id": "brands",
+     "visible": true
+    },
+    {
+     "id": "diary",
+     "visible": true
+    }
+   ]
+  },
+  "layout.sobre": {
+   "sections": [
+    {
+     "id": "hero",
+     "visible": true
+    },
+    {
+     "id": "intro",
+     "visible": true
+    },
+    {
+     "id": "timeline",
+     "visible": true
+    },
+    {
+     "id": "jobs",
+     "visible": true
+    },
+    {
+     "id": "quote",
+     "visible": true
+    },
+    {
+     "id": "values",
+     "visible": true
+    },
+    {
+     "id": "facts",
+     "visible": true
+    },
+    {
+     "id": "cta",
+     "visible": true
+    }
+   ]
+  },
+  "layout.produtos": {
+   "sections": [
+    {
+     "id": "hero",
+     "visible": true
+    },
+    {
+     "id": "available",
+     "visible": true
+    },
+    {
+     "id": "upcoming",
+     "visible": true
+    },
+    {
+     "id": "free",
+     "visible": true
+    },
+    {
+     "id": "faq",
+     "visible": true
+    },
+    {
+     "id": "cta",
+     "visible": true
+    }
+   ]
+  },
+  "layout.recomendacoes": {
+   "sections": [
+    {
+     "id": "hero",
+     "visible": true
+    },
+    {
+     "id": "filters",
+     "visible": true
+    },
+    {
+     "id": "list",
+     "visible": true
+    },
+    {
+     "id": "cta",
+     "visible": true
+    }
+   ]
+  },
+  "layout.parcerias": {
+   "sections": [
+    {
+     "id": "hero",
+     "visible": true
+    },
+    {
+     "id": "stats",
+     "visible": true
+    },
+    {
+     "id": "about",
+     "visible": true
+    },
+    {
+     "id": "audience",
+     "visible": true
+    },
+    {
+     "id": "pillars",
+     "visible": true
+    },
+    {
+     "id": "formats",
+     "visible": true
+    },
+    {
+     "id": "process",
+     "visible": true
+    },
+    {
+     "id": "contact",
+     "visible": true
+    }
+   ]
+  },
+  "layout.diario": {
+   "sections": [
+    {
+     "id": "hero",
+     "visible": true
+    },
+    {
+     "id": "stats",
+     "visible": true
+    },
+    {
+     "id": "map",
+     "visible": true
+    },
+    {
+     "id": "countries",
+     "visible": true
+    },
+    {
+     "id": "route",
+     "visible": true
+    }
+   ]
+  },
+  "layout.blog": {
+   "sections": [
+    {
+     "id": "hero",
+     "visible": true
+    },
+    {
+     "id": "destinations",
+     "visible": true
+    },
+    {
+     "id": "filters",
+     "visible": true
+    },
+    {
+     "id": "articles",
+     "visible": true
+    }
+   ]
+  }
+ },
+ "collections": {
+  "article": [
+   {
+    "slug": "vale-a-pena-ir-para-bali",
+    "title": "Vale a pena ir para Bali? Minha opinião sincera depois de quase 2 meses",
+    "excerpt": "Nem o paraíso das fotos, nem o caos que falam. O que eu amei, o que me cansou e para quem Bali faz sentido.",
+    "destination": "bali",
+    "category": "vale-a-pena",
+    "cover": {
+     "src": "images/blog/bali-vale-capa.jpg",
+     "alt": "Pôr do sol na praia de Canggu, em Bali"
+    },
+    "trip": "Julho e agosto de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Quando eu imaginava Bali, eu imaginava o que todo mundo imagina: praias paradisíacas, beach clubs, templos, arrozais, tudo perfeito. Depois de quase dois meses na ilha, eu posso te dizer que essa Bali existe. Só que ela é só uma parte da história."
+     },
+     {
+      "type": "p",
+      "text": "Bali é muito mais difícil de definir do que eu achava. Ela pode ser linda e caótica, silenciosa e extremamente barulhenta, espiritual e ao mesmo tempo cheia de desafios. E foi justamente essa mistura que fez eu gostar tanto daqui."
+     },
+     {
+      "type": "h2",
+      "text": "O que eu mais amei"
+     },
+     {
+      "type": "list",
+      "items": [
+       "Me sentir segura. Em nenhum momento eu me senti insegura, nem de noite, nem sozinha.",
+       "Os cafés. Acho que os cafés mais bonitos e com a melhor comida do mundo estão em Bali.",
+       "As frutas tropicais, baratas e muito boas. Isso me lembrou muito o Brasil.",
+       "A cultura hindu: tudo tem cheiro de incenso e tem oferenda em todo lugar.",
+       "Andar de moto. É uma sensação de liberdade, um caos que funciona.",
+       "As pessoas, sempre sorrindo e prontas para ajudar."
+      ]
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-vale-motos.jpg",
+       "alt": "Rua movimentada de Canggu com motos e barracas"
+      },
+      "caption": "Canggu cresceu rápido, mas as ruas continuam as mesmas."
+     },
+     {
+      "type": "h2",
+      "text": "O que eu não gostei"
+     },
+     {
+      "type": "p",
+      "text": "Sinceridade total: tem coisa que cansa. O barulho é constante, de moto, de trânsito, de música e de obra. Em Canggu, por exemplo, enquanto eu gravava, novos cafés, hotéis e vilas estavam sendo construídos em todo canto. O turismo aumenta, mas a infraestrutura não acompanha."
+     },
+     {
+      "type": "list",
+      "items": [
+       "Lixo nas ruas e até na praia. Um dia, pegando sol, começou a voar plástico em mim.",
+       "Poeira e poluição: os motoristas andam de máscara por um motivo.",
+       "Nas regiões muito turísticas, tudo se paga: banheiro, estacionamento, até entrar em algumas ruas.",
+       "Muita gente fumando, porque o cigarro lá é muito barato.",
+       "Em algumas regiões, uma certa competição para ver quem tem a melhor moto e o corpo mais sarado. Isso me estressa."
+      ]
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-vale-obras.jpg",
+       "alt": "Prédio em construção em Canggu"
+      },
+      "caption": "Obra em todo lugar: Bali está crescendo muito rápido."
+     },
+     {
+      "type": "h2",
+      "text": "O maior erro: procurar a Bali da internet"
+     },
+     {
+      "type": "p",
+      "text": "Acho que o maior erro que eu cometi foi chegar procurando a Bali que eu tinha visto nas redes sociais. A internet mostra recortes. Um vídeo de 30 segundos não mostra que, do lado de uma vila de milhares de dólares por noite, tem uma família morando numa casa muito simples. Esse contraste faz parte da ilha."
+     },
+     {
+      "type": "quote",
+      "text": "Bali não é um paraíso. Ela é um lugar real, como qualquer outro. E foi justamente isso que me fez gostar tanto daqui."
+     },
+     {
+      "type": "video",
+      "id": "-JAjCDJhsPw",
+      "title": "O lado de Bali que a internet esconde"
+     },
+     {
+      "type": "h2",
+      "text": "Então, vale a pena?"
+     },
+     {
+      "type": "p",
+      "text": "Para mim, valeu muito. Bali foi o lugar perfeito para começar a minha vida trabalhando com a internet: tem estrutura de sobra para quem trabalha remoto, custo de vida acessível e gente do mundo inteiro. Mas depende muito do teu objetivo. Quem vem de férias provavelmente vai amar lugares que eu achei turísticos demais, e vice-versa."
+     },
+     {
+      "type": "tip",
+      "title": "Para quem Bali faz sentido",
+      "text": "Quem quer passar uma temporada trabalhando online, quem gosta de praia, surf, academia e vida saudável, e quem está disposto a aceitar um pouco de caos em troca de muita coisa boa. Se tu procura silêncio e tudo organizado, talvez se frustre."
+     },
+     {
+      "type": "guide",
+      "text": "Tudo o que eu aprendi nesses dois meses, resumido: qual região combina contigo, quanto custa de verdade, como se locomover e os cuidados com água e comida."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "dinheiro",
+        "i": 0
+       },
+       {
+        "cat": "passeios",
+        "i": 0
+       },
+       {
+        "cat": "seguros"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "onde-ficar-em-bali-regioes",
+    "title": "Onde ficar em Bali: as 5 regiões que eu conheci (com ranking)",
+    "excerpt": "Canggu, Ubud, Gili, Nusa Penida e Uluwatu: o perfil de cada uma, quantos dias ficar e a minha nota para cada região.",
+    "destination": "bali",
+    "category": "onde-ficar",
+    "cover": {
+     "src": "images/blog/bali-regioes-capa.jpg",
+     "alt": "Mar azul de Uluwatu visto entre as árvores da falésia"
+    },
+    "trip": "Julho e agosto de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "A pergunta que eu mais recebo é: \"Laura, onde eu fico em Bali?\". E a resposta honesta é: depende do teu objetivo. Cada região de Bali parece outro lugar. Eu passei por cinco, e o que eu amei pode não ser o ideal para quem vem de férias."
+     },
+     {
+      "type": "tip",
+      "title": "Antes de tudo, um aviso",
+      "text": "Eu não estava de férias. Eu estava trabalhando enquanto conhecia, e fui na altíssima temporada (julho e agosto), então estava tudo bem lotado. O meu critério foi: cafés bons para trabalhar, rotina e lugares mais tranquilos."
+     },
+     {
+      "type": "h2",
+      "text": "1º lugar: Uluwatu (nota 9,5)"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-regioes-uluwatu.jpg",
+       "alt": "Laura em Uluwatu, numa estrutura de madeira na praia"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Praias de falésia, água muito azul, surf, pôr do sol nos beach clubs em cima do penhasco. É uma vibe jovem, ativa, com muitos brasileiros e até comida brasileira. Foi onde eu mais me senti em casa: fazia treino funcional todos os dias e trabalhava nos cafés."
+     },
+     {
+      "type": "p",
+      "text": "Só não leva 10 porque é a região mais cara de Bali, tudo é espalhado e tem muito sobe e desce. Tu vai depender de moto o tempo inteiro. Fiquei 10 dias e foi ótimo."
+     },
+     {
+      "type": "h2",
+      "text": "2º lugar: Canggu (nota 9)"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-regioes-canggu.jpg",
+       "alt": "Laura numa rua de Canggu"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Foi onde eu fiquei mais tempo, 25 dias, e escolhi de propósito: é o lugar com mais nômades digitais, cheio de cafés, coworkings, academias e internet boa. Consegui criar uma mini rotina e me locomover fácil de moto por aplicativo."
+     },
+     {
+      "type": "p",
+      "text": "Não levou 10 porque as praias de areia preta não são tão bonitas e tem o lado caótico do trânsito e do barulho. Para quem vem trabalhar, é perfeito. Para quem vem turistar, talvez não seja tão incrível."
+     },
+     {
+      "type": "h2",
+      "text": "3º lugar: Ubud (nota 8)"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-regioes-ubud.jpg",
+       "alt": "Arrozal com coqueiros em Ubud"
+      }
+     },
+     {
+      "type": "p",
+      "text": "A Bali dos cartões-postais: arrozais, templos, cachoeiras, a Floresta dos Macacos, yoga e spas. Para quem vem turistar, tem que ir. Mas é tudo pensado para o turismo e estava extremamente lotado. Eu fiquei 14 dias e foi demais: uns 4 dias inteiros já dão para fazer todos os passeios."
+     },
+     {
+      "type": "h2",
+      "text": "4º lugar: Nusa Penida (nota 6)"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-regioes-nusa.jpg",
+       "alt": "Falésia de Kelingking em Nusa Penida"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Talvez as paisagens mais absurdamente lindas que eu já vi. Mas estava muito lotado, as estradas são esburacadas e não tem muito o que fazer além dos pontos turísticos. Duas noites foi muito para mim. Dá para fazer em bate-volta saindo de Bali, ou dormir uma noite só."
+     },
+     {
+      "type": "h2",
+      "text": "5º lugar: Gili Trawangan (nota 4)"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-regioes-gili.jpg",
+       "alt": "Rua de terra de Gili Trawangan com lojinhas"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Eu sei que muita gente ama, e é lindo, uma ilha sem carros, de bicicleta e charrete. Mas achei extremamente turístico, com muita gente tentando te vender alguma coisa, muita festa e passeios de barco caros. Para quem gosta de mergulho e vida noturna, vale muito. Para mim, sozinha e trabalhando, não era a vibe. Três noites foi mais do que suficiente."
+     },
+     {
+      "type": "video",
+      "id": "rtEBiuBCNxE",
+      "title": "Depois de 2 meses em Bali, fui parar onde menos esperava"
+     },
+     {
+      "type": "h2",
+      "text": "Resumo: onde ficar conforme o teu objetivo"
+     },
+     {
+      "type": "list",
+      "items": [
+       "Vai trabalhar remoto por um mês ou mais: Canggu ou Uluwatu.",
+       "Quer os passeios clássicos de Bali: Ubud, por uns 4 dias.",
+       "Gosta de mergulho, snorkel e festa: Gili.",
+       "Quer as paisagens mais famosas: Nusa Penida, de preferência com uma noite só.",
+       "Quer praia bonita e pôr do sol: Uluwatu."
+      ]
+     },
+     {
+      "type": "tip",
+      "text": "Em Uluwatu, eu economizei numa hospedagem mal localizada e gastei horrores de moto. Na hora de reservar, olha a localização com o mesmo cuidado que tu olha o preço."
+     },
+     {
+      "type": "guide",
+      "text": "No Guia de Bali eu detalho o perfil de cada uma dessas regiões, quanto custa ficar em cada uma e como montar a tua rota."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "hospedagens",
+        "i": 0
+       },
+       {
+        "cat": "dinheiro",
+        "i": 0
+       },
+       {
+        "cat": "passagens",
+        "i": 0
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "roteiro-15-dias-bali",
+    "title": "Roteiro de 15 dias em Bali: a rota que eu faria",
+    "excerpt": "Se eu tivesse só 15 dias de férias em Bali, essa é a ordem e o número de noites que eu escolheria em cada região.",
+    "destination": "bali",
+    "category": "o-que-fazer",
+    "cover": {
+     "src": "images/blog/bali-roteiro-capa.jpg",
+     "alt": "Arco de pedra de Broken Beach em Nusa Penida"
+    },
+    "trip": "Julho e agosto de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Depois de quase dois meses rodando Bali, eu sei exatamente o que faria se tivesse só 15 dias de férias. Salva esse roteiro para quando tu for montar o teu."
+     },
+     {
+      "type": "gallery",
+      "images": [
+       {
+        "src": "images/blog/bali-roteiro-mapa.jpg",
+        "alt": "Mapa de Bali com a rota do roteiro"
+       },
+       {
+        "src": "images/blog/bali-roteiro-macacos.jpg",
+        "alt": "Macacos na Floresta dos Macacos em Ubud"
+       },
+       {
+        "src": "images/blog/bali-roteiro-nusa.jpg",
+        "alt": "Falésia de Nusa Penida vista do alto"
+       }
+      ]
+     },
+     {
+      "type": "h2",
+      "text": "Dias 1 a 3: Canggu (3 noites)"
+     },
+     {
+      "type": "p",
+      "text": "Ótima região para entrar no clima de Bali: praia, cafés, aula de surf e pôr do sol. Mas eu não colocaria muitos dias aqui, porque não é em Canggu que estão as principais atrações da ilha."
+     },
+     {
+      "type": "h2",
+      "text": "Dias 4 a 8: Ubud (5 noites)"
+     },
+     {
+      "type": "p",
+      "text": "De Canggu, tu pega um carro pelo Grab, o aplicativo de transporte, e em umas duas horas chega em Ubud. Ubud seria a tua base para os pontos turísticos: arrozais, templos, cachoeiras e a Floresta dos Macacos. Tem muita coisa nos arredores, então eu não tentaria espremer tudo em dois ou três dias."
+     },
+     {
+      "type": "h2",
+      "text": "Dias 9 e 10: Gili Trawangan (2 noites)"
+     },
+     {
+      "type": "p",
+      "text": "De Ubud, um barco até Gili. Eu incluí Gili se tu gosta de mergulho, snorkel e festinha à noite. E vale pela experiência de conhecer um lugar sem carro nem moto, só bicicleta e charrete."
+     },
+     {
+      "type": "h2",
+      "text": "Dia 11: Nusa Penida (1 noite)"
+     },
+     {
+      "type": "p",
+      "text": "De Gili, outro barco de 3 a 4 horas até Nusa Penida. Lá tem os cartões-postais de Bali, mas é só aquilo: dá para ver tudo em um dia. Eu dormiria uma noite para não ficar tão corrido e não sair correndo para pegar outro barco."
+     },
+     {
+      "type": "h2",
+      "text": "Dias 12 a 15: Uluwatu (4 noites)"
+     },
+     {
+      "type": "p",
+      "text": "De Nusa Penida, um barco de uns 45 minutos até Sanur e um carro até Uluwatu. Eu terminaria com quatro noites para conhecer as praias, ver o pôr do sol, assistir ao show de fogo e acabar a viagem num clima mais praiano."
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-roteiro-fogo.jpg",
+       "alt": "Show de fogo ao pôr do sol em Uluwatu"
+      },
+      "tall": true
+     },
+     {
+      "type": "video",
+      "id": "tC4rO0nJYBE",
+      "title": "Se eu tivesse 15 dias em Bali, faria esse roteiro",
+      "vertical": true,
+      "poster": "images/blog/bali-roteiro-mapa.jpg"
+     },
+     {
+      "type": "tip",
+      "title": "Dá para fazer ao contrário",
+      "text": "Tem gente que chega por Uluwatu, vai para as ilhas e termina em Canggu. Também funciona. Eu comecei por Canggu porque queria focar no trabalho logo de cara."
+     },
+     {
+      "type": "h2",
+      "text": "O que eu deixaria fora com pouco tempo"
+     },
+     {
+      "type": "p",
+      "text": "Com 15 dias, eu não ficaria mais de duas noites nas ilhas. E em Ubud, eu priorizaria os arrozais e os templos às cachoeiras com fila para foto. Chegar cedo em todos os pontos faz toda a diferença."
+     },
+     {
+      "type": "guide",
+      "text": "Quer o roteiro com custos, transporte entre as regiões e os cuidados com água e comida? Está tudo no Guia de Bali."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "passeios",
+        "i": 0
+       },
+       {
+        "cat": "passagens",
+        "i": 0
+       },
+       {
+        "cat": "internet",
+        "i": 0
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "quanto-custa-bali",
+    "title": "Quanto custa Bali: preços reais de comida, hospedagem, moto e passeios",
+    "excerpt": "Os valores que eu paguei de verdade em Canggu, Ubud, Gili, Nusa Penida e Uluwatu, e onde o dinheiro escorre sem tu perceber.",
+    "destination": "bali",
+    "category": "quanto-custa",
+    "cover": {
+     "src": "images/blog/bali-custo-capa.jpg",
+     "alt": "Laura escolhendo o café da manhã num café de Canggu"
+    },
+    "trip": "Julho e agosto de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Eu fui para Bali sem salário fixo, usando a reserva que eu juntei em três anos e meio de Austrália. Então eu economizei cada centavo e anotei tudo. Os preços abaixo são os que eu paguei, em rupia indonésia, em julho e agosto de 2026."
+     },
+     {
+      "type": "h2",
+      "text": "Comida"
+     },
+     {
+      "type": "p",
+      "text": "Comer fora todos os dias não pesa tanto. Em vários cafés eles te dão um cardápio para marcar o que tu quer, item por item, com o preço do lado. Mas atenção: no final eles sempre somam a taxa de serviço e a taxa do governo, então o preço do cardápio não é o preço final."
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-custo-padaria.jpg",
+       "alt": "Vitrine de pães e sanduíches num mercado de Bali"
+      },
+      "caption": "Supermercado para mim é ponto turístico: sempre tem opção saudável."
+     },
+     {
+      "type": "prices",
+      "title": "O que eu paguei",
+      "rows": [
+       {
+        "item": "Três ovos no café da manhã",
+        "price": "25.000 rupias"
+       },
+       {
+        "item": "Smoothie",
+        "price": "75.000 rupias"
+       },
+       {
+        "item": "Água de 1,5 L (a mais barata, no mercadinho)",
+        "price": "4.500 rupias"
+       },
+       {
+        "item": "Café solúvel no Circle K (o 7-Eleven de Bali)",
+        "price": "6.000 rupias"
+       },
+       {
+        "item": "Corrida de moto por aplicativo em Canggu",
+        "price": "12.400 rupias"
+       },
+       {
+        "item": "Quarto simples em Canggu, bem localizado",
+        "price": "A$ 135 por 6 noites"
+       },
+       {
+        "item": "Academia (a mais barata que achei)",
+        "price": "850.000 rupias por 2 semanas"
+       },
+       {
+        "item": "Entrada no arrozal de Tegallalang",
+        "price": "50.000 rupias"
+       },
+       {
+        "item": "Entrada em cachoeira em Ubud",
+        "price": "25.000 rupias"
+       },
+       {
+        "item": "Banheiro em ponto turístico de Nusa Penida",
+        "price": "5.000 rupias"
+       },
+       {
+        "item": "Táxi do porto ao hotel em Nusa Penida",
+        "price": "250.000 rupias (pediram 300.000)"
+       },
+       {
+        "item": "Havaianas básica em Uluwatu",
+        "price": "cerca de R$ 100"
+       }
+      ],
+      "note": "Valores de julho e agosto de 2026, alta temporada."
+     },
+     {
+      "type": "h2",
+      "text": "Quanto eu gastei no primeiro mês"
+     },
+     {
+      "type": "p",
+      "text": "No meu primeiro mês, em Canggu e Ubud, gastei cerca de A$ 300 em dinheiro e A$ 718 no cartão, mais A$ 553 de hospedagem. Isso numa viagem bem econômica, ficando em lugares literalmente só para dormir e tomar banho."
+     },
+     {
+      "type": "video",
+      "id": "wfKyB2O7MOk",
+      "title": "Meu primeiro mês tentando viver da internet (quanto ganhei?)"
+     },
+     {
+      "type": "h2",
+      "text": "Onde o dinheiro escorre"
+     },
+     {
+      "type": "list",
+      "items": [
+       "Moto em Uluwatu: tudo é espalhado e, se a hospedagem for mal localizada, tu gasta em aplicativo o que economizou no quarto.",
+       "Gili: tudo é mais caro, até a garrafa de água custa 3.000 rupias a mais.",
+       "Nusa Penida: não tem aplicativo, só táxi, e o preço é negociado na hora.",
+       "Taxas em tudo nas regiões turísticas: banheiro, estacionamento, entrada em praia.",
+       "Comprinhas: as feirinhas são lindas e eles cobram alto do turista. Tem que negociar."
+      ]
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-custo-havaianas.jpg",
+       "alt": "Havaianas com etiqueta de preço numa loja de Uluwatu"
+      },
+      "caption": "Compra tuas Havaianas no Brasil."
+     },
+     {
+      "type": "tip",
+      "title": "Bali é barata?",
+      "text": "É acessível, principalmente se tu ganha em outra moeda. Mas, pelo que eu pesquisei e vivi, Bali acaba sendo mais cara que outros países da Ásia justamente por causa do turismo. E Uluwatu foi a região mais cara de todas."
+     },
+     {
+      "type": "guide",
+      "text": "No Guia de Bali eu organizei os custos de hospedagem, comida e passeios por região, para tu montar o teu orçamento antes de ir."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "dinheiro",
+        "i": 0
+       },
+       {
+        "cat": "passeios",
+        "i": 0
+       },
+       {
+        "cat": "internet",
+        "i": 0
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "como-se-locomover-em-bali",
+    "title": "Como se locomover em Bali: moto, Grab e os barcos entre as ilhas",
+    "excerpt": "Por que a moto é o transporte de Bali, como funcionam os aplicativos e o que esperar dos barcos para Gili, Nusa Penida e Sanur.",
+    "destination": "bali",
+    "category": "transporte",
+    "cover": {
+     "src": "images/blog/bali-transporte-capa.jpg",
+     "alt": "Trânsito de motos numa rua de Canggu"
+    },
+    "trip": "Julho e agosto de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Uma das primeiras cenas que eu vi saindo do aeroporto foi uma moto com três pessoas, dois adultos e uma criança, nenhum de capacete. Eu nunca tinha ido para um lugar com tanta moto. E depois de uns dias eu entendi o porquê."
+     },
+     {
+      "type": "h2",
+      "text": "Por que todo mundo anda de moto"
+     },
+     {
+      "type": "p",
+      "text": "Grande parte das ruas foi construída quando a região era formada por pequenas vilas e plantações de arroz. Lugares como Canggu cresceram muito rápido, mas as ruas continuaram as mesmas: estreitas, sem calçada, sem faixa de pedestre. Uma distância que de moto leva 5 minutos, de carro pode levar até 1 hora."
+     },
+     {
+      "type": "h2",
+      "text": "Grab e Gojek"
+     },
+     {
+      "type": "p",
+      "text": "Os aplicativos que tu vai usar para chamar moto (ou carro) são o Grab e o Gojek. É muito barato: em Canggu, as minhas corridas curtas saíam por 12.400 rupias. Em muitos dias, pegar uma moto até o coworking saía mais barato do que sentar num café e ter que consumir."
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-transporte-capacete.jpg",
+       "alt": "Laura de capacete na garupa de uma moto em Bali"
+      }
+     },
+     {
+      "type": "tip",
+      "title": "Sempre peça capacete",
+      "text": "A maioria dos passageiros anda sem. Eu sempre pergunto \"do you have a helmet?\", porque muitos motoristas têm um guardado na moto. Eu não sei o quão sujos são esses capacetes, mas prefiro pegar um piolho do que cair de cabeça."
+     },
+     {
+      "type": "p",
+      "text": "Em Uluwatu, tu vai depender de moto o tempo todo: é tudo espalhado, com muita subida e descida e quase sem calçada. Ou tu aluga uma moto para dirigir ou anda de aplicativo. Calcula isso no orçamento."
+     },
+     {
+      "type": "h2",
+      "text": "Barcos entre as ilhas"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-transporte-porto.jpg",
+       "alt": "Laura no porto esperando o barco rápido"
+      }
+     },
+     {
+      "type": "list",
+      "items": [
+       "Padang Bai até Gili: cerca de 1h30 de barco rápido. O porto fica a 1h30 de Ubud, então vale contratar o transfer junto.",
+       "Gili até Nusa Penida: quase 4 horas, porque o barco parou em cinco lugares antes. Foi a viagem de barco mais longa da minha vida.",
+       "Nusa Penida até Sanur: uns 45 minutos. Mexe bastante, mas é rápido."
+      ]
+     },
+     {
+      "type": "p",
+      "text": "O check-in é a parte caótica: não tem fila, chega gente de todos os lados no balcão e muita gente fura. Na chegada, tu espera todo mundo achar a mala na beira da água. Vai com paciência. Eles te dão um adesivo para a mala e outro para a roupa, para saber em que barco tu vai."
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-transporte-barco.jpg",
+       "alt": "Assentos vermelhos dentro do barco rápido"
+      },
+      "caption": "Barco grande, com TV e ar-condicionado no máximo. Leva um casaco."
+     },
+     {
+      "type": "tip",
+      "title": "Se tu enjoa",
+      "text": "Tenta ser uma das últimas a entrar: o pior é o barco parado no porto, balançando. Na viagem longa eu fiquei de olhos fechados e de fone o tempo todo."
+     },
+     {
+      "type": "h2",
+      "text": "Nusa Penida e Gili são outra história"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-transporte-estrada.jpg",
+       "alt": "Estrada estreita no meio da mata em Nusa Penida"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Em Nusa Penida não tem aplicativo: é táxi, com preço negociado. As estradas são esburacadas, íngremes e sem luz à noite. Por favor, não aluga moto para passear sozinho por lá: pega um guia com carro. Em Gili é o oposto: não tem carro nem moto a gasolina. É bicicleta, motinho elétrica ou charrete, e a volta na ilha tem uns 7 km, tudo plano."
+     },
+     {
+      "type": "video",
+      "id": "TtBuGZLTSog",
+      "title": "A realidade dos lugares mais paradisíacos de Bali"
+     },
+     {
+      "type": "guide",
+      "text": "No Guia de Bali tem como se locomover em cada região, quanto custa e como organizar os barcos entre as ilhas."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "passeios",
+        "i": 0
+       },
+       {
+        "cat": "internet",
+        "i": 0
+       },
+       {
+        "cat": "seguros"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "ubud-o-que-fazer",
+    "title": "Ubud em um dia: o que vale a pena e o que eu pularia",
+    "excerpt": "Arrozal de Tegallalang, plantação de café, cachoeiras, Templo do Elefante e Floresta dos Macacos, na ordem certa e sem filtro.",
+    "destination": "bali",
+    "category": "o-que-fazer",
+    "cover": {
+     "src": "images/blog/ubud-capa.jpg",
+     "alt": "Arrozal de Tegallalang com coqueiros em Ubud"
+    },
+    "trip": "Julho e agosto de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Ubud é onde ficam os lugares de Bali que a gente vê na internet. Eu fiz uma lista do que queria conhecer, mandei para um guia com carro e ele montou a logística. Ele me buscou às 8 da manhã no hotel e às 4 da tarde eu já tinha feito tudo, porque eu sou rápida e não fico em fila para foto."
+     },
+     {
+      "type": "h2",
+      "text": "1. Arrozal de Tegallalang"
+     },
+     {
+      "type": "p",
+      "text": "Um dos arrozais mais famosos de Bali, e é lindo de verdade. A entrada custa 50.000 rupias. Chega antes das 10 da manhã: depois disso começam a chegar os ônibus de turistas, o caminho é estreito e aparece fila para foto. É muita escada e o chão escorrega, então vai de tênis. Em menos de uma hora dá para dar a volta toda."
+     },
+     {
+      "type": "h2",
+      "text": "2. Degustação na plantação de café"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/ubud-cafe.jpg",
+       "alt": "Laura provando cafés e chás numa plantação em Ubud"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Tem plantação de tudo: café, cacau, frutas, baunilha. Eu provei chá de gengibre, chá de arroz, café de avocado (que não tem gosto de avocado) e conheci a história do café feito com o grão que passa pelo sistema digestivo de um bichinho parecido com um gato. No final, óbvio, tem a lojinha."
+     },
+     {
+      "type": "h2",
+      "text": "3. Cachoeiras"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/ubud-cachoeira.jpg",
+       "alt": "Cachoeira cercada de mata em Ubud"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Não me julguem, mas eu não sou muito fã de cachoeira. A água é absurdamente gelada e estava lotado. Cada entrada custou 25.000 rupias. Na Kanto Lampo, tinha fila para tirar foto, e pagando. Não é uma cachoeira para aproveitar, é para fotografar. Se tu gosta de natureza e foto instagramável, vale. O segredo é ir ao meio-dia, quando o sol está bem no meio."
+     },
+     {
+      "type": "h2",
+      "text": "4. Templo do Elefante"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/ubud-templo.jpg",
+       "alt": "Laura no Templo do Elefante, em Ubud"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Construído no século X, era um lugar de oração, meditação e retiro espiritual. É impressionante o que eles faziam com a pedra. Não é grande, mas vale. Precisa estar com as pernas cobertas: eles emprestam um pano na entrada."
+     },
+     {
+      "type": "tip",
+      "title": "Cuidado com o \"guia\" grátis",
+      "text": "Um senhor muito simpático chegou dizendo que era local e começou a me apresentar o templo. Quando eu perguntei se era de graça, não era. Pergunta antes."
+     },
+     {
+      "type": "h2",
+      "text": "5. Floresta dos Macacos"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/ubud-macaco.jpg",
+       "alt": "Macaco na Floresta dos Macacos de Ubud"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Uma floresta linda, com árvores muito antigas e os macacos soltos. Os avisos na entrada dizem para não encarar o macaco, não levar sacola nem comida e não tocar no filhote. Eu deixei a câmera em casa e fui só com o celular preso no tripé. Leva repelente."
+     },
+     {
+      "type": "p",
+      "text": "Sinceramente: é um passeio clássico, o ingresso é barato, mas não é imperdível. Os macacos tu também vê na rua. Se tiver um dia sobrando, vai. Se não tiver tempo, eu daria prioridade para outros lugares."
+     },
+     {
+      "type": "video",
+      "id": "8B9nxMnWFlE",
+      "title": "Conheci o lado mais famoso de Bali… e me decepcionei"
+     },
+     {
+      "type": "h2",
+      "text": "Quantos dias ficar em Ubud"
+     },
+     {
+      "type": "p",
+      "text": "Eu fiquei 14 dias e foi demais. Para turistar, uns 4 dias inteiros dão para fazer todos os passeios com calma. E vale ir com guia: além de resolver a logística, ele foi me contando a história da ilha no caminho."
+     },
+     {
+      "type": "guide",
+      "text": "No Guia de Bali eu conto o que vale (e o que não vale) a pena em Ubud e nas outras regiões, com os custos de cada passeio."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "passeios",
+        "i": 0
+       },
+       {
+        "cat": "dinheiro",
+        "i": 0
+       },
+       {
+        "cat": "seguros"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "gili-e-nusa-penida",
+    "title": "Gili e Nusa Penida: a realidade dos lugares mais paradisíacos de Bali",
+    "excerpt": "Água cristalina, filas para foto e guia expulsando turista. Como foram as duas ilhas mais famosas perto de Bali.",
+    "destination": "bali",
+    "category": "experiencias",
+    "cover": {
+     "src": "images/blog/gili-nusa-capa.jpg",
+     "alt": "Falésia de Kelingking em Nusa Penida, com o mar azul"
+    },
+    "trip": "Julho e agosto de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Todo mundo me recomendou Gili e Nusa Penida. São os lugares mais paradisíacos perto de Bali, e são mesmo. Mas a experiência real tem um pouco mais do que as fotos mostram."
+     },
+     {
+      "type": "h2",
+      "text": "Gili Trawangan: férias de verdade"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/gili-nusa-praia.jpg",
+       "alt": "Laura na praia de Gili com barcos e água turquesa"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Gili T é a maior das três ilhas Gili e a mais estruturada. Não tem carro: só bicicleta, motinhas elétricas e charrete. Eu aluguei uma bicicleta e dei a volta na ilha, uns 7 km, tudo plano. Saí às 7h30 para fugir da multidão e mesmo assim já tinha muita gente na rua."
+     },
+     {
+      "type": "p",
+      "text": "É perfeito para quem gosta de snorkel, mergulho (dá para ver tartaruga) e passeio de barco. Tem vida noturna, aula de culinária, de pintura. É bem estilo férias. Eu não faço snorkel, não gosto de festa e não estava podendo gastar em passeio caro, então aproveitei a ilha do meu jeito."
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/gili-nusa-feira.jpg",
+       "alt": "Laura no night market de Gili"
+      },
+      "caption": "No night market eu comi frango satay, bolinho de milho frito e spring roll."
+     },
+     {
+      "type": "tip",
+      "title": "Confere sempre a conta",
+      "text": "Num café de Gili, a conta veio absurdamente alta: tinham somado o pedido de outra mesa na minha. Tu pode me achar insuportável economizando cada centavo, mas confere."
+     },
+     {
+      "type": "h2",
+      "text": "Nusa Penida: as paisagens mais lindas que eu já vi"
+     },
+     {
+      "type": "p",
+      "text": "De Gili até Nusa Penida foram quase 4 horas de barco. Lá não tem aplicativo de transporte e as estradas são perigosas, então eu contratei um guia com carro. Pedi para começar o mais cedo possível, mas ele só começava às 8."
+     },
+     {
+      "type": "h2",
+      "text": "Diamond Beach"
+     },
+     {
+      "type": "p",
+      "text": "Eu amei. Aquelas cenas que a gente vê nos vídeos são realmente grandiosas, e a cor da água é surreal. Tem a fila para a foto clássica, mas tem vários outros cantos sem ninguém. Pedi ao meu guia uns 10 minutos só para ficar olhando. Eu prometi para mim que não ia só criar conteúdo nos lugares, ia olhar para eles também."
+     },
+     {
+      "type": "h2",
+      "text": "Kelingking, o \"T-Rex\""
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/gili-nusa-multidao.jpg",
+       "alt": "Multidão disputando lugar para foto em Kelingking"
+      }
+     },
+     {
+      "type": "p",
+      "text": "É lindo, mas olha o tanto de gente. Tu tem que se enfiar no meio de todo mundo para achar um lugar. Fui literalmente expulsa do meu lugar por um guia que estava tirando todo mundo para fotografar a cliente dele. Tem fotógrafo cobrando 25.000 rupias para foto em cima de um banco. Fica mais cheio que Diamond Beach porque é mais perto do porto e muita gente vem em bate-volta."
+     },
+     {
+      "type": "h2",
+      "text": "Broken Beach"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/gili-nusa-broken.jpg",
+       "alt": "Arco de pedra de Broken Beach"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Um paredão de pedra com um arco \"quebrado\" pelo mar. Eu nunca tinha ouvido falar e vi até golfinho passando. Natureza que com certeza está entre as mais bonitas que eu já vi."
+     },
+     {
+      "type": "video",
+      "id": "TtBuGZLTSog",
+      "title": "A realidade dos lugares mais paradisíacos de Bali"
+     },
+     {
+      "type": "h2",
+      "text": "Gili ou Nusa Penida?"
+     },
+     {
+      "type": "p",
+      "text": "São propostas totalmente diferentes. Gili é super preparada para o turismo e para férias. Nusa Penida é para conhecer a natureza: não tem centrinho nem muita opção de restaurante. Para a minha vibe, eu preferi Nusa Penida. Mas, com estrutura e por estar sozinha, as duas ficaram no fim do meu ranking de Bali."
+     },
+     {
+      "type": "tip",
+      "text": "Em Nusa Penida, dá para fazer tudo em um dia: muita gente vem de Bali de manhã, faz o tour e volta. Se for dormir, uma noite basta."
+     },
+     {
+      "type": "guide",
+      "text": "No Guia de Bali tem como chegar nas ilhas, quantas noites ficar e como fugir das multidões."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "passeios",
+        "i": 0
+       },
+       {
+        "cat": "dinheiro",
+        "i": 0
+       },
+       {
+        "cat": "seguros"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "erros-em-bali",
+    "title": "8 erros que eu cometi em Bali (para tu não cometer)",
+    "excerpt": "Hospedagem mal localizada, dias demais em Ubud, moto em Nusa Penida e outros aprendizados que me custaram tempo e dinheiro.",
+    "destination": "bali",
+    "category": "erros",
+    "cover": {
+     "src": "images/blog/bali-erros-capa.jpg",
+     "alt": "Laura numa rua de Uluwatu, cheia de motos"
+    },
+    "trip": "Julho e agosto de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Ninguém acerta tudo na primeira vez, e eu errei bastante em Bali. Alguns erros me custaram dinheiro, outros só tempo e paciência. Aqui estão os que eu não repetiria."
+     },
+     {
+      "type": "h2",
+      "text": "1. Economizar na hospedagem e gastar em moto"
+     },
+     {
+      "type": "p",
+      "text": "Em Uluwatu, eu escolhi um lugar mais barato e mal localizado. Como lá tudo é espalhado e não tem calçada, eu gastei horrores de moto por aplicativo. No fim, não economizei nada."
+     },
+     {
+      "type": "h2",
+      "text": "2. Ficar 14 dias em Ubud"
+     },
+     {
+      "type": "p",
+      "text": "Ubud tem muita coisa para fazer, mas uns 4 dias inteiros bastam para todos os passeios. Eu fiquei 14 e sobrou muito tempo num lugar lotado e pensado só para o turismo."
+     },
+     {
+      "type": "h2",
+      "text": "3. Chegar tarde nos pontos turísticos"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-erros-fila.jpg",
+       "alt": "Entrada da cachoeira Kanto Lampo, em Ubud"
+      }
+     },
+     {
+      "type": "p",
+      "text": "No arrozal de Tegallalang, depois das 10 da manhã chegam os ônibus de turista. Em Kelingking, ao meio-dia, não dá nem para apreciar a vista. Quanto mais cedo, menos gente."
+     },
+     {
+      "type": "h2",
+      "text": "4. Ficar tempo demais em Nusa Penida"
+     },
+     {
+      "type": "p",
+      "text": "Fiquei duas noites e foi muito. Não tem um centrinho, não tem muito o que fazer além dos pontos turísticos. Um dia de passeio resolve, e uma noite é o máximo."
+     },
+     {
+      "type": "h2",
+      "text": "5. Não negociar o táxi"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-erros-taxi.jpg",
+       "alt": "Laura dentro do táxi em Nusa Penida"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Em lugares sem aplicativo, o primeiro preço é sempre alto. Em Nusa Penida me pediram 300.000 rupias do porto até o hotel e eu fechei em 250.000. Negocia antes de colocar a mala no carro."
+     },
+     {
+      "type": "h2",
+      "text": "6. Esquecer de conferir a conta"
+     },
+     {
+      "type": "p",
+      "text": "Em Gili, cobraram na minha conta o que outra mesa tinha consumido. Desde então eu confiro tudo antes de pagar."
+     },
+     {
+      "type": "h2",
+      "text": "7. Deixar para comprar Havaianas lá"
+     },
+     {
+      "type": "p",
+      "text": "Tem loja de Havaianas em todo canto de Uluwatu, mas a básica custava uns R$ 100. Havaianas é uma coisa que vale a pena comprar no Brasil."
+     },
+     {
+      "type": "h2",
+      "text": "8. Procurar a Bali da internet"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-erros-escada.jpg",
+       "alt": "Laura descendo a escadaria de uma praia em Uluwatu"
+      }
+     },
+     {
+      "type": "p",
+      "text": "O meu maior erro foi chegar esperando a Bali perfeita das redes sociais. Ela existe, mas junto tem trânsito, lixo, obra e muita gente. Quando eu parei de comparar, comecei a gostar muito mais de verdade."
+     },
+     {
+      "type": "video",
+      "id": "rtEBiuBCNxE",
+      "title": "Depois de 2 meses em Bali, fui parar onde menos esperava"
+     },
+     {
+      "type": "h2",
+      "text": "O que eu acertei"
+     },
+     {
+      "type": "list",
+      "items": [
+       "Beber só água de garrafa: em quase dois meses, não passei mal nenhuma vez.",
+       "Pedir capacete em toda corrida de moto.",
+       "Andar com a minha garrafa e reabastecer na academia.",
+       "Usar o cartão da Nomad: funcionou em todos os lugares.",
+       "Ir com guia de carro em Nusa Penida em vez de alugar moto."
+      ]
+     },
+     {
+      "type": "guide",
+      "text": "O Guia de Bali foi feito exatamente para isso: tu chegar sabendo o que eu só aprendi errando."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "dinheiro",
+        "i": 0
+       },
+       {
+        "cat": "hospedagens",
+        "i": 0
+       },
+       {
+        "cat": "seguros"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "curiosidades-de-bali",
+    "title": "Oferendas, Nyepi e outras curiosidades de Bali que a internet não mostra",
+    "excerpt": "Por que Bali é hindu num país muçulmano, o Ano-Novo em que até o aeroporto fecha e o que são as oferendas em todo canto.",
+    "destination": "bali",
+    "category": "curiosidades",
+    "cover": {
+     "src": "images/blog/bali-curiosidades-capa.jpg",
+     "alt": "Escultura balinesa com oferendas, cercada de plantas"
+    },
+    "trip": "Julho e agosto de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Uma das coisas que mais me encantaram em Bali foi a cultura. Quanto mais eu andava pelas ruas, mais eu entendia que muita coisa que parece cenário turístico na verdade é a vida real deles. Separei as curiosidades que mais me marcaram."
+     },
+     {
+      "type": "h2",
+      "text": "Uma ilha hindu no maior país muçulmano do mundo"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-curiosidades-mapa.jpg",
+       "alt": "Mapa da Indonésia mostrando Bali como ilha hinduísta"
+      }
+     },
+     {
+      "type": "p",
+      "text": "A Indonésia é o país com a maior população muçulmana do mundo, mais de 240 milhões de pessoas. Bali é uma exceção: a maior parte da população pratica o hinduísmo balinês, e essa espiritualidade está presente no dia a dia."
+     },
+     {
+      "type": "h2",
+      "text": "As oferendas em todo canto"
+     },
+     {
+      "type": "p",
+      "text": "Tu vai ver pequenas oferendas no chão, na frente das casas, das lojas e dos cafés, normalmente de manhã cedo e no fim da tarde. Elas se chamam canang sari, são feitas com flores, folhas e incenso e representam gratidão, equilíbrio e respeito. No começo eu achei que era para atrair turista. Não é: as cerimônias acontecem longe dos pontos turísticos também."
+     },
+     {
+      "type": "h2",
+      "text": "As esculturas \"assustadoras\""
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-curiosidades-pedra.jpg",
+       "alt": "Laura diante de um muro esculpido em pedra em Ubud"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Tem escultura em todo lugar, e muitas têm uma cara meio feia, de mau-olhado. É de propósito: elas servem de proteção contra os maus espíritos."
+     },
+     {
+      "type": "h2",
+      "text": "Nyepi, o Ano-Novo do silêncio"
+     },
+     {
+      "type": "p",
+      "text": "Eles seguem o calendário balinês, guiado pela lua. O Ano-Novo é em março, sem data fixa, e é celebrado ficando em casa. É o dia do silêncio: nenhum comércio abre e até o aeroporto fecha. Só funcionam hospitais e a polícia. A ideia é dar um dia de descanso para a natureza. Eu achei isso lindo."
+     },
+     {
+      "type": "h2",
+      "text": "Arroz em todas as refeições"
+     },
+     {
+      "type": "p",
+      "text": "Pelo que o meu guia me contou, eles comem arroz no café da manhã, no almoço e na janta. Até a massa é feita de arroz. E o arroz é bem colado, quase tem que cortar."
+     },
+     {
+      "type": "h2",
+      "text": "Gili não é Bali"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bali-curiosidades-lombok.jpg",
+       "alt": "Laura em Gili com o mapa de Bali e Lombok"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Muita gente vende Gili como parte de Bali, mas as ilhas Gili pertencem a Lombok, outra ilha da Indonésia. Lá as pessoas são muçulmanas, e toda a parte religiosa é diferente."
+     },
+     {
+      "type": "h2",
+      "text": "Um país independente há pouco tempo"
+     },
+     {
+      "type": "p",
+      "text": "Passamos por ruas cheias de bandeiras porque era semana da independência. A Indonésia se tornou independente em 1945, dos holandeses. O meu guia contou que, antes, passaram portugueses e japoneses por lá. É por essas que eu gosto de fazer passeio com guia local."
+     },
+     {
+      "type": "h2",
+      "text": "O turismo é bênção e desafio"
+     },
+     {
+      "type": "p",
+      "text": "Só em 2024, mais de 6 milhões de turistas internacionais passaram por Bali. O turismo sustenta milhares de famílias, mas também traz o lixo, o trânsito e as obras. Na pandemia, quando o turismo parou, a economia da ilha parou junto. Tem muita gente local tentando mudar essa realidade, com projetos limpando praias e rios."
+     },
+     {
+      "type": "video",
+      "id": "-JAjCDJhsPw",
+      "title": "O lado de Bali que a internet esconde"
+     },
+     {
+      "type": "guide",
+      "text": "Além das dicas práticas, no Guia de Bali eu conto os cuidados e os costumes locais para tu respeitar a cultura da ilha."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "passeios",
+        "i": 0
+       },
+       {
+        "cat": "passagens",
+        "i": 0
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "o-que-saber-antes-de-ir-para-bangkok",
+    "title": "O que eu queria saber antes de chegar em Bangkok",
+    "excerpt": "Onde ficar, como usar o BTS e o metrô, o dress code dos templos, a época de chuva e o cartão de chegada obrigatório.",
+    "destination": "bangkok",
+    "category": "dicas",
+    "cover": {
+     "src": "images/blog/bangkok-dicas-capa.jpg",
+     "alt": "Laura sorrindo numa rua de Bangkok"
+    },
+    "trip": "Setembro de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Se tu está planejando uma viagem para Bangkok, salva esse artigo, porque algumas dessas coisas eu só descobri depois que cheguei. Bangkok me surpreendeu muito mais do que eu esperava, mas teria sido mais fácil se eu soubesse disso antes."
+     },
+     {
+      "type": "h2",
+      "text": "1. Preenche o TDAC antes de embarcar"
+     },
+     {
+      "type": "gallery",
+      "images": [
+       {
+        "src": "images/blog/bangkok-dicas-tdac.jpg",
+        "alt": "Aviso do Thailand Digital Arrival Card no avião"
+       },
+       {
+        "src": "images/blog/bangkok-dicas-palace.jpg",
+        "alt": "Laura no Grand Palace"
+       },
+       {
+        "src": "images/blog/bangkok-dicas-songwat.jpg",
+        "alt": "Loja colorida na rua Song Wat"
+       }
+      ]
+     },
+     {
+      "type": "p",
+      "text": "Os estrangeiros precisam preencher o Thailand Digital Arrival Card, o TDAC, antes de entrar no país. É gratuito e pode ser feito nos três dias anteriores à tua chegada."
+     },
+     {
+      "type": "h2",
+      "text": "2. Escolhe bem onde ficar"
+     },
+     {
+      "type": "p",
+      "text": "Bangkok é enorme. Em número de habitantes, lembra o Rio de Janeiro. Eu tentei ficar perto de uma estação do BTS ou do MRT, e isso facilitou muito para me locomover."
+     },
+     {
+      "type": "h2",
+      "text": "3. O transporte público funciona muito bem"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bangkok-dicas-bts.jpg",
+       "alt": "Plataforma lotada do BTS em Bangkok"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Tu não precisa depender de Grab ou Uber para tudo. O BTS é um trem que anda por cima das avenidas e o MRT é o metrô. Tudo tem placa em inglês. Eu carreguei o cartão do transporte com o mínimo, 200 baht, e durou uns dois dias. Na região dos templos dá para usar o barco."
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bangkok-dicas-maquina.jpg",
+       "alt": "Máquina de bilhetes do metrô de Bangkok com o mapa da linha"
+      },
+      "caption": "Na máquina do metrô dá para escolher inglês. Ela só aceita dinheiro e devolve o troco em moedas."
+     },
+     {
+      "type": "tip",
+      "title": "Fila? Que fila?",
+      "text": "O conceito de fila não existe muito por lá: a galera vai se empurrando. E nos trens o ar-condicionado é estourado, leva um casaquinho."
+     },
+     {
+      "type": "h2",
+      "text": "4. Atenção à roupa nos templos"
+     },
+     {
+      "type": "p",
+      "text": "Eles são bem rigorosos com o dress code: não pode mostrar ombros nem joelhos. Eu fui de short e regata ao Grand Palace e tive que comprar uma calça e uma camiseta lá na frente."
+     },
+     {
+      "type": "h2",
+      "text": "5. Barata ou não? Depende de como tu viaja"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bangkok-dicas-comida.jpg",
+       "alt": "Espetinhos de carne numa barraca de rua em Bangkok"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Tu consegue comer muito barato em lugares locais e no 7-Eleven. Mas também tem restaurantes, cafés e rooftops que aumentam muito o orçamento. Um jantar fora deu uns R$ 40, e eu achei Bangkok um pouquinho mais cara que Bali."
+     },
+     {
+      "type": "h2",
+      "text": "6. A época de chuva não é chuva o dia todo"
+     },
+     {
+      "type": "p",
+      "text": "Eu fui em setembro e peguei até enchente. Mas consegui fazer bastante coisa: tem dias de chuva forte, então acompanha a previsão e deixa o roteiro flexível."
+     },
+     {
+      "type": "h2",
+      "text": "7. Leva dinheiro em espécie"
+     },
+     {
+      "type": "p",
+      "text": "Muito lugar só aceita dinheiro, principalmente para valores baixos e no transporte. Eu equilibro cartão e cash."
+     },
+     {
+      "type": "h2",
+      "text": "8. Sai do óbvio"
+     },
+     {
+      "type": "p",
+      "text": "Bangkok não é só templos, shoppings e festa. Os lugares que eu mais gostei foram o Talat Noi e a rua Song Wat: um lado da cidade completamente diferente, com lojinhas, cafés escondidos atrás de portas minúsculas e Chinatown do lado."
+     },
+     {
+      "type": "tip",
+      "title": "Tuk-tuk",
+      "text": "Me pediram 200 baht para uma corrida de 5 minutos. Eles se aproveitam muito do turista. Se for andar, negocia antes, ou vai a pé."
+     },
+     {
+      "type": "video",
+      "id": "r2Crin2dNoA",
+      "title": "O que eu queria saber antes de chegar em Bangkok",
+      "vertical": true,
+      "poster": "images/blog/bangkok-dicas-songwat.jpg"
+     },
+     {
+      "type": "p",
+      "text": "E uma coisa que me deixou tranquila: em nenhum momento eu me senti insegura em Bangkok, nem andando sozinha à noite. Muita gente chama a Tailândia de \"Brasil da Ásia\" e eu entendi o porquê: o povo é criativo, engraçado e receptivo."
+     },
+     {
+      "type": "guide",
+      "text": "Estou preparando o Guia da Tailândia, com Bangkok, Chiang Mai e as praias do sul. Deixa o teu e-mail para saber quando sair."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "passeios",
+        "i": 1
+       },
+       {
+        "cat": "dinheiro",
+        "i": 0
+       },
+       {
+        "cat": "internet",
+        "i": 0
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "quanto-custa-templos-de-bangkok",
+    "title": "Quanto custa conhecer os 3 templos mais famosos de Bangkok",
+    "excerpt": "Grand Palace, Wat Pho e Wat Arun no mesmo dia: o preço de cada entrada, o barco e a roupa que eu tive que comprar.",
+    "destination": "bangkok",
+    "category": "quanto-custa",
+    "cover": {
+     "src": "images/blog/bangkok-templos-capa.jpg",
+     "alt": "Torre do Wat Arun, em Bangkok"
+    },
+    "trip": "Setembro de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Uma das melhores formas de começar a conhecer Bangkok e entender um pouco da cultura tailandesa foi fazer os três templos mais famosos num dia só. Eles ficam relativamente perto um do outro, então dá para combinar tranquilamente."
+     },
+     {
+      "type": "h2",
+      "text": "Grand Palace"
+     },
+     {
+      "type": "gallery",
+      "images": [
+       {
+        "src": "images/blog/bangkok-templos-palace.jpg",
+        "alt": "Construções do Grand Palace"
+       },
+       {
+        "src": "images/blog/bangkok-templos-buda.jpg",
+        "alt": "O Buda reclinado do Wat Pho"
+       },
+       {
+        "src": "images/blog/bangkok-templos-arun.jpg",
+        "alt": "Laura no Wat Arun"
+       }
+      ]
+     },
+     {
+      "type": "p",
+      "text": "Provavelmente o mais famoso de todos, e o mais caro: a entrada para estrangeiros custa 500 baht, uns R$ 78. E atenção: não pode entrar mostrando os ombros. Eu fui de short e regata e tive que comprar uma calça e uma camisa lá na frente, por uns 250 baht (cerca de R$ 40)."
+     },
+     {
+      "type": "h2",
+      "text": "Wat Pho"
+     },
+     {
+      "type": "p",
+      "text": "Fica praticamente do lado do Grand Palace e é onde está o enorme Buda reclinado. A entrada custou cerca de R$ 47."
+     },
+     {
+      "type": "h2",
+      "text": "Wat Arun"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bangkok-templos-barco.jpg",
+       "alt": "Barco que atravessa o rio até o Wat Arun"
+      },
+      "tall": true
+     },
+     {
+      "type": "p",
+      "text": "Para terminar, eu atravessei o rio de barco (menos de R$ 1) até o Wat Arun, um dos templos mais diferentes e mais bonitos que eu vi em Bangkok. A entrada é 200 baht, uns R$ 31."
+     },
+     {
+      "type": "prices",
+      "title": "Resumo do dia",
+      "rows": [
+       {
+        "item": "Grand Palace",
+        "price": "500 baht (~R$ 78)"
+       },
+       {
+        "item": "Wat Pho",
+        "price": "~R$ 47"
+       },
+       {
+        "item": "Barco para atravessar o rio",
+        "price": "menos de R$ 1"
+       },
+       {
+        "item": "Wat Arun",
+        "price": "200 baht (~R$ 31)"
+       },
+       {
+        "item": "Total em entradas",
+        "price": "~1.000 baht (~R$ 155)"
+       },
+       {
+        "item": "Calça e camisa compradas na porta",
+        "price": "~250 baht (~R$ 40)"
+       }
+      ],
+      "note": "Valores de setembro de 2026, para estrangeiros."
+     },
+     {
+      "type": "tip",
+      "title": "Economiza os R$ 40 da roupa",
+      "text": "Vai de calça leve ou saia comprida e leva uma camiseta ou um lenço para cobrir os ombros. Eles são bem rigorosos com o dress code."
+     },
+     {
+      "type": "video",
+      "id": "KRsdL9T0z2s",
+      "title": "Quanto custa conhecer os 3 templos de Bangkok?",
+      "vertical": true,
+      "poster": "images/blog/bangkok-templos-arun.jpg"
+     },
+     {
+      "type": "guide",
+      "text": "No Guia da Tailândia vão estar os custos de cada passeio, a melhor ordem para visitar os templos e onde ficar perto deles."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "passeios",
+        "i": 0
+       },
+       {
+        "cat": "dinheiro",
+        "i": 0
+       },
+       {
+        "cat": "internet",
+        "i": 0
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "mercado-do-trem-e-mercado-flutuante",
+    "title": "Mercado do Trem e Mercado Flutuante: como é o passeio e quanto custa",
+    "excerpt": "Os dois mercados mais famosos da Tailândia num bate-volta saindo de Bangkok, por R$ 95, com ônibus e guia.",
+    "destination": "bangkok",
+    "category": "experiencias",
+    "cover": {
+     "src": "images/blog/bangkok-mercados-capa.jpg",
+     "alt": "Mercado do Trem com as barracas sobre os trilhos"
+    },
+    "trip": "Setembro de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Esse era um dos passeios que eu mais queria fazer na Tailândia: o mercado em que o trem passa literalmente no meio das barracas, e o mercado flutuante, com os barquinhos vendendo comida e fruta nos canais. Os dois ficam fora do centro de Bangkok, então fez muito sentido fazer juntos, sem me preocupar com transporte."
+     },
+     {
+      "type": "h2",
+      "text": "Como eu reservei"
+     },
+     {
+      "type": "p",
+      "text": "Eu normalmente faço os passeios pela GetYourGuide. Sozinha, eu não conseguiria chegar nesses mercados por conta própria. Paguei R$ 95 num tour que saía do centro de Bangkok e incluía ônibus de ida e volta, guia local e os ingressos do trem e do barco."
+     },
+     {
+      "type": "p",
+      "text": "O ponto de encontro era na frente de um KFC, dentro de um shopping, e as instruções eram super precisas: os guias estariam de camiseta preta. Foi exatamente assim. Parece missão de GTA, eu adoro."
+     },
+     {
+      "type": "h2",
+      "text": "O Mercado do Trem"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bangkok-mercados-trem.jpg",
+       "alt": "Laura dentro do trem que passa pelo mercado"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Eu achava que ia ver o trem passar de fora. Mas não: a gente chega no próprio trem, passando pelo meio do mercado. Depois desce, passeia e espera o próximo. Quando ele está chegando, os vendedores recolhem os toldos, afastam tudo e, em segundos, o trem passa absurdamente perto. Assim que ele vai embora, tudo volta para o lugar."
+     },
+     {
+      "type": "tip",
+      "text": "Na hora do trem, a saída fica lotada de gente com o celular na mão. Mais para o meio dos trilhos tem mais espaço para andar e assistir."
+     },
+     {
+      "type": "h2",
+      "text": "O Mercado Flutuante"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bangkok-mercados-barco.jpg",
+       "alt": "Barcos no Mercado Flutuante"
+      }
+     },
+     {
+      "type": "p",
+      "text": "Aqui tu passeia de barquinho pelos canais e, se quiser comprar alguma coisa, é só avisar o motorista que ele para. Fica um trânsito de barco! No dia, o celular de todo mundo apitou com um alerta de enchente, e a água estava bem mais alta que o normal, mas o passeio aconteceu com segurança."
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bangkok-mercados-guioza.jpg",
+       "alt": "Laura comendo guioza frita no mercado"
+      },
+      "caption": "Guioza frita por 70 baht e sorvete de coco: exatamente o que eu queria."
+     },
+     {
+      "type": "tip",
+      "title": "Foge dos pega-turista",
+      "text": "Na parte em que tu desce do barco, já vêm colocando calça em ti, passando creme na tua mão, e depois cobram. E não é o lugar para comprar lembrancinha: tudo é superfaturado. Em Bangkok tem lugares bem mais baratos para isso."
+     },
+     {
+      "type": "video",
+      "id": "LQ7FwzQfq14",
+      "title": "Conheci os mercados mais famosos da Tailândia por menos de R$ 100",
+      "vertical": true,
+      "poster": "images/blog/bangkok-mercados-feira.jpg"
+     },
+     {
+      "type": "h2",
+      "text": "Vale a pena?"
+     },
+     {
+      "type": "p",
+      "text": "Para mim, valeu muito. É bem turístico, sim, mas é uma experiência muito da Tailândia e o custo-benefício foi ótimo. Saí às 7h da manhã e voltei pelas 5 da tarde. Leva água, boné, protetor e lencinho umedecido: o calor é muito forte."
+     },
+     {
+      "type": "recs",
+      "title": "O passeio que eu fiz",
+      "items": [
+       {
+        "cat": "passeios",
+        "i": 1
+       },
+       {
+        "cat": "dinheiro",
+        "i": 0
+       },
+       {
+        "cat": "seguros"
+       }
+      ]
+     },
+     {
+      "type": "guide"
+     }
+    ]
+   },
+   {
+    "slug": "bangkok-na-temporada-de-chuva",
+    "title": "Bangkok em setembro: o que é viajar na temporada de chuva",
+    "excerpt": "Enchente, feriado decretado e alerta no celular. O erro de planejamento que eu cometi e como aproveitar mesmo assim.",
+    "destination": "bangkok",
+    "category": "erros",
+    "cover": {
+     "src": "images/blog/bangkok-chuva-capa.jpg",
+     "alt": "Laura de boné num barco no canal alagado"
+    },
+    "trip": "Setembro de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Eu não pesquisei muito e fui para Bangkok na temporada errada. Setembro é a época de chuva deles, e choveu muito. Na semana em que eu estava lá teve enchente, decretaram feriado porque muita gente não conseguia chegar no trabalho, e eu fiquei com medo de não conseguir pegar o meu voo."
+     },
+     {
+      "type": "h2",
+      "text": "Como é na prática"
+     },
+     {
+      "type": "gallery",
+      "images": [
+       {
+        "src": "images/blog/bangkok-chuva-guarda.jpg",
+        "alt": "Laura de guarda-chuva numa rua de Bangkok"
+       },
+       {
+        "src": "images/blog/bangkok-chuva-rua.jpg",
+        "alt": "Rua molhada depois da chuva em Bangkok"
+       },
+       {
+        "src": "images/blog/bangkok-chuva-parede.jpg",
+        "alt": "Rua com grafites num dia de chuva"
+       }
+      ]
+     },
+     {
+      "type": "p",
+      "text": "A chuva vem do nada: cai uma pancada de água e passa. Mas nos dias da enchente não parou, era chuva forte o dia inteiro. Eu só vi um pouquinho de sol depois de quatro dias na cidade. Teve um passeio que eu fiz e tive que voltar outro dia, porque estava caindo o mundo e não dava para gravar."
+     },
+     {
+      "type": "p",
+      "text": "No passeio do mercado flutuante, o celular de todo mundo apitou com um alerta extremo de emergência pedindo para quem estava perto dos rios evacuar. A guia avaliou, era seguro, e o passeio aconteceu. Mas a água estava muito mais alta que o normal: tinha cadeira e gente andando dentro da água."
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/bangkok-chuva-alagado.jpg",
+       "alt": "Mercado flutuante com a água acima do normal"
+      }
+     },
+     {
+      "type": "h2",
+      "text": "A cidade está preparada"
+     },
+     {
+      "type": "p",
+      "text": "Como a temporada de chuva é todo ano, Bangkok tem muita estrutura coberta: escadas e passarelas cobertas até as estações, túneis para entrar no shopping sem se molhar. O transporte público continuou funcionando nos dias em que eu usei."
+     },
+     {
+      "type": "h2",
+      "text": "Dá para aproveitar mesmo assim"
+     },
+     {
+      "type": "list",
+      "items": [
+       "Acompanha a previsão e deixa o roteiro flexível: troca os passeios de dia conforme o tempo.",
+       "Usa o BTS e o metrô, que te deixam quase na porta de tudo.",
+       "Anda sempre com guarda-chuva, protetor e óculos de sol: em minutos sai um sol torrando.",
+       "Reserva passeios com cancelamento flexível.",
+       "Chovendo, aproveita os shoppings, os cafés e os museus."
+      ]
+     },
+     {
+      "type": "tip",
+      "title": "A minha dica sincera",
+      "text": "Se tu pode escolher, não vai para Bangkok em setembro. E lembra que lá não existe frio: as estações são quente, muito quente e insuportavelmente quente. Abril é o mês mais quente."
+     },
+     {
+      "type": "video",
+      "id": "Hc4nMTf6fDg",
+      "title": "Cheguei SOZINHA na Tailândia… e não era o que eu imaginava"
+     },
+     {
+      "type": "p",
+      "text": "Mesmo com a chuva, uma semana em Bangkok foi o tempo ideal para mim. Dá para fazer os principais pontos com calma e ainda sobra tempo para se perder pelas ruas."
+     },
+     {
+      "type": "guide",
+      "text": "No Guia da Tailândia vou contar a melhor época para cada região, uma coisa que eu aprendi do jeito difícil."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "seguros"
+       },
+       {
+        "cat": "internet",
+        "i": 0
+       },
+       {
+        "cat": "passagens",
+        "i": 0
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "bate-volta-chiang-rai",
+    "title": "Bate-volta a Chiang Rai: Templo Branco, Templo Azul e o Buda gigante",
+    "excerpt": "Um dia saindo de Chiang Mai que destruiu a imagem que eu tinha de templo tailandês. Com uma parada na aldeia das mulheres de pescoço longo.",
+    "destination": "chiang-mai",
+    "category": "o-que-fazer",
+    "cover": {
+     "src": "images/blog/chiang-rai-capa.jpg",
+     "alt": "Templo Branco de Chiang Rai contra o céu azul"
+    },
+    "trip": "Outubro de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Depois dos meus primeiros dias na Tailândia conhecendo templos mais tradicionais, eu achava que já sabia o que esperar quando alguém falava em templo tailandês. Chiang Rai destruiu completamente essa imagem. Em um único dia, num bate-volta saindo de Chiang Mai, eu conheci três lugares que não se parecem em nada."
+     },
+     {
+      "type": "h2",
+      "text": "A aldeia Karen"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/chiang-rai-aldeia.jpg",
+       "alt": "Mulher da etnia Karen tecendo numa aldeia"
+      },
+      "tall": true
+     },
+     {
+      "type": "p",
+      "text": "A primeira parada do dia já me pegou de surpresa: uma aldeia Karen, onde vivem as famosas mulheres de pescoço longo. Eu já tinha visto várias vezes na TV e na internet, mas nunca imaginei que um dia veria essa tradição pessoalmente."
+     },
+     {
+      "type": "h2",
+      "text": "O Templo Branco"
+     },
+     {
+      "type": "gallery",
+      "images": [
+       {
+        "src": "images/blog/chiang-rai-branco.jpg",
+        "alt": "Detalhes do Templo Branco"
+       },
+       {
+        "src": "images/blog/chiang-rai-azul.jpg",
+        "alt": "Interior azul do Templo Azul"
+       },
+       {
+        "src": "images/blog/chiang-rai-olhos.jpg",
+        "alt": "Vista lá de cima, de dentro do Buda gigante"
+       }
+      ]
+     },
+     {
+      "type": "p",
+      "text": "De longe, nem parecia um templo: eu jurava que estava olhando para um castelo completamente branco. Chegando perto, eu vi que ele é feito de espelhos, esculturas e detalhes por todos os lados, que fazem o templo inteiro brilhar quando bate a luz."
+     },
+     {
+      "type": "h2",
+      "text": "O Templo Azul"
+     },
+     {
+      "type": "p",
+      "text": "Eu achei que o branco seria impossível de superar, até entrar num templo completamente azul. E não é só por fora: o interior também é praticamente todo azul, cheio de pinturas, dourado e um Buda branco. Foi provavelmente o templo em que eu mais fiquei olhando para os lados, tentando absorver tudo."
+     },
+     {
+      "type": "h2",
+      "text": "O Buda gigante que dá para entrar"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/chiang-rai-buda.jpg",
+       "alt": "Laura diante da estátua gigante branca"
+      },
+      "tall": true
+     },
+     {
+      "type": "p",
+      "text": "A última parada foi a mais inesperada. Tem uma estátua gigantesca, e o mais surreal nem é o tamanho: tu consegue entrar nela. A gente subiu por dentro até quase a altura dos olhos, e lá de cima dá para ver toda a região."
+     },
+     {
+      "type": "video",
+      "id": "GC5yz_90vIE",
+      "title": "Os templos mais famosos da Tailândia me surpreenderam",
+      "vertical": true,
+      "poster": "images/blog/chiang-rai-azul.jpg"
+     },
+     {
+      "type": "tip",
+      "title": "Como eu fiz",
+      "text": "Fiz tudo num passeio de um dia, com transporte, saindo de Chiang Mai. São algumas horas de estrada, então vale ir com tour e aproveitar o caminho para descansar."
+     },
+     {
+      "type": "h2",
+      "text": "E Chiang Mai?"
+     },
+     {
+      "type": "p",
+      "text": "Depois do caos de Bangkok, Chiang Mai foi onde eu desacelerei. É uma cidade de montanha, histórica e cheia de templos, sem praia. Choveu tanto que eu quase não consegui gravar na rua, mas organizei ali toda a minha temporada de três meses pela Ásia. Quando recomendam 4 dias, eu fico 7: três para turistar e o resto para trabalhar."
+     },
+     {
+      "type": "guide",
+      "text": "Chiang Mai e Chiang Rai vão estar no Guia da Tailândia, que estou preparando. Deixa o teu e-mail para saber quando sair."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "passeios",
+        "i": 0
+       },
+       {
+        "cat": "dinheiro",
+        "i": 0
+       },
+       {
+        "cat": "internet",
+        "i": 0
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "morar-na-australia-vale-a-pena",
+    "title": "Morar na Austrália vale a pena? Salário, custo de vida e o outro lado",
+    "excerpt": "Depois de 3 anos e meio em Sydney: quanto se ganha, quanto eu gastava por semana, a qualidade de vida e as trocas que ninguém conta.",
+    "destination": "sydney",
+    "category": "vale-a-pena",
+    "cover": {
+     "src": "images/blog/australia-capa.jpg",
+     "alt": "Laura em Sydney com a Opera House ao fundo",
+     "position": "50% 35%"
+    },
+    "trip": "De 2022 a 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Eu morei em Sydney do fim de 2022 até o meio de 2026, e voltei como turista para conhecer o meu sobrinho. É uma sensação muito louca passear num lugar onde tu teve uma vida inteira. E aproveitei para responder uma pergunta que eu recebo muito: morar na Austrália é tão bom quanto parece?"
+     },
+     {
+      "type": "h2",
+      "text": "O salário"
+     },
+     {
+      "type": "p",
+      "text": "Desde julho de 2026, o salário mínimo nacional, numa jornada de 38 horas, dá um pouco mais de A$ 1.000 por semana antes dos impostos. Eu sei que tu deve estar convertendo para real, mas esse é um dos erros: quem mora na Austrália ganha em dólar australiano e gasta em dólar australiano. A pergunta certa não é \"quanto dá em reais\", é \"quanto rende aqui\"."
+     },
+     {
+      "type": "h2",
+      "text": "Quanto eu gastava por semana em Sydney"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/australia-mercado.jpg",
+       "alt": "Prateleira de produtos brasileiros num mercadinho em Sydney"
+      },
+      "caption": "Tem mercadinho com polvilho, goiabada, farofa e até erva de chimarrão."
+     },
+     {
+      "type": "prices",
+      "title": "Os meus gastos no último ano",
+      "rows": [
+       {
+        "item": "Total para me sustentar",
+        "price": "quase A$ 700 por semana"
+       },
+       {
+        "item": "Aluguel (a minha parte de um apê de 1 quarto dividido com o meu irmão)",
+        "price": "~A$ 360 por semana"
+       },
+       {
+        "item": "Transporte público",
+        "price": "A$ 50 por semana"
+       },
+       {
+        "item": "Academia",
+        "price": "~A$ 25 por semana"
+       },
+       {
+        "item": "Lazer e comer fora",
+        "price": "~A$ 80 por semana"
+       },
+       {
+        "item": "O melhor cookie do planeta",
+        "price": "A$ 8,70"
+       }
+      ],
+      "note": "Média minha, de uma pessoa econômica. Dá para gastar mais e dá para gastar menos. Sydney é a cidade mais cara da Austrália."
+     },
+     {
+      "type": "h2",
+      "text": "A qualidade de vida começa quando o expediente termina"
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/australia-ferry.jpg",
+       "alt": "Interior do ferry de Sydney a caminho de Manly"
+      }
+     },
+     {
+      "type": "p",
+      "text": "O que mais me chamou atenção quando eu comecei a morar lá não foi quanto as pessoas ganhavam, foi quanta vida acontecia fora do trabalho. Tu sai do trabalho e pega um ferry, que é transporte público, até a praia. As lojas fecham às 5 da tarde porque eles acreditam que quem trabalha também merece aproveitar a vida. O dia começa às 6 da manhã, com gente correndo nos parques e os cafés já abertos."
+     },
+     {
+      "type": "img",
+      "image": {
+       "src": "images/blog/australia-manly.jpg",
+       "alt": "Laura no centrinho de Manly"
+      },
+      "caption": "Manly, o meu lugar favorito em Sydney (desculpa, Bondi)."
+     },
+     {
+      "type": "h2",
+      "text": "Segurança, principalmente para mulher"
+     },
+     {
+      "type": "p",
+      "text": "Para mim, uma das coisas que mais pesam na qualidade de vida. Não quer dizer que nada acontece lá, mas durante três anos eu andei com o celular e a câmera na mão, peguei transporte sozinha à noite e corri sozinha de short no parque. Quando tu é mulher, tu gasta muito menos energia pensando em \"como eu volto para casa\" ou \"essa rua é tranquila?\"."
+     },
+     {
+      "type": "h2",
+      "text": "Um país de imigrantes"
+     },
+     {
+      "type": "p",
+      "text": "Quase uma em cada três pessoas que vivem na Austrália nasceu em outro país: são cerca de 8,8 milhões numa população de uns 27 milhões. Quando tu chega, normalmente tu entra primeiro num grupo de estrangeiros ou de brasileiros. Quase todos os meus amigos eram imigrantes, e isso torna o processo de morar fora menos assustador."
+     },
+     {
+      "type": "video",
+      "id": "hKqoB9HA9uM",
+      "title": "O país onde todo brasileiro quer morar!"
+     },
+     {
+      "type": "h2",
+      "text": "O outro lado"
+     },
+     {
+      "type": "list",
+      "items": [
+       "É longe de tudo: visitar a família no Brasil é caro e exige pelo menos um mês para valer a pena.",
+       "A vida de quem ficou continua: datas importantes, as pessoas envelhecendo, as crianças crescendo.",
+       "O teu currículo não funciona do mesmo jeito: é difícil entrar na tua área, e tudo começa do zero, em outro idioma.",
+       "O visto: querer ficar e ter permissão para ficar são coisas muito diferentes. Quando a tua permanência depende de um visto, sempre tem uma incerteza.",
+       "Sydney também tem trânsito, atraso no transporte e crise de moradia."
+      ]
+     },
+     {
+      "type": "quote",
+      "text": "A Austrália não oferece uma vida perfeita para todo mundo. Mas, para muita gente, oferece a possibilidade de construir uma vida melhor."
+     },
+     {
+      "type": "tip",
+      "title": "A minha opinião sincera",
+      "text": "Parece que eu estou tentando vender a Austrália, mas não. O melhor país do mundo para ti é o que combina com a vida que tu quer construir e que te dá a chance de ficar. Para mim, foram três anos e meio que mudaram tudo."
+     },
+     {
+      "type": "guide",
+      "text": "Se tu está pensando em ir, o e-book reúne tudo o que eu aprendi conseguindo emprego em cinco áreas diferentes, sem ficar uma semana desempregada."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "australia",
+        "i": 0
+       },
+       {
+        "cat": "dinheiro",
+        "i": 0
+       },
+       {
+        "cat": "seguros"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "slug": "perth-primeiras-impressoes",
+    "title": "Perth: primeiras impressões da cidade grande mais isolada do mundo",
+    "excerpt": "Do caos de Bali para o silêncio da costa oeste australiana: por que Perth está sempre nos rankings e o que pesa contra ela.",
+    "destination": "perth",
+    "category": "experiencias",
+    "cover": {
+     "src": "images/blog/perth-capa.jpg",
+     "alt": "Laura de cachecol numa praça de Perth",
+     "position": "50% 35%"
+    },
+    "trip": "Agosto de 2026",
+    "blocks": [
+     {
+      "type": "p",
+      "text": "Perth não estava nos meus planos. O meu sobrinho nasceu enquanto eu estava em Bali e eu precisava ir para Sydney. Só que a passagem de Bali para Sydney estava mais cara do que fazer Bali–Perth e depois Perth–Sydney. Então aproveitei para conhecer."
+     },
+     {
+      "type": "h2",
+      "text": "Primeira impressão: silêncio"
+     },
+     {
+      "type": "gallery",
+      "images": [
+       {
+        "src": "images/blog/perth-predios.jpg",
+        "alt": "Laura com os prédios espelhados de Perth ao fundo"
+       },
+       {
+        "src": "images/blog/perth-mapa.jpg",
+        "alt": "Mapa da Austrália mostrando Perth na costa oeste"
+       },
+       {
+        "src": "images/blog/perth-rio.jpg",
+        "alt": "Laura na beira do rio em Perth"
+       }
+      ]
+     },
+     {
+      "type": "p",
+      "text": "Depois do caos de Bali, eu estava no meio do centro da cidade e era um silêncio. Perth tem mais de 2 milhões de habitantes, mas não parece. É tudo muito tranquilo, limpo, organizado, com muito espaço. Tão tranquilo que eu ainda não decidi se isso é bom ou se pode ser um pouco entediante."
+     },
+     {
+      "type": "h2",
+      "text": "A qualidade de vida é visível"
+     },
+     {
+      "type": "p",
+      "text": "Tem parque, ciclovia, gente correndo, caminhando e treinando ao ar livre. Ferry pelo rio com vista da cidade, praia com pôr do sol no mar, banheiro público e bebedouro em todo lugar. O que mais me surpreendeu foi isso: Perth tem estrutura de cidade grande sem as pessoas viverem na correria de cidade grande."
+     },
+     {
+      "type": "h2",
+      "text": "O que pesa contra"
+     },
+     {
+      "type": "p",
+      "text": "Perth é extremamente isolada. Fica na costa oeste, muito longe das outras grandes cidades do país, e isso pesa bastante na hora de pensar em morar. Chegar lá também é caro. E a cidade me pareceu vazia demais, talvez por ser inverno."
+     },
+     {
+      "type": "tip",
+      "title": "Vindo de Bali? Leva casaco",
+      "text": "Eu só levei roupa de verão para Bali e tive que ir direto numa loja comprar roupa de frio quando cheguei em Perth. Agosto é inverno na Austrália."
+     },
+     {
+      "type": "video",
+      "id": "ZjmwiuHKxwU",
+      "title": "Eu vim parar na cidade grande mais isolada do mundo",
+      "vertical": true,
+      "poster": "images/blog/perth-rio.jpg"
+     },
+     {
+      "type": "h2",
+      "text": "Cuidado ao visitar a Austrália"
+     },
+     {
+      "type": "p",
+      "text": "Toda vez a história se repete: os carros param na faixa para tu atravessar, todo mundo te dá bom-dia no mercado e tu anda até o ponto de ônibus sem esconder o celular. Cuidado, porque tu provavelmente vai se apaixonar e não vai querer ir embora."
+     },
+     {
+      "type": "tip",
+      "title": "Dica de passagem",
+      "text": "Compara rotas com escala: às vezes sai mais barato que o voo direto e ainda rende um destino novo, como Perth rendeu para mim."
+     },
+     {
+      "type": "guide",
+      "text": "Pensando em trabalhar na Austrália? O e-book tem o currículo australiano, os sites que funcionam e os setores que mais contratam brasileiros."
+     },
+     {
+      "type": "recs",
+      "items": [
+       {
+        "cat": "passagens",
+        "i": 0
+       },
+       {
+        "cat": "dinheiro",
+        "i": 0
+       },
+       {
+        "cat": "seguros"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "productPage": [
+   {
+    "slug": "trabalho-na-australia",
+    "kind": "E-book",
+    "title": "Como encontrar um trabalho na Austrália",
+    "promise": "3 anos na Austrália. 5 áreas diferentes. Nenhuma semana desempregada.",
+    "text": "O e-book que eu gostaria de ter tido no meu primeiro dia em Sydney: os setores que mais contratam brasileiros, os sites que realmente funcionam e as estratégias para não perder tempo fazendo do jeito errado.",
+    "forWho": [
+     "Você está pensando em trabalhar na Austrália e não sabe por onde começar.",
+     "Acabou de chegar e precisa do primeiro emprego antes de queimar a reserva.",
+     "Já está lá, mas travou num trabalho ruim e quer mudar de área.",
+     "Cansou de conselho genérico e quer ouvir de quem viveu o processo."
+    ],
+    "chapters": [
+     "O currículo australiano não é o que você pensa",
+     "Esqueça o que você sabe sobre procurar emprego",
+     "As plataformas de emprego: como usar sem depender delas",
+     "O inglês importa mais do que te falaram",
+     "Seus direitos como trabalhador",
+     "Mentalidade: a parte que ninguém ensina"
+    ],
+    "price": "R$ 67",
+    "guarantee": "7 dias de garantia",
+    "buy": {
+     "label": "Quero o e-book",
+     "href": "https://pay.kiwify.com.br/a7BpARM"
+    },
+    "faq": [
+     {
+      "q": "Como recebo o e-book ou o Guia de Bali?",
+      "a": "A compra é processada pela Kiwify. Assim que o pagamento é aprovado, o acesso chega no seu e-mail."
+     },
+     {
+      "q": "E se eu não gostar?",
+      "a": "Você tem 7 dias de garantia. Se não fizer sentido para você, é só pedir o reembolso dentro desse prazo."
+     },
+     {
+      "q": "O e-book serve para quem ainda não tem visto?",
+      "a": "Sim, ele ajuda a planejar antes de embarcar. Para dúvidas de visto, indico o agente de imigração que acompanhou o meu processo, na página de recomendações."
+     }
+    ],
+    "image": "images/sydney.jpg",
+    "cover": {
+     "image": "images/sydney.jpg",
+     "top": "E-book",
+     "title": "Trabalho na Austrália",
+     "tone": "pine"
+    }
+   },
+   {
+    "slug": "guia-de-bali",
+    "kind": "Guia de destino",
+    "title": "Guia de Bali",
+    "promise": "Dois meses na ilha, resumidos para você aproveitar sem perrengue.",
+    "text": "Tudo o que eu queria saber antes de passar dois meses em Bali: qual região combina com você, quanto custa de verdade, como se locomover, os cuidados com água e comida e o que vale (ou não) a pena.",
+    "forWho": [
+     "Vai para Bali pela primeira vez e não sabe quais regiões incluir no roteiro.",
+     "Quer ter uma referência de gastos reais com hospedagem, alimentação, transporte e passeios.",
+     "Quer evitar perrengues comuns e aproveitar as dicas de quem já esteve lá.",
+     "Prefere recomendações baseadas em 58 dias de experiências reais, em vez de listas genéricas da internet."
+    ],
+    "chapters": [
+     "Cinco destinos: Canggu, Ubud, Gili Trawangan, Nusa Penida e Uluwatu.",
+     "Custos reais: quanto gastei com hospedagem, alimentação, transporte e experiências.",
+     "Deslocamentos: como me locomovi entre as regiões e ilhas.",
+     "Dicas práticas: cuidados com água, alimentação e outros detalhes importantes.",
+     "Minha experiência sincera: o que amei, o que não gostei e o que faria diferente."
+    ],
+    "price": "R$ 49",
+    "guarantee": "7 dias de garantia",
+    "buy": {
+     "label": "Quero o guia",
+     "href": "https://pay.kiwify.com.br/2niMQP6"
+    },
+    "faq": [
+     {
+      "q": "Como recebo o e-book ou o Guia de Bali?",
+      "a": "A compra é processada pela Kiwify. Assim que o pagamento é aprovado, o acesso chega no seu e-mail."
+     },
+     {
+      "q": "E se eu não gostar?",
+      "a": "Você tem 7 dias de garantia. Se não fizer sentido para você, é só pedir o reembolso dentro desse prazo."
+     }
+    ],
+    "image": "images/bali.jpg",
+    "cover": {
+     "image": "images/bali.jpg",
+     "top": "Guia completo",
+     "title": "Bali",
+     "tone": "sun"
+    }
+   },
+   {
+    "slug": "guia-liberdade-geografica",
+    "kind": "Guia gratuito",
+    "title": "Guia Liberdade Geográfica",
+    "promise": "O primeiro passo para trabalhar de qualquer lugar do mundo.",
+    "text": "Os primeiros passos para construir uma carreira que você possa levar para qualquer lugar: o que eu aprendi saindo do Brasil, vivendo na Austrália e viajando pela Ásia enquanto trabalhava.",
+    "forWho": [
+     "Você sonha em viajar ou morar fora, mas não sabe como manter uma renda.",
+     "Quer trabalhar de forma remota e não sabe por onde começar.",
+     "Sente que o seu trabalho atual te prende a um lugar só.",
+     "Quer um plano realista, sem promessa de dinheiro fácil."
+    ],
+    "chapters": [
+     "O que é liberdade geográfica (e o que ela não é)",
+     "Profissões e caminhos que dá para levar para qualquer lugar",
+     "Como começar sem largar tudo de uma vez",
+     "Organização financeira antes de sair do Brasil",
+     "Os primeiros passos para esta semana"
+    ],
+    "free": true,
+    "buy": {
+     "label": "Quero receber",
+     "href": "https://turista-life-laura-irigoyen-ifwilc.subscribepage.io/"
+    },
+    "faq": [
+     {
+      "q": "É grátis mesmo?",
+      "a": "Sim. Você só precisa deixar o seu nome e o seu e-mail, sem cartão e sem pegadinha."
+     },
+     {
+      "q": "Como eu recebo?",
+      "a": "Depois do cadastro, o material chega no seu e-mail. Se não aparecer em alguns minutos, confira a caixa de spam ou a aba Promoções."
+     },
+     {
+      "q": "Vou receber outros e-mails?",
+      "a": "Você passa a receber as novidades do Turista Life, como dicas e lançamentos de guias. Dá para sair da lista quando quiser, com um clique."
+     }
+    ],
+    "image": "images/work.jpg",
+    "cover": {
+     "image": "images/work.jpg",
+     "top": "Guia gratuito",
+     "title": "Liberdade Geográfica",
+     "tone": "sky"
+    }
+   },
+   {
+    "slug": "checklist-australia",
+    "kind": "Checklist gratuito",
+    "title": "5 coisas que eu faria diferente antes de ir para a Austrália",
+    "promise": "Os aprendizados que teriam me poupado tempo e dinheiro.",
+    "text": "Depois de 3 anos e meio na Austrália, juntei num checklist as cinco coisas que eu faria diferente antes de embarcar, para você chegar mais preparado do que eu cheguei.",
+    "forWho": [
+     "Você está planejando ir para a Austrália e quer evitar os erros mais comuns.",
+     "Já tem data para embarcar e quer revisar o que falta antes de ir.",
+     "Quer chegar com mais reserva e menos perrengue nas primeiras semanas.",
+     "Prefere aprender com a experiência de quem já viveu lá."
+    ],
+    "chapters": [
+     "Planejamento financeiro antes de embarcar",
+     "Inglês: o que eu teria estudado antes",
+     "Documentos e currículo prontos antes de chegar",
+     "Onde morar nas primeiras semanas",
+     "A mentalidade para o primeiro emprego"
+    ],
+    "free": true,
+    "buy": {
+     "label": "Quero receber",
+     "href": "https://turista-life-laura-irigoyen-nehwou.subscribepage.io/"
+    },
+    "faq": [
+     {
+      "q": "É grátis mesmo?",
+      "a": "Sim. Você só precisa deixar o seu nome e o seu e-mail, sem cartão e sem pegadinha."
+     },
+     {
+      "q": "Como eu recebo?",
+      "a": "Depois do cadastro, o material chega no seu e-mail. Se não aparecer em alguns minutos, confira a caixa de spam ou a aba Promoções."
+     },
+     {
+      "q": "Vou receber outros e-mails?",
+      "a": "Você passa a receber as novidades do Turista Life, como dicas e lançamentos de guias. Dá para sair da lista quando quiser, com um clique."
+     }
+    ],
+    "image": "images/opera.jpg",
+    "cover": {
+     "image": "images/opera.jpg",
+     "top": "Checklist",
+     "title": "Austrália",
+     "tone": "pine"
+    }
+   }
+  ],
+  "page": []
+ },
+ "staticThumbs": [
+  "-JAjCDJhsPw",
+  "5qp6FXtZm2g",
+  "8B9nxMnWFlE",
+  "Hc4nMTf6fDg",
+  "JuHrtf0UOSc",
+  "TtBuGZLTSog",
+  "hKqoB9HA9uM",
+  "pwwxtfpaVNs",
+  "qPqpePK8oFM",
+  "rtEBiuBCNxE",
+  "wfKyB2O7MOk"
+ ]
+}

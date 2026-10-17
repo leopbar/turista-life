@@ -3,6 +3,7 @@
  * Fonte: canal youtube.com/@turistalife, Linktree, página do e-book na Kiwify (out/2026).
  */
 import { links, type Product } from './content'
+import { collection, doc } from './cms/runtime'
 
 /* ------------------------------------------------------------------ */
 /* /produtos                                                           */
@@ -26,7 +27,7 @@ export type CatalogItem = {
   cover: Product['cover']
 }
 
-export const productsPage = {
+export const productsPage = doc('produtos.page', {
   hero: {
     eyebrow: 'Produtos',
     script: 'Na prática, sem enrolação',
@@ -125,7 +126,7 @@ export const productsPage = {
     text: 'Pegue o Guia Liberdade Geográfica, é gratuito e chega no seu e-mail.',
     cta: { label: 'Quero o guia grátis', href: 'https://turista-life-laura-irigoyen-ifwilc.subscribepage.io/' },
   },
-}
+})
 
 /* ------------------------------------------------------------------ */
 /* /produtos/:slug (página individual de cada produto e material grátis) */
@@ -160,7 +161,7 @@ const faqFree = [
   { q: 'Vou receber outros e-mails?', a: 'Você passa a receber as novidades do Turista Life, como dicas e lançamentos de guias. Dá para sair da lista quando quiser, com um clique.' },
 ]
 
-export const productPages: ProductPage[] = [
+export const productPages: ProductPage[] = collection<ProductPage>('productPage', [
   {
     slug: 'trabalho-na-australia',
     kind: 'E-book',
@@ -268,7 +269,7 @@ export const productPages: ProductPage[] = [
     image: import.meta.env.BASE_URL + 'images/opera.jpg',
     cover: { image: import.meta.env.BASE_URL + 'images/opera.jpg', top: 'Checklist', title: 'Austrália', tone: 'pine' },
   },
-]
+], (p) => p.slug)
 
 /* ------------------------------------------------------------------ */
 /* /recomendacoes                                                      */
@@ -355,7 +356,7 @@ const recCategories: RecCategory[] = [
   },
 ]
 
-export const recsPage = {
+export const recsPage = doc('recomendacoes.page', {
   hero: {
     eyebrow: 'Recomendações',
     script: 'Testado na estrada',
@@ -367,6 +368,7 @@ export const recsPage = {
   categories: recCategories,
   soon: 'Estou separando a minha indicação para esta categoria. Em breve aparece aqui.',
   tips: {
+    photo: { image: import.meta.env.BASE_URL + 'images/v-bangkok.jpg', alt: 'Laura em Bangkok, na Tailândia', caption: 'Bangkok, Tailândia' },
     title: 'Minhas regras para gastar menos',
     items: [
       'Ando sempre com a minha garrafa de água: nos cafés ela é superfaturada.',
@@ -382,13 +384,13 @@ export const recsPage = {
     text: 'Todo mês eu abro quanto ganhei e quanto gastei viajando. Os números estão no canal.',
     cta: { label: 'Ver no YouTube', href: links.youtube },
   },
-}
+})
 
 /* ------------------------------------------------------------------ */
 /* /parcerias                                                          */
 /* ------------------------------------------------------------------ */
 
-export const mediaKit = {
+export const mediaKit = doc('parcerias.page', {
   hero: {
     eyebrow: 'Parcerias',
     script: 'Para marcas',
@@ -471,9 +473,10 @@ export const mediaKit = {
     { title: 'Relatório', text: 'Você recebe os resultados da campanha.' },
   ],
   contact: {
+    image: import.meta.env.BASE_URL + 'images/hero.jpg',
     title: 'Vamos conversar?',
     text: 'Me escreve contando sobre a sua marca. Eu respondo pessoalmente.',
     email: links.email,
     cta: { label: 'Enviar e-mail', href: `mailto:${links.email}?subject=Parceria%20Turista%20Life` },
   },
-}
+})

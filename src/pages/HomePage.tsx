@@ -4,16 +4,20 @@ import { Diary } from '../components/Diary'
 import { Hero } from '../components/Hero'
 import { Products } from '../components/Products'
 import { Recommendations } from '../components/Recommendations'
+import { Sections } from '../cms/Sections'
 
 export function HomePage() {
   return (
-    <>
-      <Hero />
-      <About />
-      <Products />
-      <Recommendations />
-      <Brands />
-      <Diary />
-    </>
+    <Sections
+      page="home"
+      items={{
+        hero: <Hero />,
+        about: <About />,
+        products: <Products />,
+        recommendations: <Recommendations />,
+        brands: <Brands />,
+        diary: <Diary />,
+      }}
+    />
   )
 }

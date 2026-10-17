@@ -1,6 +1,7 @@
 import { forwardRef, type AnchorHTMLAttributes } from 'react'
 import { Link } from 'react-router-dom'
 import tw, { styled } from 'twin.macro'
+import { imgProps, t } from '../cms/runtime'
 
 /** Rotas internas ("/produtos", "/#sobre") usam o router; o resto abre em nova aba. */
 export const SmartLink = forwardRef<HTMLAnchorElement, AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }>(
@@ -83,7 +84,7 @@ export function PageHero({ eyebrow, title, script, text, image, position = '50% 
 }) {
   return (
     <section tw="relative overflow-hidden bg-pine-950 pt-32 pb-16 sm:pt-40 sm:pb-20">
-      <img src={image} alt="" tw="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: position }} />
+      <img {...imgProps(image, { alt: '', position: position })} tw="absolute inset-0 h-full w-full object-cover" />
       <div
         aria-hidden="true"
         tw="absolute inset-0"
@@ -91,7 +92,7 @@ export function PageHero({ eyebrow, title, script, text, image, position = '50% 
       />
       <Container tw="relative text-white">
         <nav aria-label="Você está em" tw="font-sans text-[12px] text-white/70">
-          <Link to="/" tw="text-white/70 no-underline hover:text-white">Início</Link>
+          <Link to="/" tw="text-white/70 no-underline hover:text-white">{t('geral.migalha.inicio', 'Início')}</Link>
           <span aria-hidden="true" tw="mx-2">/</span>
           <span tw="text-white">{eyebrow}</span>
         </nav>

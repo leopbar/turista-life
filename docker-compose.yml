@@ -12,8 +12,13 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:3010:80"
+    # Conteúdo publicado pelo painel (site.json e fotos), só leitura.
+    volumes:
+      - painel-public:/usr/share/nginx/html/turista-life/cms:ro
+    depends_on:
+      - turista-life-painel
 
-  # Turista-Life Administração. Isolado: só fala com o próprio volume de dados.
+  # Turista-Life Administração. Isolado: só fala com os próprios volumes.
   turista-life-painel:
     build:
       context: .
@@ -23,8 +28,13 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:3011:8000"
+    # Alertas por Gmail (opcional): PAINEL_GMAIL_USER, PAINEL_GMAIL_APP_PASSWORD, PAINEL_ALERT_TO.
+    env_file:
+      - path: .env.painel
+        required: false
     volumes:
       - painel-data:/data
+      - painel-public:/data/public
     read_only: true
     tmpfs:
       - /tmp
@@ -34,4 +44,7 @@ services:
       - ALL
 
 volumes:
+  # Banco, chave e backups: só o painel enxerga.
   painel-data:
+  # Conteúdo publicado e fotos: o painel escreve, o site lê.
+  painel-public:

@@ -9,3 +9,4 @@ server/data
 **/__pycache__
 **/.pytest_cache
 admin/dist
+.env*

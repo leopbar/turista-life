@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Request, Response
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from .. import audit
+from .. import alerts, audit
 from ..config import Settings
 from ..db import utcnow, write
 from ..deps import admin_session, fail, get_db, get_settings
@@ -73,6 +73,10 @@ def create_user(body: UserCreate, request: Request, active: ActiveSession = Depe
         db.add(user)
         db.flush()
         audit.record(db, 'usuario_criado', actor=active.user, target=email, ip=client_ip(request, settings), details={'papel': body.role})
+        if body.role == 'admin':
+            audit.record(db, 'admin_criado', actor=active.user, target=email, ip=client_ip(request, settings))
+    if body.role == 'admin':
+        alerts.send(settings, f'admin:{email}', 'Um novo administrador foi criado', f'{active.user.email} criou o administrador {email}.')
     return TempPasswordOut(user=UserOut.of(user), temp_password=temp, expires_at=expires)
 
 
@@ -97,6 +101,11 @@ def update_user(user_id: int, body: UserUpdate, request: Request, active: Active
             revoke_user_sessions(db, user.id, keep_id=active.session.id if user.id == active.user.id else None)
         db.add(user)
         audit.record(db, 'usuario_alterado', actor=active.user, target=user.email, ip=client_ip(request, settings), details=changes)
+        promoted = changes.get('papel', [None, None])[1] == 'admin'
+        if promoted:
+            audit.record(db, 'admin_promovido', actor=active.user, target=user.email, ip=client_ip(request, settings))
+    if promoted:
+        alerts.send(settings, f'admin:{user.email}', 'Uma pessoa virou administradora', f'{active.user.email} tornou {user.email} administrador(a).')
     return UserOut.of(user)
 
 

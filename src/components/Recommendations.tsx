@@ -4,6 +4,7 @@ import { recommendations } from '../content'
 import { recsPage, type RecCategory, type RecItem } from '../pagesContent'
 import { Button, Container, Eyebrow, Lead, Section, SmartLink, Title } from './ui'
 import { Arrow, Check, Copy, Pin, RecIcon } from './icons'
+import { imgProps, t } from '../cms/runtime'
 
 export function CouponButton({ code }: { code: string }) {
   const [copied, setCopied] = useState(false)
@@ -23,8 +24,8 @@ export function CouponButton({ code }: { code: string }) {
       aria-label={`Copiar cupom ${code}`}
       tw="inline-flex items-center gap-2 rounded-lg border border-dashed border-sun-500 bg-sun-500/5 px-3 py-2 font-sans text-[11px] font-semibold tracking-wider text-sun-600 transition hover:bg-sun-500/10"
     >
-      <span tw="font-medium normal-case tracking-normal text-sun-600/80">Cupom</span>
-      {copied ? 'Copiado!' : code}
+      <span tw="font-medium normal-case tracking-normal text-sun-600/80">{t('recomendacoes.cupom', 'Cupom')}</span>
+      {copied ? t('recomendacoes.cupom.copiado', 'Copiado!') : code}
       {copied ? <Check /> : <Copy />}
     </button>
   )
@@ -42,11 +43,9 @@ export function RecCard({ item, category, index = 0, wide = false }: { item: Rec
     >
       <div css={[tw`relative aspect-[16/10] overflow-hidden bg-mist`, wide && tw`md:(aspect-auto h-full min-h-[320px])`]}>
         <img
-          src={item.image}
-          alt=""
+          {...imgProps(item.image, { alt: '', position: item.position, sizes: '(min-width: 768px) 50vw, 100vw' })}
           loading="lazy"
           tw="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-          style={{ objectPosition: item.position ?? '50% 50%' }}
         />
         <span aria-hidden="true" tw="absolute inset-0 bg-gradient-to-t from-pine-950/60 via-transparent to-transparent" />
         {category && (
@@ -70,7 +69,7 @@ export function RecCard({ item, category, index = 0, wide = false }: { item: Rec
           ]}
         >
           {item.brand.logo ? (
-            <img src={item.brand.logo} alt={item.brand.name} tw="h-8 w-auto max-w-[120px] object-contain" />
+            <img {...imgProps(item.brand.logo, { alt: item.brand.name })} tw="h-8 w-auto max-w-[120px] object-contain" />
           ) : (
             <span tw="font-sans text-[13px] font-semibold leading-tight text-pine-900">{item.brand.name}</span>
           )}
@@ -78,7 +77,7 @@ export function RecCard({ item, category, index = 0, wide = false }: { item: Rec
 
         <h3 tw="font-serif text-[1.3rem] font-bold leading-snug text-ink">{item.title}</h3>
         <p tw="mt-2 font-sans text-[13.5px] leading-relaxed text-muted">
-          <span tw="font-script text-[19px] leading-none text-sun-600">Por que eu uso: </span>
+          <span tw="font-script text-[19px] leading-none text-sun-600">{t('recomendacoes.porque', 'Por que eu uso:')} </span>
           {item.why}
         </p>
         {item.perk && (
@@ -107,7 +106,7 @@ export function SoonCard({ category }: { category: RecCategory }) {
       <span tw="grid h-12 w-12 place-items-center rounded-full bg-mist text-pine-800">
         <I />
       </span>
-      <p tw="font-script text-[24px] leading-none text-sun-600">Em breve</p>
+      <p tw="font-script text-[24px] leading-none text-sun-600">{t('geral.em-breve', 'Em breve')}</p>
       <h3 tw="font-serif text-[1.2rem] font-bold leading-snug text-ink">{category.title}</h3>
       <p tw="font-sans text-[13px] leading-relaxed text-muted">{recsPage.soon}</p>
     </article>

@@ -7,6 +7,8 @@
  * e as fotos em /public/images/diario. O mapa, os números e a home se atualizam sozinhos.
  */
 
+import { doc, videoThumb } from './cms/runtime'
+
 export type Video = { id: string; title: string; duration: string }
 
 export type Stop = {
@@ -48,9 +50,8 @@ export type Country = {
   items: (Stop | Milestone)[]
 }
 
-export const GOAL = 5000
-
-export const diaryPage = {
+export const diaryPage = doc('diario.page', {
+  goal: 5000,
   hero: {
     eyebrow: 'Diário de bordo',
     script: 'Acompanhe a jornada',
@@ -71,9 +72,11 @@ export const diaryPage = {
     title: 'Próximo destino',
     text: 'A primeira temporada pela Ásia continua por mais alguns países. O próximo eu só conto quando estiver lá.',
   },
-}
+})
 
-export const countries: Country[] = [
+export const GOAL = diaryPage.goal
+
+export const countries: Country[] = doc<{ items: Country[] }>('diario.countries', { items: [
   {
     id: 'indonesia',
     name: 'Indonésia',
@@ -372,7 +375,7 @@ export const countries: Country[] = [
       },
     ],
   },
-]
+] }).items
 
 /** Todas as paradas em ordem, para o mapa e para a home. */
 export const allStops = countries.flatMap((c) => c.items.filter((i): i is Stop => i.type === 'stop'))
@@ -384,4 +387,4 @@ export const videoCount = new Set([
 ]).size
 
 export const ytUrl = (id: string) => `https://www.youtube.com/watch?v=${id}`
-export const ytThumb = (id: string) => `${import.meta.env.BASE_URL}images/videos/${id}.jpg`
+export const ytThumb = (id: string) => videoThumb(id)

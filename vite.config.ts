@@ -11,5 +11,10 @@ export default defineConfig({
     }),
   ],
   // Porta fixa: a 5173 padrão costuma estar ocupada pelo Docker nesta máquina.
-  server: { port: Number(process.env.PORT) || 4321, strictPort: true },
+  server: {
+    port: Number(process.env.PORT) || 4321,
+    strictPort: true,
+    // Conteúdo publicado pelo painel (rodando localmente na porta 8011, launch "painel-api").
+    proxy: { '/cms': { target: 'http://127.0.0.1:8011', rewrite: (p) => `/site${p}` } },
+  },
 })

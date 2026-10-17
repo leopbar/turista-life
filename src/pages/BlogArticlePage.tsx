@@ -4,6 +4,7 @@ import { ArticleBody, ArticleCard } from '../blog/BlogUI'
 import { articleBySlug, categoryLabel, countryName, destinationById, readingMinutes, relatedTo } from '../blog/blogData'
 import { Container, Section } from '../components/ui'
 import { Arrow, Pin } from '../components/icons'
+import { imgProps, t } from '../cms/runtime'
 
 export function BlogArticlePage() {
   const { slug = '' } = useParams()
@@ -15,13 +16,13 @@ export function BlogArticlePage() {
   return (
     <>
       <header tw="relative overflow-hidden bg-pine-950 pt-32 pb-14 sm:pt-40 sm:pb-20">
-        <img src={a.cover.src} alt="" tw="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: a.cover.position ?? '50% 50%' }} />
+        <img {...imgProps(a.cover.src, { alt: '', position: a.cover.position })} tw="absolute inset-0 h-full w-full object-cover" />
         <div aria-hidden="true" tw="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(8,38,36,.95) 0%, rgba(8,38,36,.65) 55%, rgba(8,38,36,.35) 100%)' }} />
         <Container tw="relative text-white">
           <nav aria-label="Você está em" tw="font-sans text-[12px] text-white/70">
-            <Link to="/" tw="text-white/70 no-underline hover:text-white">Início</Link>
+            <Link to="/" tw="text-white/70 no-underline hover:text-white">{t('geral.migalha.inicio', 'Início')}</Link>
             <span aria-hidden="true" tw="mx-2">/</span>
-            <Link to="/blog" tw="text-white/70 no-underline hover:text-white">Blog</Link>
+            <Link to="/blog" tw="text-white/70 no-underline hover:text-white">{t('blog.migalha', 'Blog')}</Link>
             <span aria-hidden="true" tw="mx-2">/</span>
             <Link to={`/blog/destino/${d.id}`} tw="text-white/70 no-underline hover:text-white">{d.name}</Link>
           </nav>
@@ -36,7 +37,7 @@ export function BlogArticlePage() {
           <h1 tw="mt-4 max-w-[820px] font-serif text-[2.1rem] font-bold leading-[1.1] sm:text-[3rem] [text-wrap: balance]">{a.title}</h1>
           <p tw="mt-4 max-w-[640px] font-sans text-[15px] leading-relaxed text-white/85">{a.excerpt}</p>
           <p tw="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 font-sans text-[12.5px] text-white/75">
-            <span>Por <strong tw="font-semibold text-white">Laura Irigoyen</strong></span>
+            <span>Por <strong tw="font-semibold text-white">{t('blog.artigo.autora', 'Laura Irigoyen')}</strong></span>
             <span aria-hidden="true">·</span>
             <span>Viagem: {a.trip}</span>
             <span aria-hidden="true">·</span>
@@ -57,7 +58,7 @@ export function BlogArticlePage() {
             >
               <span>
                 <span tw="block font-script text-[22px] leading-none text-sun-600">Vai para {d.name}?</span>
-                <span tw="mt-1 block font-sans text-[14px] font-semibold text-pine-900">Veja todos os artigos, vídeos e o guia do destino</span>
+                <span tw="mt-1 block font-sans text-[14px] font-semibold text-pine-900">{t('blog.artigo.ver-destino', 'Veja todos os artigos, vídeos e o guia do destino')}</span>
               </span>
               <span tw="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-pine-800 text-white transition group-hover:bg-sun-500">
                 <Arrow />
@@ -70,7 +71,7 @@ export function BlogArticlePage() {
       {related.length > 0 && (
         <Section tone="white">
           <Container tw="flex flex-col gap-6">
-            <h2 tw="font-serif text-[1.8rem] font-bold text-ink">Continue lendo</h2>
+            <h2 tw="font-serif text-[1.8rem] font-bold text-ink">{t('blog.artigo.continue', 'Continue lendo')}</h2>
             <div tw="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((r) => (
                 <ArticleCard key={r.slug} article={r} />

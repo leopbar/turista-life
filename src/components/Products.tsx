@@ -2,6 +2,7 @@ import tw, { css } from 'twin.macro'
 import { products, type Product } from '../content'
 import { Button, Container, Eyebrow, Lead, Section, SmartLink, Title } from './ui'
 import { Arrow } from './icons'
+import { imgProps, t } from '../cms/runtime'
 
 const toneBg = {
   pine: 'linear-gradient(180deg, rgba(11,48,46,.92) 0%, rgba(11,48,46,.15) 55%, rgba(11,48,46,.55) 100%)',
@@ -18,14 +19,14 @@ export function BookCover({ cover, large = false }: { cover: Product['cover']; l
         tw="relative h-full w-full overflow-hidden rounded-r-md rounded-l-sm shadow-lift transition-transform duration-500 group-hover:[transform: rotateY(-14deg) translateY(-4px)]"
         css={css`transform: rotateY(-6deg); transform-origin: left center;`}
       >
-        <img src={cover.image} alt="" tw="absolute inset-0 h-full w-full object-cover" />
+        <img {...imgProps(cover.image, { alt: '' })} tw="absolute inset-0 h-full w-full object-cover" />
         <div tw="absolute inset-0" css={css`background: ${toneBg[cover.tone]};`} />
         <span aria-hidden="true" tw="absolute inset-y-0 left-0 w-2.5 bg-gradient-to-r from-black/30 to-transparent" />
         <div css={[tw`relative px-3 pt-4 text-center`, dark ? tw`text-white` : tw`text-pine-900`]}>
           <p tw="font-sans text-[9px] font-semibold uppercase tracking-[.18em] opacity-90">{cover.top}</p>
           <p css={[tw`mt-1 font-sans font-bold uppercase leading-[1.05] tracking-tight`, large ? tw`text-[26px]` : tw`text-[17px]`]}>{cover.title}</p>
         </div>
-        <p tw="absolute bottom-2 inset-x-0 text-center font-script text-[13px] text-white">Turista Life</p>
+        <p tw="absolute bottom-2 inset-x-0 text-center font-script text-[13px] text-white">{t('produtos.capa.marca', 'Turista Life')}</p>
       </div>
     </div>
   )

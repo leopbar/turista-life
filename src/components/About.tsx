@@ -2,6 +2,7 @@ import tw from 'twin.macro'
 import { about, journey } from '../content'
 import { Button, Container, Eyebrow, Lead, LiveDot, Section, SmartLink, Title } from './ui'
 import { Arrow, Mountain } from './icons'
+import { imgProps, t } from '../cms/runtime'
 
 export function About() {
   return (
@@ -20,7 +21,7 @@ export function About() {
 
         <figure tw="relative mx-auto w-[240px] rotate-[-4deg] bg-white p-3 pb-16 shadow-lift transition-transform duration-500 hover:rotate-0">
           <span aria-hidden="true" tw="absolute -top-3 left-1/2 h-6 w-20 -translate-x-1/2 rotate-3 bg-[#E9DFC9]/90" />
-          <img src={about.polaroid.image} alt="Laura em Sydney, na Austrália" tw="aspect-[4/5] w-full object-cover" />
+          <img {...imgProps(about.polaroid.image, { alt: t('inicio.sobre.foto', 'Laura em Sydney, na Austrália') })} tw="aspect-[4/5] w-full object-cover" />
           <figcaption tw="absolute right-4 bottom-3 rotate-[-4deg] text-right font-script text-[22px] leading-tight text-pine-900">
             {about.polaroid.caption.map((l) => (
               <span key={l} tw="block">{l}</span>

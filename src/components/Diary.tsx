@@ -1,8 +1,10 @@
-import { useState, type FormEvent } from 'react'
 import tw from 'twin.macro'
 import { diary, newsletter } from '../content'
+import { useNewsletter } from '../newsletter'
+import { NewsletterHoneypot } from './NewsletterHoneypot'
 import { Button, Container, Eyebrow, Lead, Section, Title } from './ui'
 import { Arrow, Check, Mail, Play } from './icons'
+import { imgProps, t } from '../cms/runtime'
 
 export function Diary() {
   return (
@@ -25,7 +27,7 @@ export function Diary() {
             <li key={p.title}>
               <a href={p.href} target="_blank" rel="noreferrer" className="group" tw="flex h-full flex-col overflow-hidden rounded-[16px] border border-line bg-white no-underline transition duration-300 hover:(-translate-y-1 shadow-lift)">
                 <div tw="relative aspect-[4/3] overflow-hidden">
-                  <img src={p.image} alt="" tw="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img {...imgProps(p.image, { alt: '' })} tw="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <span tw="absolute inset-0 m-auto grid h-12 w-12 place-items-center rounded-full bg-white/90 text-pine-900 opacity-0 transition group-hover:opacity-100">
                     <Play width={18} height={18} />
                   </span>
@@ -50,11 +52,8 @@ export function Diary() {
 }
 
 function NewsletterCard() {
-  const [sent, setSent] = useState(false)
-  const submit = (e: FormEvent) => {
-    e.preventDefault()
-    setSent(true) // TODO(dúvida Laura): conectar à página de inscrição da newsletter no MailerLite (mesma lista do rodapé)
-  }
+  const { status, submit } = useNewsletter()
+  const sending = status === 'sending'
   return (
     <aside id="newsletter" tw="flex flex-col rounded-[20px] bg-pine-800 p-7 text-white shadow-lift">
       <p tw="flex items-center gap-2 font-sans text-[11px] font-semibold uppercase tracking-[.16em] text-white/85">
@@ -68,15 +67,21 @@ function NewsletterCard() {
           </li>
         ))}
       </ul>
-      {sent ? (
-        <p tw="mt-6 rounded-xl bg-white/10 p-4 font-sans text-[13px]">{newsletter.sent}</p>
+      {status === 'done' ? (
+        <p role="status" tw="mt-6 rounded-xl bg-white/10 p-4 font-sans text-[13px]">{newsletter.sent}</p>
       ) : (
         <form onSubmit={submit} tw="mt-6 flex flex-col gap-3">
-          <label htmlFor="newsletter-email" tw="sr-only">Seu e-mail</label>
-          <input id="newsletter-email" type="email" required placeholder="Seu e-mail" tw="rounded-full border border-white/30 bg-white/10 px-4 py-2.5 font-sans text-[13px] text-white placeholder:text-white/60 focus:(outline-none border-white)" />
-          <button type="submit" tw="inline-flex items-center justify-center gap-2 rounded-full border-[1.5px] border-white/80 px-5 py-2.5 font-sans text-[13px] font-semibold text-white transition hover:(bg-white text-pine-900)">
-            <Mail width={18} height={18} /> {newsletter.cta}
+          <label htmlFor="newsletter-email" tw="sr-only">{t('geral.email.rotulo', 'Seu e-mail')}</label>
+          <input id="newsletter-email" name="email" type="email" required placeholder={t('geral.email.rotulo', 'Seu e-mail')} autoComplete="email" aria-describedby="newsletter-feedback" tw="rounded-full border border-white/30 bg-white/10 px-4 py-2.5 font-sans text-[13px] text-white placeholder:text-white/60 focus:(outline-none border-white)" />
+          <NewsletterHoneypot />
+          <button type="submit" disabled={sending} tw="inline-flex items-center justify-center gap-2 rounded-full border-[1.5px] border-white/80 px-5 py-2.5 font-sans text-[13px] font-semibold text-white transition hover:(bg-white text-pine-900) disabled:(cursor-wait opacity-70)">
+            <Mail width={18} height={18} /> {sending ? newsletter.sending : newsletter.cta}
           </button>
+          <p id="newsletter-feedback" role="status" tw="font-sans text-[12px] text-white/70">
+            {status === 'invalid' ? <span tw="text-sun-500">{newsletter.invalid}</span>
+              : status === 'error' ? <span tw="text-sun-500">{newsletter.error}</span>
+              : newsletter.privacy}
+          </p>
         </form>
       )}
     </aside>

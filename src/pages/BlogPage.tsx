@@ -6,6 +6,8 @@ import { ArticleCard } from '../blog/BlogUI'
 import { articles, articlesOf, blogCategories, blogCountries, blogPage as page, destinationById, type CategoryId } from '../blog/blogData'
 import { Container, Eyebrow, PageHero, Section, Title } from '../components/ui'
 import { Arrow, Check, Close } from '../components/icons'
+import { imgProps, t } from '../cms/runtime'
+import { Sections } from '../cms/Sections'
 
 const ALL = 'todos'
 
@@ -39,105 +41,109 @@ export function BlogPage() {
   const [featured, ...rest] = shown
 
   return (
-    <>
-      <PageHero {...page.hero} />
-
-      {/* Destinos, organizados por país */}
-      <Section tone="white">
-        <Container tw="flex flex-col gap-8">
-          <div tw="flex max-w-[560px] flex-col gap-3">
-            <Eyebrow>Por destino</Eyebrow>
-            <Title>Escolha para onde você vai</Title>
-          </div>
-          <div tw="grid gap-8 lg:grid-cols-3">
-            {blogCountries.map((c) => (
-              <div key={c.id} tw="flex flex-col gap-3">
-                <h3 tw="flex items-center gap-3 font-sans text-[12px] font-semibold uppercase tracking-[.16em] text-pine-800">
-                  {c.name} <span aria-hidden="true" tw="h-px flex-1 bg-line" />
-                </h3>
-                <ul tw="flex flex-col gap-3">
-                  {c.destinations.map((d) => (
-                    <li key={d.id}>
-                      <Link
-                        to={`/blog/destino/${d.id}`}
-                        className="group"
-                        tw="relative flex h-[120px] items-end overflow-hidden rounded-[18px] no-underline shadow-card"
-                      >
-                        <img src={d.image} alt="" loading="lazy" tw="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" style={{ objectPosition: d.position ?? '50% 50%' }} />
-                        <span aria-hidden="true" tw="absolute inset-0 bg-gradient-to-r from-pine-950/85 via-pine-950/45 to-transparent" />
-                        <span tw="relative flex w-full items-end justify-between gap-3 p-4 text-white">
-                          <span>
-                            <span tw="block font-serif text-[1.5rem] font-bold leading-none">{d.name}</span>
-                            <span tw="mt-1.5 block font-sans text-[12px] text-white/80">
-                              {articlesOf(d.id).length} {articlesOf(d.id).length === 1 ? 'artigo' : 'artigos'} · {d.tagline}
+    <Sections
+      page="blog"
+      items={{
+        hero: <PageHero {...page.hero} />,
+        destinations: (
+          <Section tone="white">
+            <Container tw="flex flex-col gap-8">
+              <div tw="flex max-w-[560px] flex-col gap-3">
+                <Eyebrow>{t('blog.destinos.chamada', 'Por destino')}</Eyebrow>
+                <Title>{t('blog.destinos.titulo', 'Escolha para onde você vai')}</Title>
+              </div>
+              <div tw="grid gap-8 lg:grid-cols-3">
+                {blogCountries.map((c) => (
+                  <div key={c.id} tw="flex flex-col gap-3">
+                    <h3 tw="flex items-center gap-3 font-sans text-[12px] font-semibold uppercase tracking-[.16em] text-pine-800">
+                      {c.name} <span aria-hidden="true" tw="h-px flex-1 bg-line" />
+                    </h3>
+                    <ul tw="flex flex-col gap-3">
+                      {c.destinations.map((d) => (
+                        <li key={d.id}>
+                          <Link
+                            to={`/blog/destino/${d.id}`}
+                            className="group"
+                            tw="relative flex h-[120px] items-end overflow-hidden rounded-[18px] no-underline shadow-card"
+                          >
+                            <img {...imgProps(d.image, { alt: '', position: d.position })} loading="lazy" tw="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                            <span aria-hidden="true" tw="absolute inset-0 bg-gradient-to-r from-pine-950/85 via-pine-950/45 to-transparent" />
+                            <span tw="relative flex w-full items-end justify-between gap-3 p-4 text-white">
+                              <span>
+                                <span tw="block font-serif text-[1.5rem] font-bold leading-none">{d.name}</span>
+                                <span tw="mt-1.5 block font-sans text-[12px] text-white/80">
+                                  {articlesOf(d.id).length} {articlesOf(d.id).length === 1 ? 'artigo' : 'artigos'} · {d.tagline}
+                                </span>
+                              </span>
+                              <span tw="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/15 transition group-hover:bg-sun-500">
+                                <Arrow />
+                              </span>
                             </span>
-                          </span>
-                          <span tw="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/15 transition group-hover:bg-sun-500">
-                            <Arrow />
-                          </span>
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* Filtros: dois botões; no celular cada um abre um painel por baixo, no computador uma lista */}
-      <nav aria-label="Filtrar artigos" tw="sticky top-20 z-30 border-y border-line bg-cream/95 backdrop-blur-md">
-        <Container tw="flex flex-wrap items-center gap-2 py-3">
-          <FilterMenu
-            label="País"
-            allLabel="Todos os países"
-            value={country}
-            onChange={(v) => set('pais', v)}
-            options={blogCountries.map((c) => ({ id: c.id, label: c.name, count: countFor(c.id, category) }))}
-            total={countFor(ALL, category)}
-          />
-          <FilterMenu
-            label="Assunto"
-            allLabel="Todos os assuntos"
-            value={category}
-            onChange={(v) => set('assunto', v)}
-            options={blogCategories.map((c) => ({ id: c.id, label: c.label, count: countFor(country, c.id) }))}
-            total={countFor(country, ALL)}
-          />
-          {filtering && (
-            <button type="button" onClick={clear} tw="ml-1 font-sans text-[13px] font-semibold text-pine-800 underline-offset-2 hover:underline">
-              Limpar
-            </button>
-          )}
-        </Container>
-      </nav>
-
-      <Section tone="cream">
-        <Container>
-          <div ref={listRef} tw="scroll-mt-48">
-            <p tw="mb-6 font-sans text-[13px] text-muted" aria-live="polite">
-              {shown.length} {shown.length === 1 ? 'artigo' : 'artigos'}
-            </p>
-            {shown.length === 0 ? (
-              <div tw="rounded-[20px] border-[1.5px] border-dashed border-pine-800/25 bg-white/60 p-8 text-center">
-                <p tw="font-script text-[26px] leading-none text-sun-600">Em breve</p>
-                <p tw="mt-2 font-sans text-[14px] text-muted">Ainda não tem artigo sobre esse assunto neste país. A cada destino novo, entram mais.</p>
+            </Container>
+          </Section>
+        ),
+        filters: (
+          <nav aria-label="Filtrar artigos" tw="sticky top-20 z-30 border-y border-line bg-cream/95 backdrop-blur-md">
+            <Container tw="flex flex-wrap items-center gap-2 py-3">
+              <FilterMenu
+                label="País"
+                allLabel="Todos os países"
+                value={country}
+                onChange={(v) => set('pais', v)}
+                options={blogCountries.map((c) => ({ id: c.id, label: c.name, count: countFor(c.id, category) }))}
+                total={countFor(ALL, category)}
+              />
+              <FilterMenu
+                label="Assunto"
+                allLabel="Todos os assuntos"
+                value={category}
+                onChange={(v) => set('assunto', v)}
+                options={blogCategories.map((c) => ({ id: c.id, label: c.label, count: countFor(country, c.id) }))}
+                total={countFor(country, ALL)}
+              />
+              {filtering && (
+                <button type="button" onClick={clear} tw="ml-1 font-sans text-[13px] font-semibold text-pine-800 underline-offset-2 hover:underline">
+                  Limpar
+                </button>
+              )}
+            </Container>
+          </nav>
+        ),
+        articles: (
+          <Section tone="cream">
+            <Container>
+              <div ref={listRef} tw="scroll-mt-48">
+                <p tw="mb-6 font-sans text-[13px] text-muted" aria-live="polite">
+                  {shown.length} {shown.length === 1 ? 'artigo' : 'artigos'}
+                </p>
+                {shown.length === 0 ? (
+                  <div tw="rounded-[20px] border-[1.5px] border-dashed border-pine-800/25 bg-white/60 p-8 text-center">
+                    <p tw="font-script text-[26px] leading-none text-sun-600">{t('geral.em-breve', 'Em breve')}</p>
+                    <p tw="mt-2 font-sans text-[14px] text-muted">{t('blog.vazio', 'Ainda não tem artigo sobre esse assunto neste país. A cada destino novo, entram mais.')}</p>
+                  </div>
+                ) : (
+                  <div tw="flex flex-col gap-6">
+                    {featured && <ArticleCard article={featured} featured />}
+                    <div tw="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                      {rest.map((a) => (
+                        <ArticleCard key={a.slug} article={a} />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div tw="flex flex-col gap-6">
-                {featured && <ArticleCard article={featured} featured />}
-                <div tw="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {rest.map((a) => (
-                    <ArticleCard key={a.slug} article={a} />
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </Container>
-      </Section>
-    </>
+            </Container>
+          </Section>
+        ),
+      }}
+    />
   )
 }
 

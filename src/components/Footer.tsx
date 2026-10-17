@@ -1,8 +1,10 @@
 import 'twin.macro'
-import { useState, type FormEvent } from 'react'
-import { footer, links, nav } from '../content'
+import { footer, links, nav, newsletter } from '../content'
+import { useNewsletter } from '../newsletter'
+import { NewsletterHoneypot } from './NewsletterHoneypot'
 import { Container, Logo, PlaneTrail, SmartLink } from './ui'
 import { Arrow, Instagram, TikTok, YouTube } from './icons'
+import { t } from '../cms/runtime'
 
 const socials = [
   { label: 'YouTube', href: links.youtube, Icon: YouTube },
@@ -11,11 +13,8 @@ const socials = [
 ]
 
 export function Footer() {
-  const [sent, setSent] = useState(false)
-  const submit = (e: FormEvent) => {
-    e.preventDefault()
-    setSent(true) // TODO: integrar à lista de e-mails da Laura
-  }
+  const { status, submit } = useNewsletter()
+  const sending = status === 'sending'
   return (
     <footer tw="bg-pine-950 pt-14 pb-8 text-white">
       <Container tw="flex flex-col gap-10">
@@ -44,16 +43,22 @@ export function Footer() {
 
           <div tw="w-full max-w-[340px]">
             <p tw="font-sans text-[13px] font-semibold">{footer.newsletter}</p>
-            {sent ? (
-              <p tw="mt-3 font-sans text-[13px] text-white/80">Obrigada! Logo chega novidade aí.</p>
+            {status === 'done' ? (
+              <p role="status" tw="mt-3 font-sans text-[13px] text-white/80">{footer.sent}</p>
             ) : (
-              <form onSubmit={submit} tw="mt-3 flex items-center rounded-full bg-white p-1 pl-4">
-                <label htmlFor="footer-email" tw="sr-only">Seu e-mail</label>
-                <input id="footer-email" type="email" required placeholder="Seu e-mail" tw="min-w-0 flex-1 bg-transparent font-sans text-[13px] text-ink outline-none" />
-                <button type="submit" aria-label="Inscrever" tw="grid h-9 w-9 place-items-center rounded-full bg-pine-800 text-white hover:bg-sun-500">
-                  <Arrow />
-                </button>
-              </form>
+              <>
+                <form onSubmit={submit} tw="mt-3 flex items-center rounded-full bg-white p-1 pl-4">
+                  <label htmlFor="footer-email" tw="sr-only">{t('geral.email.rotulo', 'Seu e-mail')}</label>
+                  <input id="footer-email" name="email" type="email" required placeholder={t('geral.email.rotulo', 'Seu e-mail')} autoComplete="email" aria-describedby="footer-feedback" tw="min-w-0 flex-1 bg-transparent font-sans text-[13px] text-ink outline-none" />
+                  <NewsletterHoneypot />
+                  <button type="submit" disabled={sending} aria-label={sending ? newsletter.sending : 'Inscrever'} tw="grid h-9 w-9 place-items-center rounded-full bg-pine-800 text-white hover:bg-sun-500 disabled:(cursor-wait opacity-70)">
+                    <Arrow />
+                  </button>
+                </form>
+                <p id="footer-feedback" role="status" tw="mt-2 font-sans text-[12px] text-sun-500 empty:hidden">
+                  {status === 'invalid' ? newsletter.invalid : status === 'error' ? newsletter.error : ''}
+                </p>
+              </>
             )}
             <p tw="mt-4 font-sans text-[12px] text-white/60">
               Contato comercial: <span tw="text-white/85 select-all">{links.email}</span>

@@ -1,3 +1,5 @@
+import type { CollectionDef, DocDef } from '../../src/cms/fields'
+
 /** Conversa com o servidor do painel. O cookie de sessão é HttpOnly (o JavaScript nem enxerga);
  * aqui só guardamos, em memória, o token anti-CSRF que vai junto em todo pedido que altera dados. */
 
@@ -29,12 +31,16 @@ export type ActivityItem = {
   details: Record<string, unknown>
 }
 
+export type Problem = { path: string; message: string }
+
 export class ApiError extends Error {
   constructor(
     public status: number,
     public code: string,
     message: string,
     public retryAfter?: number,
+    public problems: Problem[] = [],
+    public extra: Record<string, unknown> = {},
   ) {
     super(message)
   }
@@ -49,12 +55,13 @@ export function setSessionLostHandler(fn: () => void) {
 
 async function request<T>(method: string, url: string, body?: unknown): Promise<T> {
   const headers: Record<string, string> = {}
-  if (body !== undefined) headers['Content-Type'] = 'application/json'
+  const form = body instanceof FormData
+  if (body !== undefined && !form) headers['Content-Type'] = 'application/json'
   if (method !== 'GET' && csrf) headers['X-CSRF-Token'] = csrf
 
   let res: Response
   try {
-    res = await fetch(url, { method, headers, credentials: 'same-origin', body: body === undefined ? undefined : JSON.stringify(body) })
+    res = await fetch(url, { method, headers, credentials: 'same-origin', body: body === undefined ? undefined : form ? body : JSON.stringify(body) })
   } catch {
     throw new ApiError(0, 'offline', 'Sem conexão com o servidor. Confira a internet e tente de novo.')
   }
@@ -62,7 +69,7 @@ async function request<T>(method: string, url: string, body?: unknown): Promise<
   const data = await res.json().catch(() => ({}))
   if (!res.ok) {
     const d = data?.detail ?? {}
-    const err = new ApiError(res.status, d.code ?? 'error', d.message ?? 'Algo deu errado. Tente de novo.', d.retryAfter)
+    const err = new ApiError(res.status, d.code ?? 'error', d.message ?? 'Algo deu errado. Tente de novo.', d.retryAfter, d.problems ?? [], d)
     if (res.status === 401 && err.code === 'not_authenticated') onSessionLost()
     throw err
   }
@@ -88,6 +95,93 @@ export const api = {
   activity: (before?: number) =>
     request<{ items: ActivityItem[]; nextBefore: number | null }>('GET', `/api/activity${before ? `?before=${before}` : ''}`),
   verifyActivity: () => request<{ ok: boolean; brokenAt: number | null }>('GET', '/api/activity/verify'),
+
+  /* Conteúdo */
+  schema: () => request<CmsSchema>('GET', '/api/content/schema'),
+  contentList: () => request<DocMeta[]>('GET', '/api/content'),
+  getDoc: (key: string) => request<DocFull>('GET', `/api/content/${encodeURIComponent(key)}`),
+  saveDraft: (key: string, draft: unknown) => request<DocMeta>('PUT', `/api/content/${encodeURIComponent(key)}`, { draft }),
+  publish: (key: string) => request<{ published: string[] }>('POST', `/api/content/${encodeURIComponent(key)}/publish`),
+  discard: (key: string) => request<DocMeta | { deleted: true }>('POST', `/api/content/${encodeURIComponent(key)}/discard`),
+  removeDoc: (key: string) => request<DocMeta | { deleted: true }>('DELETE', `/api/content/${encodeURIComponent(key)}`),
+  schedule: (key: string, at: string | null) => request<DocMeta>('POST', `/api/content/${encodeURIComponent(key)}/schedule`, { at }),
+  versions: (key: string) => request<VersionItem[]>('GET', `/api/content/${encodeURIComponent(key)}/versions`),
+  restoreVersion: (key: string, id: number) => request<{ ok: true }>('POST', `/api/content/${encodeURIComponent(key)}/versions/${id}/restore`),
+  presence: (key: string) => request<{ editingBy: string[] }>('POST', `/api/content/${encodeURIComponent(key)}/presence`),
+  createItem: (collection: string, item: unknown) => request<DocMeta>('POST', `/api/collections/${collection}`, { item }),
+  order: (collection: string, keys: string[]) => request<{ ok: true }>('POST', `/api/collections/${collection}/order`, { keys }),
+  search: (q: string) => request<SearchResult[]>('GET', `/api/content/search?q=${encodeURIComponent(q)}`),
+  history: () => request<HistoryItem[]>('GET', '/api/content/history'),
+  restoreSite: (at: string) => request<{ changed: number }>('POST', '/api/content/restore-site', { at }),
+
+  /* Fotos */
+  media: (trash = false) => request<MediaItem[]>('GET', `/api/media${trash ? '?trash=true' : ''}`),
+  upload: (file: File, alt: string) => {
+    const fd = new FormData()
+    fd.append('file', file)
+    fd.append('alt', alt)
+    return request<MediaItem>('POST', '/api/media', fd)
+  },
+  updateMedia: (id: string, data: { alt?: string; focal?: [number, number] }) => request<MediaItem>('PATCH', `/api/media/${id}`, data),
+  deleteMedia: (id: string) => request<{ ok: true }>('DELETE', `/api/media/${id}`),
+  restoreMedia: (id: string) => request<MediaItem>('POST', `/api/media/${id}/restore`),
+
+  /* Sistema */
+  status: () => request<SystemStatus>('GET', '/api/system/status'),
+  backups: () => request<{ name: string; sizeBytes: number }[]>('GET', '/api/system/backups'),
+  createBackup: () => request<{ name: string; sizeBytes: number }>('POST', '/api/system/backups'),
+}
+
+export type CmsSchema = { docs: DocDef[]; collections: CollectionDef[] }
+
+export type DocStatus = 'publicado' | 'alterado' | 'novo' | 'sair'
+
+export type DocMeta = {
+  key: string
+  collection: string | null
+  group: string | null
+  label: string
+  route: string
+  status: DocStatus
+  position: number
+  draftUpdatedAt: string
+  draftUpdatedBy: string | null
+  publishedAt: string | null
+  publishedBy: string | null
+  scheduledAt: string | null
+  editingBy: string[]
+}
+
+export type DocFull = DocMeta & { draft: Record<string, unknown>; published: Record<string, unknown> | null; draftDeleted: boolean }
+
+export type VersionItem = { id: number; action: string; createdAt: string; createdBy: string | null; data: Record<string, unknown> | null }
+
+export type HistoryItem = { id: number; key: string; label: string; action: string; createdAt: string; createdBy: string | null }
+
+export type SearchResult = { key: string; label: string; path: string; snippet: string; route: string }
+
+export type MediaItem = {
+  id: string
+  url: string
+  alt: string
+  focal: [number, number]
+  width: number
+  height: number
+  widths: number[]
+  sizeBytes: number
+  originalName: string
+  createdAt: string
+  createdBy: string | null
+  deletedAt: string | null
+  usedIn: { key: string; label: string; route: string; states: string[] }[]
+}
+
+export type SystemStatus = {
+  role: Role
+  lastBackupDownloadAt?: string | null
+  needsBackupDownload?: boolean
+  emailAlerts?: boolean
+  warnings?: ActivityItem[]
 }
 
 /** As datas do servidor vêm em UTC sem fuso. */

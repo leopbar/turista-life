@@ -6,6 +6,7 @@ import { articlesOf, blogCategories, countryName, destinationById } from '../blo
 import { allStops } from '../diaryContent'
 import { Container, Eyebrow, Section, Title } from '../components/ui'
 import { Arrow, Pin } from '../components/icons'
+import { imgProps, t } from '../cms/runtime'
 
 export function BlogDestinationPage() {
   const { id = '' } = useParams()
@@ -22,13 +23,13 @@ export function BlogDestinationPage() {
   return (
     <>
       <section tw="relative overflow-hidden bg-pine-950 pt-32 pb-16 sm:pt-40 sm:pb-20">
-        <img src={d.image} alt="" tw="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: d.position ?? '50% 50%' }} />
+        <img {...imgProps(d.image, { alt: '', position: d.position })} tw="absolute inset-0 h-full w-full object-cover" />
         <div aria-hidden="true" tw="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(8,38,36,.92) 0%, rgba(8,38,36,.7) 50%, rgba(8,38,36,.3) 100%)' }} />
         <Container tw="relative text-white">
           <nav aria-label="Você está em" tw="font-sans text-[12px] text-white/70">
-            <Link to="/" tw="text-white/70 no-underline hover:text-white">Início</Link>
+            <Link to="/" tw="text-white/70 no-underline hover:text-white">{t('geral.migalha.inicio', 'Início')}</Link>
             <span aria-hidden="true" tw="mx-2">/</span>
-            <Link to="/blog" tw="text-white/70 no-underline hover:text-white">Blog</Link>
+            <Link to="/blog" tw="text-white/70 no-underline hover:text-white">{t('blog.migalha', 'Blog')}</Link>
             <span aria-hidden="true" tw="mx-2">/</span>
             <span tw="text-white">{d.name}</span>
           </nav>
@@ -60,7 +61,7 @@ export function BlogDestinationPage() {
         <Container tw="flex flex-col gap-10">
           <div tw="flex flex-wrap items-end justify-between gap-4">
             <div tw="flex max-w-[560px] flex-col gap-3">
-              <Eyebrow>Artigos</Eyebrow>
+              <Eyebrow>{t('blog.destino.artigos', 'Artigos')}</Eyebrow>
               <Title>Tudo sobre {d.name}</Title>
             </div>
             <div role="group" aria-label="Filtrar por assunto" tw="flex flex-wrap gap-2">
@@ -102,7 +103,7 @@ export function BlogDestinationPage() {
       <Section tone="mist">
         <Container tw="flex flex-col gap-8">
           <div tw="flex max-w-[560px] flex-col gap-3">
-            <Eyebrow>Vídeos</Eyebrow>
+            <Eyebrow>{t('blog.destino.videos', 'Vídeos')}</Eyebrow>
             <Title>{d.name} no canal</Title>
           </div>
           <div css={[tw`grid gap-6`, d.videos.some((v) => !v.vertical) ? tw`md:grid-cols-2 lg:grid-cols-3` : tw`sm:grid-cols-2 lg:grid-cols-3`]}>
@@ -119,7 +120,7 @@ export function BlogDestinationPage() {
           <RecsBlock title={`O que eu usei em ${d.name}`} items={d.recs} />
           {stops.length > 0 && (
             <aside tw="rounded-[22px] bg-white p-6 shadow-card">
-              <p tw="font-script text-[24px] leading-none text-sun-600">Na rota</p>
+              <p tw="font-script text-[24px] leading-none text-sun-600">{t('blog.destino.rota', 'Na rota')}</p>
               <h3 tw="mt-1 font-serif text-[1.3rem] font-bold leading-tight text-ink">Veja {d.name} no diário da viagem</h3>
               <ul tw="mt-4 flex flex-col divide-y divide-line">
                 {stops.map((s) => (

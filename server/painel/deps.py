@@ -47,7 +47,8 @@ def any_session(
         fail(401, 'not_authenticated', 'Sua sessão terminou. Entre de novo.')
     if request.method not in {'GET', 'HEAD', 'OPTIONS'} and not csrf_ok(settings, token, request.headers.get('x-csrf-token')):
         fail(403, 'csrf', 'Não foi possível confirmar este pedido. Recarregue a página e tente de novo.')
-    if touch_session(active.session):
+    # O aviso "fulano está editando" (a cada 20 s) não conta como uso: um painel esquecido aberto expira.
+    if not request.url.path.endswith('/presence') and touch_session(active.session):
         with dbmod.write(db):
             pass
     return active

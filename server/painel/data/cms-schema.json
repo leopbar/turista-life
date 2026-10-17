@@ -1,0 +1,4040 @@
+{
+ "docs": [
+  {
+   "key": "geral.nav",
+   "label": "Menu do site",
+   "group": "geral",
+   "route": "/",
+   "fields": {
+    "items": {
+     "kind": "list",
+     "label": "Itens do menu",
+     "of": {
+      "kind": "object",
+      "label": "Item",
+      "fields": {
+       "label": {
+        "kind": "text",
+        "label": "Nome no menu"
+       },
+       "href": {
+        "kind": "url",
+        "label": "Página"
+       }
+      }
+     },
+     "itemTitle": "label",
+     "itemLabel": "Item do menu"
+    }
+   }
+  },
+  {
+   "key": "geral.links",
+   "label": "Redes sociais e contato",
+   "group": "geral",
+   "route": "/",
+   "fields": {
+    "youtube": {
+     "kind": "url",
+     "label": "YouTube"
+    },
+    "instagram": {
+     "kind": "url",
+     "label": "Instagram"
+    },
+    "tiktok": {
+     "kind": "url",
+     "label": "TikTok"
+    },
+    "email": {
+     "kind": "text",
+     "label": "E-mail de contato"
+    }
+   }
+  },
+  {
+   "key": "geral.newsletter",
+   "label": "Newsletter",
+   "group": "geral",
+   "route": "/",
+   "fields": {
+    "eyebrow": {
+     "kind": "text",
+     "label": "Chamada acima do título"
+    },
+    "title": {
+     "kind": "text",
+     "label": "Título"
+    },
+    "bullets": {
+     "kind": "list",
+     "label": "Vantagens",
+     "of": {
+      "kind": "text",
+      "label": "Vantagem",
+      "long": true
+     },
+     "itemLabel": "Vantagem"
+    },
+    "cta": {
+     "kind": "text",
+     "label": "Texto do botão"
+    },
+    "sending": {
+     "kind": "text",
+     "label": "Mensagem enquanto envia"
+    },
+    "sent": {
+     "kind": "text",
+     "label": "Mensagem de sucesso",
+     "long": true
+    },
+    "invalid": {
+     "kind": "text",
+     "label": "Mensagem de e-mail inválido",
+     "long": true
+    },
+    "error": {
+     "kind": "text",
+     "label": "Mensagem de erro",
+     "long": true
+    },
+    "privacy": {
+     "kind": "text",
+     "label": "Aviso de privacidade"
+    }
+   }
+  },
+  {
+   "key": "geral.footer",
+   "label": "Rodapé",
+   "group": "geral",
+   "route": "/",
+   "fields": {
+    "tagline": {
+     "kind": "text",
+     "label": "Frase do rodapé",
+     "long": true
+    },
+    "newsletter": {
+     "kind": "text",
+     "label": "Chamada da newsletter"
+    },
+    "sent": {
+     "kind": "text",
+     "label": "Mensagem de sucesso da newsletter",
+     "long": true
+    }
+   }
+  },
+  {
+   "key": "geral.textos",
+   "label": "Títulos e textos fixos",
+   "group": "geral",
+   "route": "/",
+   "fields": {
+    "blog.artigo.autora": {
+     "kind": "text",
+     "label": "Laura Irigoyen",
+     "long": false,
+     "help": "blog.artigo.autora"
+    },
+    "blog.artigo.continue": {
+     "kind": "text",
+     "label": "Continue lendo",
+     "long": false,
+     "help": "blog.artigo.continue"
+    },
+    "blog.artigo.ver-destino": {
+     "kind": "text",
+     "label": "Veja todos os artigos, vídeos e o guia do destino",
+     "long": false,
+     "help": "blog.artigo.ver-destino"
+    },
+    "blog.destino.artigos": {
+     "kind": "text",
+     "label": "Artigos",
+     "long": false,
+     "help": "blog.destino.artigos"
+    },
+    "blog.destino.rota": {
+     "kind": "text",
+     "label": "Na rota",
+     "long": false,
+     "help": "blog.destino.rota"
+    },
+    "blog.destino.videos": {
+     "kind": "text",
+     "label": "Vídeos",
+     "long": false,
+     "help": "blog.destino.videos"
+    },
+    "blog.destinos.chamada": {
+     "kind": "text",
+     "label": "Por destino",
+     "long": false,
+     "help": "blog.destinos.chamada"
+    },
+    "blog.destinos.titulo": {
+     "kind": "text",
+     "label": "Escolha para onde você vai",
+     "long": false,
+     "help": "blog.destinos.titulo"
+    },
+    "blog.migalha": {
+     "kind": "text",
+     "label": "Blog",
+     "long": false,
+     "help": "blog.migalha"
+    },
+    "blog.recs.titulo": {
+     "kind": "text",
+     "label": "Recomendações",
+     "long": false,
+     "help": "blog.recs.titulo"
+    },
+    "blog.recs.ver-todas": {
+     "kind": "text",
+     "label": "Ver todas as recomendações",
+     "long": false,
+     "help": "blog.recs.ver-todas"
+    },
+    "blog.vazio": {
+     "kind": "text",
+     "label": "Ainda não tem artigo sobre esse assunto neste país. A cada destino novo, entram mais.",
+     "long": true,
+     "help": "blog.vazio"
+    },
+    "diario.mapa.zoom": {
+     "kind": "text",
+     "label": "ZOOM EM BALI",
+     "long": false,
+     "help": "diario.mapa.zoom"
+    },
+    "diario.marco.ganhei": {
+     "kind": "text",
+     "label": "Ganhei com a internet",
+     "long": false,
+     "help": "diario.marco.ganhei"
+    },
+    "diario.marco.titulo": {
+     "kind": "text",
+     "label": "Construindo minha liberdade geográfica",
+     "long": false,
+     "help": "diario.marco.titulo"
+    },
+    "diario.parada.contras": {
+     "kind": "text",
+     "label": "Pontos fracos",
+     "long": false,
+     "help": "diario.parada.contras"
+    },
+    "diario.parada.destaques": {
+     "kind": "text",
+     "label": "Pontos-chave",
+     "long": false,
+     "help": "diario.parada.destaques"
+    },
+    "diario.parada.pros": {
+     "kind": "text",
+     "label": "Pontos fortes",
+     "long": false,
+     "help": "diario.parada.pros"
+    },
+    "diario.parada.sem-video": {
+     "kind": "text",
+     "label": "O vídeo daqui sai em breve no canal.",
+     "long": false,
+     "help": "diario.parada.sem-video"
+    },
+    "diario.partida.foto": {
+     "kind": "text",
+     "label": "Laura em Sydney com a Opera House ao fundo",
+     "long": false,
+     "help": "diario.partida.foto"
+    },
+    "diario.proximo.botao": {
+     "kind": "text",
+     "label": "Me conte primeiro",
+     "long": false,
+     "help": "diario.proximo.botao"
+    },
+    "diario.proximo.ok": {
+     "kind": "text",
+     "label": "Combinado! Você fica sabendo assim que eu chegar.",
+     "long": false,
+     "help": "diario.proximo.ok"
+    },
+    "diario.proximo.pergunta": {
+     "kind": "text",
+     "label": "Para onde eu vou depois de Krabi?",
+     "long": false,
+     "help": "diario.proximo.pergunta"
+    },
+    "diario.rota.chamada": {
+     "kind": "text",
+     "label": "A rota",
+     "long": false,
+     "help": "diario.rota.chamada"
+    },
+    "diario.rota.partida": {
+     "kind": "text",
+     "label": "Partida",
+     "long": false,
+     "help": "diario.rota.partida"
+    },
+    "diario.rota.proximo": {
+     "kind": "text",
+     "label": "Próximo destino",
+     "long": false,
+     "help": "diario.rota.proximo"
+    },
+    "diario.rota.titulo": {
+     "kind": "text",
+     "label": "Por onde eu já passei",
+     "long": false,
+     "help": "diario.rota.titulo"
+    },
+    "geral.dica-da-laura": {
+     "kind": "text",
+     "label": "Dica da Laura",
+     "long": false,
+     "help": "geral.dica-da-laura"
+    },
+    "geral.em-breve": {
+     "kind": "text",
+     "label": "Em breve",
+     "long": false,
+     "help": "geral.em-breve"
+    },
+    "geral.email.rotulo": {
+     "kind": "text",
+     "label": "Seu e-mail",
+     "long": false,
+     "help": "geral.email.rotulo"
+    },
+    "geral.faq.chamada": {
+     "kind": "text",
+     "label": "Dúvidas",
+     "long": false,
+     "help": "geral.faq.chamada"
+    },
+    "geral.faq.titulo": {
+     "kind": "text",
+     "label": "Perguntas frequentes",
+     "long": false,
+     "help": "geral.faq.titulo"
+    },
+    "geral.migalha.inicio": {
+     "kind": "text",
+     "label": "Início",
+     "long": false,
+     "help": "geral.migalha.inicio"
+    },
+    "inicio.capa.foto": {
+     "kind": "text",
+     "label": "Laura sorrindo no mirante da Diamond Beach, em Nusa Penida, com o mar turquesa ao fundo",
+     "long": true,
+     "help": "inicio.capa.foto"
+    },
+    "inicio.sobre.foto": {
+     "kind": "text",
+     "label": "Laura em Sydney, na Austrália",
+     "long": false,
+     "help": "inicio.sobre.foto"
+    },
+    "parcerias.audiencia.chamada": {
+     "kind": "text",
+     "label": "Audiência",
+     "long": false,
+     "help": "parcerias.audiencia.chamada"
+    },
+    "parcerias.audiencia.titulo": {
+     "kind": "text",
+     "label": "Quem assiste ao meu conteúdo",
+     "long": false,
+     "help": "parcerias.audiencia.titulo"
+    },
+    "parcerias.combina.chamada": {
+     "kind": "text",
+     "label": "Combina com",
+     "long": false,
+     "help": "parcerias.combina.chamada"
+    },
+    "parcerias.combina.titulo": {
+     "kind": "text",
+     "label": "Marcas de viagem, dinheiro e trabalho remoto",
+     "long": false,
+     "help": "parcerias.combina.titulo"
+    },
+    "parcerias.formatos.chamada": {
+     "kind": "text",
+     "label": "Formatos",
+     "long": false,
+     "help": "parcerias.formatos.chamada"
+    },
+    "parcerias.formatos.titulo": {
+     "kind": "text",
+     "label": "Como podemos trabalhar juntos",
+     "long": false,
+     "help": "parcerias.formatos.titulo"
+    },
+    "parcerias.pilares.chamada": {
+     "kind": "text",
+     "label": "Conteúdo",
+     "long": false,
+     "help": "parcerias.pilares.chamada"
+    },
+    "parcerias.pilares.marcas": {
+     "kind": "text",
+     "label": "Para marcas de:",
+     "long": false,
+     "help": "parcerias.pilares.marcas"
+    },
+    "parcerias.pilares.titulo": {
+     "kind": "text",
+     "label": "Os três pilares do canal",
+     "long": false,
+     "help": "parcerias.pilares.titulo"
+    },
+    "parcerias.processo.chamada": {
+     "kind": "text",
+     "label": "Processo",
+     "long": false,
+     "help": "parcerias.processo.chamada"
+    },
+    "parcerias.processo.titulo": {
+     "kind": "text",
+     "label": "Do primeiro contato ao relatório",
+     "long": false,
+     "help": "parcerias.processo.titulo"
+    },
+    "parcerias.sobre.chamada": {
+     "kind": "text",
+     "label": "Sobre",
+     "long": false,
+     "help": "parcerias.sobre.chamada"
+    },
+    "parcerias.sobre.foto": {
+     "kind": "text",
+     "label": "Laura Irigoyen em Sydney",
+     "long": false,
+     "help": "parcerias.sobre.foto"
+    },
+    "parcerias.sobre.nome": {
+     "kind": "text",
+     "label": "Laura Irigoyen",
+     "long": false,
+     "help": "parcerias.sobre.nome"
+    },
+    "produto.conteudo.titulo": {
+     "kind": "text",
+     "label": "O que você vai encontrar",
+     "long": false,
+     "help": "produto.conteudo.titulo"
+    },
+    "produto.gratis": {
+     "kind": "text",
+     "label": "Grátis",
+     "long": false,
+     "help": "produto.gratis"
+    },
+    "produto.para-quem.chamada": {
+     "kind": "text",
+     "label": "Para quem é indicado",
+     "long": false,
+     "help": "produto.para-quem.chamada"
+    },
+    "produto.para-quem.titulo": {
+     "kind": "text",
+     "label": "É para você se…",
+     "long": false,
+     "help": "produto.para-quem.titulo"
+    },
+    "produto.valor": {
+     "kind": "text",
+     "label": "Valor",
+     "long": false,
+     "help": "produto.valor"
+    },
+    "produtos.capa.marca": {
+     "kind": "text",
+     "label": "Turista Life",
+     "long": false,
+     "help": "produtos.capa.marca"
+    },
+    "produtos.espera.botao": {
+     "kind": "text",
+     "label": "Me avise",
+     "long": false,
+     "help": "produtos.espera.botao"
+    },
+    "produtos.espera.rotulo": {
+     "kind": "text",
+     "label": "Seu e-mail para ser avisado",
+     "long": false,
+     "help": "produtos.espera.rotulo"
+    },
+    "produtos.migalha": {
+     "kind": "text",
+     "label": "Produtos",
+     "long": false,
+     "help": "produtos.migalha"
+    },
+    "recomendacoes.cupom": {
+     "kind": "text",
+     "label": "Cupom",
+     "long": false,
+     "help": "recomendacoes.cupom"
+    },
+    "recomendacoes.cupom.copiado": {
+     "kind": "text",
+     "label": "Copiado!",
+     "long": false,
+     "help": "recomendacoes.cupom.copiado"
+    },
+    "recomendacoes.filtro.todas": {
+     "kind": "text",
+     "label": "Todas",
+     "long": false,
+     "help": "recomendacoes.filtro.todas"
+    },
+    "recomendacoes.porque": {
+     "kind": "text",
+     "label": "Por que eu uso:",
+     "long": false,
+     "help": "recomendacoes.porque"
+    },
+    "sobre.bastidores.foto": {
+     "kind": "text",
+     "label": "Laura trabalhando no computador num café em Bali",
+     "long": false,
+     "help": "sobre.bastidores.foto"
+    },
+    "sobre.curiosidades.chamada": {
+     "kind": "text",
+     "label": "Curiosidades",
+     "long": false,
+     "help": "sobre.curiosidades.chamada"
+    },
+    "sobre.historia.chamada": {
+     "kind": "text",
+     "label": "Minha história",
+     "long": false,
+     "help": "sobre.historia.chamada"
+    },
+    "sobre.historia.titulo": {
+     "kind": "text",
+     "label": "De Porto Alegre para o mundo",
+     "long": false,
+     "help": "sobre.historia.titulo"
+    },
+    "sobre.redes.usuario": {
+     "kind": "text",
+     "label": "@turista.life",
+     "long": false,
+     "help": "sobre.redes.usuario"
+    },
+    "sobre.trabalhos.chamada": {
+     "kind": "text",
+     "label": "Austrália",
+     "long": false,
+     "help": "sobre.trabalhos.chamada"
+    },
+    "sobre.valores.chamada": {
+     "kind": "text",
+     "label": "Valores",
+     "long": false,
+     "help": "sobre.valores.chamada"
+    }
+   }
+  },
+  {
+   "key": "inicio.hero",
+   "label": "Capa (topo da página inicial)",
+   "group": "inicio",
+   "route": "/",
+   "fields": {
+    "title": {
+     "kind": "text",
+     "label": "Título"
+    },
+    "subtitle": {
+     "kind": "text",
+     "label": "Subtítulo"
+    },
+    "text": {
+     "kind": "text",
+     "label": "Texto",
+     "long": true
+    },
+    "cta": {
+     "kind": "object",
+     "label": "Botão principal",
+     "fields": {
+      "label": {
+       "kind": "text",
+       "label": "Texto do botão"
+      },
+      "href": {
+       "kind": "url",
+       "label": "Link do botão"
+      }
+     }
+    },
+    "story": {
+     "kind": "object",
+     "label": "Botão do vídeo",
+     "fields": {
+      "label": {
+       "kind": "text",
+       "label": "Texto do botão"
+      },
+      "href": {
+       "kind": "url",
+       "label": "Link do botão"
+      }
+     }
+    },
+    "signature": {
+     "kind": "list",
+     "label": "Frase em letra cursiva (uma linha por item)",
+     "of": {
+      "kind": "text",
+      "label": "Linha",
+      "long": true
+     },
+     "itemLabel": "Linha"
+    },
+    "image": {
+     "kind": "image",
+     "label": "Foto da capa"
+    }
+   }
+  },
+  {
+   "key": "inicio.about",
+   "label": "Como tudo começou",
+   "group": "inicio",
+   "route": "/",
+   "fields": {
+    "eyebrow": {
+     "kind": "text",
+     "label": "Chamada acima do título"
+    },
+    "title": {
+     "kind": "text",
+     "label": "Título"
+    },
+    "paragraphs": {
+     "kind": "list",
+     "label": "Parágrafos",
+     "of": {
+      "kind": "text",
+      "label": "Parágrafo",
+      "long": true
+     },
+     "itemLabel": "Parágrafo"
+    },
+    "cta": {
+     "kind": "object",
+     "label": "Botão",
+     "fields": {
+      "label": {
+       "kind": "text",
+       "label": "Texto do botão"
+      },
+      "href": {
+       "kind": "url",
+       "label": "Link do botão"
+      }
+     }
+    },
+    "polaroid": {
+     "kind": "object",
+     "label": "Foto polaroide",
+     "fields": {
+      "image": {
+       "kind": "image",
+       "label": "Foto"
+      },
+      "caption": {
+       "kind": "list",
+       "label": "Legenda (uma linha por item)",
+       "of": {
+        "kind": "text",
+        "label": "Linha",
+        "long": true
+       },
+       "itemLabel": "Linha"
+      }
+     }
+    }
+   }
+  },
+  {
+   "key": "inicio.journey",
+   "label": "Em qual episódio estamos",
+   "group": "inicio",
+   "route": "/",
+   "fields": {
+    "eyebrow": {
+     "kind": "text",
+     "label": "Chamada acima do título"
+    },
+    "title": {
+     "kind": "text",
+     "label": "Título"
+    },
+    "text": {
+     "kind": "text",
+     "label": "Texto",
+     "long": true
+    },
+    "cta": {
+     "kind": "object",
+     "label": "Botão",
+     "fields": {
+      "label": {
+       "kind": "text",
+       "label": "Texto do botão"
+      },
+      "href": {
+       "kind": "url",
+       "label": "Link do botão"
+      }
+     }
+    }
+   }
+  },
+  {
+   "key": "inicio.products",
+   "label": "Produtos (na página inicial)",
+   "group": "inicio",
+   "route": "/",
+   "fields": {
+    "eyebrow": {
+     "kind": "text",
+     "label": "Chamada acima do título"
+    },
+    "title": {
+     "kind": "text",
+     "label": "Título"
+    },
+    "text": {
+     "kind": "text",
+     "label": "Texto",
+     "long": true
+    },
+    "items": {
+     "kind": "list",
+     "label": "Produtos",
+     "of": {
+      "kind": "object",
+      "label": "Produto",
+      "fields": {
+       "kind": {
+        "kind": "text",
+        "label": "Tipo"
+       },
+       "title": {
+        "kind": "text",
+        "label": "Nome"
+       },
+       "text": {
+        "kind": "text",
+        "label": "Descrição",
+        "long": true
+       },
+       "price": {
+        "kind": "text",
+        "label": "Preço",
+        "optional": true
+       },
+       "note": {
+        "kind": "text",
+        "label": "Observação (ex.: garantia)",
+        "optional": true
+       },
+       "cta": {
+        "kind": "text",
+        "label": "Texto do botão"
+       },
+       "href": {
+        "kind": "url",
+        "label": "Link"
+       },
+       "cover": {
+        "kind": "object",
+        "label": "Capa",
+        "fields": {
+         "image": {
+          "kind": "image",
+          "label": "Foto da capa"
+         },
+         "top": {
+          "kind": "text",
+          "label": "Texto pequeno de cima"
+         },
+         "title": {
+          "kind": "text",
+          "label": "Título da capa"
+         },
+         "tone": {
+          "kind": "select",
+          "label": "Cor da capa",
+          "options": [
+           {
+            "value": "pine",
+            "label": "Verde"
+           },
+           {
+            "value": "sun",
+            "label": "Laranja"
+           },
+           {
+            "value": "sky",
+            "label": "Azul"
+           }
+          ]
+         }
+        }
+       },
+       "soon": {
+        "kind": "bool",
+        "label": "Mostrar como \"Em breve\"",
+        "optional": true
+       }
+      }
+     },
+     "itemTitle": "title",
+     "itemLabel": "Produto"
+    }
+   }
+  },
+  {
+   "key": "inicio.recommendations",
+   "label": "Recomendações (na página inicial)",
+   "group": "inicio",
+   "route": "/",
+   "fields": {
+    "eyebrow": {
+     "kind": "text",
+     "label": "Chamada acima do título"
+    },
+    "title": {
+     "kind": "text",
+     "label": "Título"
+    },
+    "text": {
+     "kind": "text",
+     "label": "Texto",
+     "long": true
+    }
+   }
+  },
+  {
+   "key": "inicio.brands",
+   "label": "Para marcas (na página inicial)",
+   "group": "inicio",
+   "route": "/",
+   "fields": {
+    "eyebrow": {
+     "kind": "text",
+     "label": "Chamada acima do título"
+    },
+    "title": {
+     "kind": "text",
+     "label": "Título"
+    },
+    "text": {
+     "kind": "text",
+     "label": "Texto",
+     "long": true
+    },
+    "stats": {
+     "kind": "list",
+     "label": "Números",
+     "of": {
+      "kind": "object",
+      "label": "Número",
+      "fields": {
+       "icon": {
+        "kind": "select",
+        "label": "Ícone",
+        "options": [
+         {
+          "value": "ig",
+          "label": "Instagram"
+         },
+         {
+          "value": "play",
+          "label": "Vídeo"
+         },
+         {
+          "value": "users",
+          "label": "Pessoas"
+         }
+        ]
+       },
+       "value": {
+        "kind": "text",
+        "label": "Número"
+       },
+       "label": {
+        "kind": "text",
+        "label": "Descrição"
+       }
+      }
+     },
+     "itemTitle": "value",
+     "itemLabel": "Número"
+    },
+    "cta": {
+     "kind": "object",
+     "label": "Botão principal",
+     "fields": {
+      "label": {
+       "kind": "text",
+       "label": "Texto do botão"
+      },
+      "href": {
+       "kind": "url",
+       "label": "Link do botão"
+      }
+     }
+    },
+    "secondary": {
+     "kind": "object",
+     "label": "Botão secundário",
+     "fields": {
+      "label": {
+       "kind": "text",
+       "label": "Texto do botão"
+      },
+      "href": {
+       "kind": "url",
+       "label": "Link do botão"
+      }
+     }
+    },
+    "image": {
+     "kind": "image",
+     "label": "Foto"
+    }
+   }
+  },
+  {
+   "key": "inicio.diary",
+   "label": "Diário (na página inicial)",
+   "group": "inicio",
+   "route": "/",
+   "fields": {
+    "eyebrow": {
+     "kind": "text",
+     "label": "Chamada acima do título"
+    },
+    "title": {
+     "kind": "text",
+     "label": "Título"
+    },
+    "text": {
+     "kind": "text",
+     "label": "Texto",
+     "long": true
+    },
+    "cta": {
+     "kind": "object",
+     "label": "Botão",
+     "fields": {
+      "label": {
+       "kind": "text",
+       "label": "Texto do botão"
+      },
+      "href": {
+       "kind": "url",
+       "label": "Link do botão"
+      }
+     }
+    },
+    "posts": {
+     "kind": "list",
+     "label": "Vídeos em destaque",
+     "of": {
+      "kind": "object",
+      "label": "Vídeo",
+      "fields": {
+       "tag": {
+        "kind": "text",
+        "label": "País"
+       },
+       "title": {
+        "kind": "text",
+        "label": "Título"
+       },
+       "image": {
+        "kind": "image",
+        "label": "Foto"
+       },
+       "href": {
+        "kind": "url",
+        "label": "Link do vídeo"
+       }
+      }
+     },
+     "itemTitle": "title",
+     "itemLabel": "Vídeo"
+    }
+   }
+  },
+  {
+   "key": "sobre.page",
+   "label": "Página Sobre mim",
+   "group": "sobre",
+   "route": "/sobre",
+   "fields": {
+    "hero": {
+     "kind": "object",
+     "label": "Topo da página",
+     "fields": {
+      "eyebrow": {
+       "kind": "text",
+       "label": "Nome da página (acima do título)"
+      },
+      "script": {
+       "kind": "text",
+       "label": "Frase em letra cursiva",
+       "optional": true
+      },
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "image": {
+       "kind": "image",
+       "label": "Foto de fundo"
+      },
+      "position": {
+       "kind": "text",
+       "label": "Enquadramento da foto",
+       "optional": true,
+       "help": "Preenchido sozinho pelo ponto de foco da foto. Ex.: \"50% 30%\"."
+      }
+     }
+    },
+    "intro": {
+     "kind": "object",
+     "label": "Apresentação",
+     "fields": {
+      "hello": {
+       "kind": "text",
+       "label": "Saudação em letra cursiva"
+      },
+      "paragraphs": {
+       "kind": "list",
+       "label": "Parágrafos",
+       "of": {
+        "kind": "text",
+        "label": "Parágrafo",
+        "long": true
+       },
+       "itemLabel": "Parágrafo"
+      },
+      "portrait": {
+       "kind": "object",
+       "label": "Retrato",
+       "fields": {
+        "src": {
+         "kind": "image",
+         "label": "Foto"
+        },
+        "alt": {
+         "kind": "text",
+         "label": "O que aparece nesta foto?"
+        },
+        "caption": {
+         "kind": "text",
+         "label": "Legenda"
+        }
+       }
+      },
+      "facts": {
+       "kind": "list",
+       "label": "Etiquetas",
+       "of": {
+        "kind": "text",
+        "label": "Etiqueta",
+        "long": true
+       },
+       "itemLabel": "Etiqueta"
+      }
+     }
+    },
+    "timeline": {
+     "kind": "list",
+     "label": "Linha do tempo",
+     "of": {
+      "kind": "object",
+      "label": "Momento",
+      "fields": {
+       "when": {
+        "kind": "text",
+        "label": "Quando"
+       },
+       "title": {
+        "kind": "text",
+        "label": "Título"
+       },
+       "text": {
+        "kind": "text",
+        "label": "Texto",
+        "long": true
+       },
+       "link": {
+        "kind": "object",
+        "label": "Link (opcional)",
+        "fields": {
+         "label": {
+          "kind": "text",
+          "label": "Texto do botão"
+         },
+         "href": {
+          "kind": "url",
+          "label": "Link do botão"
+         }
+        },
+        "optional": true
+       }
+      }
+     },
+     "itemTitle": "title",
+     "itemLabel": "Momento"
+    },
+    "jobs": {
+     "kind": "object",
+     "label": "Trabalhos na Austrália",
+     "fields": {
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "items": {
+       "kind": "list",
+       "label": "Trabalhos",
+       "of": {
+        "kind": "object",
+        "label": "Trabalho",
+        "fields": {
+         "title": {
+          "kind": "text",
+          "label": "Título"
+         },
+         "text": {
+          "kind": "text",
+          "label": "Texto",
+          "long": true
+         }
+        }
+       },
+       "itemTitle": "title",
+       "itemLabel": "Trabalho"
+      },
+      "cta": {
+       "kind": "object",
+       "label": "Botão",
+       "fields": {
+        "label": {
+         "kind": "text",
+         "label": "Texto do botão"
+        },
+        "href": {
+         "kind": "url",
+         "label": "Link do botão"
+        }
+       }
+      }
+     }
+    },
+    "values": {
+     "kind": "object",
+     "label": "No que eu acredito",
+     "fields": {
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "items": {
+       "kind": "list",
+       "label": "Valores",
+       "of": {
+        "kind": "object",
+        "label": "Valor",
+        "fields": {
+         "title": {
+          "kind": "text",
+          "label": "Título"
+         },
+         "text": {
+          "kind": "text",
+          "label": "Texto",
+          "long": true
+         }
+        }
+       },
+       "itemTitle": "title",
+       "itemLabel": "Valor"
+      }
+     }
+    },
+    "quote": {
+     "kind": "object",
+     "label": "Citação",
+     "fields": {
+      "text": {
+       "kind": "text",
+       "label": "Citação",
+       "long": true
+      },
+      "author": {
+       "kind": "text",
+       "label": "Autora"
+      },
+      "image": {
+       "kind": "image",
+       "label": "Foto de fundo"
+      }
+     }
+    },
+    "facts": {
+     "kind": "object",
+     "label": "Curiosidades",
+     "fields": {
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "items": {
+       "kind": "list",
+       "label": "Curiosidades",
+       "of": {
+        "kind": "object",
+        "label": "Curiosidade",
+        "fields": {
+         "title": {
+          "kind": "text",
+          "label": "Título"
+         },
+         "text": {
+          "kind": "text",
+          "label": "Texto",
+          "long": true
+         }
+        }
+       },
+       "itemTitle": "title",
+       "itemLabel": "Curiosidade"
+      }
+     }
+    },
+    "behind": {
+     "kind": "object",
+     "label": "Por trás de cada vídeo",
+     "fields": {
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "steps": {
+       "kind": "list",
+       "label": "Etapas",
+       "of": {
+        "kind": "text",
+        "label": "Etapa",
+        "long": true
+       },
+       "itemLabel": "Etapa"
+      },
+      "image": {
+       "kind": "image",
+       "label": "Foto"
+      }
+     }
+    },
+    "cta": {
+     "kind": "object",
+     "label": "Chamada final",
+     "fields": {
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "cta": {
+       "kind": "object",
+       "label": "Botão",
+       "fields": {
+        "label": {
+         "kind": "text",
+         "label": "Texto do botão"
+        },
+        "href": {
+         "kind": "url",
+         "label": "Link do botão"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "key": "produtos.page",
+   "label": "Página Produtos",
+   "group": "produtos",
+   "route": "/produtos",
+   "fields": {
+    "hero": {
+     "kind": "object",
+     "label": "Topo da página",
+     "fields": {
+      "eyebrow": {
+       "kind": "text",
+       "label": "Nome da página (acima do título)"
+      },
+      "script": {
+       "kind": "text",
+       "label": "Frase em letra cursiva",
+       "optional": true
+      },
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "image": {
+       "kind": "image",
+       "label": "Foto de fundo"
+      }
+     }
+    },
+    "available": {
+     "kind": "object",
+     "label": "Seção \"Disponíveis agora\"",
+     "fields": {
+      "eyebrow": {
+       "kind": "text",
+       "label": "Chamada acima do título"
+      },
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      }
+     }
+    },
+    "upcoming": {
+     "kind": "object",
+     "label": "Seção \"Próximos lançamentos\"",
+     "fields": {
+      "eyebrow": {
+       "kind": "text",
+       "label": "Chamada acima do título"
+      },
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      }
+     }
+    },
+    "waitlistUrl": {
+     "kind": "url",
+     "label": "Página de inscrição da lista de espera (MailerLite)",
+     "optional": true
+    },
+    "catalog": {
+     "kind": "list",
+     "label": "Catálogo",
+     "of": {
+      "kind": "object",
+      "label": "Produto",
+      "fields": {
+       "id": {
+        "kind": "slug",
+        "label": "Identificador"
+       },
+       "kind": {
+        "kind": "text",
+        "label": "Tipo (ex.: E-book)"
+       },
+       "title": {
+        "kind": "text",
+        "label": "Nome"
+       },
+       "text": {
+        "kind": "text",
+        "label": "Descrição",
+        "long": true
+       },
+       "status": {
+        "kind": "select",
+        "label": "Situação",
+        "options": [
+         {
+          "value": "available",
+          "label": "À venda"
+         },
+         {
+          "value": "soon",
+          "label": "Em breve (com lista de espera)"
+         },
+         {
+          "value": "planned",
+          "label": "Em produção"
+         },
+         {
+          "value": "free",
+          "label": "Grátis"
+         }
+        ]
+       },
+       "price": {
+        "kind": "text",
+        "label": "Preço (ex.: R$ 49)",
+        "optional": true
+       },
+       "cta": {
+        "kind": "text",
+        "label": "Texto do botão",
+        "optional": true
+       },
+       "href": {
+        "kind": "url",
+        "label": "Link de compra",
+        "optional": true
+       },
+       "page": {
+        "kind": "url",
+        "label": "Página do produto (ex.: /produtos/guia-de-bali)",
+        "optional": true
+       },
+       "notify": {
+        "kind": "text",
+        "label": "Mensagem depois de entrar na lista de espera",
+        "long": true,
+        "optional": true
+       },
+       "cover": {
+        "kind": "object",
+        "label": "Capa",
+        "fields": {
+         "image": {
+          "kind": "image",
+          "label": "Foto da capa"
+         },
+         "top": {
+          "kind": "text",
+          "label": "Texto pequeno de cima"
+         },
+         "title": {
+          "kind": "text",
+          "label": "Título da capa"
+         },
+         "tone": {
+          "kind": "select",
+          "label": "Cor da capa",
+          "options": [
+           {
+            "value": "pine",
+            "label": "Verde"
+           },
+           {
+            "value": "sun",
+            "label": "Laranja"
+           },
+           {
+            "value": "sky",
+            "label": "Azul"
+           }
+          ]
+         }
+        }
+       }
+      }
+     },
+     "itemTitle": "title",
+     "itemLabel": "Produto"
+    },
+    "freeSection": {
+     "kind": "object",
+     "label": "Seção \"Materiais gratuitos\"",
+     "fields": {
+      "eyebrow": {
+       "kind": "text",
+       "label": "Chamada acima do título"
+      },
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      }
+     }
+    },
+    "free": {
+     "kind": "list",
+     "label": "Materiais gratuitos",
+     "of": {
+      "kind": "object",
+      "label": "Produto",
+      "fields": {
+       "id": {
+        "kind": "slug",
+        "label": "Identificador"
+       },
+       "kind": {
+        "kind": "text",
+        "label": "Tipo (ex.: E-book)"
+       },
+       "title": {
+        "kind": "text",
+        "label": "Nome"
+       },
+       "text": {
+        "kind": "text",
+        "label": "Descrição",
+        "long": true
+       },
+       "status": {
+        "kind": "select",
+        "label": "Situação",
+        "options": [
+         {
+          "value": "available",
+          "label": "À venda"
+         },
+         {
+          "value": "soon",
+          "label": "Em breve (com lista de espera)"
+         },
+         {
+          "value": "planned",
+          "label": "Em produção"
+         },
+         {
+          "value": "free",
+          "label": "Grátis"
+         }
+        ]
+       },
+       "price": {
+        "kind": "text",
+        "label": "Preço (ex.: R$ 49)",
+        "optional": true
+       },
+       "cta": {
+        "kind": "text",
+        "label": "Texto do botão",
+        "optional": true
+       },
+       "href": {
+        "kind": "url",
+        "label": "Link de compra",
+        "optional": true
+       },
+       "page": {
+        "kind": "url",
+        "label": "Página do produto (ex.: /produtos/guia-de-bali)",
+        "optional": true
+       },
+       "notify": {
+        "kind": "text",
+        "label": "Mensagem depois de entrar na lista de espera",
+        "long": true,
+        "optional": true
+       },
+       "cover": {
+        "kind": "object",
+        "label": "Capa",
+        "fields": {
+         "image": {
+          "kind": "image",
+          "label": "Foto da capa"
+         },
+         "top": {
+          "kind": "text",
+          "label": "Texto pequeno de cima"
+         },
+         "title": {
+          "kind": "text",
+          "label": "Título da capa"
+         },
+         "tone": {
+          "kind": "select",
+          "label": "Cor da capa",
+          "options": [
+           {
+            "value": "pine",
+            "label": "Verde"
+           },
+           {
+            "value": "sun",
+            "label": "Laranja"
+           },
+           {
+            "value": "sky",
+            "label": "Azul"
+           }
+          ]
+         }
+        }
+       }
+      }
+     },
+     "itemTitle": "title",
+     "itemLabel": "Material"
+    },
+    "faq": {
+     "kind": "list",
+     "label": "Perguntas frequentes",
+     "of": {
+      "kind": "object",
+      "label": "Pergunta",
+      "fields": {
+       "q": {
+        "kind": "text",
+        "label": "Pergunta"
+       },
+       "a": {
+        "kind": "text",
+        "label": "Resposta",
+        "long": true
+       }
+      }
+     },
+     "itemTitle": "q",
+     "itemLabel": "Pergunta"
+    },
+    "cta": {
+     "kind": "object",
+     "label": "Chamada final",
+     "fields": {
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "cta": {
+       "kind": "object",
+       "label": "Botão",
+       "fields": {
+        "label": {
+         "kind": "text",
+         "label": "Texto do botão"
+        },
+        "href": {
+         "kind": "url",
+         "label": "Link do botão"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "key": "recomendacoes.page",
+   "label": "Página Recomendações",
+   "group": "recomendacoes",
+   "route": "/recomendacoes",
+   "fields": {
+    "hero": {
+     "kind": "object",
+     "label": "Topo da página",
+     "fields": {
+      "eyebrow": {
+       "kind": "text",
+       "label": "Nome da página (acima do título)"
+      },
+      "script": {
+       "kind": "text",
+       "label": "Frase em letra cursiva",
+       "optional": true
+      },
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "image": {
+       "kind": "image",
+       "label": "Foto de fundo"
+      },
+      "position": {
+       "kind": "text",
+       "label": "Enquadramento da foto",
+       "optional": true,
+       "help": "Preenchido sozinho pelo ponto de foco da foto. Ex.: \"50% 30%\"."
+      }
+     }
+    },
+    "categories": {
+     "kind": "list",
+     "label": "Categorias",
+     "of": {
+      "kind": "object",
+      "label": "Categoria",
+      "fields": {
+       "id": {
+        "kind": "slug",
+        "label": "Identificador"
+       },
+       "title": {
+        "kind": "text",
+        "label": "Título"
+       },
+       "label": {
+        "kind": "text",
+        "label": "Nome curto (no filtro)"
+       },
+       "icon": {
+        "kind": "select",
+        "label": "Ícone",
+        "options": [
+         {
+          "value": "card",
+          "label": "Cartão"
+         },
+         {
+          "value": "bed",
+          "label": "Cama"
+         },
+         {
+          "value": "plane",
+          "label": "Avião"
+         },
+         {
+          "value": "ticket",
+          "label": "Ingresso"
+         },
+         {
+          "value": "sim",
+          "label": "Chip"
+         },
+         {
+          "value": "shield",
+          "label": "Escudo"
+         },
+         {
+          "value": "car",
+          "label": "Carro"
+         },
+         {
+          "value": "laptop",
+          "label": "Notebook"
+         },
+         {
+          "value": "passport",
+          "label": "Passaporte"
+         }
+        ]
+       },
+       "items": {
+        "kind": "list",
+        "label": "Indicações",
+        "of": {
+         "kind": "object",
+         "label": "Indicação",
+         "fields": {
+          "brand": {
+           "kind": "object",
+           "label": "Marca",
+           "fields": {
+            "name": {
+             "kind": "text",
+             "label": "Nome da marca"
+            },
+            "logo": {
+             "kind": "image",
+             "label": "Logo",
+             "optional": true
+            }
+           }
+          },
+          "image": {
+           "kind": "image",
+           "label": "Foto"
+          },
+          "position": {
+           "kind": "text",
+           "label": "Enquadramento da foto",
+           "optional": true,
+           "help": "Preenchido sozinho pelo ponto de foco da foto. Ex.: \"50% 30%\"."
+          },
+          "place": {
+           "kind": "text",
+           "label": "Onde eu usei (letra cursiva)",
+           "optional": true
+          },
+          "title": {
+           "kind": "text",
+           "label": "Título"
+          },
+          "why": {
+           "kind": "text",
+           "label": "Por que eu uso",
+           "long": true
+          },
+          "perk": {
+           "kind": "text",
+           "label": "Vantagem",
+           "optional": true
+          },
+          "coupon": {
+           "kind": "text",
+           "label": "Cupom",
+           "optional": true
+          },
+          "cta": {
+           "kind": "text",
+           "label": "Texto do botão"
+          },
+          "href": {
+           "kind": "url",
+           "label": "Link de afiliado"
+          },
+          "featured": {
+           "kind": "bool",
+           "label": "Mostrar também na página inicial",
+           "optional": true
+          },
+          "hidden": {
+           "kind": "bool",
+           "label": "Esconder da página (continua nos artigos)",
+           "optional": true
+          }
+         }
+        },
+        "itemTitle": "title",
+        "itemLabel": "Indicação"
+       }
+      }
+     },
+     "itemTitle": "title",
+     "itemLabel": "Categoria"
+    },
+    "soon": {
+     "kind": "text",
+     "label": "Texto das categorias sem indicação",
+     "long": true
+    },
+    "tips": {
+     "kind": "object",
+     "label": "Minhas regras para gastar menos",
+     "fields": {
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "items": {
+       "kind": "list",
+       "label": "Regras",
+       "of": {
+        "kind": "text",
+        "label": "Regra",
+        "long": true
+       },
+       "itemLabel": "Regra"
+      },
+      "photo": {
+       "kind": "object",
+       "label": "Foto polaroide",
+       "fields": {
+        "image": {
+         "kind": "image",
+         "label": "Foto"
+        },
+        "alt": {
+         "kind": "text",
+         "label": "O que aparece nesta foto?"
+        },
+        "caption": {
+         "kind": "text",
+         "label": "Legenda"
+        }
+       }
+      }
+     }
+    },
+    "disclosure": {
+     "kind": "text",
+     "label": "Aviso de links de afiliado",
+     "long": true
+    },
+    "cta": {
+     "kind": "object",
+     "label": "Chamada final",
+     "fields": {
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "cta": {
+       "kind": "object",
+       "label": "Botão",
+       "fields": {
+        "label": {
+         "kind": "text",
+         "label": "Texto do botão"
+        },
+        "href": {
+         "kind": "url",
+         "label": "Link do botão"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "key": "parcerias.page",
+   "label": "Página Parcerias",
+   "group": "parcerias",
+   "route": "/parcerias",
+   "fields": {
+    "hero": {
+     "kind": "object",
+     "label": "Topo da página",
+     "fields": {
+      "eyebrow": {
+       "kind": "text",
+       "label": "Nome da página (acima do título)"
+      },
+      "script": {
+       "kind": "text",
+       "label": "Frase em letra cursiva",
+       "optional": true
+      },
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "image": {
+       "kind": "image",
+       "label": "Foto de fundo"
+      }
+     }
+    },
+    "updated": {
+     "kind": "text",
+     "label": "Data dos números"
+    },
+    "stats": {
+     "kind": "list",
+     "label": "Números",
+     "of": {
+      "kind": "object",
+      "label": "Número",
+      "fields": {
+       "value": {
+        "kind": "text",
+        "label": "Número"
+       },
+       "label": {
+        "kind": "text",
+        "label": "Descrição"
+       },
+       "note": {
+        "kind": "text",
+        "label": "Observação"
+       }
+      }
+     },
+     "itemTitle": "value",
+     "itemLabel": "Número"
+    },
+    "about": {
+     "kind": "object",
+     "label": "Quem é a Laura",
+     "fields": {
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "paragraphs": {
+       "kind": "list",
+       "label": "Parágrafos",
+       "of": {
+        "kind": "text",
+        "label": "Parágrafo",
+        "long": true
+       },
+       "itemLabel": "Parágrafo"
+      },
+      "image": {
+       "kind": "image",
+       "label": "Foto"
+      }
+     }
+    },
+    "audience": {
+     "kind": "list",
+     "label": "Audiência",
+     "of": {
+      "kind": "object",
+      "label": "Bloco",
+      "fields": {
+       "title": {
+        "kind": "text",
+        "label": "Título"
+       },
+       "text": {
+        "kind": "text",
+        "label": "Texto",
+        "long": true
+       }
+      }
+     },
+     "itemTitle": "title",
+     "itemLabel": "Bloco"
+    },
+    "audienceData": {
+     "kind": "list",
+     "label": "Dados de audiência",
+     "of": {
+      "kind": "object",
+      "label": "Grupo",
+      "fields": {
+       "title": {
+        "kind": "text",
+        "label": "Título"
+       },
+       "items": {
+        "kind": "list",
+        "label": "Dados",
+        "of": {
+         "kind": "object",
+         "label": "Dado",
+         "fields": {
+          "value": {
+           "kind": "text",
+           "label": "Valor"
+          },
+          "label": {
+           "kind": "text",
+           "label": "Descrição"
+          },
+          "note": {
+           "kind": "text",
+           "label": "Observação",
+           "optional": true
+          }
+         }
+        },
+        "itemTitle": "label",
+        "itemLabel": "Dado"
+       }
+      }
+     },
+     "itemTitle": "title",
+     "itemLabel": "Grupo"
+    },
+    "pillars": {
+     "kind": "list",
+     "label": "Pilares",
+     "of": {
+      "kind": "object",
+      "label": "Pilar",
+      "fields": {
+       "title": {
+        "kind": "text",
+        "label": "Título"
+       },
+       "text": {
+        "kind": "text",
+        "label": "Texto",
+        "long": true
+       },
+       "brands": {
+        "kind": "text",
+        "label": "Para marcas de",
+        "long": true
+       },
+       "image": {
+        "kind": "image",
+        "label": "Foto"
+       }
+      }
+     },
+     "itemTitle": "title",
+     "itemLabel": "Pilar"
+    },
+    "formatGroups": {
+     "kind": "list",
+     "label": "Formatos",
+     "of": {
+      "kind": "object",
+      "label": "Grupo",
+      "fields": {
+       "title": {
+        "kind": "text",
+        "label": "Título"
+       },
+       "text": {
+        "kind": "text",
+        "label": "Texto",
+        "long": true
+       },
+       "items": {
+        "kind": "list",
+        "label": "Formatos",
+        "of": {
+         "kind": "text",
+         "label": "Formato",
+         "long": true
+        },
+        "itemLabel": "Formato"
+       }
+      }
+     },
+     "itemTitle": "title",
+     "itemLabel": "Grupo"
+    },
+    "fits": {
+     "kind": "list",
+     "label": "Marcas que combinam",
+     "of": {
+      "kind": "text",
+      "label": "Segmento",
+      "long": true
+     },
+     "itemLabel": "Segmento"
+    },
+    "steps": {
+     "kind": "list",
+     "label": "Etapas",
+     "of": {
+      "kind": "object",
+      "label": "Etapa",
+      "fields": {
+       "title": {
+        "kind": "text",
+        "label": "Título"
+       },
+       "text": {
+        "kind": "text",
+        "label": "Texto",
+        "long": true
+       }
+      }
+     },
+     "itemTitle": "title",
+     "itemLabel": "Etapa"
+    },
+    "contact": {
+     "kind": "object",
+     "label": "Contato",
+     "fields": {
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "email": {
+       "kind": "text",
+       "label": "E-mail"
+      },
+      "cta": {
+       "kind": "object",
+       "label": "Botão",
+       "fields": {
+        "label": {
+         "kind": "text",
+         "label": "Texto do botão"
+        },
+        "href": {
+         "kind": "url",
+         "label": "Link do botão"
+        }
+       }
+      },
+      "image": {
+       "kind": "image",
+       "label": "Foto de fundo"
+      }
+     }
+    }
+   }
+  },
+  {
+   "key": "diario.page",
+   "label": "Página Diário",
+   "group": "diario",
+   "route": "/diario",
+   "fields": {
+    "hero": {
+     "kind": "object",
+     "label": "Topo da página",
+     "fields": {
+      "eyebrow": {
+       "kind": "text",
+       "label": "Nome da página (acima do título)"
+      },
+      "script": {
+       "kind": "text",
+       "label": "Frase em letra cursiva",
+       "optional": true
+      },
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "image": {
+       "kind": "image",
+       "label": "Foto de fundo"
+      }
+     }
+    },
+    "goal": {
+     "kind": "number",
+     "label": "Meta de renda mensal (US$)",
+     "min": 0
+    },
+    "startDate": {
+     "kind": "date",
+     "label": "Início da viagem"
+    },
+    "departure": {
+     "kind": "object",
+     "label": "Ponto de partida",
+     "fields": {
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "place": {
+       "kind": "text",
+       "label": "Lugar"
+      },
+      "period": {
+       "kind": "text",
+       "label": "Quando"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "image": {
+       "kind": "image",
+       "label": "Foto"
+      },
+      "video": {
+       "kind": "object",
+       "label": "Vídeo",
+       "fields": {
+        "id": {
+         "kind": "video",
+         "label": "Código do vídeo no YouTube"
+        },
+        "title": {
+         "kind": "text",
+         "label": "Título do vídeo"
+        },
+        "duration": {
+         "kind": "text",
+         "label": "Duração (ex.: 24:36)",
+         "optional": true
+        }
+       }
+      }
+     }
+    },
+    "next": {
+     "kind": "object",
+     "label": "Próximo destino",
+     "fields": {
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      }
+     }
+    }
+   }
+  },
+  {
+   "key": "diario.countries",
+   "label": "Rota: países e paradas",
+   "group": "diario",
+   "route": "/diario",
+   "fields": {
+    "items": {
+     "kind": "list",
+     "label": "Países",
+     "of": {
+      "kind": "object",
+      "label": "País",
+      "fields": {
+       "id": {
+        "kind": "slug",
+        "label": "Identificador"
+       },
+       "name": {
+        "kind": "text",
+        "label": "Nome"
+       },
+       "code": {
+        "kind": "text",
+        "label": "Sigla (2 letras)",
+        "max": 2
+       },
+       "period": {
+        "kind": "text",
+        "label": "Quando"
+       },
+       "intro": {
+        "kind": "text",
+        "label": "Introdução",
+        "long": true
+       },
+       "items": {
+        "kind": "blocks",
+        "label": "Paradas e marcos",
+        "itemLabel": "Parada",
+        "variants": {
+         "stop": {
+          "label": "Parada (cidade)",
+          "fields": {
+           "id": {
+            "kind": "slug",
+            "label": "Identificador"
+           },
+           "city": {
+            "kind": "text",
+            "label": "Cidade"
+           },
+           "period": {
+            "kind": "text",
+            "label": "Quando"
+           },
+           "stay": {
+            "kind": "text",
+            "label": "Quanto tempo"
+           },
+           "coords": {
+            "kind": "coords",
+            "label": "Posição no mapa"
+           },
+           "summary": {
+            "kind": "text",
+            "label": "Resumo",
+            "long": true
+           },
+           "highlights": {
+            "kind": "list",
+            "label": "Destaques",
+            "of": {
+             "kind": "text",
+             "label": "Destaque",
+             "long": true
+            },
+            "itemLabel": "Destaque"
+           },
+           "pros": {
+            "kind": "list",
+            "label": "O que eu amei",
+            "of": {
+             "kind": "text",
+             "label": "Ponto positivo",
+             "long": true
+            },
+            "itemLabel": "Ponto positivo"
+           },
+           "cons": {
+            "kind": "list",
+            "label": "O que me decepcionou",
+            "of": {
+             "kind": "text",
+             "label": "Ponto negativo",
+             "long": true
+            },
+            "itemLabel": "Ponto negativo"
+           },
+           "tip": {
+            "kind": "text",
+            "label": "Dica",
+            "long": true,
+            "optional": true
+           },
+           "badge": {
+            "kind": "text",
+            "label": "Selo",
+            "optional": true
+           },
+           "current": {
+            "kind": "bool",
+            "label": "Estou aqui agora",
+            "optional": true
+           },
+           "images": {
+            "kind": "list",
+            "label": "Fotos",
+            "of": {
+             "kind": "object",
+             "label": "Foto",
+             "fields": {
+              "src": {
+               "kind": "image",
+               "label": "Foto"
+              },
+              "alt": {
+               "kind": "text",
+               "label": "O que aparece nesta foto?"
+              },
+              "position": {
+               "kind": "text",
+               "label": "Enquadramento da foto",
+               "optional": true,
+               "help": "Preenchido sozinho pelo ponto de foco da foto. Ex.: \"50% 30%\"."
+              }
+             }
+            },
+            "itemTitle": "alt",
+            "itemLabel": "Foto"
+           },
+           "videos": {
+            "kind": "list",
+            "label": "Vídeos",
+            "of": {
+             "kind": "object",
+             "label": "Vídeo",
+             "fields": {
+              "id": {
+               "kind": "video",
+               "label": "Código do vídeo no YouTube"
+              },
+              "title": {
+               "kind": "text",
+               "label": "Título do vídeo"
+              },
+              "duration": {
+               "kind": "text",
+               "label": "Duração (ex.: 24:36)",
+               "optional": true
+              }
+             }
+            },
+            "itemTitle": "title",
+            "itemLabel": "Vídeo"
+           }
+          }
+         },
+         "milestone": {
+          "label": "Marco de renda (fim do mês)",
+          "fields": {
+           "id": {
+            "kind": "slug",
+            "label": "Identificador"
+           },
+           "month": {
+            "kind": "text",
+            "label": "Mês"
+           },
+           "recordedAt": {
+            "kind": "text",
+            "label": "Onde foi gravado"
+           },
+           "income": {
+            "kind": "number",
+            "label": "Renda do mês (US$)",
+            "min": 0
+           },
+           "spent": {
+            "kind": "text",
+            "label": "Gastos",
+            "optional": true
+           },
+           "bullets": {
+            "kind": "list",
+            "label": "Resumo",
+            "of": {
+             "kind": "text",
+             "label": "Item",
+             "long": true
+            },
+            "itemLabel": "Item"
+           },
+           "video": {
+            "kind": "object",
+            "label": "Vídeo",
+            "fields": {
+             "id": {
+              "kind": "video",
+              "label": "Código do vídeo no YouTube"
+             },
+             "title": {
+              "kind": "text",
+              "label": "Título do vídeo"
+             },
+             "duration": {
+              "kind": "text",
+              "label": "Duração (ex.: 24:36)",
+              "optional": true
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     },
+     "itemTitle": "name",
+     "itemLabel": "País"
+    }
+   }
+  },
+  {
+   "key": "blog.page",
+   "label": "Página Blog",
+   "group": "blog",
+   "route": "/blog",
+   "fields": {
+    "hero": {
+     "kind": "object",
+     "label": "Topo da página",
+     "fields": {
+      "eyebrow": {
+       "kind": "text",
+       "label": "Nome da página (acima do título)"
+      },
+      "script": {
+       "kind": "text",
+       "label": "Frase em letra cursiva",
+       "optional": true
+      },
+      "title": {
+       "kind": "text",
+       "label": "Título"
+      },
+      "text": {
+       "kind": "text",
+       "label": "Texto",
+       "long": true
+      },
+      "image": {
+       "kind": "image",
+       "label": "Foto de fundo"
+      },
+      "position": {
+       "kind": "text",
+       "label": "Enquadramento da foto",
+       "optional": true,
+       "help": "Preenchido sozinho pelo ponto de foco da foto. Ex.: \"50% 30%\"."
+      }
+     }
+    },
+    "disclosure": {
+     "kind": "text",
+     "label": "Aviso de links de afiliado",
+     "long": true
+    },
+    "soonRec": {
+     "kind": "text",
+     "label": "Texto das recomendações \"Em breve\"",
+     "long": true
+    }
+   }
+  },
+  {
+   "key": "blog.categories",
+   "label": "Assuntos do blog",
+   "group": "blog",
+   "route": "/blog",
+   "fields": {
+    "items": {
+     "kind": "list",
+     "label": "Assuntos",
+     "of": {
+      "kind": "object",
+      "label": "Assunto",
+      "fields": {
+       "id": {
+        "kind": "slug",
+        "label": "Identificador"
+       },
+       "label": {
+        "kind": "text",
+        "label": "Nome"
+       }
+      }
+     },
+     "itemTitle": "label",
+     "itemLabel": "Assunto"
+    }
+   }
+  },
+  {
+   "key": "blog.destinations",
+   "label": "Destinos do blog",
+   "group": "blog",
+   "route": "/blog",
+   "fields": {
+    "items": {
+     "kind": "list",
+     "label": "Destinos",
+     "of": {
+      "kind": "object",
+      "label": "Destino",
+      "fields": {
+       "id": {
+        "kind": "slug",
+        "label": "Identificador"
+       },
+       "name": {
+        "kind": "text",
+        "label": "Nome"
+       },
+       "country": {
+        "kind": "ref",
+        "label": "País",
+        "source": "diario.countries",
+        "list": "items",
+        "valueField": "id",
+        "labelField": "name"
+       },
+       "tagline": {
+        "kind": "text",
+        "label": "Frase"
+       },
+       "intro": {
+        "kind": "text",
+        "label": "Introdução",
+        "long": true
+       },
+       "facts": {
+        "kind": "list",
+        "label": "Informações rápidas",
+        "of": {
+         "kind": "object",
+         "label": "Informação",
+         "fields": {
+          "label": {
+           "kind": "text",
+           "label": "Nome"
+          },
+          "value": {
+           "kind": "text",
+           "label": "Valor"
+          }
+         }
+        },
+        "itemTitle": "label",
+        "itemLabel": "Informação"
+       },
+       "image": {
+        "kind": "image",
+        "label": "Foto"
+       },
+       "position": {
+        "kind": "text",
+        "label": "Enquadramento da foto",
+        "optional": true,
+        "help": "Preenchido sozinho pelo ponto de foco da foto. Ex.: \"50% 30%\"."
+       },
+       "guide": {
+        "kind": "ref",
+        "label": "Guia relacionado",
+        "source": "produtos.page",
+        "list": "catalog",
+        "valueField": "id",
+        "labelField": "title"
+       },
+       "recs": {
+        "kind": "list",
+        "label": "Recomendações",
+        "of": {
+         "kind": "object",
+         "label": "Recomendação",
+         "fields": {
+          "cat": {
+           "kind": "ref",
+           "label": "Categoria",
+           "source": "recomendacoes.page",
+           "list": "categories",
+           "valueField": "id",
+           "labelField": "title"
+          },
+          "i": {
+           "kind": "number",
+           "label": "Qual item da categoria (0 = primeiro). Vazio = \"Em breve\"",
+           "min": 0,
+           "optional": true
+          }
+         }
+        },
+        "itemTitle": "cat",
+        "itemLabel": "Recomendação"
+       },
+       "stops": {
+        "kind": "list",
+        "label": "Paradas do diário",
+        "of": {
+         "kind": "slug",
+         "label": "Parada (id)"
+        },
+        "itemLabel": "Parada"
+       },
+       "videos": {
+        "kind": "list",
+        "label": "Vídeos",
+        "of": {
+         "kind": "object",
+         "label": "Vídeo",
+         "fields": {
+          "id": {
+           "kind": "video",
+           "label": "Código do vídeo no YouTube"
+          },
+          "title": {
+           "kind": "text",
+           "label": "Título"
+          },
+          "duration": {
+           "kind": "text",
+           "label": "Duração",
+           "optional": true
+          },
+          "poster": {
+           "kind": "image",
+           "label": "Foto antes do play"
+          },
+          "vertical": {
+           "kind": "bool",
+           "label": "Vídeo vertical (short)",
+           "optional": true
+          }
+         }
+        },
+        "itemTitle": "title",
+        "itemLabel": "Vídeo"
+       }
+      }
+     },
+     "itemTitle": "name",
+     "itemLabel": "Destino"
+    }
+   }
+  },
+  {
+   "key": "layout.home",
+   "label": "Seções: Página inicial",
+   "group": "inicio",
+   "route": "/",
+   "fields": {
+    "sections": {
+     "kind": "list",
+     "label": "Seções",
+     "of": {
+      "kind": "object",
+      "label": "Seção",
+      "fields": {
+       "id": {
+        "kind": "select",
+        "label": "Seção",
+        "options": [
+         {
+          "value": "hero",
+          "label": "Capa"
+         },
+         {
+          "value": "about",
+          "label": "Como tudo começou"
+         },
+         {
+          "value": "products",
+          "label": "Produtos"
+         },
+         {
+          "value": "recommendations",
+          "label": "Recomendações"
+         },
+         {
+          "value": "brands",
+          "label": "Para marcas"
+         },
+         {
+          "value": "diary",
+          "label": "Diário e newsletter"
+         }
+        ]
+       },
+       "visible": {
+        "kind": "bool",
+        "label": "Aparece no site"
+       }
+      }
+     },
+     "itemTitle": "id",
+     "itemLabel": "Seção"
+    }
+   }
+  },
+  {
+   "key": "layout.sobre",
+   "label": "Seções: Sobre mim",
+   "group": "sobre",
+   "route": "/sobre",
+   "fields": {
+    "sections": {
+     "kind": "list",
+     "label": "Seções",
+     "of": {
+      "kind": "object",
+      "label": "Seção",
+      "fields": {
+       "id": {
+        "kind": "select",
+        "label": "Seção",
+        "options": [
+         {
+          "value": "hero",
+          "label": "Topo"
+         },
+         {
+          "value": "intro",
+          "label": "Apresentação"
+         },
+         {
+          "value": "timeline",
+          "label": "Linha do tempo"
+         },
+         {
+          "value": "jobs",
+          "label": "Trabalhos na Austrália"
+         },
+         {
+          "value": "quote",
+          "label": "Citação"
+         },
+         {
+          "value": "values",
+          "label": "Valores"
+         },
+         {
+          "value": "facts",
+          "label": "Curiosidades e bastidores"
+         },
+         {
+          "value": "cta",
+          "label": "Chamada final"
+         }
+        ]
+       },
+       "visible": {
+        "kind": "bool",
+        "label": "Aparece no site"
+       }
+      }
+     },
+     "itemTitle": "id",
+     "itemLabel": "Seção"
+    }
+   }
+  },
+  {
+   "key": "layout.produtos",
+   "label": "Seções: Produtos",
+   "group": "produtos",
+   "route": "/produtos",
+   "fields": {
+    "sections": {
+     "kind": "list",
+     "label": "Seções",
+     "of": {
+      "kind": "object",
+      "label": "Seção",
+      "fields": {
+       "id": {
+        "kind": "select",
+        "label": "Seção",
+        "options": [
+         {
+          "value": "hero",
+          "label": "Topo"
+         },
+         {
+          "value": "available",
+          "label": "Disponíveis agora"
+         },
+         {
+          "value": "upcoming",
+          "label": "Próximos lançamentos"
+         },
+         {
+          "value": "free",
+          "label": "Materiais gratuitos"
+         },
+         {
+          "value": "faq",
+          "label": "Perguntas frequentes"
+         },
+         {
+          "value": "cta",
+          "label": "Chamada final"
+         }
+        ]
+       },
+       "visible": {
+        "kind": "bool",
+        "label": "Aparece no site"
+       }
+      }
+     },
+     "itemTitle": "id",
+     "itemLabel": "Seção"
+    }
+   }
+  },
+  {
+   "key": "layout.recomendacoes",
+   "label": "Seções: Recomendações",
+   "group": "recomendacoes",
+   "route": "/recomendacoes",
+   "fields": {
+    "sections": {
+     "kind": "list",
+     "label": "Seções",
+     "of": {
+      "kind": "object",
+      "label": "Seção",
+      "fields": {
+       "id": {
+        "kind": "select",
+        "label": "Seção",
+        "options": [
+         {
+          "value": "hero",
+          "label": "Topo"
+         },
+         {
+          "value": "filters",
+          "label": "Filtro por categoria"
+         },
+         {
+          "value": "list",
+          "label": "Indicações e dicas"
+         },
+         {
+          "value": "cta",
+          "label": "Chamada final"
+         }
+        ]
+       },
+       "visible": {
+        "kind": "bool",
+        "label": "Aparece no site"
+       }
+      }
+     },
+     "itemTitle": "id",
+     "itemLabel": "Seção"
+    }
+   }
+  },
+  {
+   "key": "layout.parcerias",
+   "label": "Seções: Parcerias",
+   "group": "parcerias",
+   "route": "/parcerias",
+   "fields": {
+    "sections": {
+     "kind": "list",
+     "label": "Seções",
+     "of": {
+      "kind": "object",
+      "label": "Seção",
+      "fields": {
+       "id": {
+        "kind": "select",
+        "label": "Seção",
+        "options": [
+         {
+          "value": "hero",
+          "label": "Topo"
+         },
+         {
+          "value": "stats",
+          "label": "Números"
+         },
+         {
+          "value": "about",
+          "label": "Quem é a Laura"
+         },
+         {
+          "value": "audience",
+          "label": "Audiência em números"
+         },
+         {
+          "value": "pillars",
+          "label": "Pilares"
+         },
+         {
+          "value": "formats",
+          "label": "Formatos"
+         },
+         {
+          "value": "process",
+          "label": "Processo"
+         },
+         {
+          "value": "contact",
+          "label": "Contato"
+         }
+        ]
+       },
+       "visible": {
+        "kind": "bool",
+        "label": "Aparece no site"
+       }
+      }
+     },
+     "itemTitle": "id",
+     "itemLabel": "Seção"
+    }
+   }
+  },
+  {
+   "key": "layout.diario",
+   "label": "Seções: Diário",
+   "group": "diario",
+   "route": "/diario",
+   "fields": {
+    "sections": {
+     "kind": "list",
+     "label": "Seções",
+     "of": {
+      "kind": "object",
+      "label": "Seção",
+      "fields": {
+       "id": {
+        "kind": "select",
+        "label": "Seção",
+        "options": [
+         {
+          "value": "hero",
+          "label": "Topo"
+         },
+         {
+          "value": "stats",
+          "label": "Números da viagem"
+         },
+         {
+          "value": "map",
+          "label": "Mapa da rota"
+         },
+         {
+          "value": "countries",
+          "label": "Navegação por país"
+         },
+         {
+          "value": "route",
+          "label": "Linha do tempo"
+         }
+        ]
+       },
+       "visible": {
+        "kind": "bool",
+        "label": "Aparece no site"
+       }
+      }
+     },
+     "itemTitle": "id",
+     "itemLabel": "Seção"
+    }
+   }
+  },
+  {
+   "key": "layout.blog",
+   "label": "Seções: Blog",
+   "group": "blog",
+   "route": "/blog",
+   "fields": {
+    "sections": {
+     "kind": "list",
+     "label": "Seções",
+     "of": {
+      "kind": "object",
+      "label": "Seção",
+      "fields": {
+       "id": {
+        "kind": "select",
+        "label": "Seção",
+        "options": [
+         {
+          "value": "hero",
+          "label": "Topo"
+         },
+         {
+          "value": "destinations",
+          "label": "Destinos"
+         },
+         {
+          "value": "filters",
+          "label": "Filtros"
+         },
+         {
+          "value": "articles",
+          "label": "Artigos"
+         }
+        ]
+       },
+       "visible": {
+        "kind": "bool",
+        "label": "Aparece no site"
+       }
+      }
+     },
+     "itemTitle": "id",
+     "itemLabel": "Seção"
+    }
+   }
+  }
+ ],
+ "collections": [
+  {
+   "key": "article",
+   "label": "Artigos do blog",
+   "itemLabel": "Artigo",
+   "group": "blog",
+   "idField": "slug",
+   "titleField": "title",
+   "route": "/blog/{id}",
+   "fields": {
+    "slug": {
+     "kind": "slug",
+     "label": "Endereço do artigo"
+    },
+    "title": {
+     "kind": "text",
+     "label": "Título"
+    },
+    "excerpt": {
+     "kind": "text",
+     "label": "Resumo (aparece nos cards)",
+     "long": true
+    },
+    "destination": {
+     "kind": "ref",
+     "label": "Destino",
+     "source": "blog.destinations",
+     "list": "items",
+     "valueField": "id",
+     "labelField": "name"
+    },
+    "category": {
+     "kind": "ref",
+     "label": "Assunto",
+     "source": "blog.categories",
+     "list": "items",
+     "valueField": "id",
+     "labelField": "label"
+    },
+    "cover": {
+     "kind": "object",
+     "label": "Foto",
+     "fields": {
+      "src": {
+       "kind": "image",
+       "label": "Foto"
+      },
+      "alt": {
+       "kind": "text",
+       "label": "O que aparece nesta foto?"
+      },
+      "position": {
+       "kind": "text",
+       "label": "Enquadramento da foto",
+       "optional": true,
+       "help": "Preenchido sozinho pelo ponto de foco da foto. Ex.: \"50% 30%\"."
+      }
+     }
+    },
+    "trip": {
+     "kind": "text",
+     "label": "Quando eu estive lá"
+    },
+    "blocks": {
+     "kind": "blocks",
+     "label": "Conteúdo do artigo",
+     "itemLabel": "Bloco",
+     "variants": {
+      "p": {
+       "label": "Parágrafo",
+       "fields": {
+        "text": {
+         "kind": "text",
+         "label": "Texto",
+         "long": true
+        }
+       }
+      },
+      "h2": {
+       "label": "Subtítulo",
+       "fields": {
+        "text": {
+         "kind": "text",
+         "label": "Subtítulo"
+        }
+       }
+      },
+      "list": {
+       "label": "Lista",
+       "fields": {
+        "items": {
+         "kind": "list",
+         "label": "Itens",
+         "of": {
+          "kind": "text",
+          "label": "Item",
+          "long": true
+         },
+         "itemLabel": "Item"
+        },
+        "ordered": {
+         "kind": "bool",
+         "label": "Numerada",
+         "optional": true
+        }
+       }
+      },
+      "img": {
+       "label": "Foto",
+       "fields": {
+        "image": {
+         "kind": "object",
+         "label": "Foto",
+         "fields": {
+          "src": {
+           "kind": "image",
+           "label": "Foto"
+          },
+          "alt": {
+           "kind": "text",
+           "label": "O que aparece nesta foto?"
+          },
+          "position": {
+           "kind": "text",
+           "label": "Enquadramento da foto",
+           "optional": true,
+           "help": "Preenchido sozinho pelo ponto de foco da foto. Ex.: \"50% 30%\"."
+          }
+         }
+        },
+        "caption": {
+         "kind": "text",
+         "label": "Legenda",
+         "optional": true
+        },
+        "tall": {
+         "kind": "bool",
+         "label": "Foto em pé (vertical)",
+         "optional": true
+        }
+       }
+      },
+      "gallery": {
+       "label": "Galeria de fotos",
+       "fields": {
+        "images": {
+         "kind": "list",
+         "label": "Fotos",
+         "of": {
+          "kind": "object",
+          "label": "Foto",
+          "fields": {
+           "src": {
+            "kind": "image",
+            "label": "Foto"
+           },
+           "alt": {
+            "kind": "text",
+            "label": "O que aparece nesta foto?"
+           },
+           "position": {
+            "kind": "text",
+            "label": "Enquadramento da foto",
+            "optional": true,
+            "help": "Preenchido sozinho pelo ponto de foco da foto. Ex.: \"50% 30%\"."
+           }
+          }
+         },
+         "itemTitle": "alt",
+         "itemLabel": "Foto"
+        },
+        "caption": {
+         "kind": "text",
+         "label": "Legenda",
+         "optional": true
+        }
+       }
+      },
+      "tip": {
+       "label": "Dica da Laura",
+       "fields": {
+        "title": {
+         "kind": "text",
+         "label": "Título",
+         "optional": true
+        },
+        "text": {
+         "kind": "text",
+         "label": "Texto",
+         "long": true
+        }
+       }
+      },
+      "quote": {
+       "label": "Citação",
+       "fields": {
+        "text": {
+         "kind": "text",
+         "label": "Citação",
+         "long": true
+        }
+       }
+      },
+      "prices": {
+       "label": "Tabela de preços",
+       "fields": {
+        "title": {
+         "kind": "text",
+         "label": "Título"
+        },
+        "rows": {
+         "kind": "list",
+         "label": "Linhas",
+         "of": {
+          "kind": "object",
+          "label": "Linha",
+          "fields": {
+           "item": {
+            "kind": "text",
+            "label": "Item"
+           },
+           "price": {
+            "kind": "text",
+            "label": "Valor"
+           }
+          }
+         },
+         "itemTitle": "item",
+         "itemLabel": "Linha"
+        },
+        "note": {
+         "kind": "text",
+         "label": "Observação",
+         "long": true,
+         "optional": true
+        }
+       }
+      },
+      "video": {
+       "label": "Vídeo do YouTube",
+       "fields": {
+        "id": {
+         "kind": "video",
+         "label": "Código do vídeo"
+        },
+        "title": {
+         "kind": "text",
+         "label": "Título"
+        },
+        "vertical": {
+         "kind": "bool",
+         "label": "Vídeo vertical (short)",
+         "optional": true
+        },
+        "poster": {
+         "kind": "image",
+         "label": "Foto antes do play",
+         "optional": true
+        }
+       }
+      },
+      "guide": {
+       "label": "Chamada para o guia",
+       "fields": {
+        "id": {
+         "kind": "ref",
+         "label": "Guia (vazio = guia do destino)",
+         "source": "produtos.page",
+         "list": "catalog",
+         "valueField": "id",
+         "labelField": "title",
+         "optional": true
+        },
+        "text": {
+         "kind": "text",
+         "label": "Texto",
+         "long": true,
+         "optional": true
+        }
+       }
+      },
+      "recs": {
+       "label": "Recomendações",
+       "fields": {
+        "title": {
+         "kind": "text",
+         "label": "Título",
+         "optional": true
+        },
+        "items": {
+         "kind": "list",
+         "label": "Recomendações",
+         "of": {
+          "kind": "object",
+          "label": "Recomendação",
+          "fields": {
+           "cat": {
+            "kind": "ref",
+            "label": "Categoria",
+            "source": "recomendacoes.page",
+            "list": "categories",
+            "valueField": "id",
+            "labelField": "title"
+           },
+           "i": {
+            "kind": "number",
+            "label": "Qual item da categoria (0 = primeiro). Vazio = \"Em breve\"",
+            "min": 0,
+            "optional": true
+           }
+          }
+         },
+         "itemTitle": "cat",
+         "itemLabel": "Recomendação"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "key": "productPage",
+   "label": "Páginas de produto",
+   "itemLabel": "Página de produto",
+   "group": "produtos",
+   "idField": "slug",
+   "titleField": "title",
+   "route": "/produtos/{id}",
+   "fields": {
+    "slug": {
+     "kind": "slug",
+     "label": "Endereço da página"
+    },
+    "kind": {
+     "kind": "text",
+     "label": "Tipo"
+    },
+    "title": {
+     "kind": "text",
+     "label": "Nome"
+    },
+    "promise": {
+     "kind": "text",
+     "label": "Frase de efeito (letra cursiva)"
+    },
+    "text": {
+     "kind": "text",
+     "label": "Descrição",
+     "long": true
+    },
+    "forWho": {
+     "kind": "list",
+     "label": "É para você se…",
+     "of": {
+      "kind": "text",
+      "label": "Item",
+      "long": true
+     },
+     "itemLabel": "Item"
+    },
+    "chapters": {
+     "kind": "list",
+     "label": "Por dentro",
+     "of": {
+      "kind": "text",
+      "label": "Item",
+      "long": true
+     },
+     "itemLabel": "Item"
+    },
+    "price": {
+     "kind": "text",
+     "label": "Preço",
+     "optional": true
+    },
+    "free": {
+     "kind": "bool",
+     "label": "Material gratuito",
+     "optional": true
+    },
+    "guarantee": {
+     "kind": "text",
+     "label": "Garantia",
+     "optional": true
+    },
+    "buy": {
+     "kind": "object",
+     "label": "Botão de compra",
+     "fields": {
+      "label": {
+       "kind": "text",
+       "label": "Texto do botão"
+      },
+      "href": {
+       "kind": "url",
+       "label": "Link de compra",
+       "optional": true
+      }
+     }
+    },
+    "faq": {
+     "kind": "list",
+     "label": "Perguntas frequentes",
+     "of": {
+      "kind": "object",
+      "label": "Pergunta",
+      "fields": {
+       "q": {
+        "kind": "text",
+        "label": "Pergunta"
+       },
+       "a": {
+        "kind": "text",
+        "label": "Resposta",
+        "long": true
+       }
+      }
+     },
+     "itemTitle": "q",
+     "itemLabel": "Pergunta"
+    },
+    "image": {
+     "kind": "image",
+     "label": "Foto de fundo"
+    },
+    "cover": {
+     "kind": "object",
+     "label": "Capa",
+     "fields": {
+      "image": {
+       "kind": "image",
+       "label": "Foto da capa"
+      },
+      "top": {
+       "kind": "text",
+       "label": "Texto pequeno de cima"
+      },
+      "title": {
+       "kind": "text",
+       "label": "Título da capa"
+      },
+      "tone": {
+       "kind": "select",
+       "label": "Cor da capa",
+       "options": [
+        {
+         "value": "pine",
+         "label": "Verde"
+        },
+        {
+         "value": "sun",
+         "label": "Laranja"
+        },
+        {
+         "value": "sky",
+         "label": "Azul"
+        }
+       ]
+      }
+     }
+    }
+   }
+  },
+  {
+   "key": "page",
+   "label": "Páginas novas",
+   "itemLabel": "Página",
+   "group": "paginas",
+   "idField": "slug",
+   "titleField": "title",
+   "route": "/{id}",
+   "reservedIds": [
+    "produtos",
+    "recomendacoes",
+    "parcerias",
+    "diario",
+    "blog",
+    "sobre",
+    "midia-kit",
+    "destinos",
+    "site",
+    "cms",
+    "images",
+    "assets",
+    "api",
+    "inicio",
+    "p"
+   ],
+   "fields": {
+    "slug": {
+     "kind": "slug",
+     "label": "Endereço da página (ex.: minha-pagina)"
+    },
+    "title": {
+     "kind": "text",
+     "label": "Título da página"
+    },
+    "description": {
+     "kind": "text",
+     "label": "Resumo (aparece no Google)",
+     "long": true,
+     "optional": true
+    },
+    "blocks": {
+     "kind": "blocks",
+     "label": "Blocos da página",
+     "itemLabel": "Bloco",
+     "variants": {
+      "hero": {
+       "label": "Capa com foto",
+       "fields": {
+        "eyebrow": {
+         "kind": "text",
+         "label": "Texto pequeno de cima",
+         "optional": true
+        },
+        "title": {
+         "kind": "text",
+         "label": "Título"
+        },
+        "text": {
+         "kind": "text",
+         "label": "Texto",
+         "long": true,
+         "optional": true
+        },
+        "image": {
+         "kind": "image",
+         "label": "Foto de fundo"
+        },
+        "position": {
+         "kind": "text",
+         "label": "Enquadramento da foto",
+         "optional": true,
+         "help": "Preenchido sozinho pelo ponto de foco da foto. Ex.: \"50% 30%\"."
+        }
+       }
+      },
+      "p": {
+       "label": "Parágrafo",
+       "fields": {
+        "text": {
+         "kind": "text",
+         "label": "Texto",
+         "long": true
+        }
+       }
+      },
+      "h2": {
+       "label": "Subtítulo",
+       "fields": {
+        "text": {
+         "kind": "text",
+         "label": "Subtítulo"
+        }
+       }
+      },
+      "list": {
+       "label": "Lista",
+       "fields": {
+        "items": {
+         "kind": "list",
+         "label": "Itens",
+         "of": {
+          "kind": "text",
+          "label": "Item",
+          "long": true
+         },
+         "itemLabel": "Item"
+        },
+        "ordered": {
+         "kind": "bool",
+         "label": "Numerada",
+         "optional": true
+        }
+       }
+      },
+      "img": {
+       "label": "Foto",
+       "fields": {
+        "image": {
+         "kind": "object",
+         "label": "Foto",
+         "fields": {
+          "src": {
+           "kind": "image",
+           "label": "Foto"
+          },
+          "alt": {
+           "kind": "text",
+           "label": "O que aparece nesta foto?"
+          },
+          "position": {
+           "kind": "text",
+           "label": "Enquadramento da foto",
+           "optional": true,
+           "help": "Preenchido sozinho pelo ponto de foco da foto. Ex.: \"50% 30%\"."
+          }
+         }
+        },
+        "caption": {
+         "kind": "text",
+         "label": "Legenda",
+         "optional": true
+        },
+        "tall": {
+         "kind": "bool",
+         "label": "Foto em pé (vertical)",
+         "optional": true
+        }
+       }
+      },
+      "gallery": {
+       "label": "Galeria de fotos",
+       "fields": {
+        "images": {
+         "kind": "list",
+         "label": "Fotos",
+         "of": {
+          "kind": "object",
+          "label": "Foto",
+          "fields": {
+           "src": {
+            "kind": "image",
+            "label": "Foto"
+           },
+           "alt": {
+            "kind": "text",
+            "label": "O que aparece nesta foto?"
+           },
+           "position": {
+            "kind": "text",
+            "label": "Enquadramento da foto",
+            "optional": true,
+            "help": "Preenchido sozinho pelo ponto de foco da foto. Ex.: \"50% 30%\"."
+           }
+          }
+         },
+         "itemTitle": "alt",
+         "itemLabel": "Foto"
+        },
+        "caption": {
+         "kind": "text",
+         "label": "Legenda",
+         "optional": true
+        }
+       }
+      },
+      "tip": {
+       "label": "Dica da Laura",
+       "fields": {
+        "title": {
+         "kind": "text",
+         "label": "Título",
+         "optional": true
+        },
+        "text": {
+         "kind": "text",
+         "label": "Texto",
+         "long": true
+        }
+       }
+      },
+      "quote": {
+       "label": "Citação",
+       "fields": {
+        "text": {
+         "kind": "text",
+         "label": "Citação",
+         "long": true
+        }
+       }
+      },
+      "prices": {
+       "label": "Tabela de preços",
+       "fields": {
+        "title": {
+         "kind": "text",
+         "label": "Título"
+        },
+        "rows": {
+         "kind": "list",
+         "label": "Linhas",
+         "of": {
+          "kind": "object",
+          "label": "Linha",
+          "fields": {
+           "item": {
+            "kind": "text",
+            "label": "Item"
+           },
+           "price": {
+            "kind": "text",
+            "label": "Valor"
+           }
+          }
+         },
+         "itemTitle": "item",
+         "itemLabel": "Linha"
+        },
+        "note": {
+         "kind": "text",
+         "label": "Observação",
+         "long": true,
+         "optional": true
+        }
+       }
+      },
+      "video": {
+       "label": "Vídeo do YouTube",
+       "fields": {
+        "id": {
+         "kind": "video",
+         "label": "Código do vídeo"
+        },
+        "title": {
+         "kind": "text",
+         "label": "Título"
+        },
+        "vertical": {
+         "kind": "bool",
+         "label": "Vídeo vertical (short)",
+         "optional": true
+        },
+        "poster": {
+         "kind": "image",
+         "label": "Foto antes do play",
+         "optional": true
+        }
+       }
+      },
+      "guide": {
+       "label": "Chamada para o guia",
+       "fields": {
+        "id": {
+         "kind": "ref",
+         "label": "Guia (vazio = guia do destino)",
+         "source": "produtos.page",
+         "list": "catalog",
+         "valueField": "id",
+         "labelField": "title",
+         "optional": true
+        },
+        "text": {
+         "kind": "text",
+         "label": "Texto",
+         "long": true,
+         "optional": true
+        }
+       }
+      },
+      "recs": {
+       "label": "Recomendações",
+       "fields": {
+        "title": {
+         "kind": "text",
+         "label": "Título",
+         "optional": true
+        },
+        "items": {
+         "kind": "list",
+         "label": "Recomendações",
+         "of": {
+          "kind": "object",
+          "label": "Recomendação",
+          "fields": {
+           "cat": {
+            "kind": "ref",
+            "label": "Categoria",
+            "source": "recomendacoes.page",
+            "list": "categories",
+            "valueField": "id",
+            "labelField": "title"
+           },
+           "i": {
+            "kind": "number",
+            "label": "Qual item da categoria (0 = primeiro). Vazio = \"Em breve\"",
+            "min": 0,
+            "optional": true
+           }
+          }
+         },
+         "itemTitle": "cat",
+         "itemLabel": "Recomendação"
+        }
+       }
+      },
+      "cards": {
+       "label": "Cards",
+       "fields": {
+        "title": {
+         "kind": "text",
+         "label": "Título da seção",
+         "optional": true
+        },
+        "items": {
+         "kind": "list",
+         "label": "Cards",
+         "of": {
+          "kind": "object",
+          "label": "Card",
+          "fields": {
+           "image": {
+            "kind": "image",
+            "label": "Foto"
+           },
+           "title": {
+            "kind": "text",
+            "label": "Título"
+           },
+           "text": {
+            "kind": "text",
+            "label": "Texto",
+            "long": true
+           },
+           "href": {
+            "kind": "url",
+            "label": "Link",
+            "optional": true
+           },
+           "button": {
+            "kind": "text",
+            "label": "Texto do link",
+            "optional": true
+           }
+          }
+         },
+         "itemTitle": "title",
+         "itemLabel": "Card"
+        }
+       }
+      },
+      "button": {
+       "label": "Botão",
+       "fields": {
+        "label": {
+         "kind": "text",
+         "label": "Texto do botão"
+        },
+        "href": {
+         "kind": "url",
+         "label": "Link"
+        },
+        "style": {
+         "kind": "select",
+         "label": "Cor",
+         "options": [
+          {
+           "value": "sun",
+           "label": "Laranja"
+          },
+          {
+           "value": "pine",
+           "label": "Verde"
+          },
+          {
+           "value": "outline",
+           "label": "Contorno"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ ]
+}

@@ -143,3 +143,14 @@ def test_painel_compilado_nao_entrega_arquivos_de_fora(settings, tmp_path):
     for path in ('/../segredo.txt', '/..%2fsegredo.txt', '/assets/..%2f..%2fsegredo.txt'):
         assert 'NAO-PODE-SAIR' not in client.get(path).text
     assert client.get('/api/nada').status_code == 404
+
+
+def test_aviso_de_presenca_nao_mantem_sessao_viva(admin: Painel, db):
+    from painel.models import AuthSession
+
+    with write(db):
+        db.execute(update(AuthSession).values(last_seen_at=utcnow() - timedelta(minutes=59)))
+    assert admin.post('/api/content/inicio.hero/presence').status_code == 200
+    db.expire_all()
+    seen = db.scalar(text('select last_seen_at from sessions order by id desc limit 1'))
+    assert str(seen) < str(utcnow() - timedelta(minutes=58))

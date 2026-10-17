@@ -3,6 +3,7 @@ import tw, { css } from 'twin.macro'
 import { allStops } from '../diaryContent'
 import { BALI_INSET, MAIN_MAP, type MapLayer } from '../mapData'
 import { LiveDot } from './ui'
+import { t } from '../cms/runtime'
 
 /** Mercator igual ao do d3 (scale + translate), para posicionar as cidades sobre os contornos. */
 const project = (m: MapLayer, [lat, lon]: [number, number]) => [
@@ -115,7 +116,7 @@ export function RouteMap() {
               <path key={c.name} d={c.d} fill="rgba(248,246,241,.14)" stroke="rgba(248,246,241,.55)" strokeWidth="1.2" />
             ))}
           </g>
-          <text x="14" y="26" fill="#F8F6F1" opacity=".7" fontFamily="Poppins, sans-serif" fontSize="14" fontWeight="600" letterSpacing="3">ZOOM EM BALI</text>
+          <text x="14" y="26" fill="#F8F6F1" opacity=".7" fontFamily="Poppins, sans-serif" fontSize="14" fontWeight="600" letterSpacing="3">{t('diario.mapa.zoom', 'ZOOM EM BALI')}</text>
           {baliStops.map((s) => {
             const [x, y] = s.xy
             const l = insetLabel[s.id] ?? { dx: 10, dy: 4, anchor: 'start' as const }

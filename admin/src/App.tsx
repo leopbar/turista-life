@@ -8,6 +8,12 @@ import { CreatePassword } from './pages/CreatePassword'
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
 import { Team } from './pages/Team'
+import { Backups } from './pages/Backups'
+import { ContentList } from './cms/ContentList'
+import { MediaPage, MediaPickerHost } from './cms/Media'
+import { SchemaProvider } from './cms/model'
+import { Notebook } from './cms/Notebook'
+import { SiteEditor } from './cms/SiteEditor'
 
 function AdminOnly({ children }: { children: ReactNode }) {
   const { user } = useAuth()
@@ -23,14 +29,23 @@ export default function App() {
   if (user.mustChangePassword) return <CreatePassword firstAccess />
 
   return (
-    <Shell>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/minha-senha" element={<CreatePassword firstAccess={false} />} />
-        <Route path="/equipe" element={<AdminOnly><Team /></AdminOnly>} />
-        <Route path="/atividades" element={<AdminOnly><Activity /></AdminOnly>} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Shell>
+    <SchemaProvider>
+      <MediaPickerHost>
+        <Shell>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/editar" element={<SiteEditor />} />
+            <Route path="/conteudo" element={<ContentList />} />
+            <Route path="/fotos" element={<MediaPage />} />
+            <Route path="/caderno" element={<Notebook />} />
+            <Route path="/minha-senha" element={<CreatePassword firstAccess={false} />} />
+            <Route path="/equipe" element={<AdminOnly><Team /></AdminOnly>} />
+            <Route path="/atividades" element={<AdminOnly><Activity /></AdminOnly>} />
+            <Route path="/backup" element={<AdminOnly><Backups /></AdminOnly>} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Shell>
+      </MediaPickerHost>
+    </SchemaProvider>
   )
 }

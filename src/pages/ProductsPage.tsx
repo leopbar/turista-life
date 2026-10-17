@@ -4,6 +4,8 @@ import { productsPage as page, type CatalogItem } from '../pagesContent'
 import { BookCover } from '../components/Products'
 import { Container, CtaBand, Eyebrow, Lead, PageHero, Section, SmartLink, Title } from '../components/ui'
 import { Arrow } from '../components/icons'
+import { t } from '../cms/runtime'
+import { Sections } from '../cms/Sections'
 
 const statusLabel: Record<CatalogItem['status'], string> = {
   available: 'Disponível',
@@ -17,80 +19,82 @@ export function ProductsPage() {
   const upcoming = page.catalog.filter((p) => p.status === 'soon' || p.status === 'planned')
 
   return (
-    <>
-      <PageHero {...page.hero} />
-
-      {/* Disponíveis para compra: maior destaque */}
-      <Section tone="mist" id="disponiveis" tw="scroll-mt-24">
-        <Container tw="flex flex-col gap-8">
-          <div tw="flex max-w-[560px] flex-col gap-3">
-            <Eyebrow>{page.available.eyebrow}</Eyebrow>
-            <Title>{page.available.title}</Title>
-            <Lead>{page.available.text}</Lead>
-          </div>
-          <div tw="grid gap-6 lg:grid-cols-2">
-            {available.map((p) => (
-              <AvailableCard key={p.id} item={p} />
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* Próximos lançamentos: visual mais leve, com lista de espera */}
-      <Section tone="white" id="proximos" tw="scroll-mt-24">
-        <Container tw="flex flex-col gap-8">
-          <div tw="flex max-w-[560px] flex-col gap-3">
-            <Eyebrow>{page.upcoming.eyebrow}</Eyebrow>
-            <Title>{page.upcoming.title}</Title>
-            <Lead>{page.upcoming.text}</Lead>
-          </div>
-          <div tw="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {upcoming.map((p) => (
-              <UpcomingCard key={p.id} item={p} />
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* Materiais gratuitos, separados dos produtos pagos */}
-      <Section tone="cream">
-        <Container tw="flex flex-col gap-8">
-          <div tw="flex max-w-[560px] flex-col gap-3">
-            <Eyebrow>{page.freeSection.eyebrow}</Eyebrow>
-            <Title>{page.freeSection.title}</Title>
-            <Lead>{page.freeSection.text}</Lead>
-          </div>
-          <div tw="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {page.free.map((p) => (
-              <FreeCard key={p.id} item={p} />
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* FAQ */}
-      <Section tone="white" id="faq" tw="scroll-mt-24">
-        <Container tw="grid gap-10 lg:grid-cols-[minmax(0,320px)_1fr]">
-          <div tw="flex flex-col gap-4">
-            <Eyebrow>Dúvidas</Eyebrow>
-            <Title>Perguntas frequentes</Title>
-          </div>
-          <div tw="flex flex-col divide-y divide-line border-y border-line">
-            {page.faq.map((item) => (
-              <details key={item.q} className="group" tw="py-5">
-                <summary tw="flex cursor-pointer list-none items-center justify-between gap-4 font-sans text-[15px] font-semibold text-pine-900 [&::-webkit-details-marker]:hidden">
-                  {item.q}
-                  <span aria-hidden="true" tw="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-mist text-pine-800 transition group-open:rotate-45">+</span>
-                </summary>
-                <p tw="mt-3 max-w-[640px] font-sans text-[14px] leading-relaxed text-muted">{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      <CtaBand {...page.cta} />
-    </>
+    <Sections
+      page="produtos"
+      items={{
+        hero: <PageHero {...page.hero} />,
+        available: (
+          <Section tone="mist" id="disponiveis" tw="scroll-mt-24">
+            <Container tw="flex flex-col gap-8">
+              <div tw="flex max-w-[560px] flex-col gap-3">
+                <Eyebrow>{page.available.eyebrow}</Eyebrow>
+                <Title>{page.available.title}</Title>
+                <Lead>{page.available.text}</Lead>
+              </div>
+              <div tw="grid gap-6 lg:grid-cols-2">
+                {available.map((p) => (
+                  <AvailableCard key={p.id} item={p} />
+                ))}
+              </div>
+            </Container>
+          </Section>
+        ),
+        upcoming: (
+          <Section tone="white" id="proximos" tw="scroll-mt-24">
+            <Container tw="flex flex-col gap-8">
+              <div tw="flex max-w-[560px] flex-col gap-3">
+                <Eyebrow>{page.upcoming.eyebrow}</Eyebrow>
+                <Title>{page.upcoming.title}</Title>
+                <Lead>{page.upcoming.text}</Lead>
+              </div>
+              <div tw="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {upcoming.map((p) => (
+                  <UpcomingCard key={p.id} item={p} />
+                ))}
+              </div>
+            </Container>
+          </Section>
+        ),
+        free: (
+          <Section tone="cream">
+            <Container tw="flex flex-col gap-8">
+              <div tw="flex max-w-[560px] flex-col gap-3">
+                <Eyebrow>{page.freeSection.eyebrow}</Eyebrow>
+                <Title>{page.freeSection.title}</Title>
+                <Lead>{page.freeSection.text}</Lead>
+              </div>
+              <div tw="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {page.free.map((p) => (
+                  <FreeCard key={p.id} item={p} />
+                ))}
+              </div>
+            </Container>
+          </Section>
+        ),
+        faq: (
+          <Section tone="white" id="faq" tw="scroll-mt-24">
+            <Container tw="grid gap-10 lg:grid-cols-[minmax(0,320px)_1fr]">
+              <div tw="flex flex-col gap-4">
+                <Eyebrow>{t('geral.faq.chamada', 'Dúvidas')}</Eyebrow>
+                <Title>{t('geral.faq.titulo', 'Perguntas frequentes')}</Title>
+              </div>
+              <div tw="flex flex-col divide-y divide-line border-y border-line">
+                {page.faq.map((item) => (
+                  <details key={item.q} className="group" tw="py-5">
+                    <summary tw="flex cursor-pointer list-none items-center justify-between gap-4 font-sans text-[15px] font-semibold text-pine-900 [&::-webkit-details-marker]:hidden">
+                      {item.q}
+                      <span aria-hidden="true" tw="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-mist text-pine-800 transition group-open:rotate-45">+</span>
+                    </summary>
+                    <p tw="mt-3 max-w-[640px] font-sans text-[14px] leading-relaxed text-muted">{item.a}</p>
+                  </details>
+                ))}
+              </div>
+            </Container>
+          </Section>
+        ),
+        cta: <CtaBand {...page.cta} />,
+      }}
+    />
   )
 }
 
@@ -111,7 +115,7 @@ function AvailableCard({ item }: { item: CatalogItem }) {
         <div tw="mt-auto flex flex-col items-start gap-3 pt-5">
           {item.price && (
             <p tw="flex flex-col">
-              <span tw="font-sans text-[11px] uppercase tracking-[.14em] text-muted">Valor</span>
+              <span tw="font-sans text-[11px] uppercase tracking-[.14em] text-muted">{t('produto.valor', 'Valor')}</span>
               <span tw="font-serif text-[24px] font-bold leading-tight text-pine-900">{item.price}</span>
             </p>
           )}
@@ -179,9 +183,9 @@ function Waitlist({ product, notify }: { product: string; notify?: string }) {
   const id = `wl-${product.toLowerCase().replace(/\W+/g, '-')}`
   return (
     <form onSubmit={submit} tw="flex items-center rounded-full bg-cream p-1 pl-4 ring-1 ring-line focus-within:ring-pine-800">
-      <label htmlFor={id} tw="sr-only">Seu e-mail para ser avisado</label>
-      <input id={id} type="email" required placeholder="Seu e-mail" tw="min-w-0 flex-1 bg-transparent font-sans text-[13px] text-ink outline-none" />
-      <button type="submit" tw="rounded-full bg-pine-800 px-4 py-2.5 font-sans text-[12px] font-semibold text-white hover:bg-pine-700">Me avise</button>
+      <label htmlFor={id} tw="sr-only">{t('produtos.espera.rotulo', 'Seu e-mail para ser avisado')}</label>
+      <input id={id} type="email" required placeholder={t('geral.email.rotulo', 'Seu e-mail')} tw="min-w-0 flex-1 bg-transparent font-sans text-[13px] text-ink outline-none" />
+      <button type="submit" tw="rounded-full bg-pine-800 px-4 py-2.5 font-sans text-[12px] font-semibold text-white hover:bg-pine-700">{t('produtos.espera.botao', 'Me avise')}</button>
     </form>
   )
 }

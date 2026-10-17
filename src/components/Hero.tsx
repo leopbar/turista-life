@@ -2,6 +2,7 @@ import tw, { css } from 'twin.macro'
 import { hero } from '../content'
 import { Button, Container, PlaneTrail, SmartLink } from './ui'
 import { Play } from './icons'
+import { imgProps, t } from '../cms/runtime'
 
 const rise = (delay: number) => css`animation: rise .8s ${delay}s cubic-bezier(.2,.7,.1,1) both;
   @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
@@ -13,8 +14,7 @@ export function Hero() {
     // A partir de lg: foto de fundo com o texto à esquerda.
     <section id="inicio" tw="relative overflow-hidden bg-pine-950 pb-12 lg:(flex min-h-[680px] items-center pt-24 pb-16)">
       <img
-        src={hero.image}
-        alt="Laura sorrindo no mirante da Diamond Beach, em Nusa Penida, com o mar turquesa ao fundo"
+        {...imgProps(hero.image, { alt: t('inicio.capa.foto', 'Laura sorrindo no mirante da Diamond Beach, em Nusa Penida, com o mar turquesa ao fundo') })}
         tw="relative block h-[340px] w-full object-cover lg:(absolute inset-0 h-full)"
         css={css`object-position: 70% 35%;
           @media (min-width: 1024px) { object-position: 70% 40%; animation: heroZoom 18s ease-out both; }

@@ -2,13 +2,14 @@ import { css } from 'twin.macro'
 import { brands } from '../content'
 import { Button, Container } from './ui'
 import { Arrow, Instagram, Play, Users } from './icons'
+import { imgProps } from '../cms/runtime'
 
 const statIcon = { ig: Instagram, play: Play, users: Users } as const
 
 export function Brands() {
   return (
     <section id="marcas" tw="relative overflow-hidden bg-pine-950 py-16 sm:py-20">
-      <img src={brands.image} alt="" tw="absolute inset-0 h-full w-full object-cover" css={css`object-position: 60% 50%;`} />
+      <img {...imgProps(brands.image, { alt: '' })} tw="absolute inset-0 h-full w-full object-cover" css={css`object-position: 60% 50%;`} />
       <div
         aria-hidden="true"
         tw="absolute inset-0"

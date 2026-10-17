@@ -109,18 +109,8 @@ def login_wait_seconds(db: Session, settings: Settings, *, email: str, ip: str) 
     Por IP: muitas falhas em pouco tempo, de qualquer conta, bloqueiam aquele IP por um tempo.
     """
     now = utcnow()
-
-    ip_since = now - timedelta(minutes=settings.ip_window_minutes)
-    ip_fails = db.scalar(
-        select(func.count()).where(LoginAttempt.ip == ip, LoginAttempt.success.is_(False), LoginAttempt.created_at > ip_since)
-    )
-    if ip_fails >= settings.ip_max_failures:
-        oldest = db.scalar(
-            select(func.min(LoginAttempt.created_at)).where(
-                LoginAttempt.ip == ip, LoginAttempt.success.is_(False), LoginAttempt.created_at > ip_since
-            )
-        )
-        return max(1, math.ceil((oldest + timedelta(minutes=settings.ip_window_minutes) - now).total_seconds()))
+    if wait := ip_wait_seconds(db, settings, ip=ip):
+        return wait
 
     # Só contam as falhas desde o último login certo dessa conta.
     acc_since = now - timedelta(minutes=settings.account_window_minutes)
@@ -138,6 +128,23 @@ def login_wait_seconds(db: Session, settings: Settings, *, email: str, ip: str) 
     wait = min(60 * 2 ** (count - settings.account_free_failures), settings.account_max_wait_seconds)
     remaining = (last_fail + timedelta(seconds=wait) - now).total_seconds()
     return max(0, math.ceil(remaining))
+
+
+def ip_wait_seconds(db: Session, settings: Settings, *, ip: str) -> int:
+    """Espera imposta a um IP com falhas demais (de qualquer conta) em pouco tempo."""
+    now = utcnow()
+    ip_since = now - timedelta(minutes=settings.ip_window_minutes)
+    ip_fails = db.scalar(
+        select(func.count()).where(LoginAttempt.ip == ip, LoginAttempt.success.is_(False), LoginAttempt.created_at > ip_since)
+    )
+    if ip_fails < settings.ip_max_failures:
+        return 0
+    oldest = db.scalar(
+        select(func.min(LoginAttempt.created_at)).where(
+            LoginAttempt.ip == ip, LoginAttempt.success.is_(False), LoginAttempt.created_at > ip_since
+        )
+    )
+    return max(1, math.ceil((oldest + timedelta(minutes=settings.ip_window_minutes) - now).total_seconds()))
 
 
 def record_attempt(db: Session, *, email: str, ip: str, success: bool) -> None:

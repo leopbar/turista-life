@@ -5,6 +5,7 @@ import { BookCover } from '../components/Products'
 import { CouponButton } from '../components/Recommendations'
 import { PlaneTrail, SmartLink } from '../components/ui'
 import { Arrow, Pin, Play, RecIcon } from '../components/icons'
+import { imgProps, t, videoThumb } from '../cms/runtime'
 import {
   blogPage,
   categoryLabel,
@@ -35,11 +36,9 @@ export function ArticleCard({ article, featured = false }: { article: Article; f
     >
       <div css={[tw`relative aspect-[16/10] overflow-hidden bg-mist`, featured && tw`lg:(aspect-auto h-full min-h-[360px])`]}>
         <img
-          src={article.cover.src}
-          alt=""
+          {...imgProps(article.cover.src, { alt: '', position: article.cover.position, sizes: '(min-width: 1024px) 50vw, 100vw' })}
           loading="lazy"
           tw="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-          style={{ objectPosition: article.cover.position ?? '50% 50%' }}
         />
         <span tw="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 font-sans text-[10.5px] font-semibold uppercase tracking-[.12em] text-pine-900 backdrop-blur">
           {categoryLabel(article.category)}
@@ -66,7 +65,7 @@ export function ArticleCard({ article, featured = false }: { article: Article; f
 /* Vídeo do YouTube: foto com play; o player só carrega no clique      */
 /* ------------------------------------------------------------------ */
 
-const ytPoster = (id: string) => `${import.meta.env.BASE_URL}images/videos/${id}.jpg`
+const ytPoster = (id: string) => videoThumb(id)
 
 export function VideoEmbed({ id, title, vertical = false, poster }: { id: string; title: string; vertical?: boolean; poster?: string }) {
   const [playing, setPlaying] = useState(false)
@@ -83,7 +82,7 @@ export function VideoEmbed({ id, title, vertical = false, poster }: { id: string
           />
         ) : (
           <button type="button" onClick={() => setPlaying(true)} aria-label={`Assistir: ${title}`} className="group" tw="absolute inset-0 h-full w-full cursor-pointer">
-            <img src={poster ?? ytPoster(id)} alt="" loading="lazy" tw="h-full w-full object-cover opacity-90 transition duration-500 group-hover:(scale-[1.03] opacity-100)" />
+            <img {...imgProps(poster ?? ytPoster(id), { alt: '' })} loading="lazy" tw="h-full w-full object-cover opacity-90 transition duration-500 group-hover:(scale-[1.03] opacity-100)" />
             <span aria-hidden="true" tw="absolute inset-0 bg-gradient-to-t from-pine-950/80 via-pine-950/10 to-transparent" />
             <span tw="absolute inset-0 m-auto grid h-16 w-16 place-items-center rounded-full bg-sun-500 text-white shadow-lift transition group-hover:scale-110">
               <Play width={26} height={26} />
@@ -145,7 +144,7 @@ export function RecsBlock({ title = 'O que eu usei nessa viagem', items, compact
   recs.sort((a, b) => Number(a.kind === 'soon') - Number(b.kind === 'soon'))
   return (
     <section tw="my-4 rounded-[22px] bg-mist/70 p-5 ring-1 ring-line sm:p-7">
-      <p tw="font-script text-[24px] leading-none text-sun-600">Recomendações</p>
+      <p tw="font-script text-[24px] leading-none text-sun-600">{t('blog.recs.titulo', 'Recomendações')}</p>
       <h3 tw="mt-1 font-serif text-[1.4rem] font-bold leading-tight text-ink">{title}</h3>
       <ul css={[tw`mt-5 grid gap-3`, compactGrid ? tw`sm:grid-cols-2 lg:grid-cols-3` : tw`sm:grid-cols-2`]}>
         {recs.map((r) =>
@@ -154,7 +153,7 @@ export function RecsBlock({ title = 'O que eu usei nessa viagem', items, compact
               <div tw="flex items-center justify-between gap-3">
                 <span tw="grid h-10 min-w-[96px] place-items-center rounded-xl bg-white px-3 ring-1 ring-line">
                   {r.item.brand.logo ? (
-                    <img src={r.item.brand.logo} alt={r.item.brand.name} tw="h-6 w-auto max-w-[92px] object-contain" />
+                    <img {...imgProps(r.item.brand.logo, { alt: r.item.brand.name })} tw="h-6 w-auto max-w-[92px] object-contain" />
                   ) : (
                     <span tw="font-sans text-[11.5px] font-semibold leading-tight text-pine-900">{r.item.brand.name}</span>
                   )}
@@ -184,7 +183,7 @@ export function RecsBlock({ title = 'O que eu usei nessa viagem', items, compact
       </ul>
       <p tw="mt-4 font-sans text-[11.5px] leading-relaxed text-muted">
         {blogPage.disclosure}{' '}
-        <Link to="/recomendacoes" tw="font-semibold text-pine-800 hover:underline">Ver todas as recomendações</Link>
+        <Link to="/recomendacoes" tw="font-semibold text-pine-800 hover:underline">{t('blog.recs.ver-todas', 'Ver todas as recomendações')}</Link>
       </p>
     </section>
   )
@@ -198,7 +197,7 @@ function SoonRec({ icon, title }: { icon: keyof typeof RecIcon; title: string })
         <I />
       </span>
       <div>
-        <p tw="font-script text-[20px] leading-none text-sun-600">Em breve</p>
+        <p tw="font-script text-[20px] leading-none text-sun-600">{t('geral.em-breve', 'Em breve')}</p>
         <h4 tw="mt-1 font-sans text-[14px] font-semibold leading-snug text-ink">{title}</h4>
         <p tw="mt-1 font-sans text-[12px] leading-relaxed text-muted">{blogPage.soonRec}</p>
       </div>
@@ -223,7 +222,8 @@ export function ArticleBody({ article }: { article: Article }) {
 
 const prose = tw`font-sans text-[16px] leading-[1.8] text-ink/90`
 
-function BlockView({ block: b, guide }: { block: Block; guide: GuideId }) {
+/** Um bloco de texto/foto/vídeo. Também usado nas páginas novas criadas no painel. */
+export function BlockView({ block: b, guide }: { block: Block; guide: GuideId }) {
   switch (b.type) {
     case 'p':
       return <p css={prose}>{b.text}</p>
@@ -246,11 +246,9 @@ function BlockView({ block: b, guide }: { block: Block; guide: GuideId }) {
       return (
         <figure tw="my-2">
           <img
-            src={b.image.src}
-            alt={b.image.alt}
+            {...imgProps(b.image.src, { alt: b.image.alt, position: b.image.position, sizes: '(min-width: 768px) 720px, 100vw' })}
             loading="lazy"
             css={[tw`w-full rounded-[18px] object-cover shadow-card`, b.tall ? tw`mx-auto aspect-[9/14] max-w-[340px]` : tw`aspect-video`]}
-            style={{ objectPosition: b.image.position ?? '50% 50%' }}
           />
           {b.caption && <figcaption tw="mt-2 text-center font-script text-[19px] leading-snug text-pine-800">{b.caption}</figcaption>}
         </figure>
@@ -260,7 +258,7 @@ function BlockView({ block: b, guide }: { block: Block; guide: GuideId }) {
         <figure tw="my-2">
           <div tw="grid grid-cols-3 gap-2 sm:gap-3">
             {b.images.map((im) => (
-              <img key={im.src} src={im.src} alt={im.alt} loading="lazy" tw="aspect-[9/14] w-full rounded-[14px] object-cover shadow-card" />
+              <img key={im.src} {...imgProps(im.src, { alt: im.alt })} loading="lazy" tw="aspect-[9/14] w-full rounded-[14px] object-cover shadow-card" />
             ))}
           </div>
           {b.caption && <figcaption tw="mt-2 text-center font-script text-[19px] leading-snug text-pine-800">{b.caption}</figcaption>}

@@ -82,6 +82,10 @@ export function Shell({ children }: { children: ReactNode }) {
   const { user } = useAuth()
   const links = [
     { to: '/', label: 'Início', end: true },
+    { to: '/editar', label: 'Editar o site', end: false },
+    { to: '/conteudo', label: 'Conteúdo', end: false },
+    { to: '/fotos', label: 'Fotos', end: false },
+    { to: '/caderno', label: 'Caderno', end: false },
     ...(user?.role === 'admin'
       ? [
           { to: '/equipe', label: 'Equipe', end: false },
@@ -92,7 +96,7 @@ export function Shell({ children }: { children: ReactNode }) {
   return (
     <div tw="min-h-screen bg-cream" style={{ backgroundImage: 'radial-gradient(rgba(11,48,46,.045) 1px, transparent 1px)', backgroundSize: '22px 22px' }}>
       <header tw="sticky top-0 z-20 border-0 border-b border-solid border-line/70 bg-cream/85 backdrop-blur">
-        <div tw="mx-auto flex h-[76px] max-w-[1200px] items-center justify-between gap-6 px-8">
+        <div tw="mx-auto flex h-[76px] max-w-[1400px] items-center justify-between gap-6 px-8">
           <Brand />
           <nav aria-label="Seções do painel" tw="flex items-center gap-1">
             {links.map((l) => (
@@ -100,7 +104,7 @@ export function Shell({ children }: { children: ReactNode }) {
                 key={l.to}
                 to={l.to}
                 end={l.end}
-                css={tw`rounded-full px-4 py-2 font-sans text-[14px] font-medium text-muted no-underline transition hover:text-pine-900 [&.active]:(bg-pine-800 text-white)`}
+                css={tw`whitespace-nowrap rounded-full px-3.5 py-2 font-sans text-[13.5px] font-medium text-muted no-underline transition hover:text-pine-900 [&.active]:(bg-pine-800 text-white)`}
               >
                 {l.label}
               </NavLink>
@@ -109,7 +113,7 @@ export function Shell({ children }: { children: ReactNode }) {
           <UserMenu />
         </div>
       </header>
-      <main tw="mx-auto max-w-[1200px] px-8 pb-24 pt-10">{children}</main>
+      <main tw="mx-auto max-w-[1400px] px-8 pb-24 pt-10">{children}</main>
     </div>
   )
 }

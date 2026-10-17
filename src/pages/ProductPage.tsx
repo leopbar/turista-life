@@ -5,6 +5,7 @@ import { productPages, type ProductPage as Page } from '../pagesContent'
 import { BookCover } from '../components/Products'
 import { Container, Eyebrow, Section, SmartLink, Title } from '../components/ui'
 import { Arrow, Check } from '../components/icons'
+import { imgProps, t } from '../cms/runtime'
 
 /** Página individual de um produto pago ou material gratuito, no modelo da antiga vitrine do e-book. */
 export function ProductPage() {
@@ -19,13 +20,13 @@ export function ProductPage() {
     <>
       {/* Topo: capa, promessa, preço e botão de compra */}
       <section tw="relative overflow-hidden bg-pine-950 pt-28 pb-14 sm:pt-36 sm:pb-20">
-        <img src={p.image} alt="" tw="absolute inset-0 h-full w-full object-cover" />
+        <img {...imgProps(p.image, { alt: '' })} tw="absolute inset-0 h-full w-full object-cover" />
         <div aria-hidden="true" tw="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(8,38,36,.95) 0%, rgba(8,38,36,.82) 55%, rgba(8,38,36,.55) 100%)' }} />
         <Container tw="relative text-white">
           <nav aria-label="Você está em" tw="font-sans text-[12px] text-white/70">
-            <Link to="/" tw="text-white/70 no-underline hover:text-white">Início</Link>
+            <Link to="/" tw="text-white/70 no-underline hover:text-white">{t('geral.migalha.inicio', 'Início')}</Link>
             <span aria-hidden="true" tw="mx-2">/</span>
-            <Link to="/produtos" tw="text-white/70 no-underline hover:text-white">Produtos</Link>
+            <Link to="/produtos" tw="text-white/70 no-underline hover:text-white">{t('produtos.migalha', 'Produtos')}</Link>
             <span aria-hidden="true" tw="mx-2">/</span>
             <span tw="text-white">{p.title}</span>
           </nav>
@@ -54,8 +55,8 @@ export function ProductPage() {
       <Section tone="cream">
         <Container tw="grid gap-12 lg:grid-cols-2">
           <div tw="flex flex-col gap-5">
-            <Eyebrow>Para quem é indicado</Eyebrow>
-            <Title>É para você se…</Title>
+            <Eyebrow>{t('produto.para-quem.chamada', 'Para quem é indicado')}</Eyebrow>
+            <Title>{t('produto.para-quem.titulo', 'É para você se…')}</Title>
             <ul tw="flex flex-col gap-3">
               {p.forWho.map((t) => (
                 <li key={t} tw="flex gap-3 rounded-2xl bg-white p-4 font-sans text-[14.5px] leading-relaxed text-ink shadow-card">
@@ -65,7 +66,7 @@ export function ProductPage() {
             </ul>
           </div>
           <div tw="flex flex-col gap-5">
-            <Eyebrow>O que você vai encontrar</Eyebrow>
+            <Eyebrow>{t('produto.conteudo.titulo', 'O que você vai encontrar')}</Eyebrow>
             <Title>Por dentro {p.kind === 'E-book' ? 'do e-book' : p.kind.startsWith('Checklist') ? 'do checklist' : 'do guia'}</Title>
             <ol tw="flex flex-col divide-y divide-line rounded-2xl bg-white px-5 shadow-card">
               {p.chapters.map((c, i) => (
@@ -83,8 +84,8 @@ export function ProductPage() {
         <Section tone="white">
           <Container tw="grid gap-10 lg:grid-cols-[minmax(0,320px)_1fr]">
             <div tw="flex flex-col gap-4">
-              <Eyebrow>Dúvidas</Eyebrow>
-              <Title>Perguntas frequentes</Title>
+              <Eyebrow>{t('geral.faq.chamada', 'Dúvidas')}</Eyebrow>
+              <Title>{t('geral.faq.titulo', 'Perguntas frequentes')}</Title>
             </div>
             <div tw="flex flex-col divide-y divide-line border-y border-line">
               {p.faq.map((item) => (
@@ -128,7 +129,7 @@ export function ProductPage() {
         <div tw="min-w-0">
           <p tw="truncate font-sans text-[12px] text-muted">{p.title}</p>
           {p.free ? (
-            <p tw="font-serif text-[20px] font-bold leading-tight text-pine-900">Grátis</p>
+            <p tw="font-serif text-[20px] font-bold leading-tight text-pine-900">{t('produto.gratis', 'Grátis')}</p>
           ) : p.price ? (
             <p tw="font-serif text-[20px] font-bold leading-tight text-pine-900">{p.price}</p>
           ) : (
@@ -147,7 +148,7 @@ function BuyBox({ p }: { p: Page }) {
       <div tw="flex flex-wrap items-center gap-x-6 gap-y-4">
         {(p.free || p.price) && (
           <p tw="flex flex-col">
-            <span tw="font-sans text-[12px] uppercase tracking-[.14em] text-white/70">Valor</span>
+            <span tw="font-sans text-[12px] uppercase tracking-[.14em] text-white/70">{t('produto.valor', 'Valor')}</span>
             <span tw="font-serif text-[2.4rem] font-bold leading-none text-white">{p.free ? 'Grátis' : p.price}</span>
           </p>
         )}

@@ -121,8 +121,8 @@ export function Rule({ ok, children }: { ok: boolean; children: ReactNode }) {
 /* Carimbo de passaporte (assinatura visual do painel)                 */
 /* ------------------------------------------------------------------ */
 
-export function Stamp({ top, main, bottom, color = '#F07A2A', rotate = -8, className }: {
-  top: string; main: string; bottom?: string; color?: string; rotate?: number; className?: string
+export function Stamp({ top, main, bottom, color = '#F07A2A', rotate = -8, className, big = false }: {
+  top: string; main: string; bottom?: string; color?: string; rotate?: number; className?: string; big?: boolean
 }) {
   return (
     <div
@@ -132,7 +132,7 @@ export function Stamp({ top, main, bottom, color = '#F07A2A', rotate = -8, class
       style={{ border: `2.5px solid ${color}`, color, transform: `rotate(${rotate}deg)`, boxShadow: `inset 0 0 0 3px transparent, inset 0 0 0 4.5px ${color}40` }}
     >
       <span tw="text-[9px] font-semibold tracking-[.22em]">{top}</span>
-      <span tw="font-serif text-[22px] font-bold leading-none tracking-wide">{main}</span>
+      <span css={[tw`font-serif font-bold leading-none tracking-wide`, big ? tw`text-[46px]` : tw`text-[22px]`]}>{main}</span>
       {bottom && <span tw="mt-0.5 text-[9px] font-semibold tracking-[.18em]">{bottom}</span>}
     </div>
   )

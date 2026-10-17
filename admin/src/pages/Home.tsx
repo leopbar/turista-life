@@ -1,29 +1,34 @@
 import { useEffect, useState, type ComponentType, type SVGProps } from 'react'
 import { Link } from 'react-router-dom'
 import tw from 'twin.macro'
-import { api, timeAgo, type ActivityItem } from '../api'
+import { api, timeAgo, type ActivityItem, type SearchResult, type SystemStatus } from '../api'
 import { describe } from '../activityLabels'
 import { firstName, useAuth } from '../auth'
-import { Arrow, Camera, Compass, Notebook, Pen, Route, Search, Tag, Users } from '../components/icons'
+import { Arrow, Camera, Compass, Key, Notebook, Pen, Plus, Route, Search, Shield, Tag, Users } from '../components/icons'
 
 type Task = {
   title: string
   text: string
   Icon: ComponentType<SVGProps<SVGSVGElement>>
-  to?: string
-  /** Etapa do projeto em que a tarefa chega (enquanto não chega, aparece com o selo "Em breve"). */
-  soon?: string
+  to: string
   adminOnly?: boolean
+  accent?: boolean
 }
 
+const edit = (route: string, doc?: string, field?: string) =>
+  `/editar?rota=${encodeURIComponent(route)}${doc ? `&doc=${encodeURIComponent(doc)}` : ''}${field ? `&campo=${encodeURIComponent(field)}` : ''}`
+
 const TASKS: Task[] = [
-  { title: 'Trocar uma foto', text: 'Qualquer imagem do site, em poucos toques.', Icon: Camera, soon: 'Etapa 3' },
-  { title: 'Escrever no diário', text: 'Uma parada nova, prós, contras e fotos.', Icon: Notebook, soon: 'Etapa 2' },
-  { title: 'Novo artigo no blog', text: 'Conte um destino com texto, fotos e vídeos.', Icon: Pen, soon: 'Etapa 2' },
-  { title: 'Mudar um preço', text: 'Guias, e-books e links de compra.', Icon: Tag, soon: 'Etapa 2' },
-  { title: 'Mexer no menu', text: 'Ordem e nomes das páginas do site.', Icon: Compass, soon: 'Etapa 2' },
+  { title: 'Editar o site', text: 'Toque em qualquer texto ou foto e mude ali mesmo.', Icon: Compass, to: '/editar', accent: true },
+  { title: 'Trocar uma foto', text: 'Toque na foto no site, ou veja a biblioteca.', Icon: Camera, to: '/fotos' },
+  { title: 'Escrever no diário', text: 'Uma parada nova, prós, contras e fotos.', Icon: Notebook, to: edit('/diario', 'diario.countries') },
+  { title: 'Novo artigo no blog', text: 'Conte um destino com texto, fotos e vídeos.', Icon: Pen, to: '/conteudo?novo=article' },
+  { title: 'Mudar um preço', text: 'Guias, e-books e links de compra.', Icon: Tag, to: edit('/produtos', 'produtos.page', 'catalog') },
+  { title: 'Mexer no menu', text: 'Ordem e nomes das páginas do site.', Icon: Route, to: edit('/', 'geral.nav') },
+  { title: 'Criar uma página', text: 'Uma página nova, montada com blocos prontos.', Icon: Plus, to: '/conteudo?novo=page' },
+  { title: 'Caderno de viagem', text: 'Tudo o que foi publicado, e voltar no tempo.', Icon: Notebook, to: '/caderno' },
   { title: 'Equipe', text: 'Convide pessoas e cuide dos acessos.', Icon: Users, to: '/equipe', adminOnly: true },
-  { title: 'Atividades', text: 'Quem fez o quê, e quando.', Icon: Route, to: '/atividades', adminOnly: true },
+  { title: 'Backup', text: 'Baixe uma cópia de tudo para guardar.', Icon: Shield, to: '/backup', adminOnly: true },
 ]
 
 function greeting() {
@@ -34,39 +39,60 @@ function greeting() {
   return 'Boa noite'
 }
 
-const card = tw`relative flex min-h-[176px] flex-col justify-between overflow-hidden rounded-[26px] bg-white p-6 no-underline shadow-card transition duration-300`
+const card = tw`relative flex min-h-[168px] flex-col justify-between overflow-hidden rounded-[26px] bg-white p-6 no-underline shadow-card transition duration-300 hover:(-translate-y-1 shadow-lift)`
 
 function TaskCard({ task, index }: { task: Task; index: number }) {
   const { Icon } = task
   // Cartões levemente inclinados, como cartões-postais espalhados na mesa.
-  const tilt = [-1.2, 0.8, -0.6, 1, -0.9, 0.7, -0.5][index % 7]
-  const body = (
-    <>
-      <span css={[tw`grid h-12 w-12 place-items-center rounded-2xl`, task.soon ? tw`bg-mist text-muted` : tw`bg-sun-500 text-white`]}>
+  const tilt = [-1.2, 0.8, -0.6, 1, -0.9, 0.7, -0.5, 0.9, -0.7, 0.6][index % 10]
+  return (
+    <Link to={task.to} className="group" css={[card, task.accent && tw`bg-pine-800`]} style={{ transform: `rotate(${tilt}deg)` }}>
+      <span css={[tw`grid h-12 w-12 place-items-center rounded-2xl text-white`, task.accent ? tw`bg-sun-500` : tw`bg-pine-800`]}>
         <Icon width={24} height={24} />
       </span>
       <div>
-        <h3 tw="m-0 font-serif text-[1.25rem] font-bold text-ink">{task.title}</h3>
-        <p tw="m-0 mt-1 font-sans text-[13.5px] leading-snug text-muted">{task.text}</p>
+        <h3 css={[tw`m-0 font-serif text-[1.25rem] font-bold`, task.accent ? tw`text-white` : tw`text-ink`]}>{task.title}</h3>
+        <p css={[tw`m-0 mt-1 font-sans text-[13.5px] leading-snug`, task.accent ? tw`text-white/80` : tw`text-muted`]}>{task.text}</p>
       </div>
-      {task.soon ? (
-        <span tw="absolute right-5 top-5 rounded-full border-[1.5px] border-dashed border-sun-500/70 px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-[.14em] text-sun-600" style={{ transform: 'rotate(4deg)' }}>
-          Em breve · {task.soon}
-        </span>
-      ) : (
-        <Arrow tw="absolute right-6 top-7 text-pine-800 transition-transform duration-300 group-hover:translate-x-1" />
-      )}
-    </>
+      <Arrow css={[tw`absolute right-6 top-7 transition-transform duration-300 group-hover:translate-x-1`, task.accent ? tw`text-sun-500` : tw`text-pine-800`]} />
+    </Link>
   )
-  if (task.to)
-    return (
-      <Link to={task.to} className="group" css={[card, tw`hover:(-translate-y-1 shadow-lift)`]} style={{ transform: `rotate(${tilt}deg)` }}>
-        {body}
-      </Link>
-    )
+}
+
+function SearchBox() {
+  const [q, setQ] = useState('')
+  const [results, setResults] = useState<SearchResult[] | null>(null)
+  useEffect(() => {
+    if (q.trim().length < 2) return setResults(null)
+    const t = setTimeout(() => api.search(q).then(setResults).catch(() => setResults([])), 250)
+    return () => clearTimeout(t)
+  }, [q])
   return (
-    <div css={[card, tw`cursor-default opacity-80`]} style={{ transform: `rotate(${tilt}deg)` }} aria-disabled="true">
-      {body}
+    <div tw="relative mt-8 max-w-[680px]">
+      <label tw="flex items-center gap-3 rounded-full bg-white px-5 py-3.5 shadow-card">
+        <Search tw="text-muted" />
+        <input
+          value={q} onChange={(e) => setQ(e.target.value)}
+          placeholder="O que você procura? Um texto, um destino, um cupom…"
+          tw="w-full border-0 bg-transparent font-sans text-[15px] text-ink outline-none placeholder:text-muted/70"
+          aria-label="Buscar no conteúdo do site"
+        />
+      </label>
+      {results && (
+        <div tw="absolute inset-x-0 top-[calc(100%+8px)] z-20 max-h-[420px] overflow-y-auto rounded-2xl bg-white p-2 shadow-lift">
+          {results.length === 0 && <p tw="m-3 font-sans text-[13.5px] text-muted">Nada encontrado com "{q}".</p>}
+          {results.map((r, i) => (
+            <Link
+              key={`${r.key}-${r.path}-${i}`}
+              to={edit(r.route, r.key, r.path)}
+              tw="block rounded-xl px-4 py-3 no-underline hover:bg-mist"
+            >
+              <span tw="block font-sans text-[11.5px] font-semibold uppercase tracking-[.08em] text-sun-600">{r.label}</span>
+              <span tw="mt-0.5 block font-sans text-[13.5px] leading-snug text-ink">{r.snippet}</span>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -100,6 +126,39 @@ function RecentActivity() {
   )
 }
 
+function Banners() {
+  const [status, setStatus] = useState<SystemStatus | null>(null)
+  const [pending, setPending] = useState(0)
+  useEffect(() => {
+    api.status().then(setStatus).catch(() => {})
+    api.contentList().then((l) => setPending(l.filter((d) => d.status !== 'publicado').length)).catch(() => {})
+  }, [])
+  return (
+    <div tw="mt-6 flex flex-col gap-3">
+      {pending > 0 && (
+        <Link to="/conteudo?filtro=mudancas" tw="flex items-center gap-3 rounded-2xl bg-[#FFF4EC] px-5 py-3.5 font-sans text-[14px] text-ink no-underline">
+          <span tw="grid h-8 w-8 place-items-center rounded-full bg-sun-500 text-white"><Pen width={16} height={16} /></span>
+          Há <strong>{pending} {pending === 1 ? 'rascunho' : 'rascunhos'}</strong> esperando para ir para o ar.
+          <Arrow width={16} height={16} tw="ml-auto text-sun-600" />
+        </Link>
+      )}
+      {status?.needsBackupDownload && (
+        <Link to="/backup" tw="flex items-center gap-3 rounded-2xl bg-mist px-5 py-3.5 font-sans text-[14px] text-pine-900 no-underline">
+          <span tw="grid h-8 w-8 place-items-center rounded-full bg-pine-800 text-white"><Shield width={16} height={16} /></span>
+          Lembrete do mês: baixe uma cópia de segurança do site e guarde fora do servidor.
+          <Arrow width={16} height={16} tw="ml-auto text-pine-800" />
+        </Link>
+      )}
+      {status?.warnings?.map((w) => (
+        <Link key={w.id} to="/atividades" tw="flex items-center gap-3 rounded-2xl bg-[#FEF3F2] px-5 py-3.5 font-sans text-[14px] text-[#912018] no-underline">
+          <span tw="grid h-8 w-8 place-items-center rounded-full bg-[#B42318] text-white"><Key width={16} height={16} /></span>
+          {describe(w).text} · {timeAgo(w.createdAt)}
+        </Link>
+      ))}
+    </div>
+  )
+}
+
 export function Home() {
   const { user } = useAuth()
   if (!user) return null
@@ -109,17 +168,10 @@ export function Home() {
       <p tw="m-0 font-sans text-[15px] text-muted">{greeting()}, {firstName(user)}!</p>
       <h1 tw="m-0 mt-1 font-script text-[64px] font-normal leading-[1] text-pine-900">Por onde vamos hoje?</h1>
 
-      <label tw="mt-8 flex max-w-[640px] items-center gap-3 rounded-full bg-white px-5 py-3.5 shadow-card">
-        <Search tw="text-muted" />
-        <input
-          disabled
-          placeholder="O que você procura? Um texto, uma foto, uma página… (chega na Etapa 2)"
-          tw="w-full border-0 bg-transparent font-sans text-[15px] text-ink outline-none placeholder:text-muted/70"
-          aria-label="Busca no site"
-        />
-      </label>
+      <SearchBox />
+      <Banners />
 
-      <div css={[tw`mt-12 grid gap-10`, user.role === 'admin' && tw`lg:grid-cols-[1fr_320px]`]}>
+      <div css={[tw`mt-10 grid gap-10`, user.role === 'admin' && tw`lg:grid-cols-[1fr_320px]`]}>
         <div tw="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {tasks.map((t, i) => <TaskCard key={t.title} task={t} index={i} />)}
         </div>

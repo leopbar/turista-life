@@ -1,16 +1,17 @@
 """Entrar, sair, quem sou eu e troca de senha."""
 
 import secrets
+from datetime import timedelta
 
 from fastapi import APIRouter, Depends, Request, Response
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from .. import audit
+from .. import alerts, audit
 from ..config import Settings
 from ..db import utcnow, write
 from ..deps import any_session, fail, get_db, get_settings, session_token
-from ..models import User
+from ..models import AuditEntry, User
 from ..passwords import DUMMY_HASH, hash_password, needs_rehash, password_problem, temp_password_expired, verify_password
 from ..schemas import ChangePasswordIn, LoginIn, Me, UserOut
 from ..security import (
@@ -18,6 +19,7 @@ from ..security import (
     client_ip,
     create_session,
     csrf_token,
+    ip_wait_seconds,
     login_wait_seconds,
     prune_attempts,
     record_attempt,
@@ -39,6 +41,26 @@ def _set_cookie(response: Response, settings: Settings, token: str) -> None:
         httponly=True,
         samesite='strict',
     )
+
+
+def _alert_if_blocked(db: Session, settings: Settings, *, email: str, ip: str) -> None:
+    """Primeira vez que uma conta ou um IP entra na espera: anota e avisa (uma vez por hora)."""
+    if not login_wait_seconds(db, settings, email=email, ip=ip):
+        return
+    hour_ago = utcnow() - timedelta(hours=1)
+    ip_blocked = ip_wait_seconds(db, settings, ip=ip) > 0
+    action, target = ('ip_bloqueado', ip) if ip_blocked else ('conta_bloqueada', email[:254])
+    seen = db.scalar(select(AuditEntry.id).where(AuditEntry.action == action, AuditEntry.target == target, AuditEntry.created_at > hour_ago).limit(1))
+    if seen:
+        return
+    audit.record(db, action, actor_email=email[:254], target=target, ip=ip)
+    if ip_blocked:
+        alerts.send(settings, f'ip:{ip}', 'Muitas tentativas de login de um mesmo endereço',
+                    f'O endereço {ip} errou a senha muitas vezes (em contas diferentes) e foi bloqueado por um tempo.')
+    else:
+        alerts.send(settings, f'conta:{email}', f'Muitas senhas erradas na conta {email}',
+                    f'Alguém errou a senha da conta {email} várias vezes seguidas (último endereço: {ip}). '
+                    'A conta entrou em espera automática. Se não foi você, avise a equipe.')
 
 
 def _too_many(wait: int) -> None:
@@ -75,6 +97,7 @@ def login(body: LoginIn, request: Request, response: Response, db: Session = Dep
             )
             if secrets.randbelow(50) == 0:
                 prune_attempts(db)
+            _alert_if_blocked(db, settings, email=email, ip=ip)
         if expired:
             fail(401, 'temp_password_expired', 'Sua senha provisória expirou. Peça uma nova ao administrador.')
         fail(401, 'invalid_credentials', GENERIC_LOGIN_ERROR)

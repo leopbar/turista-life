@@ -76,3 +76,78 @@ class AuditEntry(Base):
     details: Mapped[dict] = mapped_column(JSON, default=dict)
     prev_hash: Mapped[str] = mapped_column(String(64))
     hash: Mapped[str] = mapped_column(String(64))
+
+
+class Document(Base):
+    """Um bloco de conteúdo do site: rascunho (o que se edita) e publicado (o que está no ar)."""
+
+    __tablename__ = 'documents'
+
+    key: Mapped[str] = mapped_column(String(160), primary_key=True)
+    # Itens de coleção (artigos, páginas de produto…): "article:slug".
+    collection: Mapped[str | None] = mapped_column(String(40), nullable=True, index=True)
+    position: Mapped[int] = mapped_column(Integer, default=0)
+    draft: Mapped[dict] = mapped_column(JSON)
+    published: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    # Item marcado para sair do site na próxima publicação.
+    draft_deleted: Mapped[bool] = mapped_column(Boolean, default=False)
+    draft_updated_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+    draft_updated_by: Mapped[str | None] = mapped_column(String(254), nullable=True)
+    published_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    published_by: Mapped[str | None] = mapped_column(String(254), nullable=True)
+    scheduled_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, index=True)
+    scheduled_by: Mapped[str | None] = mapped_column(String(254), nullable=True)
+
+
+class Version(Base):
+    """Cada publicação vira uma página do caderno: dá para voltar a ela depois."""
+
+    __tablename__ = 'versions'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    key: Mapped[str] = mapped_column(String(160), index=True)
+    # None = o item saiu do site nesta publicação.
+    data: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    position: Mapped[int] = mapped_column(Integer, default=0)
+    action: Mapped[str] = mapped_column(String(20))
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, index=True)
+    created_by: Mapped[str | None] = mapped_column(String(254), nullable=True)
+
+
+class Presence(Base):
+    """Quem está com um documento aberto agora (aviso "a Laura está editando")."""
+
+    __tablename__ = 'presence'
+
+    key: Mapped[str] = mapped_column(String(160), primary_key=True)
+    user_id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(80))
+    seen_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class Media(Base):
+    """Foto da biblioteca. Os arquivos ficam em public/media/<id>/<largura>.webp."""
+
+    __tablename__ = 'media'
+
+    id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    original_name: Mapped[str] = mapped_column(String(200))
+    alt: Mapped[str] = mapped_column(String(300))
+    focal_x: Mapped[int] = mapped_column(Integer, default=50)
+    focal_y: Mapped[int] = mapped_column(Integer, default=50)
+    width: Mapped[int] = mapped_column(Integer)
+    height: Mapped[int] = mapped_column(Integer)
+    widths: Mapped[list] = mapped_column(JSON)
+    size_bytes: Mapped[int] = mapped_column(Integer)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+    created_by: Mapped[str | None] = mapped_column(String(254), nullable=True)
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, index=True)
+
+
+class Setting(Base):
+    """Pequenos valores do sistema (último backup baixado, etc.)."""
+
+    __tablename__ = 'settings'
+
+    key: Mapped[str] = mapped_column(String(60), primary_key=True)
+    value: Mapped[str] = mapped_column(String(500))

@@ -11,6 +11,7 @@ import { productsPage, recsPage, type CatalogItem, type RecCategory, type RecIte
 import { baliArticles } from './articles/bali'
 import { tailandiaArticles } from './articles/tailandia'
 import { australiaArticles } from './articles/australia'
+import { collection, doc, videoThumb } from '../cms/runtime'
 
 /* ------------------------------------------------------------------ */
 /* Assuntos                                                            */
@@ -18,7 +19,7 @@ import { australiaArticles } from './articles/australia'
 
 export type CategoryId = 'vale-a-pena' | 'onde-ficar' | 'quanto-custa' | 'transporte' | 'o-que-fazer' | 'erros' | 'experiencias' | 'curiosidades' | 'dicas'
 
-export const blogCategories: { id: CategoryId; label: string }[] = [
+export const blogCategories = doc<{ items: { id: CategoryId; label: string }[] }>('blog.categories', { items: [
   { id: 'vale-a-pena', label: 'Vale a pena visitar?' },
   { id: 'onde-ficar', label: 'Onde se hospedar' },
   { id: 'quanto-custa', label: 'Quanto custa' },
@@ -28,9 +29,9 @@ export const blogCategories: { id: CategoryId; label: string }[] = [
   { id: 'experiencias', label: 'Experiências' },
   { id: 'curiosidades', label: 'Curiosidades' },
   { id: 'dicas', label: 'Dicas práticas' },
-]
+] }).items
 
-export const categoryLabel = (id: CategoryId) => blogCategories.find((c) => c.id === id)!.label
+export const categoryLabel = (id: CategoryId) => blogCategories.find((c) => c.id === id)?.label ?? id
 
 /* ------------------------------------------------------------------ */
 /* Recomendações e guias usados dentro dos artigos                     */
@@ -115,9 +116,9 @@ export type Destination = {
   videos: { id: string; title: string; duration?: string; poster: string; vertical?: boolean }[]
 }
 
-const thumb = (id: string) => `${import.meta.env.BASE_URL}images/videos/${id}.jpg`
+const thumb = (id: string) => videoThumb(id)
 
-export const destinations: Destination[] = [
+export const destinations: Destination[] = doc<{ items: Destination[] }>('blog.destinations', { items: [
   {
     id: 'bali',
     name: 'Bali',
@@ -224,7 +225,7 @@ export const destinations: Destination[] = [
     stops: ['perth'],
     videos: [{ id: 'ZjmwiuHKxwU', title: 'Eu vim parar na cidade grande mais isolada do mundo', poster: blogImg('perth-rio'), vertical: true }],
   },
-]
+] }).items
 
 export const destinationById = (id: string) => destinations.find((d) => d.id === id)
 
@@ -241,7 +242,7 @@ export const blogCountries = [...new Set(destinations.map((d) => d.country))].ma
 /* Artigos                                                             */
 /* ------------------------------------------------------------------ */
 
-export const articles: Article[] = [...baliArticles, ...tailandiaArticles, ...australiaArticles]
+export const articles: Article[] = collection<Article>('article', [...baliArticles, ...tailandiaArticles, ...australiaArticles], (a) => a.slug)
 
 export const articleBySlug = (slug: string) => articles.find((a) => a.slug === slug)
 
@@ -263,7 +264,7 @@ export function relatedTo(a: Article, limit = 3) {
   return [...same, ...near].slice(0, limit)
 }
 
-export const blogPage = {
+export const blogPage = doc('blog.page', {
   hero: {
     eyebrow: 'Blog',
     script: 'Guias de quem esteve lá',
@@ -274,4 +275,4 @@ export const blogPage = {
   },
   disclosure: recsPage.disclosure,
   soonRec: 'Ainda estou escolhendo a minha indicação para esta categoria. Em breve aparece aqui.',
-}
+})

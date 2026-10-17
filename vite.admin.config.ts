@@ -16,6 +16,11 @@ export default defineConfig({
   server: {
     port: Number(process.env.PORT) || 4322,
     strictPort: true,
-    proxy: { '/api': 'http://127.0.0.1:8011' },
+    // /site é a pré-visualização: em desenvolvimento, o site roda à parte (launch "site-preview", porta 4323).
+    proxy: {
+      '/api': 'http://127.0.0.1:8011',
+      '/site/cms': 'http://127.0.0.1:8011',
+      '/site': { target: 'http://localhost:4323', ws: true },
+    },
   },
 })

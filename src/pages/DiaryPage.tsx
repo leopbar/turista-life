@@ -7,6 +7,8 @@ import {
 import { Container, LiveDot, PageHero } from '../components/ui'
 import { RouteMap } from '../components/RouteMap'
 import { Arrow, Check, Close, Pin, Play } from '../components/icons'
+import { imgProps, t } from '../cms/runtime'
+import { Sections } from '../cms/Sections'
 
 const brl = (n: number) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
 
@@ -15,77 +17,80 @@ export function DiaryPage() {
   const active = useActiveCountry()
 
   return (
-    <>
-      <PageHero {...page.hero} position="50% 60%" />
-
-      {/* Números da viagem */}
-      <section tw="relative z-10 -mt-10">
-        <Container>
-          <ul tw="grid grid-cols-2 overflow-hidden rounded-[20px] bg-white shadow-lift sm:grid-cols-4">
-            {[
-              { value: days, label: 'dias na estrada' },
-              { value: countries.length, label: 'países' },
-              { value: allStops.length, label: 'cidades' },
-              { value: videoCount, label: 'vídeos no canal' },
-            ].map((s, i) => (
-              <li key={s.label} css={[tw`flex flex-col gap-1 p-5 sm:p-7`, i > 0 && tw`sm:border-l sm:border-line`, i % 2 === 1 && tw`border-l border-line`, i >= 2 && tw`border-t border-line sm:border-t-0`]}>
-                <span tw="font-serif text-[2.2rem] font-bold leading-none text-pine-800 tabular-nums">{s.value}</span>
-                <span tw="font-sans text-[13px] text-muted">{s.label}</span>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
-
-      {/* Mapa */}
-      <section tw="bg-cream pt-16 pb-6">
-        <Container tw="grid items-center gap-10 lg:grid-cols-[minmax(0,360px)_1fr]">
-          <div tw="flex flex-col gap-4">
-            <p tw="font-sans text-xs font-semibold uppercase tracking-[.16em] text-pine-800">A rota</p>
-            <h2 tw="font-serif text-[2rem] font-bold leading-tight text-ink">Por onde eu já passei</h2>
-            <p tw="font-sans text-[15px] leading-relaxed text-muted">
-              Clique numa parada para ir direto ao capítulo. A luz verde mostra onde eu estou agora.
-            </p>
-            <ol tw="mt-2 flex flex-col gap-2">
+    <Sections
+      page="diario"
+      items={{
+        hero: <PageHero {...page.hero} position="50% 60%" />,
+        stats: (
+          <section tw="relative z-10 -mt-10">
+            <Container>
+              <ul tw="grid grid-cols-2 overflow-hidden rounded-[20px] bg-white shadow-lift sm:grid-cols-4">
+                {[
+                  { value: days, label: 'dias na estrada' },
+                  { value: countries.length, label: 'países' },
+                  { value: allStops.length, label: 'cidades' },
+                  { value: videoCount, label: 'vídeos no canal' },
+                ].map((s, i) => (
+                  <li key={s.label} css={[tw`flex flex-col gap-1 p-5 sm:p-7`, i > 0 && tw`sm:border-l sm:border-line`, i % 2 === 1 && tw`border-l border-line`, i >= 2 && tw`border-t border-line sm:border-t-0`]}>
+                    <span tw="font-serif text-[2.2rem] font-bold leading-none text-pine-800 tabular-nums">{s.value}</span>
+                    <span tw="font-sans text-[13px] text-muted">{s.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </Container>
+          </section>
+        ),
+        map: (
+          <section tw="bg-cream pt-16 pb-6">
+            <Container tw="grid items-center gap-10 lg:grid-cols-[minmax(0,360px)_1fr]">
+              <div tw="flex flex-col gap-4">
+                <p tw="font-sans text-xs font-semibold uppercase tracking-[.16em] text-pine-800">{t('diario.rota.chamada', 'A rota')}</p>
+                <h2 tw="font-serif text-[2rem] font-bold leading-tight text-ink">{t('diario.rota.titulo', 'Por onde eu já passei')}</h2>
+                <p tw="font-sans text-[15px] leading-relaxed text-muted">
+                  Clique numa parada para ir direto ao capítulo. A luz verde mostra onde eu estou agora.
+                </p>
+                <ol tw="mt-2 flex flex-col gap-2">
+                  {countries.map((c) => (
+                    <li key={c.id}>
+                      <a href={`#${c.id}`} tw="flex items-center justify-between rounded-xl bg-white px-4 py-3 font-sans text-[14px] text-pine-900 no-underline ring-1 ring-line transition hover:ring-pine-800">
+                        <span tw="font-semibold">{c.name}</span>
+                        <span tw="text-[12px] text-muted">{c.period}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+              <RouteMap />
+            </Container>
+          </section>
+        ),
+        countries: (
+          <nav aria-label="Países" tw="sticky top-20 z-30 border-y border-line bg-cream/95 backdrop-blur-md">
+            <Container tw="flex gap-2 overflow-x-auto py-3 [scrollbar-width: none]">
+              <a href="#partida" css={[chip, active === 'partida' && chipOn]}>{t('diario.rota.partida', 'Partida')}</a>
               {countries.map((c) => (
-                <li key={c.id}>
-                  <a href={`#${c.id}`} tw="flex items-center justify-between rounded-xl bg-white px-4 py-3 font-sans text-[14px] text-pine-900 no-underline ring-1 ring-line transition hover:ring-pine-800">
-                    <span tw="font-semibold">{c.name}</span>
-                    <span tw="text-[12px] text-muted">{c.period}</span>
-                  </a>
-                </li>
+                <a key={c.id} href={`#${c.id}`} css={[chip, active === c.id && chipOn]}>{c.name}</a>
               ))}
-            </ol>
-          </div>
-          <RouteMap />
-        </Container>
-      </section>
-
-      {/* Navegação por país */}
-      <nav aria-label="Países" tw="sticky top-20 z-30 border-y border-line bg-cream/95 backdrop-blur-md">
-        <Container tw="flex gap-2 overflow-x-auto py-3 [scrollbar-width: none]">
-          <a href="#partida" css={[chip, active === 'partida' && chipOn]}>Partida</a>
-          {countries.map((c) => (
-            <a key={c.id} href={`#${c.id}`} css={[chip, active === c.id && chipOn]}>{c.name}</a>
-          ))}
-          <a href="#proximo" css={[chip, active === 'proximo' && chipOn]}>Próximo destino</a>
-        </Container>
-      </nav>
-
-      {/* Linha do tempo */}
-      <section tw="bg-cream pt-12 pb-20">
-        <Container>
-          <div tw="relative">
-            <span aria-hidden="true" tw="absolute top-2 bottom-2 left-[15px] w-[2px] lg:left-[191px]" css={css`background: repeating-linear-gradient(180deg, #155450 0 8px, transparent 8px 16px);`} />
-            <Departure />
-            {countries.map((c) => (
-              <CountryBlock key={c.id} country={c} />
-            ))}
-            <NextDestination />
-          </div>
-        </Container>
-      </section>
-    </>
+              <a href="#proximo" css={[chip, active === 'proximo' && chipOn]}>{t('diario.rota.proximo', 'Próximo destino')}</a>
+            </Container>
+          </nav>
+        ),
+        route: (
+          <section tw="bg-cream pt-12 pb-20">
+            <Container>
+              <div tw="relative">
+                <span aria-hidden="true" tw="absolute top-2 bottom-2 left-[15px] w-[2px] lg:left-[191px]" css={css`background: repeating-linear-gradient(180deg, #155450 0 8px, transparent 8px 16px);`} />
+                <Departure />
+                {countries.map((c) => (
+                  <CountryBlock key={c.id} country={c} />
+                ))}
+                <NextDestination />
+              </div>
+            </Container>
+          </section>
+        ),
+      }}
+    />
   )
 }
 
@@ -152,7 +157,7 @@ function Departure() {
     <div id="partida" tw="scroll-mt-40">
       <Rail label={d.period} sub="Início" node="flag">
         <article tw="grid overflow-hidden rounded-[20px] bg-white shadow-card md:grid-cols-[240px_1fr]">
-          <img src={d.image} alt="Laura em Sydney com a Opera House ao fundo" tw="h-full max-h-[260px] w-full object-cover md:max-h-none" />
+          <img {...imgProps(d.image, { alt: t('diario.partida.foto', 'Laura em Sydney com a Opera House ao fundo') })} tw="h-full max-h-[260px] w-full object-cover md:max-h-none" />
           <div tw="flex flex-col gap-3 p-6">
             <p tw="font-script text-[24px] leading-none text-sun-600">{d.title}</p>
             <h2 tw="font-serif text-[1.6rem] font-bold leading-tight text-ink">{d.place}</h2>
@@ -203,11 +208,11 @@ function StopCard({ stop }: { stop: Stop }) {
         <article tw="overflow-hidden rounded-[20px] bg-white shadow-card">
           {main && (
             <div css={[tw`grid gap-1`, rest.length ? tw`sm:grid-cols-[2fr_1fr]` : tw``]}>
-              <img src={main.src} alt={main.alt} loading="lazy" css={[tw`w-full object-cover`, rest.length ? tw`aspect-[16/10] sm:aspect-auto sm:h-full` : tw`aspect-[21/9]`]} />
+              <img {...imgProps(main.src, { alt: main.alt })} loading="lazy" css={[tw`w-full object-cover`, rest.length ? tw`aspect-[16/10] sm:aspect-auto sm:h-full` : tw`aspect-[21/9]`]} />
               {rest.length > 0 && (
                 <div tw="hidden grid-rows-2 gap-1 sm:grid">
                   {rest.map((img) => (
-                    <img key={img.src} src={img.src} alt={img.alt} loading="lazy" tw="h-full w-full object-cover" />
+                    <img key={img.src} {...imgProps(img.src, { alt: img.alt })} loading="lazy" tw="h-full w-full object-cover" />
                   ))}
                 </div>
               )}
@@ -234,7 +239,7 @@ function StopCard({ stop }: { stop: Stop }) {
 
             {stop.highlights.length > 0 && (
               <div>
-                <h4 tw="font-sans text-[12px] font-semibold uppercase tracking-[.14em] text-pine-800">Pontos-chave</h4>
+                <h4 tw="font-sans text-[12px] font-semibold uppercase tracking-[.14em] text-pine-800">{t('diario.parada.destaques', 'Pontos-chave')}</h4>
                 <ul tw="mt-3 flex flex-wrap gap-2">
                   {stop.highlights.map((h) => (
                     <li key={h} tw="rounded-full bg-mist px-3 py-1.5 font-sans text-[13px] text-pine-900">{h}</li>
@@ -245,14 +250,14 @@ function StopCard({ stop }: { stop: Stop }) {
 
             {hasReview && (
               <div tw="grid gap-5 md:grid-cols-2">
-                <ReviewList title="Pontos fortes" items={stop.pros} good />
-                <ReviewList title="Pontos fracos" items={stop.cons} />
+                <ReviewList title={t('diario.parada.pros', 'Pontos fortes')} items={stop.pros} good />
+                <ReviewList title={t('diario.parada.contras', 'Pontos fracos')} items={stop.cons} />
               </div>
             )}
 
             {stop.tip && (
               <aside tw="rounded-xl border-l-0 bg-cream p-4 sm:p-5">
-                <p tw="font-script text-[22px] leading-none text-sun-600">Dica da Laura</p>
+                <p tw="font-script text-[22px] leading-none text-sun-600">{t('geral.dica-da-laura', 'Dica da Laura')}</p>
                 <p tw="mt-2 font-sans text-[14px] leading-relaxed text-ink">{stop.tip}</p>
               </aside>
             )}
@@ -264,7 +269,7 @@ function StopCard({ stop }: { stop: Stop }) {
                 ))}
               </div>
             ) : stop.current ? (
-              <p tw="rounded-xl bg-mist p-4 font-sans text-[13px] text-pine-900">O vídeo daqui sai em breve no canal.</p>
+              <p tw="rounded-xl bg-mist p-4 font-sans text-[13px] text-pine-900">{t('diario.parada.sem-video', 'O vídeo daqui sai em breve no canal.')}</p>
             ) : null}
           </div>
         </article>
@@ -297,12 +302,12 @@ function MilestoneCard({ m }: { m: Milestone }) {
         <article tw="relative overflow-hidden rounded-[20px] border-2 border-dashed border-pine-800/25 bg-white p-6 sm:p-8">
           <div tw="flex flex-wrap items-start justify-between gap-6">
             <div>
-              <p tw="font-sans text-[11px] font-semibold uppercase tracking-[.18em] text-pine-700">Construindo minha liberdade geográfica</p>
+              <p tw="font-sans text-[11px] font-semibold uppercase tracking-[.18em] text-pine-700">{t('diario.marco.titulo', 'Construindo minha liberdade geográfica')}</p>
               <h3 tw="mt-1 font-serif text-[1.5rem] font-bold text-ink">{m.month}</h3>
               <p tw="font-sans text-[12px] text-muted">{m.recordedAt}</p>
             </div>
             <div tw="text-right">
-              <p tw="font-sans text-[12px] text-muted">Ganhei com a internet</p>
+              <p tw="font-sans text-[12px] text-muted">{t('diario.marco.ganhei', 'Ganhei com a internet')}</p>
               <p tw="font-serif text-[2.4rem] font-bold leading-none text-pine-800 tabular-nums">{brl(m.income)}</p>
             </div>
           </div>
@@ -347,7 +352,7 @@ function VideoLink({ video, compact = false }: { video: Video; compact?: boolean
       ]}
     >
       <span tw="relative shrink-0 overflow-hidden rounded-lg">
-        <img src={ytThumb(video.id)} alt="" loading="lazy" css={[tw`object-cover`, compact ? tw`h-[54px] w-[96px]` : tw`h-[68px] w-[120px]`]} />
+        <img {...imgProps(ytThumb(video.id), { alt: '' })} loading="lazy" css={[tw`object-cover`, compact ? tw`h-[54px] w-[96px]` : tw`h-[68px] w-[120px]`]} />
         <span tw="absolute inset-0 grid place-items-center bg-black/25 text-white transition group-hover:bg-black/10">
           <Play width={18} height={18} />
         </span>
@@ -373,15 +378,15 @@ function NextDestination() {
         <article tw="relative overflow-hidden rounded-[20px] bg-pine-900 p-8 text-white sm:p-10">
           <span aria-hidden="true" tw="absolute -right-4 -top-10 font-serif text-[200px] font-bold leading-none text-white/5">?</span>
           <p tw="font-script text-[28px] leading-none text-sun-500">{page.next.title}</p>
-          <h2 tw="mt-3 max-w-[480px] font-serif text-[1.8rem] font-bold leading-tight">Para onde eu vou depois de Krabi?</h2>
+          <h2 tw="mt-3 max-w-[480px] font-serif text-[1.8rem] font-bold leading-tight">{t('diario.proximo.pergunta', 'Para onde eu vou depois de Krabi?')}</h2>
           <p tw="mt-3 max-w-[480px] font-sans text-[14px] leading-relaxed text-white/80">{page.next.text}</p>
           {sent ? (
-            <p tw="mt-6 font-sans text-[14px] text-white">Combinado! Você fica sabendo assim que eu chegar.</p>
+            <p tw="mt-6 font-sans text-[14px] text-white">{t('diario.proximo.ok', 'Combinado! Você fica sabendo assim que eu chegar.')}</p>
           ) : (
             <form onSubmit={submit} tw="mt-6 flex max-w-[440px] items-center rounded-full bg-white p-1 pl-4">
-              <label htmlFor="next-email" tw="sr-only">Seu e-mail</label>
-              <input id="next-email" type="email" required placeholder="Seu e-mail" tw="min-w-0 flex-1 bg-transparent font-sans text-[13px] text-ink outline-none" />
-              <button type="submit" tw="rounded-full bg-sun-500 px-5 py-2.5 font-sans text-[13px] font-semibold text-white hover:bg-sun-600">Me conte primeiro</button>
+              <label htmlFor="next-email" tw="sr-only">{t('geral.email.rotulo', 'Seu e-mail')}</label>
+              <input id="next-email" type="email" required placeholder={t('geral.email.rotulo', 'Seu e-mail')} tw="min-w-0 flex-1 bg-transparent font-sans text-[13px] text-ink outline-none" />
+              <button type="submit" tw="rounded-full bg-sun-500 px-5 py-2.5 font-sans text-[13px] font-semibold text-white hover:bg-sun-600">{t('diario.proximo.botao', 'Me conte primeiro')}</button>
             </form>
           )}
         </article>
