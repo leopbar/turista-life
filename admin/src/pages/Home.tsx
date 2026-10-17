@@ -20,7 +20,7 @@ const edit = (route: string, doc?: string, field?: string) =>
 
 const TASKS: Task[] = [
   { title: 'Editar o site', text: 'Toque em qualquer texto ou foto e mude ali mesmo.', Icon: Compass, to: '/editar', accent: true },
-  { title: 'Trocar uma foto', text: 'Toque na foto no site, ou veja a biblioteca.', Icon: Camera, to: '/fotos' },
+  { title: 'Salvar Fotos', text: 'Inclua novas fotos na biblioteca', Icon: Camera, to: '/fotos' },
   { title: 'Escrever no diário', text: 'Uma parada nova, prós, contras e fotos.', Icon: Notebook, to: edit('/diario', 'diario.countries') },
   { title: 'Novo artigo no blog', text: 'Conte um destino com texto, fotos e vídeos.', Icon: Pen, to: '/conteudo?novo=article' },
   { title: 'Mudar um preço', text: 'Guias, e-books e links de compra.', Icon: Tag, to: edit('/produtos', 'produtos.page', 'catalog') },
