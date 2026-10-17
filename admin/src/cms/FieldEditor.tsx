@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useId, useRef, useState, type Rea
 import tw from 'twin.macro'
 import type { Field } from '../../../src/cms/fields'
 import { Camera, Close, Plus } from '../components/icons'
-import { emptyValue, itemTitle } from './model'
+import { GROUPS, emptyValue, itemTitle, useSchema } from './model'
 
 /* ------------------------------------------------------------------ */
 /* Contexto do formulário: erros, campo em foco, fotos e referências  */
@@ -13,6 +13,7 @@ export type FormEnv = {
   focusPath?: string
   pickImage: (current: string) => Promise<string | null>
   refOptions: (source: string, list: string, valueField: string, labelField: string) => { value: string; label: string }[] | null
+  reloadRef?: (source: string) => Promise<void>
 }
 
 const Env = createContext<FormEnv>({ problems: {}, pickImage: async () => null, refOptions: () => [] })
@@ -195,11 +196,14 @@ export function FieldEditor({ field: f, value, onChange, path, nested = false }:
     case 'ref': {
       const options = env.refOptions(f.source, f.list, f.valueField, f.labelField)
       control = (
-        <select id={id} css={input} value={str} onChange={(e) => onChange(e.target.value || undefined)}>
-          {(f.optional || !str) && <option value="">{f.optional ? '—' : 'Escolha…'}</option>}
-          {options === null && str && <option value={str}>{str}</option>}
-          {options?.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
+        <>
+          <select id={id} css={input} value={str} onChange={(e) => onChange(e.target.value || undefined)}>
+            {(f.optional || !str) && <option value="">{f.optional ? '—' : 'Escolha…'}</option>}
+            {options === null && str && <option value={str}>{str}</option>}
+            {options?.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+          <RefHint source={f.source} />
+        </>
       )
       break
     }
@@ -250,6 +254,52 @@ export function FieldEditor({ field: f, value, onChange, path, nested = false }:
   )
 }
 
+/**
+ * Embaixo de uma escolha que vem de outra lista: onde cadastrar um item novo (abre em outra aba,
+ * para não perder o que já foi digitado aqui) e o botão para trazer a lista de novo.
+ */
+function RefHint({ source }: { source: string }) {
+  const schema = useSchema()
+  const { reloadRef } = useContext(Env)
+  const [state, setState] = useState<'idle' | 'busy' | 'done' | 'error'>('idle')
+  const def = schema?.docs.find((d) => d.key === source)
+  if (!def) return null
+  const where = `${GROUPS.find((g) => g.id === def.group)?.label ?? ''} → ${def.label}`
+  const href = `/editar?rota=${encodeURIComponent(def.route)}&doc=${encodeURIComponent(source)}`
+
+  const reload = async () => {
+    if (!reloadRef) return
+    setState('busy')
+    try {
+      await reloadRef(source)
+      setState('done')
+      setTimeout(() => setState('idle'), 2500)
+    } catch {
+      setState('error')
+    }
+  }
+
+  return (
+    <div tw="mt-1.5 flex flex-wrap items-start justify-between gap-x-3 gap-y-1 font-sans text-[12px] leading-snug text-muted">
+      <p tw="m-0 min-w-0 flex-1 basis-[240px]">
+        Não achou na lista? Cadastre em{' '}
+        <a href={href} target="_blank" rel="noopener" tw="font-semibold text-pine-800 underline underline-offset-2">{where} ↗</a>{' '}
+        (abre em outra aba). Publique lá antes de publicar aqui.
+      </p>
+      {reloadRef && (
+        <button
+          type="button"
+          onClick={reload}
+          disabled={state === 'busy'}
+          tw="shrink-0 cursor-pointer rounded-full border-0 bg-white px-3 py-1 font-sans text-[12px] font-medium text-pine-900 ring-1 ring-line hover:bg-cream disabled:cursor-wait"
+        >
+          {state === 'busy' ? 'Atualizando…' : state === 'done' ? 'Lista atualizada ✓' : state === 'error' ? 'Não deu, tente de novo' : 'Atualizar lista'}
+        </button>
+      )}
+    </div>
+  )
+}
+
 /* ------------------------------------------------------------------ */
 /* Grupo de campos                                                     */
 /* ------------------------------------------------------------------ */
@@ -291,7 +341,7 @@ function ObjectEditor({ field: f, value, onChange, path, nested }: {
   )
   if (!nested || !f.label) return body
   return (
-    <fieldset tw="m-0 rounded-2xl border-0 bg-cream/70 p-4 ring-1 ring-line">
+    <fieldset tw="m-0 min-w-0 rounded-2xl border-0 bg-cream/70 p-4 ring-1 ring-line">
       <legend tw="float-left mb-3 flex w-full items-center justify-between font-sans text-[12px] font-semibold uppercase tracking-[.1em] text-sun-600">
         {f.label}
         {f.optional && (

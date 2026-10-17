@@ -159,7 +159,7 @@ export function Modal({ title, onClose, children, dismissable = true, width = 48
   useEffect(() => ref.current?.focus(), [])
   return (
     <div tw="fixed inset-0 z-50 grid place-items-center bg-pine-950/45 p-4 backdrop-blur-[3px]" onMouseDown={(e) => dismissable && e.target === e.currentTarget && onClose()}>
-      <div ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title} tw="w-full rounded-[28px] bg-cream p-7 shadow-lift outline-none" style={{ maxWidth: width }}>
+      <div ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title} tw="w-full rounded-[28px] bg-cream p-5 shadow-lift outline-none sm:p-7" style={{ maxWidth: width }}>
         <div tw="mb-5 flex items-start justify-between gap-4">
           <h2 tw="font-serif text-[1.5rem] font-bold leading-tight text-ink">{title}</h2>
           {dismissable && (

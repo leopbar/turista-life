@@ -16,7 +16,12 @@ import type { DocSession } from './session'
 export function useRefOptions() {
   const [docs, setDocs] = useState<Record<string, Record<string, unknown> | 'loading'>>({})
   const loading = useRef(new Set<string>())
-  return useCallback(
+  // "Atualizar lista": busca de novo, para aparecer o que foi cadastrado em outra aba.
+  const reloadRef = useCallback(async (source: string) => {
+    const full = await api.getDoc(source)
+    setDocs((all) => ({ ...all, [source]: full.draft }))
+  }, [])
+  const refOptions = useCallback(
     (source: string, list: string, valueField: string, labelField: string) => {
       const d = docs[source]
       if (!d) {
@@ -32,6 +37,7 @@ export function useRefOptions() {
     },
     [docs],
   )
+  return { refOptions, reloadRef }
 }
 
 /* ------------------------------------------------------------------ */
@@ -191,7 +197,7 @@ export function DocEditor({ session, focusPath, onClose, onPublished }: {
 }) {
   const schema = useSchema()
   const pickImage = usePickImage()
-  const refOptions = useRefOptions()
+  const { refOptions, reloadRef } = useRefOptions()
   const [tab, setTab] = useState<'editar' | 'historico'>('editar')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<{ message: string; list: string[] } | null>(null)
@@ -227,7 +233,7 @@ export function DocEditor({ session, focusPath, onClose, onPublished }: {
   const saveLabel = { idle: '', saving: 'Salvando rascunho…', saved: 'Rascunho salvo ✓', error: 'Não salvou: confira os campos' }[session.save]
 
   return (
-    <FormEnvProvider value={{ problems: session.problems, focusPath, pickImage, refOptions }}>
+    <FormEnvProvider value={{ problems: session.problems, focusPath, pickImage, refOptions, reloadRef }}>
       <div tw="flex h-full flex-col">
         <header tw="flex items-start justify-between gap-3 border-0 border-b border-solid border-line px-6 pb-4 pt-6">
           <div tw="min-w-0">

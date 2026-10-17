@@ -59,7 +59,7 @@ function DocRow({ d, drag }: { d: DocMeta; drag?: { onStart: () => void; onDrop:
 
 /** Nova página, artigo ou página de produto: pede só o essencial (nome, endereço e escolhas obrigatórias). */
 function NewItem({ def, onClose, onCreated }: { def: CollectionDef; onClose: () => void; onCreated: (d: DocMeta) => void }) {
-  const refOptions = useRefOptions()
+  const { refOptions, reloadRef } = useRefOptions()
   const required = Object.entries(def.fields).filter(([k, f]) => k !== def.idField && k !== def.titleField && f.kind === 'ref' && !f.optional)
   const [title, setTitle] = useState('')
   const [slug, setSlug] = useState('')
@@ -81,7 +81,7 @@ function NewItem({ def, onClose, onCreated }: { def: CollectionDef; onClose: () 
   const prefix = def.route.replace('{id}', '')
   return (
     <Modal title={`Novo: ${def.itemLabel.toLowerCase()}`} onClose={onClose} width={520}>
-      <FormEnvProvider value={{ problems: {}, pickImage: async () => null, refOptions }}>
+      <FormEnvProvider value={{ problems: {}, pickImage: async () => null, refOptions, reloadRef }}>
         <div tw="flex flex-col gap-4">
           <FieldEditor field={{ kind: 'text', label: 'Título' }} value={title} path="title" onChange={(v) => { setTitle(String(v ?? '')); if (!touchedSlug) setSlug(toSlug(String(v ?? ''))) }} />
           <div>
@@ -92,7 +92,7 @@ function NewItem({ def, onClose, onCreated }: { def: CollectionDef; onClose: () 
             <FieldEditor key={k} field={f as Field} value={extra[k]} path={k} onChange={(v) => setExtra((e) => ({ ...e, [k]: v }))} />
           ))}
           {error && <Alert>{error}</Alert>}
-          <div tw="flex justify-end gap-3">
+          <div tw="flex flex-wrap-reverse justify-end gap-3">
             <Button variant="ghost" onClick={onClose}>Cancelar</Button>
             <Button variant="sun" disabled={!title.trim() || !slug || required.some(([k]) => !extra[k])} onClick={create}>Criar e começar a escrever</Button>
           </div>
@@ -181,7 +181,7 @@ export function ContentList() {
         </button>
       </div>
 
-      <div tw="mt-10 grid gap-10 lg:grid-cols-2">
+      <div tw="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
         {groups.map((g) => (
           <section key={g.id} tw="flex flex-col gap-3">
             <h2 tw="m-0 flex items-center gap-2 font-serif text-[1.5rem] font-bold text-ink">

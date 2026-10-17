@@ -17,7 +17,7 @@ export function Brand({ light = false }: { light?: boolean }) {
   return (
     <Link to="/" css={[tw`inline-flex items-end gap-2 no-underline`, light ? tw`text-white` : tw`text-pine-900`]} aria-label="Turista-Life Administração, início">
       <span tw="whitespace-nowrap font-script text-[30px] leading-none">Turista Life</span>
-      <span css={[tw`mb-[3px] font-sans text-[10px] font-semibold uppercase tracking-[.22em]`, light ? tw`text-white/70` : tw`text-sun-600`]}>Administração</span>
+      <span css={[tw`mb-[3px] hidden font-sans text-[10px] font-semibold uppercase tracking-[.22em] sm:inline`, light ? tw`text-white/70` : tw`text-sun-600`]}>Administração</span>
     </Link>
   )
 }
@@ -96,9 +96,10 @@ export function Shell({ children }: { children: ReactNode }) {
   return (
     <div tw="min-h-screen bg-cream" style={{ backgroundImage: 'radial-gradient(rgba(11,48,46,.045) 1px, transparent 1px)', backgroundSize: '22px 22px' }}>
       <header tw="sticky top-0 z-20 border-0 border-b border-solid border-line/70 bg-cream/85 backdrop-blur">
-        <div tw="mx-auto flex h-[76px] max-w-[1400px] items-center justify-between gap-6 px-8">
+        {/* No celular, o menu desce para uma segunda linha e rola de lado. */}
+        <div tw="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3 sm:px-8 lg:(h-[76px] flex-nowrap py-0)">
           <Brand />
-          <nav aria-label="Seções do painel" tw="flex items-center gap-1">
+          <nav aria-label="Seções do painel" tw="order-last flex w-full items-center gap-1 overflow-x-auto lg:(order-none w-auto overflow-visible)">
             {links.map((l) => (
               <NavLink
                 key={l.to}
@@ -113,7 +114,7 @@ export function Shell({ children }: { children: ReactNode }) {
           <UserMenu />
         </div>
       </header>
-      <main tw="mx-auto max-w-[1400px] px-8 pb-24 pt-10">{children}</main>
+      <main tw="mx-auto max-w-[1400px] px-4 pb-24 pt-6 sm:(px-8 pt-10)">{children}</main>
     </div>
   )
 }
