@@ -179,7 +179,15 @@ function Waitlist({ product, notify, form }: { product: string; notify?: string;
   const sending = status === 'sending'
   // Sem formulário no MailerLite, não dá para guardar o e-mail: melhor avisar do que fingir que deu certo.
   if (!endpoint) return <p tw="rounded-xl bg-white/70 p-3 text-center font-sans text-[13px] text-muted">{t('produtos.espera.embreve', 'Inscrições para o aviso abrem em breve.')}</p>
-  if (status === 'done') return <p role="status" tw="rounded-xl bg-mist p-3 text-center font-sans text-[13px] text-pine-900">{notify ?? `Combinado! Você recebe um aviso quando o ${product} sair.`}</p>
+  if (status === 'done') {
+    return (
+      <div role="status" tw="rounded-xl bg-mist p-3 text-center font-sans">
+        <p tw="text-[13px] text-pine-900">{notify ?? `Combinado! Você recebe um aviso quando o ${product} sair.`}</p>
+        {/* A lista de espera pede confirmação por e-mail: sem confirmar, o e-mail não entra. */}
+        <p tw="mt-1 text-[12px] text-muted">{t('produtos.espera.confirmar', 'Falta só confirmar: enviamos um e-mail para você (confira também o spam).')}</p>
+      </div>
+    )
+  }
   const id = `wl-${product.toLowerCase().replace(/\W+/g, '-')}`
   return (
     <form onSubmit={submit} tw="relative">
