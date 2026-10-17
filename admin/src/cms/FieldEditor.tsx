@@ -4,6 +4,7 @@ import type { Field } from '../../../src/cms/fields'
 import { isMailerliteForm, mailerliteEndpoint } from '../../../src/cms/mailerlite'
 import { Camera, Close, Plus } from '../components/icons'
 import { GROUPS, emptyValue, itemTitle, useSchema } from './model'
+import { CoordsField } from './CoordsField'
 
 /* ------------------------------------------------------------------ */
 /* Contexto do formulário: erros, campo em foco, fotos e referências  */
@@ -247,16 +248,9 @@ export function FieldEditor({ field: f, value, onChange, path, nested = false }:
     case 'date':
       control = <input id={id} type="date" css={[input, tw`max-w-[200px]`]} value={str} onChange={(e) => setText(e.target.value)} />
       break
-    case 'coords': {
-      const [lat, lon] = Array.isArray(value) ? (value as number[]) : [0, 0]
-      control = (
-        <div tw="flex gap-3">
-          <input aria-label="Latitude" type="number" step="0.01" css={input} value={lat} onChange={(e) => onChange([Number(e.target.value), lon])} />
-          <input aria-label="Longitude" type="number" step="0.01" css={input} value={lon} onChange={(e) => onChange([lat, Number(e.target.value)])} />
-        </div>
-      )
+    case 'coords':
+      control = <CoordsField id={id} value={value} onChange={onChange} />
       break
-    }
   }
 
   return (

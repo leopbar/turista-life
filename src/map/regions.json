@@ -1,0 +1,53 @@
+[
+  {
+    "id": "asia-oceania",
+    "label": "Ásia e Oceania",
+    "bounds": {
+      "lonMin": 60,
+      "lonMax": 180,
+      "latMin": -48,
+      "latMax": 55
+    },
+    "width": 2000,
+    "height": 2017,
+    "scale": 954.9297,
+    "translate": [
+      -1000,
+      1102.21
+    ]
+  },
+  {
+    "id": "europa",
+    "label": "Europa",
+    "bounds": {
+      "lonMin": -25,
+      "lonMax": 45,
+      "latMin": 34,
+      "latMax": 71
+    },
+    "width": 2000,
+    "height": 1892,
+    "scale": 1637.0223,
+    "translate": [
+      714.29,
+      2926.52
+    ]
+  },
+  {
+    "id": "america-do-sul",
+    "label": "América do Sul",
+    "bounds": {
+      "lonMin": -92,
+      "lonMax": -30,
+      "latMin": -56,
+      "latMax": 15
+    },
+    "width": 2000,
+    "height": 2680,
+    "scale": 1848.251,
+    "translate": [
+      2967.74,
+      489.49
+    ]
+  }
+]

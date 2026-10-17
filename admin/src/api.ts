@@ -115,6 +115,9 @@ export const api = {
   history: () => request<HistoryItem[]>('GET', '/api/content/history'),
   restoreSite: (at: string) => request<{ changed: number }>('POST', '/api/content/restore-site', { at }),
 
+  /* Busca de cidades (posição no mapa) */
+  geoSearch: (q: string) => request<GeoResult[]>('GET', `/api/geo/search?q=${encodeURIComponent(q)}`),
+
   /* Fotos */
   media: (trash = false) => request<MediaItem[]>('GET', `/api/media${trash ? '?trash=true' : ''}`),
   upload: (file: File, alt: string) => {
@@ -162,6 +165,8 @@ export type DocFull = DocMeta & { draft: Record<string, unknown>; published: Rec
 export type VersionItem = { id: number; action: string; createdAt: string; createdBy: string | null; data: Record<string, unknown> | null }
 
 export type HistoryItem = { id: number; key: string; label: string; action: string; createdAt: string; createdBy: string | null }
+
+export type GeoResult = { label: string; detail: string; lat: number; lon: number }
 
 export type SearchResult = { key: string; label: string; path: string; snippet: string; route: string }
 

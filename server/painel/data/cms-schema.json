@@ -209,11 +209,11 @@
      "long": true,
      "help": "blog.vazio"
     },
-    "diario.mapa.zoom": {
+    "diario.mapa.zoom-em": {
      "kind": "text",
-     "label": "ZOOM EM BALI",
+     "label": "ZOOM EM",
      "long": false,
-     "help": "diario.mapa.zoom"
+     "help": "diario.mapa.zoom-em"
     },
     "diario.marco.ganhei": {
      "kind": "text",

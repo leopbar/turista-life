@@ -122,6 +122,8 @@ def check_field(v: Any, f: dict, path: str, out: Problems) -> None:
         ok = isinstance(v, list) and len(v) == 2 and all(isinstance(n, (int, float)) and not isinstance(n, bool) for n in v)
         if not ok or not (-90 <= v[0] <= 90 and -180 <= v[1] <= 180):
             out.add(path, f'"{label}": latitude e longitude inválidas.')
+        elif v[0] == 0 and v[1] == 0:
+            out.add(path, f'"{label}": busque a cidade e escolha um resultado.')
     elif kind == 'list':
         if not isinstance(v, list):
             return out.add(path, f'"{label}" precisa ser uma lista.')

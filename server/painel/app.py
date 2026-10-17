@@ -13,7 +13,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from . import content, worker
 from .config import Settings, load_settings
 from .db import make_engine, make_sessionmaker, write
-from .routes import activity, auth, content as content_routes, media, system, users
+from .routes import activity, auth, content as content_routes, geo, media, system, users
 
 SAFE_METHODS = {'GET', 'HEAD', 'OPTIONS'}
 
@@ -140,6 +140,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(activity.router)
     app.include_router(content_routes.router)
     app.include_router(media.router)
+    app.include_router(geo.router)
     app.include_router(system.router)
 
     _mount_site(app, settings)

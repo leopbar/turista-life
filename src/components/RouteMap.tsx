@@ -1,168 +1,179 @@
-import { useMemo } from 'react'
-import tw, { css } from 'twin.macro'
-import { allStops } from '../diaryContent'
-import { BALI_INSET, MAIN_MAP, type MapLayer } from '../mapData'
+import { useEffect, useMemo, useState } from 'react'
+import tw from 'twin.macro'
+import { countries, diaryPage } from '../diaryContent'
+import { REGIONS, loadShapes, regionOf, type RegionShapes } from '../map/geo'
+import { H, INSET_H, INSET_W, W, layoutRegion, type MapPoint } from '../map/layout'
 import { LiveDot } from './ui'
 import { t } from '../cms/runtime'
 
-/** Mercator igual ao do d3 (scale + translate), para posicionar as cidades sobre os contornos. */
-const project = (m: MapLayer, [lat, lon]: [number, number]) => [
-  m.translate[0] + m.scale * ((lon * Math.PI) / 180),
-  m.translate[1] - m.scale * Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360)),
-]
-
-const BALI_IDS = ['canggu', 'ubud', 'gili', 'nusa-penida', 'uluwatu']
-
-/** Posição e escala do zoom de Bali dentro do mapa grande (canto do Oceano Índico, sem terra). */
-const INSET = { x: 16, y: 480, k: 0.85 }
-
-/** Lado do rótulo de cada cidade no zoom de Bali, para não sobrepor. */
-const insetLabel: Record<string, { dx: number; dy: number; anchor: 'start' | 'end' }> = {
-  canggu: { dx: -10, dy: -4, anchor: 'end' },
-  ubud: { dx: 8, dy: -10, anchor: 'start' },
-  gili: { dx: 10, dy: 4, anchor: 'start' },
-  'nusa-penida': { dx: 10, dy: 12, anchor: 'start' },
-  uluwatu: { dx: -10, dy: 12, anchor: 'end' },
-}
-
-const countryLabels: { t: string; at: [number, number]; rotate?: number }[] = [
-  { t: 'TAILÂNDIA', at: [13, 94.6] as [number, number], rotate: -90 },
-  { t: 'INDONÉSIA', at: [-1.5, 102.5] as [number, number] },
-  { t: 'AUSTRÁLIA', at: [-24.5, 127] as [number, number] },
-]
+/** Ponto de partida da viagem (Sydney). */
+const DEPARTURE: [number, number] = [-33.87, 151.21]
 
 const halo = { paintOrder: 'stroke' as const, stroke: '#0B302E', strokeWidth: 6, strokeLinejoin: 'round' as const }
+const thin = { vectorEffect: 'non-scaling-stroke' as const }
+
+/** Todas as paradas, na ordem da viagem, já com a região do mapa de cada uma. */
+function usePoints() {
+  return useMemo(() => {
+    const list: MapPoint[] = [
+      { id: 'partida', label: diaryPage.departure.place.split(',')[0], sub: 'partida e volta', href: '#partida', coords: DEPARTURE, current: false },
+      ...countries.flatMap((c) =>
+        c.items.flatMap((s) =>
+          s.type === 'stop' ? [{ id: s.id, label: s.city, sub: s.stay, href: `#${s.id}`, coords: s.coords, current: !!s.current, group: c.name }] : [],
+        ),
+      ),
+    ]
+    // O grupo (ex.: Bali) leva para o capítulo do país.
+    const countryOf = new Map(countries.flatMap((c) => c.items.map((s) => [s.id, c.id] as const)))
+    const byRegion = new Map<string, MapPoint[]>()
+    for (const p of list) {
+      const r = regionOf(p.coords)
+      if (r) byRegion.set(r.id, [...(byRegion.get(r.id) ?? []), p])
+    }
+    const visited = new Map(countries.map((c) => [c.code.toUpperCase(), c.name]))
+    const current = list.find((p) => p.current) ?? list[list.length - 1]
+    return { byRegion, countryOf, visited, start: regionOf(current.coords)?.id ?? REGIONS[0].id }
+  }, [])
+}
 
 export function RouteMap() {
-  const { nodes, path, baliStops } = useMemo(() => {
-    const bali = allStops.filter((s) => BALI_IDS.includes(s.id))
-    const rest = allStops.filter((s) => !BALI_IDS.includes(s.id))
-    const list = [
-      { id: 'partida', label: 'Sydney', sub: 'partida e volta', coords: [-33.87, 151.21] as [number, number], current: false },
-      { id: 'indonesia', label: 'Bali', sub: `${bali.length} cidades`, coords: [-8.6, 115.2] as [number, number], current: false },
-      ...rest.map((s) => ({ id: s.id, label: s.city, sub: s.stay, coords: s.coords, current: !!s.current })),
-    ].map((n) => ({ ...n, xy: project(MAIN_MAP, n.coords) }))
-    const d = list
-      .slice(1)
-      .map((n, i) => {
-        const [px, py] = list[i].xy
-        const [x, y] = n.xy
-        const bend = Math.min(120, Math.hypot(x - px, y - py) * 0.22)
-        return `M${px},${py} Q${(px + x) / 2},${(py + y) / 2 - bend} ${x},${y}`
-      })
-      .join(' ')
-    return { nodes: list, path: d, baliStops: bali.map((s) => ({ ...s, xy: project(BALI_INSET, s.coords) })) }
-  }, [])
+  const { byRegion, countryOf, visited, start } = usePoints()
+  const tabs = REGIONS.filter((r) => byRegion.has(r.id))
+  const [active, setActive] = useState(start)
+  const region = tabs.find((r) => r.id === active) ?? tabs[0]
+  const [shapes, setShapes] = useState<{ id: string; data: RegionShapes } | null>(null)
 
-  const bali = nodes.find((n) => n.id === 'indonesia')!
-  const insetW = BALI_INSET.width * INSET.k
+  useEffect(() => {
+    if (!region) return
+    let alive = true
+    loadShapes(region.id).then((data) => alive && setShapes({ id: region.id, data }))
+    return () => {
+      alive = false
+    }
+  }, [region])
+
+  const data = shapes?.id === region?.id ? shapes.data : null
+  const map = useMemo(
+    () => region && layoutRegion(region, byRegion.get(region.id)!, data, visited, (place) => `${t('diario.mapa.zoom-em', 'ZOOM EM')} ${place.toUpperCase()}`),
+    [region, byRegion, data, visited],
+  )
+  if (!region || !map) return null
+
+  const live = [
+    ...map.nodes.filter((n) => n.current && !n.members).map((n) => [n.x, n.y] as const),
+    ...map.insets.flatMap((i) => i.dots.filter((d) => d.current).map((d) => [i.x + d.x, i.y + d.y] as const)),
+  ]
 
   return (
-    <div tw="relative overflow-hidden rounded-[24px] bg-pine-800 shadow-lift">
-      <svg
-        viewBox={`0 0 ${MAIN_MAP.width} ${MAIN_MAP.height}`}
-        role="img"
-        aria-label="Mapa da rota da Laura: Sydney, Bali, Perth, Sydney, Bangkok, Chiang Mai e Krabi"
-        tw="block h-auto w-full"
-      >
-        {/* Países: os visitados um pouco mais claros */}
-        <g strokeLinejoin="round">
-          {MAIN_MAP.countries.map((c) => (
-            <path
-              key={c.name}
-              d={c.d}
-              fill={c.visited ? 'rgba(248,246,241,.13)' : 'rgba(248,246,241,.05)'}
-              stroke={c.visited ? 'rgba(248,246,241,.55)' : 'rgba(248,246,241,.18)'}
-              strokeWidth={c.visited ? 1.4 : 1}
-            />
-          ))}
-        </g>
-
-        {countryLabels.map((l) => {
-          const [x, y] = project(MAIN_MAP, l.at)
-          return (
-            <text key={l.t} x={x} y={y} transform={l.rotate ? `rotate(${l.rotate} ${x} ${y})` : undefined} textAnchor="middle" fill="#F8F6F1" opacity=".38" fontFamily="Poppins, sans-serif" fontSize="22" fontWeight="600" letterSpacing="7">
-              {l.t}
-            </text>
-          )
-        })}
-
-        {/* Rota */}
-        <path
-          d={path}
-          fill="none"
-          stroke="#F07A2A"
-          strokeWidth="3"
-          strokeDasharray="2 10"
-          strokeLinecap="round"
-        />
-
-        {/* Ligação Bali → zoom */}
-        <path
-          d={`M${bali.xy[0]},${bali.xy[1]} L${INSET.x + insetW},${INSET.y}`}
-          stroke="rgba(248,246,241,.4)"
-          strokeWidth="1.5"
-          strokeDasharray="4 5"
-        />
-
-        {/* Zoom de Bali */}
-        <g transform={`translate(${INSET.x} ${INSET.y}) scale(${INSET.k})`}>
-          <rect width={BALI_INSET.width} height={BALI_INSET.height} rx="16" fill="#0B302E" stroke="rgba(248,246,241,.35)" strokeWidth="1.5" />
-          <clipPath id="inset-clip">
-            <rect width={BALI_INSET.width} height={BALI_INSET.height} rx="16" />
-          </clipPath>
-          <g clipPath="url(#inset-clip)">
-            {BALI_INSET.countries.map((c) => (
-              <path key={c.name} d={c.d} fill="rgba(248,246,241,.14)" stroke="rgba(248,246,241,.55)" strokeWidth="1.2" />
-            ))}
-          </g>
-          <text x="14" y="26" fill="#F8F6F1" opacity=".7" fontFamily="Poppins, sans-serif" fontSize="14" fontWeight="600" letterSpacing="3">{t('diario.mapa.zoom', 'ZOOM EM BALI')}</text>
-          {baliStops.map((s) => {
-            const [x, y] = s.xy
-            const l = insetLabel[s.id] ?? { dx: 10, dy: 4, anchor: 'start' as const }
+    <div tw="flex flex-col gap-3">
+      {tabs.length > 1 && (
+        <div role="group" aria-label="Regiões do mapa" tw="flex flex-wrap gap-1.5 sm:gap-2">
+          {tabs.map((r) => {
+            const on = r.id === region.id
             return (
-              <a key={s.id} href={`#${s.id}`} aria-label={`${s.city}: ir para o capítulo`}>
-                <circle cx={x} cy={y} r="6" fill="#F8F6F1" stroke="#0B302E" strokeWidth="2.5" />
-                <text x={x + l.dx} y={y + l.dy} textAnchor={l.anchor} fill="#F8F6F1" fontFamily="Poppins, sans-serif" fontSize="15" fontWeight="600" style={halo}>
-                  {s.city.split(',')[0]}
-                </text>
-              </a>
+              <button
+                key={r.id}
+                type="button"
+                aria-pressed={on}
+                onClick={() => setActive(r.id)}
+                css={[
+                  tw`cursor-pointer rounded-full border-0 px-3 py-1.5 font-sans text-[12.5px] font-medium ring-1 transition sm:(px-4 py-2 text-[13.5px])`,
+                  on ? tw`bg-pine-800 text-white ring-pine-800` : tw`bg-white text-pine-900 ring-line hover:ring-pine-800`,
+                ]}
+              >
+                {r.label}
+              </button>
             )
           })}
-        </g>
+        </div>
+      )}
+      <div tw="relative overflow-hidden rounded-[24px] bg-pine-800 shadow-lift">
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          role="img"
+          aria-label={`Mapa da rota da Laura (${region.label}): ${map.nodes.map((n) => n.label).join(', ')}`}
+          tw="block h-auto w-full"
+        >
+          {/* Países: os visitados um pouco mais claros */}
+          <g transform={`translate(${map.tx} ${map.ty}) scale(${map.s})`} strokeLinejoin="round">
+            {data?.countries.map((c, i) => {
+              const on = visited.has(c.iso)
+              return (
+                <path
+                  key={i}
+                  d={c.d}
+                  fill={on ? 'rgba(248,246,241,.13)' : 'rgba(248,246,241,.05)'}
+                  stroke={on ? 'rgba(248,246,241,.55)' : 'rgba(248,246,241,.18)'}
+                  strokeWidth={on ? 1.4 : 1}
+                  style={thin}
+                />
+              )
+            })}
+          </g>
 
-        {/* Paradas */}
-        {nodes.map((n, i) => {
-          // Um lugar visitado duas vezes (Sydney) aparece uma vez só no mapa.
-          if (nodes.findIndex((o) => o.label === n.label) !== i) return null
-          const [x, y] = n.xy
-          const left = x > MAIN_MAP.width * 0.6
-          const tx = left ? x - 18 : x + 18
-          return (
-            <a key={`${n.id}-${i}`} href={`#${n.id}`} aria-label={`${n.label}: ir para o capítulo`}>
-              <circle cx={x} cy={y} r={n.current ? 0 : 8} fill={n.current ? 'transparent' : '#F8F6F1'} stroke="#0F3D3A" strokeWidth="3" />
-              <text x={tx} y={y - 4} textAnchor={left ? 'end' : 'start'} fill="#F8F6F1" fontFamily="Poppins, sans-serif" fontSize="26" fontWeight="600" style={halo}>
+          {map.countryLabels.map((l) => (
+            <text key={l.text} x={l.x} y={l.y} textAnchor="middle" fill="#F8F6F1" opacity=".38" fontFamily="Poppins, sans-serif" fontSize="22" fontWeight="600" letterSpacing="7">
+              {l.text}
+            </text>
+          ))}
+
+          {/* Rota */}
+          <path d={map.path} fill="none" stroke="#F07A2A" strokeWidth="3" strokeDasharray="2 10" strokeLinecap="round" />
+
+          {/* Zooms das cidades muito próximas */}
+          {map.insets.map((z, zi) => (
+            <g key={z.title}>
+              <path d={`M${z.link[0]},${z.link[1]} L${z.link[2]},${z.link[3]}`} stroke="rgba(248,246,241,.4)" strokeWidth="1.5" strokeDasharray="4 5" />
+              <g transform={`translate(${z.x} ${z.y})`}>
+                <rect width={INSET_W} height={INSET_H} rx="14" fill="#0B302E" stroke="rgba(248,246,241,.35)" strokeWidth="1.3" />
+                <clipPath id={`inset-clip-${zi}`}>
+                  <rect width={INSET_W} height={INSET_H} rx="14" />
+                </clipPath>
+                <g clipPath={`url(#inset-clip-${zi})`}>
+                  <g transform={`translate(${z.tx} ${z.ty}) scale(${z.s})`}>
+                    {data?.countries.map((c, i) => (
+                      <path key={i} d={c.d} fill="rgba(248,246,241,.14)" stroke="rgba(248,246,241,.55)" strokeWidth="1" style={thin} />
+                    ))}
+                  </g>
+                </g>
+                <text x="12" y="22" fill="#F8F6F1" opacity=".7" fontFamily="Poppins, sans-serif" fontSize="12" fontWeight="600" letterSpacing="2.5">{z.title}</text>
+                {z.dots.map((d) => (
+                  <a key={d.id} href={d.href} aria-label={`${d.label}: ir para o capítulo`}>
+                    <circle cx={d.x} cy={d.y} r={d.current ? 0 : 5} fill="#F8F6F1" stroke="#0B302E" strokeWidth="2" />
+                    <text x={d.text.x} y={d.text.y} textAnchor={d.text.anchor} fill="#F8F6F1" fontFamily="Poppins, sans-serif" fontSize="13" fontWeight="600" style={halo}>
+                      {d.label.split(',')[0]}
+                    </text>
+                  </a>
+                ))}
+              </g>
+            </g>
+          ))}
+
+          {/* Paradas */}
+          {map.nodes.map((n) => (
+            <a key={n.id} href={n.members ? `#${countryOf.get(n.members[0].id) ?? n.members[0].id}` : n.href} aria-label={`${n.label}: ir para o capítulo`}>
+              <circle cx={n.x} cy={n.y} r={n.current ? 0 : 8} fill={n.current ? 'transparent' : '#F8F6F1'} stroke="#0F3D3A" strokeWidth="3" />
+              <text x={n.text.x} y={n.text.y} textAnchor={n.text.anchor} fill="#F8F6F1" fontFamily="Poppins, sans-serif" fontSize="26" fontWeight="600" style={halo}>
                 {n.label}
               </text>
-              <text x={tx} y={y + 22} textAnchor={left ? 'end' : 'start'} fill="#F8F6F1" fillOpacity=".75" fontFamily="Poppins, sans-serif" fontSize="18" style={halo}>
+              <text x={n.text.x} y={n.text.y + 26} textAnchor={n.text.anchor} fill="#F8F6F1" fillOpacity=".75" fontFamily="Poppins, sans-serif" fontSize="18" style={halo}>
                 {n.current ? 'agora' : n.sub}
               </text>
             </a>
-          )
-        })}
-      </svg>
-      {/* Luz de "agora" como camada HTML: anima só opacidade, sem redesenhar o SVG. */}
-      {nodes.filter((n) => n.current).map((n) => (
-        <span
-          key={n.id}
-          tw="pointer-events-none absolute"
-          style={{ left: `${(n.xy[0] / MAIN_MAP.width) * 100}%`, top: `${(n.xy[1] / MAIN_MAP.height) * 100}%`, transform: 'translate(-50%, -50%)' }}
-        >
-          <LiveDot size={14} />
-        </span>
-      ))}
-      <p tw="absolute left-4 bottom-3 font-sans text-[10px] text-white/40">Mapa: Natural Earth</p>
+          ))}
+          <text x="24" y={H - 20} fill="#F8F6F1" fillOpacity=".4" fontFamily="Poppins, sans-serif" fontSize="15">Mapa: Natural Earth</text>
+        </svg>
+        {/* Luz de "agora" como camada HTML: anima só opacidade, sem redesenhar o SVG. */}
+        {live.map(([x, y]) => (
+          <span
+            key={`${x},${y}`}
+            tw="pointer-events-none absolute"
+            style={{ left: `${(x / W) * 100}%`, top: `${(y / H) * 100}%`, transform: 'translate(-50%, -50%)' }}
+          >
+            <LiveDot size={14} />
+          </span>
+        ))}
+      </div>
     </div>
   )
 }
-
