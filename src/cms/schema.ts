@@ -321,11 +321,12 @@ const articleBlocks: Field = {
 
 export const collections: CollectionDef[] = [
   {
-    key: 'article', label: 'Artigos do blog', itemLabel: 'Artigo', group: 'blog', idField: 'slug', titleField: 'title', route: '/blog/{id}',
+    key: 'article', label: 'Artigos do blog', itemLabel: 'Artigo', group: 'blog', idField: 'slug', titleField: 'title', route: '/blog/{id}', newestFirst: true,
     fields: {
       slug: { kind: 'slug', label: 'Endereço do artigo' },
       title: text('Título'), excerpt: long('Resumo (aparece nos cards)'),
       destination: ref('Destino', 'blog.destinations', 'items'), category: ref('Assunto', 'blog.categories', 'items', 'label'),
+      date: opt({ kind: 'date', label: 'Data de publicação', help: 'Preenchida sozinha na primeira vez que o artigo vai para o ar. Pode mudar.' }),
       cover: img, trip: text('Quando eu estive lá'),
       blocks: articleBlocks,
     },

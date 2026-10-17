@@ -191,7 +191,11 @@ def create_item(db: Session, collection: str, value: Any, user: User, ip: str) -
     if db.get(Document, key) is not None:
         raise ContentError(409, 'exists', 'Já existe um item com esse endereço.')
     _validated(key, value)
-    position = (db.scalar(select(func.max(Document.position)).where(Document.collection == collection)) or 0) + 1
+    # Coleções como o blog mostram o mais novo primeiro: o item novo entra no topo.
+    if c.get('newestFirst'):
+        position = (db.scalar(select(func.min(Document.position)).where(Document.collection == collection)) or 0) - 1
+    else:
+        position = (db.scalar(select(func.max(Document.position)).where(Document.collection == collection)) or 0) + 1
     doc = Document(
         key=key, collection=collection, position=position, draft=value, published=None, draft_deleted=False,
         draft_updated_at=utcnow(), draft_updated_by=user.email,
@@ -246,6 +250,21 @@ def reorder(db: Session, collection: str, keys: list[str], user: User, ip: str, 
     write_bundle(db, settings)
 
 
+def move(db: Session, collection: str, key: str, to: int, user: User, ip: str, settings: Settings) -> None:
+    """Muda um item de lugar (ex.: levar um artigo para o topo) sem mandar a lista inteira."""
+    ordered = list(db.scalars(select(Document).where(Document.collection == collection).order_by(Document.position, Document.key)))
+    current = next((d for d in ordered if d.key == key), None)
+    if current is None:
+        raise ContentError(404, 'not_found', 'Este item não existe mais. Recarregue a página.')
+    ordered.remove(current)
+    ordered.insert(max(0, min(to, len(ordered))), current)
+    for i, d in enumerate(ordered):
+        d.position = i
+    db.flush()
+    audit.record(db, 'ordem_alterada', actor=user, target=load_schema().collections[collection]['label'], ip=ip)
+    write_bundle(db, settings)
+
+
 # ------------------------------------------------------------------ #
 # Publicar, voltar no tempo, agendar                                  #
 # ------------------------------------------------------------------ #
@@ -253,6 +272,14 @@ def reorder(db: Session, collection: str, keys: list[str], user: User, ip: str, 
 
 def _published_map(db: Session) -> dict[str, Any]:
     return {d.key: d.published for d in db.scalars(select(Document)) if d.published is not None}
+
+
+def _fill_publish_date(schema: Schema, doc: Document) -> None:
+    """Item de coleção com "Data de publicação" vazia ganha a data de hoje na primeira publicação."""
+    d = schema.definition(doc.key) or {}
+    field = d.get('fields', {}).get('date') if doc.collection else None
+    if field and field.get('kind') == 'date' and isinstance(doc.draft, dict) and not doc.draft.get('date'):
+        doc.draft = {**doc.draft, 'date': utcnow().date().isoformat()}
 
 
 def publish(db: Session, keys: list[str], actor_email: str, ip: str | None, settings: Settings, *, action: str = 'publicado', actor: User | None = None) -> list[str]:
@@ -264,6 +291,7 @@ def publish(db: Session, keys: list[str], actor_email: str, ip: str | None, sett
         if doc.draft_deleted:
             candidate.pop(doc.key, None)
             continue
+        _fill_publish_date(schema, doc)
         problems = validate(schema, doc.key, doc.draft)
         if problems:
             raise ContentError(422, 'invalid_content', f'{label_of(doc.key, doc.draft)}: confira os campos destacados.', problems.items)

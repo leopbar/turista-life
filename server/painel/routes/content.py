@@ -36,6 +36,11 @@ class OrderIn(Api):
     keys: list[str] = Field(max_length=1000)
 
 
+class MoveIn(Api):
+    key: str = Field(max_length=200)
+    to: int = Field(ge=0)
+
+
 class RestoreSiteIn(Api):
     at: datetime
 
@@ -64,7 +69,16 @@ def _meta(doc: Document, editing: dict[str, list[str]] | None = None) -> dict:
         'publishedBy': doc.published_by,
         'scheduledAt': doc.scheduled_at,
         'editingBy': (editing or {}).get(doc.key, []),
+        # Escolhas de outras listas (assunto, destino…), para filtrar a lista de itens no painel.
+        'refs': _refs(d, doc.draft) if doc.collection else {},
+        'date': doc.draft.get('date') if doc.collection and isinstance(doc.draft, dict) else None,
     }
+
+
+def _refs(d: dict, draft: Any) -> dict[str, str]:
+    if not isinstance(draft, dict):
+        return {}
+    return {k: draft[k] for k, f in d.get('fields', {}).items() if f.get('kind') == 'ref' and isinstance(draft.get(k), str) and draft[k]}
 
 
 def _naive_utc(dt: datetime) -> datetime:
@@ -180,6 +194,13 @@ def create(collection: str, body: CreateIn, request: Request, active: ActiveSess
 def order(collection: str, body: OrderIn, request: Request, active: ActiveSession = Depends(user_session), db: Session = Depends(get_db), settings: Settings = Depends(get_settings)):
     with write(db):
         _run(lambda: svc.reorder(db, collection, body.keys, active.user, client_ip(request, settings), settings))
+    return {'ok': True}
+
+
+@router.post('/api/collections/{collection}/move')
+def move(collection: str, body: MoveIn, request: Request, active: ActiveSession = Depends(user_session), db: Session = Depends(get_db), settings: Settings = Depends(get_settings)):
+    with write(db):
+        _run(lambda: svc.move(db, collection, body.key, body.to, active.user, client_ip(request, settings), settings))
     return {'ok': True}
 
 

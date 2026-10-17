@@ -55,6 +55,8 @@ export type CollectionDef = {
   route: string
   /** Endereços que não podem ser usados (já são páginas do site). */
   reservedIds?: string[]
+  /** Itens novos entram no topo da lista (no site e no painel), em vez de no fim. */
+  newestFirst?: boolean
   fields: Fields
 }
 

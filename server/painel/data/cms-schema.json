@@ -3177,6 +3177,7 @@
    "idField": "slug",
    "titleField": "title",
    "route": "/blog/{id}",
+   "newestFirst": true,
    "fields": {
     "slug": {
      "kind": "slug",
@@ -3206,6 +3207,12 @@
      "list": "items",
      "valueField": "id",
      "labelField": "label"
+    },
+    "date": {
+     "kind": "date",
+     "label": "Data de publicação",
+     "help": "Preenchida sozinha na primeira vez que o artigo vai para o ar. Pode mudar.",
+     "optional": true
     },
     "cover": {
      "kind": "object",

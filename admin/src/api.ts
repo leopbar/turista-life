@@ -110,6 +110,7 @@ export const api = {
   presence: (key: string) => request<{ editingBy: string[] }>('POST', `/api/content/${encodeURIComponent(key)}/presence`),
   createItem: (collection: string, item: unknown) => request<DocMeta>('POST', `/api/collections/${collection}`, { item }),
   order: (collection: string, keys: string[]) => request<{ ok: true }>('POST', `/api/collections/${collection}/order`, { keys }),
+  move: (collection: string, key: string, to: number) => request<{ ok: true }>('POST', `/api/collections/${collection}/move`, { key, to }),
   search: (q: string) => request<SearchResult[]>('GET', `/api/content/search?q=${encodeURIComponent(q)}`),
   history: () => request<HistoryItem[]>('GET', '/api/content/history'),
   restoreSite: (at: string) => request<{ changed: number }>('POST', '/api/content/restore-site', { at }),
@@ -150,6 +151,10 @@ export type DocMeta = {
   publishedBy: string | null
   scheduledAt: string | null
   editingBy: string[]
+  /** Escolhas de outras listas (assunto, destino…) de um item de coleção. */
+  refs: Record<string, string>
+  /** "Data de publicação" (AAAA-MM-DD) de um item de coleção, quando tem. */
+  date: string | null
 }
 
 export type DocFull = DocMeta & { draft: Record<string, unknown>; published: Record<string, unknown> | null; draftDeleted: boolean }

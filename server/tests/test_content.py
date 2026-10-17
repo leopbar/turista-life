@@ -101,7 +101,9 @@ def test_artigo_novo_entra_e_sai_do_site(admin: Painel, settings):
     slugs = lambda: [a['slug'] for a in site_json(settings)['collections']['article']]  # noqa: E731
     assert 'meu-artigo-novo' not in slugs()
     admin.post('/api/content/article:meu-artigo-novo/publish')
-    assert slugs()[-1] == 'meu-artigo-novo'
+    assert slugs()[0] == 'meu-artigo-novo'  # o blog mostra o mais novo primeiro
+    # A data de publicação é preenchida sozinha na primeira publicação.
+    assert site_json(settings)['collections']['article'][0]['date'] == utcnow().date().isoformat()
 
     # O endereço não muda depois de criado.
     assert _put(admin, 'article:meu-artigo-novo', {**novo, 'slug': 'outro'}).status_code == 422
@@ -117,6 +119,19 @@ def test_reordenar_colecao(admin: Painel, settings):
     assert admin.post('/api/collections/productPage/order', json={'keys': list(reversed(keys))}).status_code == 200
     assert [p['slug'] for p in site_json(settings)['collections']['productPage']] == [k.split(':')[1] for k in reversed(keys)]
     assert admin.post('/api/collections/productPage/order', json={'keys': keys[:1]}).status_code == 409
+
+
+def test_levar_item_para_o_topo(admin: Painel, settings):
+    keys = [i['key'] for i in admin.get('/api/content').json() if i['collection'] == 'article']
+    ultimo = keys[-1]
+    assert admin.post('/api/collections/article/move', json={'key': ultimo, 'to': 0}).status_code == 200
+    assert site_json(settings)['collections']['article'][0]['slug'] == ultimo.split(':')[1]
+    assert admin.post('/api/collections/article/move', json={'key': 'article:nao-existe', 'to': 0}).status_code == 404
+
+
+def test_lista_traz_as_escolhas_para_filtrar(admin: Painel):
+    artigo = next(i for i in admin.get('/api/content').json() if i['collection'] == 'article')
+    assert set(artigo['refs']) == {'destination', 'category'}
 
 
 def test_nao_publica_o_que_quebraria_outra_pagina(admin: Painel):

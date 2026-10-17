@@ -9,7 +9,7 @@ import { Home } from './pages/Home'
 import { Login } from './pages/Login'
 import { Team } from './pages/Team'
 import { Backups } from './pages/Backups'
-import { ContentList } from './cms/ContentList'
+import { ContentList, ContentSection } from './cms/ContentList'
 import { MediaPage, MediaPickerHost } from './cms/Media'
 import { SchemaProvider } from './cms/model'
 import { Notebook } from './cms/Notebook'
@@ -36,6 +36,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/editar" element={<SiteEditor />} />
             <Route path="/conteudo" element={<ContentList />} />
+            <Route path="/conteudo/:secao" element={<ContentSection />} />
             <Route path="/fotos" element={<MediaPage />} />
             <Route path="/caderno" element={<Notebook />} />
             <Route path="/minha-senha" element={<CreatePassword firstAccess={false} />} />

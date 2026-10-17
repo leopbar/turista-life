@@ -1,6 +1,7 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, type ComponentType, type ReactNode, type SVGProps } from 'react'
 import type { CollectionDef, DocDef, Field, Fields } from '../../../src/cms/fields'
 import { api, type CmsSchema, type DocStatus } from '../api'
+import { Book, Globe, House, Megaphone, Notebook, Pen, Sparkle, Suitcase, User } from '../components/icons'
 
 /* ------------------------------------------------------------------ */
 /* Mapa de conteúdo (vem do servidor)                                  */
@@ -29,16 +30,16 @@ export function definitionOf(schema: CmsSchema, key: string): DocDef | Collectio
 
 export const isCollection = (d: DocDef | CollectionDef): d is CollectionDef => 'idField' in d
 
-export const GROUPS: { id: string; label: string; emoji: string }[] = [
-  { id: 'inicio', label: 'Página inicial', emoji: '🏠' },
-  { id: 'sobre', label: 'Sobre mim', emoji: '👋' },
-  { id: 'produtos', label: 'Produtos', emoji: '📘' },
-  { id: 'recomendacoes', label: 'Recomendações', emoji: '🧳' },
-  { id: 'parcerias', label: 'Parcerias', emoji: '🤝' },
-  { id: 'diario', label: 'Diário', emoji: '🗺️' },
-  { id: 'blog', label: 'Blog', emoji: '✍️' },
-  { id: 'paginas', label: 'Páginas novas', emoji: '✨' },
-  { id: 'geral', label: 'Em todo o site', emoji: '🌍' },
+export const GROUPS: { id: string; label: string; Icon: ComponentType<SVGProps<SVGSVGElement>> }[] = [
+  { id: 'inicio', label: 'Página inicial', Icon: House },
+  { id: 'sobre', label: 'Sobre mim', Icon: User },
+  { id: 'produtos', label: 'Produtos', Icon: Book },
+  { id: 'recomendacoes', label: 'Recomendações', Icon: Suitcase },
+  { id: 'parcerias', label: 'Parcerias', Icon: Megaphone },
+  { id: 'diario', label: 'Diário', Icon: Notebook },
+  { id: 'blog', label: 'Blog', Icon: Pen },
+  { id: 'paginas', label: 'Páginas novas', Icon: Sparkle },
+  { id: 'geral', label: 'Em todo o site', Icon: Globe },
 ]
 
 export const STATUS: Record<DocStatus, { label: string; tone: 'ok' | 'draft' | 'new' | 'out' }> = {

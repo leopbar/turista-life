@@ -67,3 +67,24 @@ export const Arrow = (p: SVGProps<SVGSVGElement>) => (
 export const Back = (p: SVGProps<SVGSVGElement>) => (
   <Icon {...p}><path d="M19 12H5M11 6l-6 6 6 6" /></Icon>
 )
+export const House = (p: SVGProps<SVGSVGElement>) => (
+  <Icon {...p}><path d="M4 11l8-7 8 7" /><path d="M6 9.5V20h12V9.5" /><path d="M10 20v-5h4v5" /></Icon>
+)
+export const User = (p: SVGProps<SVGSVGElement>) => (
+  <Icon {...p}><circle cx="12" cy="8" r="3.5" /><path d="M5 20c.7-3.8 3.4-5.5 7-5.5s6.3 1.7 7 5.5" /></Icon>
+)
+export const Book = (p: SVGProps<SVGSVGElement>) => (
+  <Icon {...p}><path d="M12 6c-2-1.5-4.5-2-8-2v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2z" /><path d="M12 6v14" /></Icon>
+)
+export const Suitcase = (p: SVGProps<SVGSVGElement>) => (
+  <Icon {...p}><rect x="4" y="7" width="16" height="12" rx="2" /><path d="M9 7V5h6v2M9 7v12M15 7v12" /></Icon>
+)
+export const Megaphone = (p: SVGProps<SVGSVGElement>) => (
+  <Icon {...p}><path d="M3 10v4h3l9 5V5l-9 5z" /><path d="M18.5 9a3.5 3.5 0 010 6M6 14l1.5 5h2.5l-1-4.5" /></Icon>
+)
+export const Sparkle = (p: SVGProps<SVGSVGElement>) => (
+  <Icon {...p}><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" /><path d="M18.5 16v4M16.5 18h4" /></Icon>
+)
+export const Globe = (p: SVGProps<SVGSVGElement>) => (
+  <Icon {...p}><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" /></Icon>
+)
