@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev:admin": "vite --config vite.admin.config.ts",
+    "build:admin": "tsc -b && vite build --config vite.admin.config.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

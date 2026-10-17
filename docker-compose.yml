@@ -1,5 +1,6 @@
-# Publicação no VPS: o container escuta só em 127.0.0.1:3010.
-# O nginx do servidor repassa https://lbai.dev/turista-life/ para cá.
+# Publicação no VPS: os containers escutam só em 127.0.0.1.
+# O nginx do servidor repassa https://lbai.dev/turista-life/ para o site (3010)
+# e https://painel-turista-life.lbai.dev/ para o painel (3011).
 services:
   turista-life:
     build:
@@ -11,3 +12,26 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:3010:80"
+
+  # Turista-Life Administração. Isolado: só fala com o próprio volume de dados.
+  turista-life-painel:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: turista-life-painel
+    container_name: turista-life-painel
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3011:8000"
+    volumes:
+      - painel-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+volumes:
+  painel-data:

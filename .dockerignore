@@ -3,3 +3,9 @@ dist
 .git
 .claude
 *.log
+tsconfig.tsbuildinfo
+server/.venv
+server/data
+**/__pycache__
+**/.pytest_cache
+admin/dist
