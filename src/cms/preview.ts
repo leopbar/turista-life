@@ -1,5 +1,5 @@
 /**
- * Só carrega dentro da pré-visualização do painel (build com VITE_CMS_PREVIEW=1).
+ * Só carrega na pré-visualização (build com VITE_CMS_PREVIEW=1) aberta dentro do painel.
  *
  * 1. Marca cada texto editável com o endereço do campo (caracteres invisíveis no fim do texto)
  *    e cada foto com "#cms=…" no endereço.

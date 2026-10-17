@@ -5,11 +5,11 @@ import GlobalStyles from './styles/GlobalStyles'
 import { getVersion, subscribe, type Bundle } from './cms/runtime'
 
 const PREVIEW = import.meta.env.VITE_CMS_PREVIEW === '1'
+// Clicar-e-editar só dentro do painel. Aberta sozinha, a pré-visualização funciona como o site.
+const EDITING = PREVIEW && window.parent !== window
 
-/** Conteúdo publicado pelo painel. Sem ele (ou se falhar), o site usa o texto escrito no código. */
-async function loadBundle(): Promise<Bundle | null> {
+async function fetchBundle(url: string): Promise<Bundle | null> {
   try {
-    const url = PREVIEW ? '/api/preview/bundle' : `${import.meta.env.BASE_URL}cms/site.json`
     const res = await fetch(url, { cache: 'no-cache', credentials: 'same-origin' })
     return res.ok ? await res.json() : null
   } catch {
@@ -17,9 +17,18 @@ async function loadBundle(): Promise<Bundle | null> {
   }
 }
 
+/**
+ * Conteúdo publicado pelo painel. Na pré-visualização vale o rascunho (precisa estar logado no painel);
+ * sem ele, o publicado. Sem nenhum dos dois, o site usa o texto escrito no código.
+ */
+async function loadBundle(): Promise<Bundle | null> {
+  const draft = PREVIEW ? await fetchBundle('/api/preview/bundle') : null
+  return draft ?? fetchBundle(`${import.meta.env.BASE_URL}cms/site.json`)
+}
+
 async function boot() {
-  ;(window as unknown as { __TL_CMS__: unknown }).__TL_CMS__ = { bundle: await loadBundle(), preview: PREVIEW }
-  if (PREVIEW) (await import('./cms/preview')).installPreview()
+  ;(window as unknown as { __TL_CMS__: unknown }).__TL_CMS__ = { bundle: await loadBundle(), preview: EDITING }
+  if (EDITING) (await import('./cms/preview')).installPreview()
   // O App (e os arquivos de conteúdo) só carregam depois que o conteúdo chegou.
   const { default: App } = await import('./App')
 

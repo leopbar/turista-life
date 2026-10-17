@@ -15,6 +15,11 @@ export default defineConfig({
     port: Number(process.env.PORT) || 4321,
     strictPort: true,
     // Conteúdo publicado pelo painel (rodando localmente na porta 8011, launch "painel-api").
-    proxy: { '/cms': { target: 'http://127.0.0.1:8011', rewrite: (p) => `/site${p}` } },
+    // /api e /site/cms: pré-visualização (BASE_PATH=/site/) aberta direto na 4323, fora do painel.
+    proxy: {
+      '/cms': { target: 'http://127.0.0.1:8011', rewrite: (p) => `/site${p}` },
+      '/site/cms': 'http://127.0.0.1:8011',
+      '/api': 'http://127.0.0.1:8011',
+    },
   },
 })
