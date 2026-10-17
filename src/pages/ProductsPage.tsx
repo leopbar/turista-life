@@ -1,4 +1,3 @@
-import { useState, type FormEvent } from 'react'
 import tw from 'twin.macro'
 import { productsPage as page, type CatalogItem } from '../pagesContent'
 import { BookCover } from '../components/Products'
@@ -6,6 +5,9 @@ import { Container, CtaBand, Eyebrow, Lead, PageHero, Section, SmartLink, Title 
 import { Arrow } from '../components/icons'
 import { t } from '../cms/runtime'
 import { Sections } from '../cms/Sections'
+import { newsletter } from '../content'
+import { useNewsletter } from '../newsletter'
+import { NewsletterHoneypot } from '../components/NewsletterHoneypot'
 
 const statusLabel: Record<CatalogItem['status'], string> = {
   available: 'Disponível',
@@ -141,7 +143,7 @@ function UpcomingCard({ item }: { item: CatalogItem }) {
       <h3 tw="mt-0.5 font-sans text-[15px] font-semibold leading-snug text-ink">{item.title}</h3>
       <p tw="mt-1.5 font-sans text-[12.5px] leading-relaxed text-muted">{item.text}</p>
       <div tw="mt-auto pt-4">
-        <Waitlist product={item.title} notify={item.notify} />
+        <Waitlist product={item.title} notify={item.notify} form={item.waitlistForm} />
       </div>
     </article>
   )
@@ -171,21 +173,27 @@ function FreeCard({ item }: { item: CatalogItem }) {
   )
 }
 
-function Waitlist({ product, notify }: { product: string; notify?: string }) {
-  const [sent, setSent] = useState(false)
-  const submit = (e: FormEvent) => {
-    e.preventDefault()
-    // Opção provisória até a integração de e-mail (PRO-29): abre a página de inscrição do MailerLite.
-    if (page.waitlistUrl) window.open(page.waitlistUrl, '_blank', 'noopener')
-    setSent(true)
-  }
-  if (sent) return <p tw="rounded-xl bg-mist p-3 text-center font-sans text-[13px] text-pine-900">{notify ?? `Combinado! Você recebe um aviso quando o ${product} sair.`}</p>
+function Waitlist({ product, notify, form }: { product: string; notify?: string; form?: string }) {
+  const endpoint = form || page.waitlistForm
+  const { status, submit } = useNewsletter(endpoint)
+  const sending = status === 'sending'
+  // Sem formulário no MailerLite, não dá para guardar o e-mail: melhor avisar do que fingir que deu certo.
+  if (!endpoint) return <p tw="rounded-xl bg-white/70 p-3 text-center font-sans text-[13px] text-muted">{t('produtos.espera.embreve', 'Inscrições para o aviso abrem em breve.')}</p>
+  if (status === 'done') return <p role="status" tw="rounded-xl bg-mist p-3 text-center font-sans text-[13px] text-pine-900">{notify ?? `Combinado! Você recebe um aviso quando o ${product} sair.`}</p>
   const id = `wl-${product.toLowerCase().replace(/\W+/g, '-')}`
   return (
-    <form onSubmit={submit} tw="flex items-center rounded-full bg-cream p-1 pl-4 ring-1 ring-line focus-within:ring-pine-800">
-      <label htmlFor={id} tw="sr-only">{t('produtos.espera.rotulo', 'Seu e-mail para ser avisado')}</label>
-      <input id={id} type="email" required placeholder={t('geral.email.rotulo', 'Seu e-mail')} tw="min-w-0 flex-1 bg-transparent font-sans text-[13px] text-ink outline-none" />
-      <button type="submit" tw="rounded-full bg-pine-800 px-4 py-2.5 font-sans text-[12px] font-semibold text-white hover:bg-pine-700">{t('produtos.espera.botao', 'Me avise')}</button>
+    <form onSubmit={submit} tw="relative">
+      <div tw="flex items-center rounded-full bg-cream p-1 pl-4 ring-1 ring-line focus-within:ring-pine-800">
+        <label htmlFor={id} tw="sr-only">{t('produtos.espera.rotulo', 'Seu e-mail para ser avisado')}</label>
+        <input id={id} name="email" type="email" required autoComplete="email" aria-describedby={`${id}-feedback`} placeholder={t('geral.email.rotulo', 'Seu e-mail')} tw="min-w-0 flex-1 bg-transparent font-sans text-[13px] text-ink outline-none" />
+        <NewsletterHoneypot />
+        <button type="submit" disabled={sending} tw="rounded-full bg-pine-800 px-4 py-2.5 font-sans text-[12px] font-semibold text-white hover:bg-pine-700 disabled:(cursor-wait opacity-70)">
+          {sending ? newsletter.sending : t('produtos.espera.botao', 'Me avise')}
+        </button>
+      </div>
+      <p id={`${id}-feedback`} role="status" tw="mt-2 px-2 font-sans text-[12px] text-sun-600 empty:hidden">
+        {status === 'invalid' ? newsletter.invalid : status === 'error' ? newsletter.error : ''}
+      </p>
     </form>
   )
 }

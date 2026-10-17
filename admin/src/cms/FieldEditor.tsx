@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import tw from 'twin.macro'
 import type { Field } from '../../../src/cms/fields'
+import { isMailerliteForm, mailerliteEndpoint } from '../../../src/cms/mailerlite'
 import { Camera, Close, Plus } from '../components/icons'
 import { GROUPS, emptyValue, itemTitle, useSchema } from './model'
 
@@ -220,6 +221,18 @@ export function FieldEditor({ field: f, value, onChange, path, nested = false }:
             }}
           />
         </div>
+      )
+      break
+    }
+    case 'mailerlite': {
+      const ok = !str || isMailerliteForm(str)
+      control = (
+        <>
+          <AutoTextarea id={id} value={str} placeholder="Cole aqui o código do formulário ou o endereço https://assets.mailerlite.com/…/subscribe" onChange={(e) => setText(mailerliteEndpoint(e.target.value))} />
+          {!str ? <p tw="mt-1 font-sans text-[12px] text-muted">No MailerLite: Formulários → Incorporados → abra o formulário → copie o código HTML e cole aqui.</p>
+            : ok ? <p tw="mt-1 font-sans text-[12px] text-pine-800">✓ Formulário do MailerLite reconhecido.</p>
+            : <p tw="mt-1 font-sans text-[12px] text-sun-600">Não achei um formulário do MailerLite aqui. Copie o código HTML do formulário incorporado e cole de novo.</p>}
+        </>
       )
       break
     }

@@ -24,6 +24,8 @@ export type CatalogItem = {
   page?: string
   /** Mensagem depois de entrar na lista de espera (padrão: "quando o {título} sair"). */
   notify?: string
+  /** Formulário próprio da lista de espera no MailerLite; vazio usa o da página. */
+  waitlistForm?: string
   cover: Product['cover']
 }
 
@@ -46,9 +48,9 @@ export const productsPage = doc('produtos.page', {
     title: 'O que vem por aí',
     text: 'Guias e serviços em produção. Deixe seu e-mail e seja avisado no dia do lançamento.',
   },
-  // TODO(dúvida Laura): página de inscrição no MailerLite (subscribepage.io) para a lista de espera.
-  // Enquanto estiver vazio, o "Me avise" mostra a confirmação mas não guarda o e-mail.
-  waitlistUrl: '',
+  // TODO(dúvida Laura): formulário incorporado do MailerLite para a lista de espera (configurável no painel).
+  // Enquanto estiver vazio (e o produto não tiver formulário próprio), o card avisa que as inscrições abrem em breve.
+  waitlistForm: '',
   catalog: [
     {
       id: 'guia-bali', kind: 'Guia de destino', title: 'Guia de Bali',

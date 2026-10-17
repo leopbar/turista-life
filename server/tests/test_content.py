@@ -231,3 +231,36 @@ def test_pagina_nova_com_blocos(admin: Painel, settings):
     assert r.status_code == 422 and 'já é uma página' in r.json()['detail']['problems'][0]['message']
     bad = {**page, 'slug': 'outra', 'blocks': [{'type': 'button', 'label': 'x', 'href': 'javascript:alert(1)', 'style': 'sun'}]}
     assert admin.post('/api/collections/page', json={'item': bad}).status_code == 422
+
+
+def test_formulario_do_mailerlite(admin: Painel, settings):
+    form = 'https://assets.mailerlite.com/jsonp/2510968/forms/999/subscribe'
+    news = admin.get('/api/content/geral.newsletter').json()['draft']
+    assert news['form'].startswith('https://assets.mailerlite.com/jsonp/')
+    for bad in ('', 'https://site-falso.com/jsonp/1/forms/2/subscribe', 'javascript:alert(1)', f'{form}?x=1'):
+        r = _put(admin, 'geral.newsletter', {**news, 'form': bad})
+        assert r.status_code == 422, bad
+        assert r.json()['detail']['problems'][0]['path'] == 'form'
+    assert _put(admin, 'geral.newsletter', {**news, 'form': form}).status_code == 200
+
+    # Lista de espera: geral da página e, opcional, um por produto.
+    page = admin.get('/api/content/produtos.page').json()['draft']
+    catalog = [{**page['catalog'][0], 'waitlistForm': form}, *page['catalog'][1:]]
+    assert _put(admin, 'produtos.page', {**page, 'waitlistForm': '', 'catalog': catalog}).status_code == 200
+    assert _put(admin, 'produtos.page', {**page, 'waitlistForm': 'https://subscribepage.io/abc'}).status_code == 422
+    assert admin.post('/api/content/produtos.page/publish').status_code == 200
+    assert site_json(settings)['docs']['produtos.page']['catalog'][0]['waitlistForm'] == form
+
+
+def test_campo_que_saiu_do_mapa_sai_do_conteudo_guardado(admin: Painel, db):
+    # Ex.: "waitlistUrl" virou "waitlistForm"; o conteúdo antigo não pode travar a próxima publicação.
+    with write(db):
+        doc = db.get(Document, 'produtos.page')
+        doc.draft = {**doc.draft, 'waitlistUrl': ''}
+        doc.published = {**doc.published, 'waitlistUrl': ''}
+    with write(db):
+        content.seed(db)
+    db.expire_all()
+    doc = db.get(Document, 'produtos.page')
+    assert 'waitlistUrl' not in doc.draft and 'waitlistUrl' not in doc.published
+    assert admin.post('/api/content/produtos.page/publish').status_code == 200

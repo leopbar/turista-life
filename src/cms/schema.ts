@@ -3,7 +3,7 @@
  * A chave de cada documento é a mesma usada em doc()/collection() nos arquivos de conteúdo.
  */
 import {
-  bool, button, cover, cta, heroFields, image, list, long, num, obj, opt, position, ref, sectionHead, select, text, texts, url,
+  bool, button, cover, cta, heroFields, image, list, long, mailerlite, num, obj, opt, position, ref, sectionHead, select, text, texts, url,
   type CollectionDef, type DocDef, type Field, type Fields,
 } from './fields'
 import { layoutDefs } from './layoutDefs'
@@ -36,6 +36,7 @@ const catalogItem: Field = obj('Produto', {
   href: opt(url('Link de compra')),
   page: opt(url('Página do produto (ex.: /produtos/guia-de-bali)')),
   notify: opt(long('Mensagem depois de entrar na lista de espera')),
+  waitlistForm: opt(mailerlite('Formulário próprio da lista de espera', { help: 'Vazio = usa o da página Produtos' })),
   cover: cover(),
 })
 
@@ -59,6 +60,7 @@ export const docs: DocDef[] = [
       eyebrow: text('Chamada acima do título'), title: text('Título'), bullets: texts('Vantagens', 'Vantagem'), cta: text('Texto do botão'),
       sending: text('Mensagem enquanto envia'), sent: long('Mensagem de sucesso'), invalid: long('Mensagem de e-mail inválido'),
       error: long('Mensagem de erro'), privacy: text('Aviso de privacidade'),
+      form: mailerlite('Formulário do MailerLite'),
     },
   },
   {
@@ -163,7 +165,7 @@ export const docs: DocDef[] = [
       hero: heroFields(),
       available: sectionHead('Seção "Disponíveis agora"'),
       upcoming: sectionHead('Seção "Próximos lançamentos"'),
-      waitlistUrl: opt(url('Página de inscrição da lista de espera (MailerLite)')),
+      waitlistForm: opt(mailerlite('Formulário da lista de espera (MailerLite)')),
       catalog: list('Catálogo', catalogItem, { itemTitle: 'title', itemLabel: 'Produto' }),
       freeSection: sectionHead('Seção "Materiais gratuitos"'),
       free: list('Materiais gratuitos', catalogItem, { itemTitle: 'title', itemLabel: 'Material' }),

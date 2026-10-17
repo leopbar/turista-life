@@ -52,7 +52,8 @@
    "sent": "Quase lá! Enviamos um e-mail para você confirmar a inscrição. Confere a caixa de entrada (e o spam).",
    "invalid": "Esse e-mail parece estar incompleto. Confere e tenta de novo?",
    "error": "Não deu para enviar agora. Tenta de novo em alguns minutos.",
-   "privacy": "Sem spam. Você pode cancelar quando quiser."
+   "privacy": "Sem spam. Você pode cancelar quando quiser.",
+   "form": "https://assets.mailerlite.com/jsonp/2510968/forms/201560921696372690/subscribe"
   },
   "geral.footer": {
    "tagline": "Documentando a construção da minha liberdade geográfica.",
@@ -116,6 +117,7 @@
    "produto.valor": "Valor",
    "produtos.capa.marca": "Turista Life",
    "produtos.espera.botao": "Me avise",
+   "produtos.espera.embreve": "Inscrições para o aviso abrem em breve.",
    "produtos.espera.rotulo": "Seu e-mail para ser avisado",
    "produtos.migalha": "Produtos",
    "recomendacoes.cupom": "Cupom",
@@ -508,7 +510,7 @@
     "title": "O que vem por aí",
     "text": "Guias e serviços em produção. Deixe seu e-mail e seja avisado no dia do lançamento."
    },
-   "waitlistUrl": "",
+   "waitlistForm": "",
    "catalog": [
     {
      "id": "guia-bali",

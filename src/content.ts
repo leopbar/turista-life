@@ -165,6 +165,8 @@ export const newsletter = doc('geral.newsletter', {
   invalid: 'Esse e-mail parece estar incompleto. Confere e tenta de novo?',
   error: 'Não deu para enviar agora. Tenta de novo em alguns minutos.',
   privacy: 'Sem spam. Você pode cancelar quando quiser.',
+  /** Formulário incorporado "Card newsletter site" no MailerLite da Laura (grupo Newsletter site). */
+  form: 'https://assets.mailerlite.com/jsonp/2510968/forms/201560921696372690/subscribe',
 })
 
 export const footer = doc('geral.footer', {

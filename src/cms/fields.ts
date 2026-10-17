@@ -17,6 +17,8 @@ export type Field =
   | (Base & { kind: 'select'; options: { value: string; label: string }[] })
   /** Código do vídeo no YouTube (o que vem depois de youtu.be/). */
   | (Base & { kind: 'video' })
+  /** Endereço de envio de um formulário incorporado do MailerLite (o painel aceita colar o código inteiro). */
+  | (Base & { kind: 'mailerlite' })
   /** Identificador técnico em minúsculas e hífens (aparece no endereço). */
   | (Base & { kind: 'slug' })
   | (Base & { kind: 'date' })
@@ -64,6 +66,7 @@ export type CollectionDef = {
 export const text = (label: string, extra: Partial<Base> & { long?: boolean; max?: number } = {}): Field => ({ kind: 'text', label, ...extra })
 export const long = (label: string, extra: Partial<Base> = {}): Field => ({ kind: 'text', label, long: true, ...extra })
 export const url = (label: string, extra: Partial<Base> = {}): Field => ({ kind: 'url', label, ...extra })
+export const mailerlite = (label: string, extra: Partial<Base> = {}): Field => ({ kind: 'mailerlite', label, ...extra })
 export const image = (label = 'Foto', extra: Partial<Base> = {}): Field => ({ kind: 'image', label, ...extra })
 export const bool = (label: string, extra: Partial<Base> = {}): Field => ({ kind: 'bool', label, optional: true, ...extra })
 export const num = (label: string, extra: Partial<Base> & { min?: number; max?: number } = {}): Field => ({ kind: 'number', label, ...extra })

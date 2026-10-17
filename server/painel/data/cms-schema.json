@@ -102,6 +102,10 @@
     "privacy": {
      "kind": "text",
      "label": "Aviso de privacidade"
+    },
+    "form": {
+     "kind": "mailerlite",
+     "label": "Formulário do MailerLite"
     }
    }
   },
@@ -468,6 +472,12 @@
      "label": "Me avise",
      "long": false,
      "help": "produtos.espera.botao"
+    },
+    "produtos.espera.embreve": {
+     "kind": "text",
+     "label": "Inscrições para o aviso abrem em breve.",
+     "long": false,
+     "help": "produtos.espera.embreve"
     },
     "produtos.espera.rotulo": {
      "kind": "text",
@@ -1378,9 +1388,9 @@
       }
      }
     },
-    "waitlistUrl": {
-     "kind": "url",
-     "label": "Página de inscrição da lista de espera (MailerLite)",
+    "waitlistForm": {
+     "kind": "mailerlite",
+     "label": "Formulário da lista de espera (MailerLite)",
      "optional": true
     },
     "catalog": {
@@ -1453,6 +1463,12 @@
         "kind": "text",
         "label": "Mensagem depois de entrar na lista de espera",
         "long": true,
+        "optional": true
+       },
+       "waitlistForm": {
+        "kind": "mailerlite",
+        "label": "Formulário próprio da lista de espera",
+        "help": "Vazio = usa o da página Produtos",
         "optional": true
        },
        "cover": {
@@ -1585,6 +1601,12 @@
         "kind": "text",
         "label": "Mensagem depois de entrar na lista de espera",
         "long": true,
+        "optional": true
+       },
+       "waitlistForm": {
+        "kind": "mailerlite",
+        "label": "Formulário próprio da lista de espera",
+        "help": "Vazio = usa o da página Produtos",
         "optional": true
        },
        "cover": {

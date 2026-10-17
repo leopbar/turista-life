@@ -64,6 +64,13 @@ def _fill(value: Any, default: Any) -> Any:
     return out
 
 
+def _prune(value: Any, fields: dict) -> Any:
+    """Campos que saíram do mapa (ex.: renomeados) saem do conteúdo guardado; senão a próxima publicação falharia."""
+    if not isinstance(value, dict) or not fields:
+        return value
+    return {k: v for k, v in value.items() if k in fields}
+
+
 def seed(db: Session) -> int:
     """Garante que todo documento do mapa existe. Chamar dentro de db.write()."""
     schema, defaults = load_schema(), load_defaults()
@@ -92,9 +99,10 @@ def seed(db: Session) -> int:
                 current = getattr(doc, attr) or {}
                 setattr(doc, attr, {k: current.get(k, v) for k, v in default.items() if k in known})
         else:
-            doc.draft = _fill(doc.draft, default)
+            fields = schema.fields(key) or {}
+            doc.draft = _prune(_fill(doc.draft, default), fields)
             if doc.published is not None:
-                doc.published = _fill(doc.published, default)
+                doc.published = _prune(_fill(doc.published, default), fields)
 
     for ckey, c in schema.collections.items():
         if any(k.startswith(f'{ckey}:') for k in existing):

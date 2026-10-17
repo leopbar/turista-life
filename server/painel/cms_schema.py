@@ -15,6 +15,8 @@ DATA = Path(__file__).parent / 'data'
 
 SLUG = re.compile(r'^[a-z0-9]+(?:-[a-z0-9]+)*$')
 VIDEO = re.compile(r'^[A-Za-z0-9_-]{6,20}$')
+# Mesmo padrão de src/cms/mailerlite.ts.
+MAILERLITE_FORM = re.compile(r'^https://assets\.mailerlite\.com/jsonp/\d+/forms/\d+/subscribe$')
 DATE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
 IMAGE = re.compile(r'^(?:images/[A-Za-z0-9_./-]+|cms/media/[a-z0-9]+/\d+\.webp)(?:#[A-Za-z0-9=,&.%_-]*)?$')
 CONTROL = re.compile(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]')
@@ -107,6 +109,9 @@ def check_field(v: Any, f: dict, path: str, out: Problems) -> None:
     elif kind == 'video':
         if not isinstance(v, str) or not VIDEO.match(v):
             out.add(path, f'"{label}": cole o código do vídeo (o que vem depois de youtu.be/).')
+    elif kind == 'mailerlite':
+        if not isinstance(v, str) or not ((v == '' and f.get('optional')) or MAILERLITE_FORM.match(v)):
+            out.add(path, f'"{label}": cole o código do formulário incorporado do MailerLite.')
     elif kind in ('slug', 'ref'):
         if not isinstance(v, str) or not SLUG.match(v) or len(v) > 80:
             out.add(path, f'"{label}": use só letras minúsculas, números e hífen.')

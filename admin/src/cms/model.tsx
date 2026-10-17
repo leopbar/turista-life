@@ -116,7 +116,7 @@ export function pathLabels(fields: Fields, value: unknown, path: string): string
 /** Valor vazio de um campo (para itens novos de listas). */
 export function emptyValue(f: Field): unknown {
   switch (f.kind) {
-    case 'text': case 'url': case 'image': case 'video': case 'slug': case 'ref': return ''
+    case 'text': case 'url': case 'image': case 'video': case 'mailerlite': case 'slug': case 'ref': return ''
     case 'date': return new Date().toISOString().slice(0, 10)
     case 'number': return f.min ?? 0
     case 'bool': return false
