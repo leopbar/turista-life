@@ -1,0 +1,77 @@
+# CI: o site e o painel continuam compilando, os testes passam e nenhuma mudança no site estraga
+# em silêncio o conteúdo editado no painel (contrato do CMS).
+# O deploy (scripts/deploy.sh) só publica um commit com esta execução verde.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  site:
+    name: Site e painel compilam
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Site (tipos + build)
+        run: npm run build
+      - name: Painel (build)
+        run: npx vite build --config vite.admin.config.ts
+      - name: Pré-visualização do painel (build)
+        run: npx vite build --outDir site-dist
+        env:
+          BASE_PATH: /site/
+          VITE_CMS_PREVIEW: '1'
+
+  cms:
+    name: Contrato do CMS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Mapa do painel atualizado
+        run: |
+          node scripts/export-cms.mjs
+          if ! git diff --quiet -- server/painel/data/cms-schema.json server/painel/data/cms-defaults.json; then
+            git diff --stat -- server/painel/data/
+            echo "::error title=Mapa do painel desatualizado::Rode 'node scripts/export-cms.mjs' e faça o commit de server/painel/data/cms-*.json."
+            exit 1
+          fi
+      - name: Impacto no conteúdo do painel
+        env:
+          BEFORE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [ -z "$BEFORE" ] || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then BEFORE=$(git rev-parse HEAD^); fi
+          node scripts/check-cms-contract.mjs "$BEFORE"
+
+  painel:
+    name: Testes do painel
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install uv==0.11.3
+      - run: uv sync --frozen
+      - run: uv run pytest -q

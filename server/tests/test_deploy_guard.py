@@ -37,6 +37,7 @@ def test_panel_image_only_copies_code():
 def test_deploy_script_ships_only_commits_and_checks_the_package():
     script = (ROOT / 'scripts' / 'deploy.sh').read_text(encoding='utf-8')
     assert 'git -c core.autocrlf=false archive' in script
+    assert 'gh run list --repo "$REPO" --workflow ci.yml' in script  # só publica commit com CI verde
     forbidden = re.search(r"^FORBIDDEN='(.+)'$", script, re.M).group(1)
     for path in ('server/data/painel.db', 'server/data/public/site.json', 'server/data/secret.key', '.env.painel', 'QA/x.md'):
         assert re.search(forbidden, path), path

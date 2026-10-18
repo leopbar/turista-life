@@ -4,6 +4,9 @@
 #   bash scripts/deploy.sh            publica o commit atual (HEAD)
 #   bash scripts/deploy.sh --check    só monta e confere o pacote, sem enviar nada
 #
+# Só publica um commit que já está no GitHub com o CI verde (.github/workflows/ci.yml: compila,
+# testes e contrato do CMS). Precisa do `gh` logado.
+#
 # Garantia: o conteúdo do painel feito NESTE computador (server/data: banco, fotos, chave, backups)
 # nunca vai para produção. O pacote sai do `git archive` (só arquivos commitados; server/data é
 # ignorado pelo Git) e ainda é conferido arquivo por arquivo antes do envio. O conteúdo de produção
@@ -51,12 +54,31 @@ fi
 
 COMMIT=$(git rev-parse --short HEAD)
 echo "Pacote ok: commit $COMMIT, $(tar tzf "$PKG" | grep -vc '/$') arquivos, sem server/data, banco, chave, .env nem QA."
-if git rev-parse --verify -q '@{u}' >/dev/null && [[ -n "$(git log --oneline '@{u}..HEAD')" ]]; then
-  echo "Aviso: o commit $COMMIT ainda não foi enviado ao GitHub (git push)."
+
+# 4. Só publica o que o CI do GitHub aprovou (compila, testes e contrato do CMS).
+REPO=leopbar/turista-life
+problem=""
+if ! git fetch -q origin main; then
+  problem="não consegui falar com o GitHub (git fetch)."
+elif ! git merge-base --is-ancestor HEAD origin/main; then
+  problem="o commit $COMMIT ainda não está no GitHub (falta o git push)."
+elif ! run=$(gh run list --repo "$REPO" --workflow ci.yml --commit "$(git rev-parse HEAD)" --limit 1 \
+               --json status,conclusion,url -q '.[] | "\(.status) \(.conclusion) \(.url)"'); then
+  problem="não consegui consultar o CI no GitHub (o gh está logado? o .github/workflows/ci.yml já foi enviado?)."
+else
+  read -r status conclusion url <<<"$run"
+  if [[ -z "$status" ]]; then problem="o CI não rodou para o commit $COMMIT."
+  elif [[ "$status" != completed ]]; then problem="o CI do commit $COMMIT ainda está rodando: $url"
+  elif [[ "$conclusion" != success ]]; then problem="o CI do commit $COMMIT não está verde ($conclusion): $url"
+  else echo "CI verde: $url"; fi
+fi
+if [[ -n "$problem" ]]; then
+  [[ $CHECK_ONLY == 1 ]] && echo "Atenção: $problem O deploy de verdade seria recusado."
+  [[ $CHECK_ONLY == 1 ]] || fail "$problem"
 fi
 [[ $CHECK_ONLY == 1 ]] && { echo "Só conferência (--check): nada foi enviado."; exit 0; }
 
-# 4. Backup do código atual na VPS, envio e reconstrução (os volumes do painel ficam intactos).
+# 5. Backup do código atual na VPS, envio e reconstrução (os volumes do painel ficam intactos).
 STAMP=$(date +%Y%m%d-%H%M%S)
 echo "Backup em $HOST:/root/turista-life-backup-$STAMP.tgz"
 ssh "$HOST" "cd /opt && tar czf /root/turista-life-backup-$STAMP.tgz turista-life"
@@ -64,7 +86,7 @@ echo "Enviando o commit $COMMIT..."
 ssh "$HOST" "tar xzf - -C $DEST && echo '$COMMIT' > $DEST/.deployed-commit" < "$PKG"
 ssh "$HOST" "cd $DEST && docker compose up -d --build 2>&1 | tail -5"
 
-# 5. Espera os containers ficarem saudáveis e testa os endereços.
+# 6. Espera os containers ficarem saudáveis e testa os endereços.
 for _ in $(seq 1 24); do
   status=$(ssh "$HOST" "docker inspect -f '{{.State.Health.Status}}' turista-life turista-life-painel" | sort -u)
   [[ "$status" == "healthy" ]] && break
