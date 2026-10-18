@@ -4,7 +4,7 @@ import tw from 'twin.macro'
 import { api, timeAgo, type ActivityItem, type SearchResult, type SystemStatus } from '../api'
 import { describe } from '../activityLabels'
 import { firstName, useAuth } from '../auth'
-import { Arrow, Camera, Compass, Key, Notebook, Pen, Plus, Route, Search, Shield, Tag, Users } from '../components/icons'
+import { Arrow, Camera, Compass, Notebook, Pen, Plus, Route, Search, Shield, Tag, Users } from '../components/icons'
 
 type Task = {
   title: string
@@ -149,12 +149,7 @@ function Banners() {
           <Arrow width={16} height={16} tw="ml-auto text-pine-800" />
         </Link>
       )}
-      {status?.warnings?.map((w) => (
-        <Link key={w.id} to="/atividades" tw="flex items-center gap-3 rounded-2xl bg-[#FEF3F2] px-5 py-3.5 font-sans text-[14px] text-[#912018] no-underline">
-          <span tw="grid h-8 w-8 place-items-center rounded-full bg-[#B42318] text-white"><Key width={16} height={16} /></span>
-          {describe(w).text} · {timeAgo(w.createdAt)}
-        </Link>
-      ))}
+      {/* Avisos de segurança (acessos alterados etc.) ficam só em "Atividades". */}
     </div>
   )
 }
