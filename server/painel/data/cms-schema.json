@@ -25,6 +25,25 @@
      },
      "itemTitle": "label",
      "itemLabel": "Item do menu"
+    },
+    "button": {
+     "kind": "object",
+     "label": "Botão de destaque do menu",
+     "fields": {
+      "show": {
+       "kind": "bool",
+       "label": "Aparece no site",
+       "optional": true
+      },
+      "label": {
+       "kind": "text",
+       "label": "Texto do botão"
+      },
+      "href": {
+       "kind": "url",
+       "label": "Link do botão"
+      }
+     }
     }
    }
   },
@@ -637,6 +656,11 @@
     "image": {
      "kind": "image",
      "label": "Foto da capa"
+    },
+    "showTrail": {
+     "kind": "bool",
+     "label": "Mostrar a seta (avião) no canto da capa",
+     "optional": true
     }
    }
   },
@@ -732,6 +756,11 @@
        "label": "Link do botão"
       }
      }
+    },
+    "showRoute": {
+     "kind": "bool",
+     "label": "Mostrar a linha da rota (países)",
+     "optional": true
     }
    }
   },

@@ -5,6 +5,7 @@ import { isMailerliteForm, mailerliteEndpoint } from '../../../src/cms/mailerlit
 import { Camera, Close, Plus } from '../components/icons'
 import { GROUPS, blankRequired, emptyValue, itemTitle, useSchema } from './model'
 import { CoordsField } from './CoordsField'
+import { LinkField } from './LinkField'
 
 /* ------------------------------------------------------------------ */
 /* Contexto do formulário: erros, campo em foco, fotos e referências  */
@@ -104,16 +105,9 @@ export function FieldEditor({ field: f, value, onChange, path, nested = false }:
         ? <AutoTextarea id={id} value={str} maxLength={f.max} onChange={(e) => setText(e.target.value)} />
         : <input id={id} css={input} value={str} maxLength={f.max} onChange={(e) => setText(e.target.value)} />
       break
-    case 'url': {
-      const ok = !str || /^(https?:\/\/|mailto:)\S+$/i.test(str) || (str.startsWith('/') && !str.startsWith('//')) || str.startsWith('#')
-      control = (
-        <>
-          <input id={id} css={input} value={str} placeholder="https://… ou /pagina-do-site" onChange={(e) => setText(e.target.value.trim())} />
-          {!ok && <p tw="mt-1 font-sans text-[12px] text-sun-600">Use um link que comece com https://, mailto: ou uma página do site (ex.: /produtos).</p>}
-        </>
-      )
+    case 'url':
+      control = <LinkField id={id} value={str} onChange={setText} inputCss={input} />
       break
-    }
     case 'image':
       control = (
         <div tw="flex items-center gap-4">

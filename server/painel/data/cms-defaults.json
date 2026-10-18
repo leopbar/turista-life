@@ -30,7 +30,12 @@
      "label": "Blog",
      "href": "/blog"
     }
-   ]
+   ],
+   "button": {
+    "show": true,
+    "label": "Inscreva-se",
+    "href": "https://www.youtube.com/@turistalife"
+   }
   },
   "geral.links": {
    "youtube": "https://www.youtube.com/@turistalife",
@@ -152,6 +157,7 @@
     "pode ser",
     "sua casa."
    ],
+   "showTrail": true,
    "image": "images/hero-laura.jpg"
   },
   "inicio.about": {
@@ -182,7 +188,8 @@
    "cta": {
     "label": "Acompanhe a jornada",
     "href": "https://www.youtube.com/@turistalife"
-   }
+   },
+   "showRoute": true
   },
   "inicio.products": {
    "eyebrow": "Produtos digitais",

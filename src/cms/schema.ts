@@ -48,7 +48,10 @@ export const docs: DocDef[] = [
   /* Geral -------------------------------------------------------------- */
   {
     key: 'geral.nav', label: 'Menu do site', group: 'geral', route: '/',
-    fields: { items: list('Itens do menu', obj('Item', { label: text('Nome no menu'), href: url('Página') }), { itemTitle: 'label', itemLabel: 'Item do menu' }) },
+    fields: {
+      items: list('Itens do menu', obj('Item', { label: text('Nome no menu'), href: url('Página') }), { itemTitle: 'label', itemLabel: 'Item do menu' }),
+      button: obj('Botão de destaque do menu', { show: bool('Aparece no site'), label: text('Texto do botão'), href: url('Link do botão') }),
+    },
   },
   {
     key: 'geral.links', label: 'Redes sociais e contato', group: 'geral', route: '/',
@@ -81,6 +84,7 @@ export const docs: DocDef[] = [
       cta: button('Botão principal'), story: button('Botão do vídeo'),
       signature: texts('Frase em letra cursiva (uma linha por item)', 'Linha'),
       image: image('Foto da capa'),
+      showTrail: bool('Mostrar a seta (avião) no canto da capa'),
     },
   },
   {
@@ -92,7 +96,7 @@ export const docs: DocDef[] = [
   },
   {
     key: 'inicio.journey', label: 'Em qual episódio estamos', group: 'inicio', route: '/',
-    fields: { eyebrow: text('Chamada acima do título'), title: text('Título'), text: long('Texto'), cta: button() },
+    fields: { eyebrow: text('Chamada acima do título'), title: text('Título'), text: long('Texto'), cta: button(), showRoute: bool('Mostrar a linha da rota (países)') },
   },
   {
     key: 'inicio.products', label: 'Produtos (na página inicial)', group: 'inicio', route: '/',

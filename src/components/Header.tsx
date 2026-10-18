@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import tw from 'twin.macro'
-import { links, nav } from '../content'
+import { nav, navButton } from '../content'
 import { Container, Logo, SmartLink } from './ui'
 import { Close, Menu, Search } from './icons'
 import { SearchDialog } from '../search/SearchDialog'
@@ -70,14 +70,14 @@ export function Header() {
           <button type="button" aria-label="Buscar no site (Ctrl+K)" title="Buscar (Ctrl+K)" onClick={() => setSearching(true)} tw="grid h-10 w-10 place-items-center rounded-full text-white/90 hover:bg-white/10">
             <Search />
           </button>
-          <a
-            href={links.youtube}
-            target="_blank"
-            rel="noreferrer"
-            tw="hidden whitespace-nowrap rounded-full border border-white/25 bg-pine-800 px-5 py-2.5 font-sans text-[13px] font-semibold text-white no-underline transition hover:bg-pine-700 sm:inline-flex"
-          >
-            Inscreva-se
-          </a>
+          {navButton.show !== false && navButton.href && (
+            <SmartLink
+              href={navButton.href}
+              tw="hidden whitespace-nowrap rounded-full border border-white/25 bg-pine-800 px-5 py-2.5 font-sans text-[13px] font-semibold text-white no-underline transition hover:bg-pine-700 sm:inline-flex"
+            >
+              {navButton.label}
+            </SmartLink>
+          )}
           <button
             type="button"
             aria-label={open ? 'Fechar menu' : 'Abrir menu'}
@@ -98,6 +98,15 @@ export function Header() {
                 {item.label}
               </SmartLink>
             ))}
+            {/* No celular o botão de destaque não cabe no topo: entra no fim do menu aberto. */}
+            {navButton.show !== false && navButton.href && (
+              <SmartLink
+                href={navButton.href}
+                tw="mt-2 mb-1 inline-flex justify-center rounded-full border border-white/25 bg-pine-800 px-5 py-3 font-sans text-[15px] font-semibold text-white no-underline hover:bg-pine-700 sm:hidden"
+              >
+                {navButton.label}
+              </SmartLink>
+            )}
           </Container>
         </nav>
       )}

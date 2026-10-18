@@ -16,7 +16,7 @@ export const links = doc('geral.links', {
 
 const yt = (id: string) => `https://youtu.be/${id}`
 
-export const nav = doc('geral.nav', { items: [
+const navDoc = doc('geral.nav', { items: [
   { label: 'Início', href: '/' },
   { label: 'Sobre mim', href: '/sobre' },
   { label: 'Produtos', href: '/produtos' },
@@ -24,7 +24,10 @@ export const nav = doc('geral.nav', { items: [
   { label: 'Parcerias', href: '/parcerias' },
   { label: 'Diário', href: '/diario' },
   { label: 'Blog', href: '/blog' },
-] }).items
+], button: { show: true, label: 'Inscreva-se', href: links.youtube } })
+export const nav = navDoc.items
+/** Botão de destaque ao lado do menu ("Inscreva-se"). */
+export const navButton = navDoc.button
 
 export const hero = doc('inicio.hero', {
   title: 'Viajar mais. Viver mais.',
@@ -34,6 +37,7 @@ export const hero = doc('inicio.hero', {
   cta: { label: 'Explore a Turista Life', href: '/blog' },
   story: { label: 'Assista o começo da história', href: yt('pwwxtfpaVNs') },
   signature: ['O mundo', 'pode ser', 'sua casa.'],
+  showTrail: true,
   image: import.meta.env.BASE_URL + 'images/hero-laura.jpg',
 })
 
@@ -60,7 +64,8 @@ export const journey = doc('inicio.journey', {
   text:
     'Depois de 3 anos e meio na Austrália, comecei uma nova fase: viajar pelo mundo enquanto construo um negócio digital. Minha meta é alcançar uma renda online e transformar esse projeto em uma fonte de liberdade geográfica. Compartilho os bastidores, os números reais, as conquistas e os desafios dessa construção. Sem fórmulas mágicas, apenas o processo real.',
   cta: { label: 'Acompanhe a jornada', href: links.youtube },
-}) as { eyebrow: string; title: string; text: string; cta: { label: string; href: string }; stops: string[]; current: number }
+  showRoute: true,
+}) as { eyebrow: string; title: string; text: string; cta: { label: string; href: string }; showRoute: boolean; stops: string[]; current: number }
 // Calculados a partir do diário (não são editáveis aqui, por isso não entram no documento).
 Object.defineProperties(journey, {
   stops: { get: journeyStops, enumerable: false },

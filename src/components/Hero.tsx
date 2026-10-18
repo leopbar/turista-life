@@ -63,7 +63,7 @@ export function Hero() {
             <span key={l} tw="block" css={css`padding-left: ${i * 18}px;`}>{l}</span>
           ))}
         </p>
-        <PlaneTrail tw="mt-1 ml-10 w-24 -rotate-12 text-white/90" />
+        {hero.showTrail !== false && <PlaneTrail tw="mt-1 ml-10 w-24 -rotate-12 text-white/90" />}
       </div>
     </section>
   )

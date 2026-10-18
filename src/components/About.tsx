@@ -42,7 +42,7 @@ function JourneyCard() {
       <p tw="font-sans text-[11px] font-semibold uppercase tracking-[.16em] text-white/80">{journey.eyebrow}</p>
       <h3 tw="mt-3 pr-12 font-serif text-[24px] font-bold uppercase leading-tight tracking-[.02em] sm:text-[28px]">{journey.title}</h3>
 
-      <ol tw="mt-6 flex items-center" aria-label="Rota da viagem">
+      {journey.showRoute !== false && <ol tw="mt-6 flex items-center" aria-label="Rota da viagem">
         {journey.stops.map((stop, i) => {
           const done = i < journey.current
           const current = i === journey.current
@@ -62,7 +62,7 @@ function JourneyCard() {
             </li>
           )
         })}
-      </ol>
+      </ol>}
 
       <p tw="mt-5 max-w-[420px] font-sans text-[14px] leading-relaxed text-white/85">{journey.text}</p>
 
