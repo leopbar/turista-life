@@ -44,7 +44,11 @@ class MoveIn(Api):
 
 
 class RestoreSiteIn(Api):
-    at: datetime
+    """Uma versão do caderno (o site fica como estava logo depois dela), o conteúdo original ou um momento."""
+
+    at: datetime | None = None
+    version_id: int | None = None
+    original: bool = False
 
 
 def _run(fn):
@@ -115,16 +119,24 @@ def history(limit: int = Query(default=60, ge=1, le=200), _: ActiveSession = Dep
     ]
 
 
+def _moment(db: Session, body: RestoreSiteIn) -> datetime | None:
+    return svc.moment_of(db, at=_naive_utc(body.at) if body.at else None, version_id=body.version_id, original=body.original)
+
+
 @router.get('/api/content/restore-site/preview')
-def restore_site_preview(at: datetime, _: ActiveSession = Depends(user_session), db: Session = Depends(get_db)):
-    """O que muda se o site voltar para este momento (para mostrar no aviso antes de confirmar)."""
-    return _run(lambda: svc.preview_site(db, _naive_utc(at)))
+def restore_site_preview(
+    at: datetime | None = None, version_id: int | None = Query(default=None, alias='versionId'), original: bool = False,
+    _: ActiveSession = Depends(user_session), db: Session = Depends(get_db),
+):
+    """O que muda se o site voltar para esta versão (para mostrar no aviso antes de confirmar)."""
+    body = RestoreSiteIn(at=at, version_id=version_id, original=original)
+    return _run(lambda: svc.preview_site(db, _moment(db, body)))
 
 
 @router.post('/api/content/restore-site')
 def restore_site(body: RestoreSiteIn, request: Request, active: ActiveSession = Depends(user_session), db: Session = Depends(get_db), settings: Settings = Depends(get_settings)):
     with write(db):
-        n = _run(lambda: svc.restore_site(db, _naive_utc(body.at), active.user, client_ip(request, settings), settings))
+        n = _run(lambda: svc.restore_site(db, _moment(db, body), active.user, client_ip(request, settings), settings))
     return {'changed': n}
 
 

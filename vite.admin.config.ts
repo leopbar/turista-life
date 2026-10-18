@@ -12,6 +12,12 @@ export default defineConfig({
       babel: { plugins: ['babel-plugin-macros'] },
     }),
   ],
+  // O twin.macro só cria o import do @emotion/styled ao compilar (ver vite.config.ts).
+  // Cache próprio (o site e a pré-visualização têm os deles; ver vite.config.ts).
+  cacheDir: '../node_modules/.vite/painel',
+  optimizeDeps: {
+    include: ['@emotion/react', '@emotion/react/jsx-runtime', '@emotion/react/jsx-dev-runtime', '@emotion/styled'],
+  },
   build: { outDir: 'dist', emptyOutDir: true },
   server: {
     port: Number(process.env.PORT) || 4322,

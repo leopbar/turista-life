@@ -116,8 +116,9 @@ export const api = {
   move: (collection: string, key: string, to: number) => request<{ ok: true }>('POST', `/api/collections/${collection}/move`, { key, to }),
   search: (q: string) => request<SearchResult[]>('GET', `/api/content/search?q=${encodeURIComponent(q)}`),
   history: () => request<HistoryItem[]>('GET', '/api/content/history'),
-  restoreSitePreview: (at: string) => request<RestorePreviewItem[]>('GET', `/api/content/restore-site/preview?at=${encodeURIComponent(at)}`),
-  restoreSite: (at: string) => request<{ changed: number }>('POST', '/api/content/restore-site', { at }),
+  restoreSitePreview: (to: RestoreTarget) =>
+    request<RestorePreviewItem[]>('GET', `/api/content/restore-site/preview?${'versionId' in to ? `versionId=${to.versionId}` : 'original=true'}`),
+  restoreSite: (to: RestoreTarget) => request<{ changed: number }>('POST', '/api/content/restore-site', to),
 
   /* Busca de cidades (posição no mapa) */
   geoSearch: (q: string) => request<GeoResult[]>('GET', `/api/geo/search?q=${encodeURIComponent(q)}`),
@@ -169,6 +170,9 @@ export type DocFull = DocMeta & { draft: Record<string, unknown>; published: Rec
 export type VersionItem = { id: number; action: string; createdAt: string; createdBy: string | null; data: Record<string, unknown> | null }
 
 export type HistoryItem = { id: number; key: string; label: string; action: string; createdAt: string; createdBy: string | null }
+
+/** Para onde o site volta: uma versão do caderno (como ficou logo depois dela) ou o conteúdo original. */
+export type RestoreTarget = { versionId: number } | { original: true }
 
 /** Uma parte do site na prévia de "voltar no tempo": como está no ar e como vai ficar (null = fora do site). */
 export type RestorePreviewItem = { key: string; label: string; current: Record<string, unknown> | null; target: Record<string, unknown> | null }

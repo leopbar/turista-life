@@ -1,7 +1,7 @@
 import json
 from datetime import timedelta
 
-from sqlalchemy import update
+from sqlalchemy import select, update
 
 from painel import content
 from painel.cms_schema import load_defaults, load_schema, validate
@@ -192,6 +192,75 @@ def test_previa_de_voltar_o_site_mostra_o_que_vai_ficar_no_ar(admin: Painel, db,
 
     assert admin.get('/api/content/restore-site/preview', params={'at': (utcnow() - timedelta(days=1)).isoformat() + 'Z'}).json() == []
     assert admin.get('/api/content/restore-site/preview', params={'at': '2020-01-01T00:00:00Z'}).status_code == 400
+
+
+def test_voltar_para_uma_versao_ignora_tudo_o_que_veio_depois(admin: Painel, db, settings):
+    def publicar(**mudanca):
+        d = admin.get('/api/content/inicio.hero').json()['draft']
+        _put(admin, 'inicio.hero', {**d, **mudanca})
+        assert admin.post('/api/content/inicio.hero/publish').status_code == 200
+        with write(db):  # cada publicação um pouco depois da anterior
+            for v in db.scalars(select(Version)):
+                v.created_at -= timedelta(minutes=1)
+
+    original = site_json(settings)['docs']['inicio.hero']
+    publicar(title='T1')
+    publicar(cta={**original['cta'], 'label': 'Botão 2'})
+    versao_2 = admin.get('/api/content/history').json()[0]
+    publicar(title='T3')
+    publicar(cta={**original['cta'], 'label': 'Botão 4'})
+
+    # A versão escolhida conta: o site fica exatamente como logo depois dela.
+    previa = admin.get('/api/content/restore-site/preview', params={'versionId': versao_2['id']}).json()
+    assert [p['target']['cta']['label'] for p in previa] == ['Botão 2']
+    assert admin.post('/api/content/restore-site', json={'versionId': versao_2['id']}).status_code == 200
+    hero = site_json(settings)['docs']['inicio.hero']
+    assert (hero['title'], hero['cta']['label']) == ('T1', 'Botão 2')
+
+    # Conteúdo original: ignora todas as versões.
+    assert admin.post('/api/content/restore-site', json={'original': True}).status_code == 200
+    assert site_json(settings)['docs']['inicio.hero'] == original
+    assert admin.post('/api/content/restore-site', json={'versionId': 999999}).status_code == 404
+    assert admin.post('/api/content/restore-site', json={}).status_code == 400
+
+
+def test_voltar_para_versao_com_campo_que_saiu_do_mapa(admin: Painel, db, settings):
+    # Versões antigas guardam campos e textos fixos que o código já removeu: voltar a elas não pode falhar.
+    with write(db):
+        for key, extra in (('produtos.page', {'campoQueSaiu': 'x'}), ('geral.textos', {'texto.que.saiu': 'y'})):
+            v = db.scalar(select(Version).where(Version.key == key))
+            v.data = {**v.data, **extra}
+            v.created_at = utcnow() - timedelta(days=2)
+        for v in db.scalars(select(Version).where(Version.key.not_in(['produtos.page', 'geral.textos']))):
+            v.created_at = utcnow() - timedelta(days=2)
+    original_produtos = [v for v in admin.get('/api/content/produtos.page/versions').json() if v['action'] == 'original'][0]
+    doc = admin.get('/api/content/inicio.hero').json()['draft']
+    _put(admin, 'inicio.hero', {**doc, 'title': 'Depois'})
+    admin.post('/api/content/inicio.hero/publish')
+
+    # Só a capa muda de verdade: o campo removido não conta como diferença.
+    previa = admin.get('/api/content/restore-site/preview', params={'original': 'true'}).json()
+    assert [p['key'] for p in previa] == ['inicio.hero']
+    assert admin.post('/api/content/restore-site', json={'original': True}).status_code == 200
+    assert admin.post(f"/api/content/produtos.page/versions/{original_produtos['id']}/restore").status_code == 409  # já é a que está no ar
+    assert 'campoQueSaiu' not in site_json(settings)['docs']['produtos.page']
+
+
+def test_publicar_espera_o_site_json_ser_liberado(admin: Painel, settings, monkeypatch):
+    # No Windows a troca do site.json falha enquanto outro programa o lê: a publicação tenta de novo.
+    real, falhas = content.os.replace, []
+
+    def ocupado(src, dst):
+        if len(falhas) < 2:
+            falhas.append(1)
+            raise PermissionError(5, 'Acesso negado')
+        return real(src, dst)
+
+    monkeypatch.setattr(content.os, 'replace', ocupado)
+    doc = admin.get('/api/content/inicio.hero').json()['draft']
+    _put(admin, 'inicio.hero', {**doc, 'title': 'Publicado mesmo assim'})
+    assert admin.post('/api/content/inicio.hero/publish').status_code == 200
+    assert len(falhas) == 2 and site_json(settings)['docs']['inicio.hero']['title'] == 'Publicado mesmo assim'
 
 
 def test_aviso_de_quem_esta_editando(app, db, admin: Painel):

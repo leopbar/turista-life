@@ -67,14 +67,27 @@ export function changeSummary(fields: Fields, draft: unknown, published: unknown
 
 export type ChangeDetail = { label: string; from?: string; to?: string }
 
-const shown = (v: unknown): string | undefined => {
+/** Texto curto para mostrar; `from` é onde a diferença começa (textos longos aparecem a partir dali). */
+const shown = (v: unknown, from = 0): string | undefined => {
   if (v === undefined || v === null || v === '') return '(vazio)'
   if (typeof v === 'boolean') return v ? 'sim' : 'não'
   if (typeof v === 'string' || typeof v === 'number') {
     const s = String(v).replace(/\s+/g, ' ').trim()
-    return s.length > 70 ? `${s.slice(0, 70)}…` : s
+    const start = from > 50 ? from - 20 : 0
+    const cut = s.slice(start, start + 70)
+    return `${start ? '…' : ''}${cut}${start + 70 < s.length ? '…' : ''}`
   }
   return undefined
+}
+
+/** Primeira posição em que dois textos diferem. */
+const firstDiff = (a: unknown, b: unknown) => {
+  if (typeof a !== 'string' || typeof b !== 'string') return 0
+  const x = a.replace(/\s+/g, ' ').trim()
+  const y = b.replace(/\s+/g, ' ').trim()
+  let i = 0
+  while (i < x.length && x[i] === y[i]) i++
+  return i
 }
 
 /** O que muda, campo a campo, com o texto de agora e o que vai ficar (para textos curtos e fotos). */
@@ -83,8 +96,9 @@ export function changeDetails(fields: Fields, from: unknown, to: unknown): Chang
     const value = to ?? from
     const label = pathLabels(fields, value, p).join(' › ') || 'Conteúdo'
     if (fieldAt(fields, value, p)?.kind === 'image') return { label, to: getAt(to, p) ? 'outra foto' : '(sem foto)' }
-    const a = shown(getAt(from, p))
-    const b = shown(getAt(to, p))
+    const at = firstDiff(getAt(from, p), getAt(to, p))
+    const a = shown(getAt(from, p), at)
+    const b = shown(getAt(to, p), at)
     return a !== undefined && b !== undefined ? { label, from: a, to: b } : { label }
   })
 }

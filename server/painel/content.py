@@ -3,6 +3,7 @@
 import json
 import os
 import re
+import time
 import unicodedata
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -157,7 +158,16 @@ def write_bundle(db: Session, settings: Settings) -> None:
     target = public_dir(settings) / 'site.json'
     tmp = target.with_suffix('.json.tmp')
     tmp.write_text(json.dumps(bundle, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
-    os.replace(tmp, target)
+    # No Windows a troca é recusada enquanto outro programa lê o site.json (site local, antivírus):
+    # tenta de novo por até ~2 s antes de desistir. No Linux (VPS) a troca nunca é bloqueada.
+    for attempt in range(20):
+        try:
+            os.replace(tmp, target)
+            return
+        except PermissionError:
+            if attempt == 19:
+                raise
+            time.sleep(0.1)
 
 
 # ------------------------------------------------------------------ #
@@ -424,8 +434,14 @@ def _keep_drafts(db: Session, kept: dict[str, tuple]) -> None:
 
 
 def _with_defaults(key: str, data: Any) -> Any:
-    base = key.split(':', 1)[0]
-    return _fill(data, load_defaults()['docs'].get(base, {})) if ':' not in key else data
+    """Uma versão guardada adaptada ao mapa de hoje, como o seed faz com o conteúdo atual: campos novos entram
+    com o valor do código e os que saíram do mapa saem (senão voltar a uma versão antiga falharia ao publicar)."""
+    if ':' in key or not isinstance(data, dict):
+        return data
+    default = load_defaults()['docs'].get(key, {})
+    if key == 'geral.textos':
+        return {k: data.get(k, v) for k, v in default.items()}
+    return _prune(_fill(data, default), load_schema().fields(key) or {})
 
 
 def _bring_back(db: Session, key: str, v: Version) -> None:
@@ -449,17 +465,39 @@ def _bring_back(db: Session, key: str, v: Version) -> None:
     db.flush()
 
 
-def _site_plan(db: Session, at: datetime) -> list[tuple[str, Version | None]]:
-    """O que muda para o site voltar a um momento: cada documento e a versão daquela hora (None = sai do site)."""
+def moment_of(db: Session, *, at: datetime | None = None, version_id: int | None = None, original: bool = False) -> datetime | None:
+    """Para onde o site volta: uma versão do caderno (o site como ficou logo depois dela), um momento qualquer
+    ou None = o conteúdo original (cada parte na sua versão original)."""
+    if original:
+        return None
+    if version_id is not None:
+        v = db.get(Version, version_id)
+        if v is None:
+            raise ContentError(404, 'not_found', 'Versão não encontrada.')
+        at = v.created_at
+    if at is None:
+        raise ContentError(400, 'no_moment', 'Escolha uma versão do caderno.')
+    return at
+
+
+def _site_plan(db: Session, at: datetime | None) -> list[tuple[str, Version | None]]:
+    """O que muda para o site voltar a um momento (None = conteúdo original): cada documento e a versão
+    daquela hora (None = sai do site)."""
+    if at is None:
+        return _plan(db, lambda key: db.scalar(select(Version).where(Version.key == key, Version.action == 'original').order_by(Version.id).limit(1)))
     if at >= utcnow():
         raise ContentError(400, 'future', 'Escolha um momento no passado.')
     start = history_start(db)
     if start is None or at < start:
         when = start.strftime('%d/%m/%Y') if start else 'hoje'
         raise ContentError(400, 'too_old', f'O caderno só guarda o site a partir de {when}. Escolha um momento depois disso.')
+    return _plan(db, lambda key: db.scalar(select(Version).where(Version.key == key, Version.created_at <= at).order_by(Version.id.desc()).limit(1)))
+
+
+def _plan(db: Session, version_for) -> list[tuple[str, Version | None]]:
     plan: list[tuple[str, Version | None]] = []
     for key in sorted(set(db.scalars(select(Version.key).distinct()))):
-        before = db.scalar(select(Version).where(Version.key == key, Version.created_at <= at).order_by(Version.id.desc()).limit(1))
+        before = version_for(key)
         doc = db.get(Document, key)
         current = doc.published if doc else None
         if before is None:
@@ -472,7 +510,7 @@ def _site_plan(db: Session, at: datetime) -> list[tuple[str, Version | None]]:
     return plan
 
 
-def preview_site(db: Session, at: datetime) -> list[dict]:
+def preview_site(db: Session, at: datetime | None) -> list[dict]:
     """Prévia de "voltar o site no tempo": como cada parte está no ar agora e como vai ficar. Não muda nada."""
     out = []
     for key, v in _site_plan(db, at):
@@ -483,7 +521,7 @@ def preview_site(db: Session, at: datetime) -> list[dict]:
     return out
 
 
-def restore_site(db: Session, at: datetime, user: User, ip: str, settings: Settings) -> int:
+def restore_site(db: Session, at: datetime | None, user: User, ip: str, settings: Settings) -> int:
     """Volta o site inteiro para como estava num momento: cada documento volta à versão daquela hora."""
     plan = _site_plan(db, at)
     if not plan:

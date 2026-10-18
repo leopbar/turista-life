@@ -10,6 +10,14 @@ export default defineConfig({
       babel: { plugins: ['babel-plugin-macros'] },
     }),
   ],
+  // O twin.macro só cria o import do @emotion/styled ao compilar: sem isto o Vite o descobre com a página
+  // já abrindo, re-otimiza no meio e a página fica em branco ("Invalid hook call", dois Reacts).
+  // Um cache por porta: o site (4321) e a pré-visualização (4323) rodam juntos com configurações diferentes e,
+  // na mesma pasta, um apagava o cache do outro (página em branco, erro 504 "Outdated Optimize Dep").
+  cacheDir: `node_modules/.vite/site-${process.env.PORT || 4321}`,
+  optimizeDeps: {
+    include: ['@emotion/react', '@emotion/react/jsx-runtime', '@emotion/react/jsx-dev-runtime', '@emotion/styled'],
+  },
   // Porta fixa: a 5173 padrão costuma estar ocupada pelo Docker nesta máquina.
   server: {
     port: Number(process.env.PORT) || 4321,
