@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import tw, { type TwStyle } from 'twin.macro'
-import { ApiError, api, parseDate, type HistoryItem } from '../api'
+import { ApiError, api, parseDate, type HistoryItem, type RestorePreviewItem } from '../api'
 import { Alert, Button, Modal, Toast } from '../components/ui'
-import { PublishedStamp } from './DocEditor'
+import { PublishedStamp, changeDetails } from './DocEditor'
+import { definitionOf, useSchema } from './model'
 
 const ACTION: Record<string, { label: string; css: TwStyle }> = {
   publicado: { label: 'Publicado', css: tw`bg-mist text-pine-800` },
@@ -20,6 +21,8 @@ function ActionChip({ action }: { action: string }) {
 
 /** Uma publicação: o que mudou primeiro, quem e quando embaixo; as ações ficam discretas. */
 function Entry({ h, onBack }: { h: HistoryItem; onBack: () => void }) {
+  // "Voltar para antes" de uma restauração traz de volta o que ela tinha tirado do ar: o nome diz isso.
+  const undo = h.action === 'restaurado'
   return (
     <li className="group" tw="flex flex-wrap items-center gap-x-3 gap-y-2 border-0 border-t border-solid border-line px-4 py-3.5 transition-colors first:border-t-0 hover:bg-cream sm:(flex-nowrap px-5)">
       <span tw="min-w-0 flex-1 basis-[200px]">
@@ -35,13 +38,56 @@ function Entry({ h, onBack }: { h: HistoryItem; onBack: () => void }) {
           Abrir
         </Link>
         <button
-          type="button" onClick={onBack} title="Volta o site inteiro para como estava logo antes desta publicação"
+          type="button" onClick={onBack}
+          title={undo ? 'Traz de volta o que estava no ar antes desta restauração' : 'Volta o site inteiro para como estava logo antes desta publicação'}
           tw="cursor-pointer whitespace-nowrap rounded-full border-0 bg-white px-2.5 py-1 font-sans text-[12px] font-semibold text-sun-600 shadow-card hover:bg-[#FFF4EC]"
         >
-          ↺ Voltar para antes
+          {undo ? '↶ Desfazer esta restauração' : '↺ Voltar para antes'}
         </button>
       </span>
     </li>
+  )
+}
+
+/** Um segundo antes da mudança escolhida: o site volta a ser como era antes dela. */
+const momentBefore = (h: HistoryItem) => new Date(parseDate(h.createdAt).getTime() - 1000).toISOString()
+
+/** Prévia no aviso: cada parte que muda, com o que está no ar e o que vai ficar. */
+function Preview({ items }: { items: RestorePreviewItem[] }) {
+  const schema = useSchema()
+  return (
+    <div tw="mt-4 max-h-[46vh] overflow-y-auto rounded-2xl bg-cream p-4">
+      <p tw="m-0 font-sans text-[13px] font-semibold text-pine-900">Como o site vai ficar:</p>
+      <ul tw="m-0 mt-2 flex list-none flex-col gap-3 p-0">
+        {items.map((it) => {
+          const def = schema && definitionOf(schema, it.key)
+          const details = it.target === null ? [] : it.current === null || !def ? null : changeDetails(def.fields, it.current, it.target)
+          return (
+            <li key={it.key} tw="font-sans text-[13px] text-ink">
+              <span tw="font-semibold">{it.label}</span>
+              {it.target === null && <span tw="text-[#B42318]"> · sai do site</span>}
+              {it.current === null && it.target !== null && <span tw="text-pine-800"> · volta ao site</span>}
+              {details && details.length > 0 && (
+                <ul tw="m-0 mt-1 flex flex-col gap-1 pl-4">
+                  {details.map((d, i) => (
+                    <li key={i} tw="break-words text-[12.5px] leading-snug">
+                      {d.label}
+                      {d.to !== undefined && (
+                        <>
+                          {': '}
+                          {d.from !== undefined && <><s tw="text-muted">{d.from}</s>{' → '}</>}
+                          <strong>{d.to}</strong>
+                        </>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          )
+        })}
+      </ul>
+    </div>
   )
 }
 
@@ -58,10 +104,25 @@ export function Notebook() {
   const [busy, setBusy] = useState(false)
   const [stamp, setStamp] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
+  const [preview, setPreview] = useState<RestorePreviewItem[] | null>(null)
   const load = () => api.history().then(setItems).catch(() => setItems([]))
   useEffect(() => {
     load()
   }, [])
+
+  // Ao abrir o aviso, o servidor diz o que muda (sem mudar nada ainda).
+  useEffect(() => {
+    setPreview(null)
+    setError(null)
+    if (!back) return
+    let alive = true
+    api.restoreSitePreview(momentBefore(back))
+      .then((p) => alive && setPreview(p))
+      .catch((err) => alive && setError(err instanceof ApiError ? err.message : 'Não deu para conferir o que muda.'))
+    return () => {
+      alive = false
+    }
+  }, [back])
 
   const days: { day: string; items: HistoryItem[] }[] = []
   for (const h of items ?? []) {
@@ -75,9 +136,7 @@ export function Notebook() {
     setBusy(true)
     setError(null)
     try {
-      // Um segundo antes da mudança escolhida: o site volta a ser como era antes dela.
-      const at = new Date(parseDate(back.createdAt).getTime() - 1000).toISOString()
-      const r = await api.restoreSite(at)
+      const r = await api.restoreSite(momentBefore(back))
       setBack(null)
       setStamp(true)
       setToast(`${r.changed} ${r.changed === 1 ? 'parte voltou' : 'partes voltaram'} a ser como antes`)
@@ -112,16 +171,26 @@ export function Notebook() {
       </div>
 
       {back && (
-        <Modal title="Voltar o site no tempo?" onClose={() => setBack(null)}>
+        <Modal title={back.action === 'restaurado' ? 'Desfazer esta restauração?' : 'Voltar o site no tempo?'} onClose={() => setBack(null)}>
           <p tw="m-0 font-sans text-[14.5px] leading-relaxed text-muted">
-            O site inteiro volta a ser como era em <strong>{parseDate(back.createdAt).toLocaleString('pt-BR')}</strong>, logo antes de "{back.label}".
+            {back.action === 'restaurado' ? (
+              <>
+                O site volta a ser como era em <strong>{parseDate(momentBefore(back)).toLocaleString('pt-BR')}</strong>, logo antes da restauração de "{back.label}".
+                Ou seja: o que essa restauração tinha tirado do ar volta para o site.
+              </>
+            ) : (
+              <>O site inteiro volta a ser como era em <strong>{parseDate(momentBefore(back)).toLocaleString('pt-BR')}</strong>, logo antes de "{back.label}".</>
+            )}{' '}
             Tudo o que foi publicado depois sai do ar, mas continua no caderno: dá para trazer de volta.
             Rascunhos em andamento não se perdem: continuam guardados, ainda por publicar.
           </p>
+          {!preview && !error && <p tw="mt-4 animate-pulse font-sans text-[13px] text-muted">Conferindo o que muda…</p>}
+          {preview?.length === 0 && <div tw="mt-4"><Alert>O site já está igual ao que era nesse momento. Não há nada para voltar.</Alert></div>}
+          {preview && preview.length > 0 && <Preview items={preview} />}
           {error && <div tw="mt-4"><Alert>{error}</Alert></div>}
           <div tw="mt-6 flex justify-end gap-3">
             <Button variant="ghost" onClick={() => setBack(null)}>Cancelar</Button>
-            <Button variant="danger" disabled={busy} onClick={restore}>{busy ? 'Voltando…' : 'Voltar o site'}</Button>
+            <Button variant="danger" disabled={busy || !preview?.length} onClick={restore}>{busy ? 'Voltando…' : 'Voltar o site'}</Button>
           </div>
         </Modal>
       )}

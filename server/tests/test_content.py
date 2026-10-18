@@ -169,6 +169,31 @@ def test_voltar_o_site_inteiro_no_tempo(admin: Painel, db, settings):
     assert site_json(settings)['docs']['inicio.hero']['title'] == 'Viajar mais. Viver mais.'
 
 
+def test_previa_de_voltar_o_site_mostra_o_que_vai_ficar_no_ar(admin: Painel, db, settings):
+    # O caso da produção: botão trocado e desfeito; voltar para antes do "Restaurado" traz o botão trocado de volta.
+    with write(db):
+        db.execute(update(Version).values(created_at=utcnow() - timedelta(days=2)))
+    doc = admin.get('/api/content/inicio.hero').json()['draft']
+    _put(admin, 'inicio.hero', {**doc, 'cta': {**doc['cta'], 'label': 'Botão errado'}})
+    admin.post('/api/content/inicio.hero/publish')
+    original = [v for v in admin.get('/api/content/inicio.hero/versions').json() if v['action'] == 'original'][0]
+    with write(db):
+        db.execute(update(Version).where(Version.action == 'publicado').values(created_at=utcnow() - timedelta(hours=2)))
+    admin.post(f"/api/content/inicio.hero/versions/{original['id']}/restore")
+    antes_da_restauracao = (utcnow() - timedelta(hours=1)).isoformat() + 'Z'
+    no_ar = site_json(settings)['docs']['inicio.hero']
+
+    r = admin.get('/api/content/restore-site/preview', params={'at': antes_da_restauracao})
+    assert r.status_code == 200
+    [parte] = r.json()
+    assert parte['key'] == 'inicio.hero' and parte['label'] == 'Capa (topo da página inicial)'
+    assert parte['current']['cta']['label'] == doc['cta']['label'] and parte['target']['cta']['label'] == 'Botão errado'
+    assert site_json(settings)['docs']['inicio.hero'] == no_ar  # a prévia não muda nada
+
+    assert admin.get('/api/content/restore-site/preview', params={'at': (utcnow() - timedelta(days=1)).isoformat() + 'Z'}).json() == []
+    assert admin.get('/api/content/restore-site/preview', params={'at': '2020-01-01T00:00:00Z'}).status_code == 400
+
+
 def test_aviso_de_quem_esta_editando(app, db, admin: Painel):
     add_user(db, 'laura@exemplo.com', 'Senha-Da-Laura-Bem-Longa', role='editor', name='Laura')
     laura = Painel(app)

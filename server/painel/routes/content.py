@@ -115,6 +115,12 @@ def history(limit: int = Query(default=60, ge=1, le=200), _: ActiveSession = Dep
     ]
 
 
+@router.get('/api/content/restore-site/preview')
+def restore_site_preview(at: datetime, _: ActiveSession = Depends(user_session), db: Session = Depends(get_db)):
+    """O que muda se o site voltar para este momento (para mostrar no aviso antes de confirmar)."""
+    return _run(lambda: svc.preview_site(db, _naive_utc(at)))
+
+
 @router.post('/api/content/restore-site')
 def restore_site(body: RestoreSiteIn, request: Request, active: ActiveSession = Depends(user_session), db: Session = Depends(get_db), settings: Settings = Depends(get_settings)):
     with write(db):

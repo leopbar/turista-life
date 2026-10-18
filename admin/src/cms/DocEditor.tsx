@@ -6,7 +6,7 @@ import { Back, Close } from '../components/icons'
 import { Alert, Button, Stamp } from '../components/ui'
 import { FieldEditor, FormEnvProvider } from './FieldEditor'
 import { usePickImage } from './Media'
-import { STATUS, definitionOf, isCollection, missingRequired, pathLabels, useSchema } from './model'
+import { STATUS, definitionOf, fieldAt, getAt, isCollection, missingRequired, pathLabels, useSchema } from './model'
 import type { DocSession } from './session'
 
 /* ------------------------------------------------------------------ */
@@ -63,6 +63,30 @@ export function changeSummary(fields: Fields, draft: unknown, published: unknown
   const paths = changedPaths(published, draft)
   const labels = paths.map((p) => pathLabels(fields, draft, p).join(' › ') || 'Conteúdo')
   return [...new Set(labels)].slice(0, 8)
+}
+
+export type ChangeDetail = { label: string; from?: string; to?: string }
+
+const shown = (v: unknown): string | undefined => {
+  if (v === undefined || v === null || v === '') return '(vazio)'
+  if (typeof v === 'boolean') return v ? 'sim' : 'não'
+  if (typeof v === 'string' || typeof v === 'number') {
+    const s = String(v).replace(/\s+/g, ' ').trim()
+    return s.length > 70 ? `${s.slice(0, 70)}…` : s
+  }
+  return undefined
+}
+
+/** O que muda, campo a campo, com o texto de agora e o que vai ficar (para textos curtos e fotos). */
+export function changeDetails(fields: Fields, from: unknown, to: unknown): ChangeDetail[] {
+  return changedPaths(from, to).slice(0, 8).map((p) => {
+    const value = to ?? from
+    const label = pathLabels(fields, value, p).join(' › ') || 'Conteúdo'
+    if (fieldAt(fields, value, p)?.kind === 'image') return { label, to: getAt(to, p) ? 'outra foto' : '(sem foto)' }
+    const a = shown(getAt(from, p))
+    const b = shown(getAt(to, p))
+    return a !== undefined && b !== undefined ? { label, from: a, to: b } : { label }
+  })
 }
 
 /* ------------------------------------------------------------------ */

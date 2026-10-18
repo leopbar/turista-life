@@ -449,34 +449,52 @@ def _bring_back(db: Session, key: str, v: Version) -> None:
     db.flush()
 
 
-def restore_site(db: Session, at: datetime, user: User, ip: str, settings: Settings) -> int:
-    """Volta o site inteiro para como estava num momento: cada documento volta à versão daquela hora."""
+def _site_plan(db: Session, at: datetime) -> list[tuple[str, Version | None]]:
+    """O que muda para o site voltar a um momento: cada documento e a versão daquela hora (None = sai do site)."""
     if at >= utcnow():
         raise ContentError(400, 'future', 'Escolha um momento no passado.')
     start = history_start(db)
     if start is None or at < start:
         when = start.strftime('%d/%m/%Y') if start else 'hoje'
         raise ContentError(400, 'too_old', f'O caderno só guarda o site a partir de {when}. Escolha um momento depois disso.')
-    changed = []
-    keys = set(db.scalars(select(Version.key).distinct()))
-    kept = _pending_drafts(db, keys)
-    for key in keys:
+    plan: list[tuple[str, Version | None]] = []
+    for key in sorted(set(db.scalars(select(Version.key).distinct()))):
         before = db.scalar(select(Version).where(Version.key == key, Version.created_at <= at).order_by(Version.id.desc()).limit(1))
         doc = db.get(Document, key)
         current = doc.published if doc else None
         if before is None:
             # Ainda não existia naquele momento: sai do site.
-            if doc is not None and doc.collection:
-                if doc.published is None:
-                    continue
-                doc.draft_deleted = True
-                changed.append(key)
+            if doc is not None and doc.collection and doc.published is not None:
+                plan.append((key, None))
             continue
         if (before.data if before.data is None else _with_defaults(key, before.data)) != current:
-            _bring_back(db, key, before)
-            changed.append(key)
-    if not changed:
+            plan.append((key, before))
+    return plan
+
+
+def preview_site(db: Session, at: datetime) -> list[dict]:
+    """Prévia de "voltar o site no tempo": como cada parte está no ar agora e como vai ficar. Não muda nada."""
+    out = []
+    for key, v in _site_plan(db, at):
+        doc = db.get(Document, key)
+        current = doc.published if doc else None
+        target = None if v is None or v.data is None else _with_defaults(key, v.data)
+        out.append({'key': key, 'label': label_of(key, target if target is not None else current), 'current': current, 'target': target})
+    return out
+
+
+def restore_site(db: Session, at: datetime, user: User, ip: str, settings: Settings) -> int:
+    """Volta o site inteiro para como estava num momento: cada documento volta à versão daquela hora."""
+    plan = _site_plan(db, at)
+    if not plan:
         raise ContentError(409, 'nothing', 'O site já está igual ao que era nesse momento.')
+    kept = _pending_drafts(db, set(db.scalars(select(Version.key).distinct())))
+    for key, v in plan:
+        if v is None:
+            db.get(Document, key).draft_deleted = True
+        else:
+            _bring_back(db, key, v)
+    changed = [key for key, _ in plan]
     publish(db, changed, user.email, ip, settings, action='restaurado', actor=user)
     _keep_drafts(db, kept)
     return len(changed)
