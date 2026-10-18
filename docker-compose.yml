@@ -1,6 +1,6 @@
 # Publicação no VPS: os containers escutam só em 127.0.0.1.
 # O nginx do servidor repassa https://lbai.dev/turista-life/ para o site (3010)
-# e https://painel-turista-life.lbai.dev/ para o painel (3011).
+# e https://painel-turista-life.lbai.dev/ para o painel (3012).
 services:
   turista-life:
     build:
@@ -27,7 +27,7 @@ services:
     container_name: turista-life-painel
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3011:8000"
+      - "127.0.0.1:3012:8000"
     # Alertas por Gmail (opcional): PAINEL_GMAIL_USER, PAINEL_GMAIL_APP_PASSWORD, PAINEL_ALERT_TO.
     env_file:
       - path: .env.painel

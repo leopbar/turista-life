@@ -36,7 +36,7 @@ O banco local fica em `server/data/` (fora do Git).
 
 ## Produção (VPS)
 
-- `docker-compose.yml`: container `turista-life-painel` em `127.0.0.1:3011`, com dois volumes:
+- `docker-compose.yml`: container `turista-life-painel` em `127.0.0.1:3012`, com dois volumes:
   `painel-data` (banco, chave, backups; só o painel vê) e `painel-public` (conteúdo publicado e fotos;
   o painel escreve e o container do site lê em `/turista-life/cms/`, só leitura).
 - nginx do host: arquivo novo `deploy/painel-turista-life.lbai.dev.conf` (só deste subdomínio).
