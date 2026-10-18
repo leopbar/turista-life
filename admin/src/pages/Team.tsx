@@ -32,7 +32,7 @@ const toneCss = {
 /* Senha provisória: aparece uma vez só                                */
 /* ------------------------------------------------------------------ */
 
-function TempPasswordModal({ data, onClose }: { data: TempPassword; onClose: () => void }) {
+function TempPasswordModal({ data, renewed, onClose }: { data: TempPassword; renewed: boolean; onClose: () => void }) {
   const [copied, setCopied] = useState<'senha' | 'convite' | null>(null)
   const [confirmClose, setConfirmClose] = useState(false)
   const first = data.user.name.split(' ')[0]
@@ -48,7 +48,7 @@ function TempPasswordModal({ data, onClose }: { data: TempPassword; onClose: () 
   }
 
   return (
-    <Modal title={`Acesso de ${first} criado`} onClose={() => (copied ? onClose() : setConfirmClose(true))} width={540}>
+    <Modal title={renewed ? `Nova senha provisória de ${first}` : `Acesso de ${first} criado`} onClose={() => (copied ? onClose() : setConfirmClose(true))} width={540}>
       <p tw="m-0 font-sans text-[14px] leading-relaxed text-muted">
         Envie o e-mail e a senha provisória para {first} por um canal de confiança (WhatsApp, por exemplo). No primeiro acesso, o painel
         pede uma senha nova, que nem você vai conseguir ver.
@@ -120,6 +120,18 @@ function RolePicker({ value, onChange }: { value: Role; onChange: (r: Role) => v
   )
 }
 
+/** O motivo de um convite recusado, em vez de só "confira". */
+function inviteProblem(err: ApiError): string {
+  const fields = (err.extra.fields ?? {}) as Record<string, string>
+  if (fields.email) {
+    return /special-use|reserved|domain/i.test(fields.email)
+      ? 'Esse e-mail não é aceito: o que vem depois do @ precisa ser um endereço de verdade (ex.: gmail.com).'
+      : 'Esse e-mail não parece válido. Confira se está escrito certo.'
+  }
+  if (fields.name) return 'Escreva o nome da pessoa (até 80 letras).'
+  return 'Confira o nome e o e-mail.'
+}
+
 function InviteDrawer({ onClose, onCreated }: { onClose: () => void; onCreated: (t: TempPassword) => void }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -134,7 +146,7 @@ function InviteDrawer({ onClose, onCreated }: { onClose: () => void; onCreated: 
     try {
       onCreated(await api.createUser({ name, email, role }))
     } catch (err) {
-      setError(err instanceof ApiError ? (err.code === 'invalid' ? 'Confira o nome e o e-mail.' : err.message) : 'Algo deu errado.')
+      setError(err instanceof ApiError ? (err.code === 'invalid' ? inviteProblem(err) : err.message) : 'Algo deu errado.')
     } finally {
       setSending(false)
     }
@@ -204,7 +216,7 @@ export function Team() {
   const { user: me } = useAuth()
   const [users, setUsers] = useState<User[] | null>(null)
   const [inviting, setInviting] = useState(false)
-  const [temp, setTemp] = useState<TempPassword | null>(null)
+  const [temp, setTemp] = useState<{ data: TempPassword; renewed: boolean } | null>(null)
   const [confirm, setConfirm] = useState<Confirm | null>(null)
   const [toast, setToast] = useState<string | null>(null)
 
@@ -258,7 +270,7 @@ export function Team() {
                             title: `Nova senha provisória para ${u.name.split(' ')[0]}?`,
                             text: 'A senha atual deixa de funcionar na hora e a pessoa é desconectada. No próximo acesso, ela cria uma senha nova.',
                             cta: 'Gerar senha provisória',
-                            run: () => api.tempPassword(u.id).then((t) => { setTemp(t); reload() }),
+                            run: () => api.tempPassword(u.id).then((t) => { setTemp({ data: t, renewed: true }); reload() }),
                           })
                         }
                       >
@@ -325,12 +337,12 @@ export function Team() {
           onClose={() => setInviting(false)}
           onCreated={(t) => {
             setInviting(false)
-            setTemp(t)
+            setTemp({ data: t, renewed: false })
             reload()
           }}
         />
       )}
-      {temp && <TempPasswordModal data={temp} onClose={() => setTemp(null)} />}
+      {temp && <TempPasswordModal data={temp.data} renewed={temp.renewed} onClose={() => setTemp(null)} />}
       {confirm && <ConfirmModal c={confirm} onClose={() => setConfirm(null)} />}
       {toast && <Toast message={toast} onDone={() => setToast(null)} />}
     </div>

@@ -78,7 +78,8 @@ def main(argv: list[str] | None = None) -> int:
             )
             db.add(user)
             db.flush()
-            audit.record(db, 'usuario_criado', actor_email='terminal do servidor', target=email, details={'papel': 'admin'})
+            audit.record(db, 'admin_criado', actor_email='terminal do servidor', target=email, details={'papel': 'admin'})
+        alerts.send(settings, f'admin:{email}', 'Um novo administrador foi criado', f'O terminal do servidor criou o administrador {email}.')
         _print_temp(email, temp, settings.temp_password_hours)
         return 0
 

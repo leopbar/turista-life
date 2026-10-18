@@ -11,6 +11,7 @@ from sqlalchemy import inspect
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from . import content, worker
+from . import media as media_lib
 from .config import Settings, load_settings
 from .db import make_engine, make_sessionmaker, write
 from .routes import activity, auth, content as content_routes, geo, media, system, users
@@ -57,6 +58,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             with write(db):
                 content.seed(db)
                 content.write_bundle(db, settings)
+            media_lib.sync_trash_files(db, settings)
         finally:
             db.close()
 

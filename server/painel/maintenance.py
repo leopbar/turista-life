@@ -19,9 +19,11 @@ from .models import AuditEntry, LoginAttempt, Setting, Version
 
 log = logging.getLogger('painel.maintenance')
 
-BACKUP_NAME = re.compile(r'^backup-(\d{8})-(\d{4})\.zip$')
+# backup-AAAAMMDD-HHMMSS.zip (os antigos tinham só HHMM); "-2", "-3"… se sair mais de um no mesmo segundo.
+BACKUP_NAME = re.compile(r'^backup-(\d{8})-(\d{4}|\d{6})(?:-(\d{1,3}))?\.zip$')
 KEEP_DAILY = 30
 KEEP_MONTHLY = 12
+KEEP_LATEST = 3
 BACKUP_HOUR_UTC = 3
 
 
@@ -41,7 +43,12 @@ def create_backup(settings: Settings) -> Path:
     A chave secreta do servidor fica de fora: ela não é necessária para restaurar.
     """
     now = utcnow()
-    target = backups_dir(settings) / f'backup-{now:%Y%m%d-%H%M}.zip'
+    folder = backups_dir(settings)
+    target = folder / f'backup-{now:%Y%m%d-%H%M%S}.zip'
+    n = 1
+    while target.exists():
+        n += 1
+        target = folder / f'backup-{now:%Y%m%d-%H%M%S}-{n}.zip'
     public = settings.data_dir / 'public'
     with tempfile.TemporaryDirectory() as tmp:
         copy = Path(tmp) / 'painel.db'
@@ -64,14 +71,23 @@ def create_backup(settings: Settings) -> Path:
     return target
 
 
+def _order(f: Path) -> tuple:
+    day, time, n = BACKUP_NAME.match(f.name).groups()
+    return day, time.ljust(6, '0'), int(n or 1)
+
+
 def prune_backups(settings: Settings) -> None:
-    """Fica com os 30 mais recentes e com o primeiro de cada mês dos últimos 12 meses."""
-    files = sorted((f for f in backups_dir(settings).iterdir() if BACKUP_NAME.match(f.name)), key=lambda f: f.name)
-    keep = set(files[-KEEP_DAILY:])
+    """Fica com o último backup de cada um dos 30 dias mais recentes, o primeiro de cada mês dos últimos
+    12 meses e os 3 mais novos. Cópias manuais no mesmo dia contam como um dia só."""
+    files = sorted((f for f in backups_dir(settings).iterdir() if BACKUP_NAME.match(f.name)), key=_order)
+    last_of_day: dict[str, Path] = {}
     first_of_month: dict[str, Path] = {}
     for f in files:
-        first_of_month.setdefault(BACKUP_NAME.match(f.name).group(1)[:6], f)
-    keep |= set(sorted(first_of_month.values(), key=lambda f: f.name)[-KEEP_MONTHLY:])
+        day = BACKUP_NAME.match(f.name).group(1)
+        last_of_day[day] = f
+        first_of_month.setdefault(day[:6], f)
+    keep = set(files[-KEEP_LATEST:]) | set(sorted(last_of_day.values(), key=_order)[-KEEP_DAILY:])
+    keep |= set(sorted(first_of_month.values(), key=_order)[-KEEP_MONTHLY:])
     for f in files:
         if f not in keep:
             f.unlink(missing_ok=True)
@@ -79,9 +95,12 @@ def prune_backups(settings: Settings) -> None:
 
 def list_backups(settings: Settings) -> list[dict]:
     out = []
-    for f in sorted(backups_dir(settings).iterdir(), key=lambda f: f.name, reverse=True):
-        if BACKUP_NAME.match(f.name):
-            out.append({'name': f.name, 'sizeBytes': f.stat().st_size})
+    files = [f for f in backups_dir(settings).iterdir() if BACKUP_NAME.match(f.name)]
+    for f in sorted(files, key=_order, reverse=True):
+        day, time, _n = _order(f)
+        # Hora em UTC; o painel mostra na hora local.
+        created = f'{day[:4]}-{day[4:6]}-{day[6:]}T{time[:2]}:{time[2:4]}:{time[4:]}'
+        out.append({'name': f.name, 'sizeBytes': f.stat().st_size, 'createdAt': created})
     return out
 
 
@@ -102,9 +121,10 @@ def cleanup(db: Session, settings: Settings) -> dict:
     """Apaga o que passou do prazo combinado."""
     year_ago = utcnow() - timedelta(days=365)
     out = {'fotos': media.purge_trash(db, settings)}
-    # Histórico de versões: 1 ano. A versão mais nova de cada conteúdo sempre fica.
-    newest = select(func.max(Version.id)).group_by(Version.key)
-    out['versoes'] = db.execute(delete(Version).where(Version.created_at < year_ago, Version.id.not_in(newest))).rowcount
+    # Histórico de versões: 1 ano. De cada conteúdo fica também a versão que estava no ar há um ano
+    # (senão "voltar o site no tempo" acharia que ele ainda não existia e o tiraria do ar).
+    in_effect = select(func.max(Version.id)).where(Version.created_at < year_ago).group_by(Version.key)
+    out['versoes'] = db.execute(delete(Version).where(Version.created_at < year_ago, Version.id.not_in(in_effect))).rowcount
     # Registro de atividades: o banco só deixa apagar o que tem mais de 1 ano.
     out['registro'] = db.execute(delete(AuditEntry).where(AuditEntry.created_at < year_ago)).rowcount
     db.execute(delete(LoginAttempt).where(LoginAttempt.created_at < utcnow() - timedelta(days=30)))

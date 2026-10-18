@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode } from 'react'
 import tw, { styled } from 'twin.macro'
 import { Check, Close, Eye, EyeOff } from './icons'
+import { api } from '../api'
 
 /* ------------------------------------------------------------------ */
 /* Botões                                                              */
@@ -91,6 +92,29 @@ const STRENGTH = [
 ]
 
 export function StrengthMeter({ password }: { password: string }) {
+  // A regra de verdade fica no servidor (lista de senhas vazadas, nome no meio…): pergunta a ele.
+  const [problem, setProblem] = useState<{ for: string; text: string | null } | null>(null)
+  useEffect(() => {
+    if (password.length < 12) return
+    const t = setTimeout(() => {
+      api.checkPassword(password).then((r) => setProblem({ for: password, text: r.problem })).catch(() => {})
+    }, 400)
+    return () => clearTimeout(t)
+  }, [password])
+  const refused = problem?.for === password && problem.text
+  if (refused) {
+    return (
+      <div tw="flex flex-col gap-1" aria-live="polite">
+        <div tw="flex items-center gap-3">
+          <div tw="flex flex-1 gap-1.5">
+            {[1, 2, 3, 4].map((i) => <span key={i} tw="h-1.5 flex-1 rounded-full" style={{ background: i === 1 ? STRENGTH[1].color : '#E2E6E1' }} />)}
+          </div>
+          <span tw="w-[72px] text-right font-sans text-[12px] font-semibold" style={{ color: STRENGTH[1].color }}>Recusada</span>
+        </div>
+        <p tw="m-0 font-sans text-[12px] text-[#B42318]">{refused}</p>
+      </div>
+    )
+  }
   const score = passwordScore(password)
   return (
     <div tw="flex items-center gap-3" aria-live="polite">

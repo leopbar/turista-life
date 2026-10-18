@@ -22,6 +22,8 @@ router = APIRouter(tags=['content'])
 
 class DraftIn(Api):
     draft: dict[str, Any]
+    # O rascunho como estava quando a pessoa começou a editar: se alguém salvou no meio, o servidor junta as duas edições.
+    base: dict[str, Any] | None = None
 
 
 class CreateIn(Api):
@@ -129,8 +131,8 @@ def get_content(key: str, active: ActiveSession = Depends(user_session), db: Ses
 @router.put('/api/content/{key}')
 def save(key: str, body: DraftIn, active: ActiveSession = Depends(user_session), db: Session = Depends(get_db)):
     with write(db):
-        doc = _run(lambda: svc.save_draft(db, key, body.draft, active.user))
-    return _meta(doc)
+        doc = _run(lambda: svc.save_draft(db, key, body.draft, active.user, body.base))
+    return {**_meta(doc), 'draft': doc.draft}
 
 
 @router.post('/api/content/{key}/publish')

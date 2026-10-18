@@ -122,7 +122,7 @@ export function SiteEditor() {
   const frameBox = frame.current?.getBoundingClientRect()
 
   return (
-    <div tw="-mx-8 -mb-24 -mt-10 flex h-[calc(100vh-76px)] min-h-[560px]">
+    <div tw="-mx-4 -mb-24 -mt-6 flex h-[calc(100vh-76px)] min-h-[560px] sm:(-mx-8 -mt-10)">
       <div tw="flex min-w-0 flex-1 flex-col">
         {/* Barra de ferramentas */}
         <div tw="flex flex-wrap items-center gap-2 border-0 border-b border-solid border-line bg-white/80 px-5 py-2.5">
@@ -172,7 +172,7 @@ export function SiteEditor() {
               {changed.length ? `${changed.length} ${changed.length === 1 ? 'mudança' : 'mudanças'} para publicar` : 'Tudo publicado ✓'}
             </Button>
             {showPending && (
-              <div tw="absolute right-0 top-[calc(100%+8px)] z-30 w-[380px] rounded-2xl bg-white p-3 shadow-lift">
+              <div tw="absolute right-0 top-[calc(100%+8px)] z-30 w-[min(380px,calc(100vw-24px))] rounded-2xl bg-white p-3 shadow-lift">
                 {changed.length === 0 && <p tw="m-2 font-sans text-[13px] text-muted">Nada esperando. O site está igual ao que você vê aqui.</p>}
                 {changed.map((d) => (
                   <button
@@ -227,13 +227,15 @@ export function SiteEditor() {
       )}
 
       {drawer && openKey && (
-        <aside tw="h-full w-[480px] shrink-0 border-0 border-l border-solid border-line bg-cream shadow-lift">
+        // No celular a gaveta ocupa a tela inteira (ao lado, a pré-visualização ficaria sem espaço).
+        <aside tw="fixed inset-0 z-40 w-full border-0 border-l border-solid border-line bg-cream shadow-lift md:(static z-auto h-full w-[480px] shrink-0)">
           <DocEditor
             key={openKey}
             session={session}
             focusPath={focusPath}
             onClose={() => { setDrawer(false); refreshList() }}
             onPublished={refreshList}
+            onChanged={refreshList}
           />
         </aside>
       )}

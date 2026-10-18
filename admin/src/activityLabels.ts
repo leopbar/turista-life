@@ -62,8 +62,9 @@ export function describe(a: ActivityItem): { text: string; tone: 'ok' | 'warn' |
     case 'foto_restaurada':
       return { text: `${who} recuperou a foto ${t}`, tone: 'info' }
     case 'backup_criado':
+      return { text: `${who} gerou uma cópia nova do site`, tone: 'ok' }
     case 'backup_baixado':
-      return { text: `${who} baixou um backup do site`, tone: 'ok' }
+      return { text: `${who} baixou o backup ${t}`, tone: 'ok' }
     case 'backup_falhou':
       return { text: 'O backup diário falhou', tone: 'warn' }
     case 'conta_bloqueada':

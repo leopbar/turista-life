@@ -21,8 +21,10 @@ from .db import utcnow
 from .models import Document, Media, User
 
 register_heif_opener()
-# Fotos absurdamente grandes (ou "bombas" de descompressão) são recusadas.
-Image.MAX_IMAGE_PIXELS = 80_000_000
+# Fotos absurdamente grandes (ou "bombas" de descompressão) são recusadas antes de abrir de verdade.
+# (O Pillow só recusa sozinho acima do dobro desse limite; até lá ele só avisa.)
+MAX_PIXELS = 80_000_000
+Image.MAX_IMAGE_PIXELS = MAX_PIXELS
 
 MAX_BYTES = 25 * 1024 * 1024
 WIDTHS = (480, 960, 1600, 2400)
@@ -45,6 +47,31 @@ def sniff(head: bytes) -> str | None:
 
 def media_dir(settings: Settings, media_id: str) -> Path:
     return public_dir(settings) / 'media' / media_id
+
+
+def trash_dir(settings: Settings, media_id: str) -> Path:
+    """Fotos na lixeira ficam fora da pasta pública: o endereço delas deixa de abrir no site."""
+    return settings.data_dir / 'media-trash' / media_id
+
+
+def _move(src: Path, dst: Path) -> None:
+    if src.is_dir() and not dst.exists():
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(src), str(dst))
+
+
+def hide_files(settings: Settings, m: Media) -> None:
+    _move(media_dir(settings, m.id), trash_dir(settings, m.id))
+
+
+def show_files(settings: Settings, m: Media) -> None:
+    _move(trash_dir(settings, m.id), media_dir(settings, m.id))
+
+
+def sync_trash_files(db: Session, settings: Settings) -> None:
+    """Fotos que foram para a lixeira antes desta regra: tira da pasta pública também."""
+    for m in db.scalars(select(Media).where(Media.deleted_at.is_not(None))):
+        hide_files(settings, m)
 
 
 def media_url(m: Media) -> str:
@@ -70,6 +97,8 @@ def prepare_upload(data: bytes, settings: Settings, *, original_name: str, alt: 
         raise ContentError(415, 'not_image', 'Esse arquivo não é uma foto aceita. Use JPG, PNG, WebP ou HEIC (iPhone).')
     try:
         with Image.open(io.BytesIO(data)) as im:
+            if im.width * im.height > MAX_PIXELS:
+                raise ContentError(415, 'too_many_pixels', 'Essa foto é grande demais (mais de 80 megapixels). Diminua o tamanho e envie de novo.')
             im.load()
             # Gira conforme a câmera e descarta todos os metadados (GPS, modelo do celular…): a foto é redesenhada.
             im = ImageOps.exif_transpose(im)
@@ -145,6 +174,15 @@ def trash(db: Session, m: Media, user: User, ip: str, settings: Settings) -> Non
     db.add(m)
     audit.record(db, 'foto_na_lixeira', actor=user, target=m.original_name, ip=ip)
     write_bundle(db, settings)
+    hide_files(settings, m)
+
+
+def restore(db: Session, m: Media, user: User, ip: str, settings: Settings) -> None:
+    show_files(settings, m)
+    m.deleted_at = None
+    db.add(m)
+    audit.record(db, 'foto_restaurada', actor=user, target=m.original_name, ip=ip)
+    write_bundle(db, settings)
 
 
 def purge_trash(db: Session, settings: Settings) -> int:
@@ -153,6 +191,7 @@ def purge_trash(db: Session, settings: Settings) -> int:
 
     old = list(db.scalars(select(Media).where(Media.deleted_at.is_not(None), Media.deleted_at < utcnow() - timedelta(days=TRASH_DAYS))))
     for m in old:
+        shutil.rmtree(trash_dir(settings, m.id), ignore_errors=True)
         shutil.rmtree(media_dir(settings, m.id), ignore_errors=True)
         db.delete(m)
     return len(old)

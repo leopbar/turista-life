@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 import unicodedata
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -11,7 +12,7 @@ from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
 from . import audit
-from .cms_schema import Schema, broken_refs, load_defaults, load_schema, validate
+from .cms_schema import Schema, broken_refs, load_defaults, load_schema, validate, values_of_kind
 from .config import Settings
 from .db import utcnow
 from .models import Document, Media, Presence, User, Version
@@ -171,15 +172,66 @@ def get_doc(db: Session, key: str) -> Document:
     return doc
 
 
-def _validated(key: str, value: Any) -> None:
-    problems = validate(load_schema(), key, value)
+def _validated(db: Session, key: str, value: Any) -> None:
+    problems = validate(load_schema(), key, value).items + image_problems(db, key, value)
     if problems:
-        raise ContentError(422, 'invalid_content', 'Confira os campos destacados.', problems.items)
+        raise ContentError(422, 'invalid_content', 'Confira os campos destacados.', problems)
 
 
-def save_draft(db: Session, key: str, value: Any, user: User) -> Document:
+MEDIA_URL = re.compile(r'^cms/media/([a-f0-9]{16})/(\d+)\.webp(?:#.*)?$')
+
+
+def image_problems(db: Session, key: str, value: Any, *, trashed_ok: bool = True) -> list[dict]:
+    """Fotos que não existem (ou, na publicação, que estão na lixeira) deixariam o site com imagem quebrada."""
+    static = load_defaults().get('staticImages')
+    out: list[dict] = []
+    for path, f, v in values_of_kind(load_schema(), key, value, 'image'):
+        if not isinstance(v, str) or not v:
+            continue
+        label = f.get('label', path)
+        if m := MEDIA_URL.match(v):
+            media = db.get(Media, m.group(1))
+            if media is None or int(m.group(2)) not in (media.widths or []):
+                out.append({'path': path, 'message': f'"{label}": essa foto não existe mais na biblioteca. Escolha outra.'})
+            elif media.deleted_at is not None and not trashed_ok:
+                out.append({'path': path, 'message': f'"{label}" usa a foto "{media.original_name}", que está na lixeira. Recupere a foto em Fotos › Lixeira ou escolha outra.'})
+        elif static is not None and v.split('#', 1)[0] not in static:
+            out.append({'path': path, 'message': f'"{label}": essa foto não existe no site. Escolha uma da biblioteca.'})
+    return out
+
+
+def _merge(base: Any, mine: Any, theirs: Any) -> Any:
+    """Junta duas edições do mesmo rascunho, campo a campo (primeiro nível).
+
+    Quem salvou depois só sobrescreve os campos que mudou. Se as duas pessoas mudaram o mesmo
+    campo de jeitos diferentes, é conflito (None).
+    """
+    if not all(isinstance(x, dict) for x in (base, mine, theirs)):
+        return None
+    out = dict(theirs)
+    for k in set(base) | set(mine) | set(theirs):
+        b, m, t = base.get(k), mine.get(k), theirs.get(k)
+        if m == b or m == t:
+            continue  # não mexi aqui (ou mexemos igual): fica o que está salvo
+        if t != b:
+            return None  # as duas pessoas mudaram este campo
+        if k in mine:
+            out[k] = m
+        else:
+            out.pop(k, None)
+    return out
+
+
+def save_draft(db: Session, key: str, value: Any, user: User, base: Any = None) -> Document:
     doc = get_doc(db, key)
-    _validated(key, value)
+    if base is not None and base != doc.draft:
+        # Outra pessoa salvou enquanto esta editava: junta as mudanças das duas em vez de apagar a outra.
+        merged = _merge(base, value, doc.draft)
+        if merged is None:
+            who = doc.draft_updated_by or 'Outra pessoa'
+            raise ContentError(409, 'conflict', f'{who} mudou esta mesma parte enquanto você editava. Recarregue para ver a versão atual antes de continuar.')
+        value = merged
+    _validated(db, key, value)
     doc.draft = value
     doc.draft_updated_at = utcnow()
     doc.draft_updated_by = user.email
@@ -198,7 +250,7 @@ def create_item(db: Session, collection: str, value: Any, user: User, ip: str) -
     key = f'{collection}:{item_id}'
     if db.get(Document, key) is not None:
         raise ContentError(409, 'exists', 'Já existe um item com esse endereço.')
-    _validated(key, value)
+    _validated(db, key, value)
     # Coleções como o blog mostram o mais novo primeiro: o item novo entra no topo.
     if c.get('newestFirst'):
         position = (db.scalar(select(func.min(Document.position)).where(Document.collection == collection)) or 0) - 1
@@ -293,16 +345,19 @@ def _fill_publish_date(schema: Schema, doc: Document) -> None:
 def publish(db: Session, keys: list[str], actor_email: str, ip: str | None, settings: Settings, *, action: str = 'publicado', actor: User | None = None) -> list[str]:
     """Publica o rascunho dos documentos. Confere tudo antes: ou publica todos, ou nenhum."""
     schema = load_schema()
-    docs = [get_doc(db, k) for k in keys]
+    # Sem mudança nenhuma não vira versão nova no caderno.
+    docs = [d for d in (get_doc(db, k) for k in keys) if d.draft_deleted or d.draft != d.published]
+    if not docs:
+        return []
     candidate = _published_map(db)
     for doc in docs:
         if doc.draft_deleted:
             candidate.pop(doc.key, None)
             continue
         _fill_publish_date(schema, doc)
-        problems = validate(schema, doc.key, doc.draft)
+        problems = validate(schema, doc.key, doc.draft, publishing=True).items + image_problems(db, doc.key, doc.draft, trashed_ok=False)
         if problems:
-            raise ContentError(422, 'invalid_content', f'{label_of(doc.key, doc.draft)}: confira os campos destacados.', problems.items)
+            raise ContentError(422, 'invalid_content', f'{label_of(doc.key, doc.draft)}: confira os campos destacados.', problems)
         candidate[doc.key] = doc.draft
     broken = broken_refs(schema, candidate, lambda k: label_of(k, candidate.get(k), schema))
     if broken:
@@ -337,19 +392,51 @@ def restore_version(db: Session, key: str, version_id: int, user: User, ip: str,
     v = db.get(Version, version_id)
     if v is None or v.key != key:
         raise ContentError(404, 'not_found', 'Versão não encontrada.')
+    doc = db.get(Document, key)
+    if doc is not None and v.data is not None and _with_defaults(key, v.data) == doc.published:
+        raise ContentError(409, 'nothing', 'Essa já é a versão que está no ar.')
+    kept = _pending_drafts(db, [key])
     _bring_back(db, key, v)
     publish(db, [key], user.email, ip, settings, action='restaurado', actor=user)
+    _keep_drafts(db, kept)
+
+
+def _pending_drafts(db: Session, keys) -> dict[str, tuple]:
+    """Rascunhos em andamento (diferentes do que está no ar), para não se perderem ao voltar no tempo."""
+    out = {}
+    for key in keys:
+        doc = db.get(Document, key)
+        if doc is not None and doc.published is not None and not doc.draft_deleted and doc.draft != doc.published:
+            out[key] = (doc.draft, doc.draft_updated_at, doc.draft_updated_by, doc.scheduled_at, doc.scheduled_by)
+    return out
+
+
+def _keep_drafts(db: Session, kept: dict[str, tuple]) -> None:
+    """Depois de publicar a versão antiga, o rascunho em andamento volta a ser o rascunho (continua por publicar)."""
+    for key, (draft, updated_at, updated_by, scheduled_at, scheduled_by) in kept.items():
+        doc = db.get(Document, key)
+        if doc is None or doc.published == draft:
+            continue
+        doc.draft, doc.draft_updated_at, doc.draft_updated_by = draft, updated_at, updated_by
+        doc.scheduled_at, doc.scheduled_by = scheduled_at, scheduled_by
+        db.add(doc)
+    db.flush()
+
+
+def _with_defaults(key: str, data: Any) -> Any:
+    base = key.split(':', 1)[0]
+    return _fill(data, load_defaults()['docs'].get(base, {})) if ':' not in key else data
 
 
 def _bring_back(db: Session, key: str, v: Version) -> None:
-    schema, defaults = load_schema(), load_defaults()
+    schema = load_schema()
     doc = db.get(Document, key)
     if v.data is None:
         if doc is not None:
             doc.draft_deleted = True
         return
     base = key.split(':', 1)[0]
-    data = _fill(v.data, defaults['docs'].get(base, {})) if ':' not in key else v.data
+    data = _with_defaults(key, v.data)
     if doc is None:
         collection = base if base in schema.collections else None
         doc = Document(
@@ -366,8 +453,13 @@ def restore_site(db: Session, at: datetime, user: User, ip: str, settings: Setti
     """Volta o site inteiro para como estava num momento: cada documento volta à versão daquela hora."""
     if at >= utcnow():
         raise ContentError(400, 'future', 'Escolha um momento no passado.')
+    start = history_start(db)
+    if start is None or at < start:
+        when = start.strftime('%d/%m/%Y') if start else 'hoje'
+        raise ContentError(400, 'too_old', f'O caderno só guarda o site a partir de {when}. Escolha um momento depois disso.')
     changed = []
     keys = set(db.scalars(select(Version.key).distinct()))
+    kept = _pending_drafts(db, keys)
     for key in keys:
         before = db.scalar(select(Version).where(Version.key == key, Version.created_at <= at).order_by(Version.id.desc()).limit(1))
         doc = db.get(Document, key)
@@ -380,13 +472,29 @@ def restore_site(db: Session, at: datetime, user: User, ip: str, settings: Setti
                 doc.draft_deleted = True
                 changed.append(key)
             continue
-        if before.data != current:
+        if (before.data if before.data is None else _with_defaults(key, before.data)) != current:
             _bring_back(db, key, before)
             changed.append(key)
     if not changed:
         raise ContentError(409, 'nothing', 'O site já está igual ao que era nesse momento.')
     publish(db, changed, user.email, ip, settings, action='restaurado', actor=user)
+    _keep_drafts(db, kept)
     return len(changed)
+
+
+HISTORY_DAYS = 365
+
+
+def history_start(db: Session) -> datetime | None:
+    """Desde quando dá para voltar o site: a instalação do painel ou, depois de um ano, o limite do caderno.
+
+    A limpeza diária guarda a versão que estava no ar no começo desse ano, então a partir daí
+    cada conteúdo tem a versão certa daquela hora.
+    """
+    first = db.scalar(select(func.min(Version.created_at)))
+    if first is None:
+        return None
+    return max(first, utcnow() - timedelta(days=HISTORY_DAYS))
 
 
 def schedule(db: Session, key: str, when: datetime | None, user: User, ip: str) -> Document:

@@ -6,7 +6,7 @@ import { Back, Close } from '../components/icons'
 import { Alert, Button, Stamp } from '../components/ui'
 import { FieldEditor, FormEnvProvider } from './FieldEditor'
 import { usePickImage } from './Media'
-import { STATUS, definitionOf, isCollection, pathLabels, useSchema } from './model'
+import { STATUS, definitionOf, isCollection, missingRequired, pathLabels, useSchema } from './model'
 import type { DocSession } from './session'
 
 /* ------------------------------------------------------------------ */
@@ -95,22 +95,61 @@ export function PublishedStamp({ onDone }: { onDone: () => void }) {
   )
 }
 
+/** Data no formato do campo datetime-local, na hora local (toISOString daria a hora UTC). */
+const localInputValue = (d: Date) => {
+  const p = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`
+}
+
 /* ------------------------------------------------------------------ */
 /* Caderno de versões de um documento                                  */
 /* ------------------------------------------------------------------ */
 
 const ACTION_LABEL: Record<string, string> = { original: 'Conteúdo original', publicado: 'Publicado', restaurado: 'Restaurado', removido: 'Saiu do site' }
 
-function Versions({ docKey, onRestored }: { docKey: string; onRestored: () => void }) {
+function Versions({ docKey, fields, published, hasDraft, onRestored }: {
+  docKey: string; fields: Fields; published: unknown; hasDraft: boolean; onRestored: () => void
+}) {
   const [items, setItems] = useState<VersionItem[] | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [asking, setAsking] = useState<VersionItem | null>(null)
+  const [busy, setBusy] = useState(false)
   useEffect(() => {
     api.versions(docKey).then(setItems).catch(() => setItems([]))
   }, [docKey])
+  const restore = async (v: VersionItem) => {
+    setBusy(true)
+    setError(null)
+    try {
+      await api.restoreVersion(docKey, v.id)
+      setAsking(null)
+      onRestored()
+    } catch (err) {
+      setError(err instanceof ApiError ? [err.message, ...err.problems.map((p) => p.message)].join(' ') : 'Não deu para voltar.')
+    } finally {
+      setBusy(false)
+    }
+  }
   return (
     <div tw="flex flex-col gap-2">
       <p tw="m-0 font-sans text-[13px] text-muted">Cada publicação fica guardada por um ano. Voltar para uma versão publica ela na hora.</p>
       {error && <Alert>{error}</Alert>}
+      {asking && (
+        <div tw="rounded-2xl bg-[#FFF4EC] p-4">
+          <p tw="m-0 font-sans text-[13px] font-semibold text-pine-900">Publicar agora a versão de {formatDateTime(asking.createdAt)}?</p>
+          <p tw="m-0 mt-1.5 font-sans text-[12.5px] text-ink">Muda no site:</p>
+          <ul tw="m-0 mt-1 pl-4 font-sans text-[12.5px] text-ink">
+            {(published && asking.data ? changeSummary(fields, asking.data, published) : ['Conteúdo inteiro']).map((s) => <li key={s}>{s}</li>)}
+          </ul>
+          {hasDraft && (
+            <p tw="m-0 mt-2 font-sans text-[12.5px] text-muted">Seu rascunho em andamento continua guardado, ainda por publicar. Se quiser ficar só com esta versão, descarte o rascunho depois.</p>
+          )}
+          <div tw="mt-3 flex gap-2">
+            <Button variant="sun" disabled={busy} onClick={() => restore(asking)}>{busy ? 'Voltando…' : 'Sim, voltar para esta'}</Button>
+            <Button variant="ghost" onClick={() => setAsking(null)}>Não</Button>
+          </div>
+        </div>
+      )}
       {items?.map((v, i) => (
         <div key={v.id} tw="flex items-center justify-between gap-3 rounded-xl bg-white px-4 py-3 ring-1 ring-line">
           <div>
@@ -120,17 +159,7 @@ function Versions({ docKey, onRestored }: { docKey: string; onRestored: () => vo
             <p tw="m-0 font-sans text-[11.5px] text-muted">{formatDateTime(v.createdAt)} · {v.createdBy ?? 'sistema'}</p>
           </div>
           {i > 0 && v.data && (
-            <Button
-              variant="ghost" tw="px-3 py-1.5 text-[12px]"
-              onClick={async () => {
-                try {
-                  await api.restoreVersion(docKey, v.id)
-                  onRestored()
-                } catch (err) {
-                  setError(err instanceof ApiError ? err.message : 'Não deu para voltar.')
-                }
-              }}
-            >
+            <Button variant="ghost" tw="px-3 py-1.5 text-[12px]" disabled={busy} onClick={() => { setError(null); setAsking(v) }}>
               Voltar para esta
             </Button>
           )}
@@ -192,8 +221,10 @@ function LayoutEditor({ fields, value, onChange }: { fields: Fields; value: Layo
 /* Gaveta de edição de um documento                                    */
 /* ------------------------------------------------------------------ */
 
-export function DocEditor({ session, focusPath, onClose, onPublished }: {
+export function DocEditor({ session, focusPath, onClose, onPublished, onChanged }: {
   session: DocSession; focusPath?: string; onClose: () => void; onPublished?: () => void
+  /** Descartou, agendou, tirou do site…: a lista de mudanças para publicar precisa ser atualizada. */
+  onChanged?: () => void
 }) {
   const schema = useSchema()
   const pickImage = usePickImage()
@@ -208,6 +239,7 @@ export function DocEditor({ session, focusPath, onClose, onPublished }: {
 
   const def = schema && doc ? definitionOf(schema, doc.key) : undefined
   const summary = useMemo(() => (def && draft && doc ? changeSummary(def.fields, draft, doc.published) : []), [def, draft, doc])
+  const missing = useMemo(() => (def && draft ? missingRequired(def.fields, draft) : []), [def, draft])
   if (!schema || !doc || !draft || !def) {
     return <div tw="p-8 font-sans text-[14px] text-muted">{session.message ?? 'Abrindo…'}</div>
   }
@@ -218,12 +250,16 @@ export function DocEditor({ session, focusPath, onClose, onPublished }: {
     setError(null)
     try {
       if (!(await session.flush())) throw new ApiError(422, 'invalid', session.message ?? 'Confira os campos destacados.')
-      await fn()
-      await session.reload()
+      const result = await fn()
+      // Item que nunca foi publicado e foi descartado: não existe mais, a gaveta só fecha.
+      if (!(result && typeof result === 'object' && 'deleted' in result)) await session.reload()
       after?.()
+      onChanged?.()
     } catch (err) {
-      if (err instanceof ApiError) setError({ message: err.message, list: err.problems.map((p) => p.message) })
-      else setError({ message: 'Algo deu errado. Tente de novo.', list: [] })
+      if (err instanceof ApiError) {
+        setError({ message: err.message, list: err.problems.map((p) => p.message) })
+        session.showProblems(err.problems)
+      } else setError({ message: 'Algo deu errado. Tente de novo.', list: [] })
     } finally {
       setBusy(false)
       setConfirm(null)
@@ -266,6 +302,13 @@ export function DocEditor({ session, focusPath, onClose, onPublished }: {
           </div>
         )}
 
+        {session.save === 'error' && session.message && Object.keys(session.problems).length === 0 && (
+          <div tw="mx-6 mt-4 flex flex-wrap items-center gap-3 rounded-xl bg-[#FEF3F2] px-4 py-2.5 font-sans text-[13px] text-[#B42318]">
+            <span tw="flex-1">{session.message}</span>
+            <Button variant="ghost" tw="px-3 py-1.5 text-[12px]" onClick={() => session.reload()}>Recarregar</Button>
+          </div>
+        )}
+
         <nav tw="flex gap-1 px-6 pt-4">
           {(['editar', 'historico'] as const).map((t) => (
             <button
@@ -288,7 +331,11 @@ export function DocEditor({ session, focusPath, onClose, onPublished }: {
               <FieldEditor field={{ kind: 'object', label: '', fields: def.fields }} value={draft} path="" onChange={(v) => session.setDraft(v as Record<string, unknown>)} />
             )
           ) : (
-            <Versions key={doc.publishedAt ?? ""} docKey={doc.key} onRestored={() => { session.reload(); setStamp(true); onPublished?.() }} />
+            <Versions
+              key={doc.publishedAt ?? ''} docKey={doc.key} fields={def.fields} published={doc.published}
+              hasDraft={doc.status === 'alterado'}
+              onRestored={() => { session.reload(); setStamp(true); onPublished?.() }}
+            />
           )}
         </div>
 
@@ -308,8 +355,11 @@ export function DocEditor({ session, focusPath, onClose, onPublished }: {
               <ul tw="m-0 mt-1.5 pl-4 font-sans text-[13px] text-ink">
                 {(doc.draftDeleted ? ['Este item sai do site'] : summary.length ? summary : ['Nenhuma mudança: o site já está assim.']).map((s) => <li key={s}>{s}</li>)}
               </ul>
+              {!doc.draftDeleted && missing.length > 0 && (
+                <div tw="mt-3"><Alert>Antes de publicar, preencha: {missing.join('; ')}.</Alert></div>
+              )}
               <div tw="mt-3 flex gap-2">
-                <Button variant="sun" disabled={busy} onClick={() => run(() => api.publish(doc.key), () => { setStamp(true); onPublished?.() })}>
+                <Button variant="sun" disabled={busy || (!doc.draftDeleted && missing.length > 0)} onClick={() => run(() => api.publish(doc.key), () => { setStamp(true); onPublished?.() })}>
                   {busy ? 'Publicando…' : 'Publicar agora'}
                 </Button>
                 <Button variant="ghost" onClick={() => setConfirm(null)}>Voltar</Button>
@@ -322,7 +372,7 @@ export function DocEditor({ session, focusPath, onClose, onPublished }: {
               <label tw="font-sans text-[13px] font-semibold text-pine-900" htmlFor="when">Publicar sozinho em:</label>
               <input
                 id="when" type="datetime-local" value={when} onChange={(e) => setWhen(e.target.value)}
-                min={new Date(Date.now() + 60_000).toISOString().slice(0, 16)}
+                min={localInputValue(new Date(Date.now() + 60_000))}
                 tw="mt-2 block rounded-xl border-[1.5px] border-solid border-line bg-white px-3 py-2 font-sans text-[14px]"
               />
               <p tw="m-0 mt-2 font-sans text-[12px] text-muted">Vai o rascunho como estiver nessa hora. Dá para continuar editando até lá.</p>

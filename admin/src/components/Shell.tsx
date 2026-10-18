@@ -53,6 +53,8 @@ function UserMenu() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
+        aria-haspopup="menu"
+        aria-label={`Menu de ${user.name}`}
         tw="flex cursor-pointer items-center gap-3 rounded-full border-0 bg-white py-1.5 pl-1.5 pr-4 shadow-card transition hover:shadow-lift"
       >
         <Avatar name={user.name} size={34} />
@@ -90,6 +92,7 @@ export function Shell({ children }: { children: ReactNode }) {
       ? [
           { to: '/equipe', label: 'Equipe', end: false },
           { to: '/atividades', label: 'Atividades', end: false },
+          { to: '/backup', label: 'Backup', end: false },
         ]
       : []),
   ]

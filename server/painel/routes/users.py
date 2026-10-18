@@ -27,13 +27,20 @@ def _get(db: Session, user_id: int) -> User:
     return user
 
 
-def _active_admins(db: Session) -> int:
-    return db.scalar(select(func.count()).where(User.role == 'admin', User.is_active.is_(True)))
+def _other_admins(db: Session, user: User, *, ready: bool) -> int:
+    q = select(func.count()).where(User.role == 'admin', User.is_active.is_(True), User.id != user.id)
+    if ready:
+        # Quem ainda não fez o primeiro acesso não conta: a senha provisória pode vencer.
+        q = q.where(User.must_change_password.is_(False))
+    return db.scalar(q)
 
 
 def _guard_last_admin(db: Session, user: User) -> None:
-    if user.role == 'admin' and user.is_active and _active_admins(db) <= 1:
-        fail(409, 'last_admin', 'Essa é a única pessoa administradora. Promova outra pessoa antes.')
+    if user.role != 'admin' or not user.is_active or _other_admins(db, user, ready=True):
+        return
+    if _other_admins(db, user, ready=False):
+        fail(409, 'last_admin', 'A outra pessoa administradora ainda não fez o primeiro acesso. Espere ela criar a senha antes.')
+    fail(409, 'last_admin', 'Essa é a única pessoa administradora. Promova outra pessoa antes.')
 
 
 def _not_self(active: ActiveSession, user: User, message: str) -> None:
@@ -72,9 +79,9 @@ def create_user(body: UserCreate, request: Request, active: ActiveSession = Depe
         )
         db.add(user)
         db.flush()
-        audit.record(db, 'usuario_criado', actor=active.user, target=email, ip=client_ip(request, settings), details={'papel': body.role})
-        if body.role == 'admin':
-            audit.record(db, 'admin_criado', actor=active.user, target=email, ip=client_ip(request, settings))
+        # Administrador novo vira uma anotação só (a de alerta), sem repetir "convidou".
+        action = 'admin_criado' if body.role == 'admin' else 'usuario_criado'
+        audit.record(db, action, actor=active.user, target=email, ip=client_ip(request, settings), details={'papel': body.role})
     if body.role == 'admin':
         alerts.send(settings, f'admin:{email}', 'Um novo administrador foi criado', f'{active.user.email} criou o administrador {email}.')
     return TempPasswordOut(user=UserOut.of(user), temp_password=temp, expires_at=expires)
@@ -100,8 +107,11 @@ def update_user(user_id: int, body: UserUpdate, request: Request, active: Active
             # Mudou o poder da pessoa: ela entra de novo para valer o papel novo.
             revoke_user_sessions(db, user.id, keep_id=active.session.id if user.id == active.user.id else None)
         db.add(user)
-        audit.record(db, 'usuario_alterado', actor=active.user, target=user.email, ip=client_ip(request, settings), details=changes)
         promoted = changes.get('papel', [None, None])[1] == 'admin'
+        # Promoção a administrador vira uma anotação só (a de alerta); o resto da mudança, se houver, na outra.
+        rest = {k: v for k, v in changes.items() if not (promoted and k == 'papel')}
+        if rest:
+            audit.record(db, 'usuario_alterado', actor=active.user, target=user.email, ip=client_ip(request, settings), details=rest)
         if promoted:
             audit.record(db, 'admin_promovido', actor=active.user, target=user.email, ip=client_ip(request, settings))
     if promoted:

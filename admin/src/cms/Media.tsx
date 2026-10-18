@@ -323,7 +323,7 @@ export function MediaPage() {
               <div tw="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
                 {filterItems(items, q).map((m) => (
                   <div key={m.id} tw="overflow-hidden rounded-2xl bg-white ring-1 ring-line">
-                    <img src={assetUrl(`cms/media/${m.id}/${m.widths[0]}.webp`)} alt={m.alt} tw="aspect-[4/3] w-full object-cover opacity-70" />
+                    <img src={`/api/media/${m.id}/trash-preview`} alt={m.alt} tw="aspect-[4/3] w-full object-cover opacity-70" />
                     <div tw="flex items-center justify-between gap-2 px-3 py-2">
                       <span tw="truncate font-sans text-[11.5px] text-muted">{m.alt}</span>
                       <button type="button" onClick={() => api.restoreMedia(m.id).then(() => { reload(); setToast('Foto de volta na biblioteca') })} tw="shrink-0 cursor-pointer border-0 bg-transparent font-sans text-[12px] font-semibold text-pine-800 underline">

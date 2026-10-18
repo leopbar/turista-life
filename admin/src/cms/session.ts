@@ -1,8 +1,22 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ApiError, api, type DocFull } from '../api'
+import { ApiError, api, type DocFull, type Problem } from '../api'
 import { getAt, setAt } from './model'
 
 export type SaveState = 'idle' | 'saving' | 'saved' | 'error'
+
+const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
+
+/** Campos (primeiro nível) que outra pessoa mudou e o servidor juntou: entram no rascunho local sem apagar o que foi digitado depois. */
+function adopt(local: Record<string, unknown>, sent: Record<string, unknown>, merged: Record<string, unknown>) {
+  let out = local
+  for (const k of new Set([...Object.keys(sent), ...Object.keys(merged)])) {
+    if (same(merged[k], sent[k]) || !same(local[k], sent[k])) continue
+    out = { ...out }
+    if (k in merged) out[k] = merged[k]
+    else delete out[k]
+  }
+  return out
+}
 
 /**
  * Um documento aberto para edição: rascunho local, salvamento automático (rascunho),
@@ -16,6 +30,8 @@ export function useDocSession(key: string | null, onDraft?: (key: string, draft:
   const [message, setMessage] = useState<string | null>(null)
   const [editingBy, setEditingBy] = useState<string[]>([])
   const pending = useRef<{ key: string; draft: unknown } | null>(null)
+  // O rascunho como o servidor tem: vai junto ao salvar para o servidor juntar edições de duas pessoas.
+  const base = useRef<unknown>(null)
   const timer = useRef<ReturnType<typeof setTimeout>>()
   const onDraftRef = useRef(onDraft)
   onDraftRef.current = onDraft
@@ -27,7 +43,21 @@ export function useDocSession(key: string | null, onDraft?: (key: string, draft:
     pending.current = null
     setSave('saving')
     try {
-      const meta = await api.saveDraft(p.key, p.draft)
+      const { draft: merged, ...meta } = await api.saveDraft(p.key, p.draft, base.current)
+      base.current = merged
+      if (!same(merged, p.draft)) {
+        // Outra pessoa tinha mudado outros campos: eles aparecem aqui também.
+        const sent = p.draft as Record<string, unknown>
+        setDraftState((cur) => {
+          if (!cur) return cur
+          const next = adopt(cur, sent, merged)
+          if (next !== cur) onDraftRef.current?.(p.key, next)
+          return next
+        })
+        // Algo digitado enquanto salvava (pending.current pode ter mudado durante o await).
+        const next = pending.current as { key: string; draft: unknown } | null
+        if (next?.key === p.key) pending.current = { key: p.key, draft: adopt(next.draft as Record<string, unknown>, sent, merged) }
+      }
       setDoc((d) => (d && d.key === p.key ? { ...d, ...meta } : d))
       setProblems({})
       setMessage(null)
@@ -46,9 +76,14 @@ export function useDocSession(key: string | null, onDraft?: (key: string, draft:
   const reload = useCallback(async () => {
     if (!key) return
     const d = await api.getDoc(key)
+    base.current = d.draft
+    pending.current = null
     setDoc(d)
     setDraftState(d.draft)
     setEditingBy(d.editingBy)
+    setProblems({})
+    setMessage(null)
+    setSave('idle')
     // Descartar ou voltar uma versão muda o rascunho: a pré-visualização acompanha.
     onDraftRef.current?.(key, d.draft)
   }, [key])
@@ -63,6 +98,7 @@ export function useDocSession(key: string | null, onDraft?: (key: string, draft:
     let alive = true
     api.getDoc(key).then((d) => {
       if (!alive) return
+      base.current = d.draft
       setDoc(d)
       setDraftState(d.draft)
       setEditingBy(d.editingBy)
@@ -103,7 +139,12 @@ export function useDocSession(key: string | null, onDraft?: (key: string, draft:
 
   const value = useCallback((path: string) => getAt(draft, path), [draft])
 
-  return { doc, draft, setDraft, update, value, save, problems, message, editingBy, flush, reload, setDoc }
+  /** Erros vindos de outra ação (ex.: publicar com campo obrigatório vazio) destacam os campos também. */
+  const showProblems = useCallback((list: Problem[]) => {
+    if (list.length) setProblems(Object.fromEntries(list.map((x) => [x.path, x.message])))
+  }, [])
+
+  return { doc, draft, setDraft, update, value, save, problems, message, editingBy, flush, reload, setDoc, showProblems }
 }
 
 export type DocSession = ReturnType<typeof useDocSession>

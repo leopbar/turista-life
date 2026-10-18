@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react'
 import 'twin.macro'
-import { ApiError, api, formatDateTime, type SystemStatus } from '../api'
+import { ApiError, api, formatDateTime, parseDate, type SystemStatus } from '../api'
 import { Shield } from '../components/icons'
 import { Alert, Button } from '../components/ui'
 
-const nameDate = (name: string) => {
-  const m = name.match(/backup-(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})/)
-  return m ? `${m[3]}/${m[2]}/${m[1]} às ${m[4]}:${m[5]} (UTC)` : name
-}
+// Hora local, como no resto do painel (o servidor manda em UTC).
+const when = (iso: string) => parseDate(iso).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(', ', ' às ')
 
 /** Backups (só administradores): o servidor faz um por dia; aqui você baixa uma cópia para guardar fora. */
 export function Backups() {
-  const [list, setList] = useState<{ name: string; sizeBytes: number }[] | null>(null)
+  const [list, setList] = useState<{ name: string; sizeBytes: number; createdAt: string }[] | null>(null)
   const [status, setStatus] = useState<SystemStatus | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -71,7 +69,7 @@ export function Backups() {
         {list?.length === 0 && <li tw="font-sans text-[13.5px] text-muted">Ainda nenhuma. A primeira sai hoje de madrugada.</li>}
         {list?.map((b) => (
           <li key={b.name} tw="flex items-center justify-between gap-3 rounded-xl bg-white px-4 py-3 ring-1 ring-line">
-            <span tw="font-sans text-[13.5px] text-ink">{nameDate(b.name)}</span>
+            <span tw="font-sans text-[13.5px] text-ink">{when(b.createdAt)}</span>
             <span tw="font-sans text-[12px] text-muted">{(b.sizeBytes / 1024 / 1024).toFixed(1)} MB</span>
             <Button variant="ghost" tw="px-3 py-1.5 text-[12px]" onClick={() => download(b.name)}>Baixar</Button>
           </li>

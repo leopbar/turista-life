@@ -52,17 +52,22 @@ def load_defaults() -> dict:
 
 
 def safe_url(v: str) -> bool:
+    # O navegador apaga tabulação e quebra de linha do endereço: "/<tab>/site.com" viraria "//site.com".
+    if any(c.isspace() or CONTROL.match(c) for c in v):
+        return False
     if v == '' or v.startswith('#'):
         return True
     if v.startswith('/'):
         return not v.startswith('//') and '\\' not in v
     low = v.lower()
-    return low.startswith(('https://', 'http://', 'mailto:')) and not any(c.isspace() for c in v)
+    return low.startswith(('https://', 'http://', 'mailto:'))
 
 
 class Problems:
-    def __init__(self):
+    def __init__(self, *, publishing: bool = False):
         self.items: list[dict] = []
+        # Na publicação, campos obrigatórios não podem estar em branco (no rascunho podem, enquanto a pessoa escreve).
+        self.publishing = publishing
 
     def add(self, path: str, message: str):
         if len(self.items) < 50:
@@ -76,12 +81,19 @@ def _at(path: str, k: str | int) -> str:
     return f'{path}.{k}' if path else str(k)
 
 
-def check_field(v: Any, f: dict, path: str, out: Problems) -> None:
+def _blank_required(v: str, f: dict, item: bool, out: Problems) -> bool:
+    # Linhas de uma lista de textos ficam de fora: a linha vazia só não aparece.
+    return out.publishing and not item and not f.get('optional') and not v.strip()
+
+
+def check_field(v: Any, f: dict, path: str, out: Problems, *, item: bool = False) -> None:
     kind = f['kind']
     label = f.get('label', path)
     if kind in ('text',):
         if not isinstance(v, str):
             return out.add(path, f'"{label}" precisa ser um texto.')
+        if _blank_required(v, f, item, out):
+            out.add(path, f'Falta preencher "{label}".')
         limit = f.get('max') or (MAX_LONG if f.get('long') else MAX_TEXT)
         if len(v) > limit:
             out.add(path, f'"{label}" pode ter no máximo {limit} caracteres.')
@@ -93,6 +105,8 @@ def check_field(v: Any, f: dict, path: str, out: Problems) -> None:
     elif kind == 'image':
         if not isinstance(v, str) or (v and (not IMAGE.match(v) or '..' in v)):
             out.add(path, f'"{label}": escolha uma foto da biblioteca.')
+        elif _blank_required(v, f, item, out):
+            out.add(path, f'Falta escolher "{label}".')
     elif kind == 'number':
         if isinstance(v, bool) or not isinstance(v, (int, float)):
             return out.add(path, f'"{label}" precisa ser um número.')
@@ -130,7 +144,7 @@ def check_field(v: Any, f: dict, path: str, out: Problems) -> None:
         if len(v) > 500:
             out.add(path, f'"{label}" tem itens demais.')
         for i, item in enumerate(v):
-            check_field(item, f['of'], _at(path, i), out)
+            check_field(item, f['of'], _at(path, i), out, item=True)
     elif kind == 'object':
         if not isinstance(v, dict):
             return out.add(path, f'"{label}" está num formato inválido.')
@@ -161,8 +175,8 @@ def check_fields(obj: dict, fields: dict, path: str, out: Problems) -> None:
         check_field(obj[k], f, _at(path, k), out)
 
 
-def validate(schema: Schema, key: str, value: Any) -> Problems:
-    out = Problems()
+def validate(schema: Schema, key: str, value: Any, *, publishing: bool = False) -> Problems:
+    out = Problems(publishing=publishing)
     fields = schema.fields(key)
     if fields is None:
         out.add('', 'Documento desconhecido.')
@@ -173,13 +187,13 @@ def validate(schema: Schema, key: str, value: Any) -> Problems:
     if not isinstance(value, dict):
         out.add('', 'Formato inválido.')
         return out
-    # Textos fixos: o mapa é a lista de textos encontrados no código; todos são texto.
+    # Textos fixos: o mapa é a lista de textos encontrados no código; todos são texto (e podem ficar vazios).
     if key == 'geral.textos':
         for k, v in value.items():
             if k not in fields:
                 out.add(k, f'Texto desconhecido: {k}.')
             else:
-                check_field(v, fields[k], k, out)
+                check_field(v, fields[k], k, out, item=True)
         return out
     check_fields(value, fields, '', out)
     definition = schema.definition(key)
@@ -199,6 +213,35 @@ def validate(schema: Schema, key: str, value: Any) -> Problems:
 # ------------------------------------------------------------------ #
 # Referências entre documentos (destino de um artigo, guia de um destino…)
 # ------------------------------------------------------------------ #
+
+
+def _collect(v: Any, f: dict, path: str, kind: str, found: list) -> None:
+    """Todos os valores de um tipo de campo (ex.: todas as fotos) com o caminho de cada um."""
+    if f['kind'] == kind:
+        found.append((path, f, v))
+    elif f['kind'] == 'list' and isinstance(v, list):
+        for i, x in enumerate(v):
+            _collect(x, f['of'], _at(path, i), kind, found)
+    elif f['kind'] == 'object' and isinstance(v, dict):
+        for k, sub in f['fields'].items():
+            if k in v:
+                _collect(v[k], sub, _at(path, k), kind, found)
+    elif f['kind'] == 'blocks' and isinstance(v, list):
+        for i, x in enumerate(v):
+            variant = f['variants'].get(x.get('type')) if isinstance(x, dict) else None
+            if variant:
+                for k, sub in variant['fields'].items():
+                    if k in x:
+                        _collect(x[k], sub, _at(_at(path, i), k), kind, found)
+
+
+def values_of_kind(schema: Schema, key: str, value: Any, kind: str) -> list[tuple[str, dict, Any]]:
+    fields = schema.fields(key)
+    if not fields or not isinstance(value, dict) or key == 'geral.textos':
+        return []
+    found: list = []
+    _collect(value, {'kind': 'object', 'fields': fields}, '', kind, found)
+    return found
 
 
 def _refs(v: Any, f: dict, path: str, found: list):

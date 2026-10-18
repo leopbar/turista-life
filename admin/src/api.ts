@@ -53,7 +53,8 @@ export function setSessionLostHandler(fn: () => void) {
   onSessionLost = fn
 }
 
-async function request<T>(method: string, url: string, body?: unknown): Promise<T> {
+/** quiet: um 401 aqui não significa que a sessão caiu (ex.: o medidor de senha respondendo depois da troca). */
+async function request<T>(method: string, url: string, body?: unknown, quiet = false): Promise<T> {
   const headers: Record<string, string> = {}
   const form = body instanceof FormData
   if (body !== undefined && !form) headers['Content-Type'] = 'application/json'
@@ -70,7 +71,7 @@ async function request<T>(method: string, url: string, body?: unknown): Promise<
   if (!res.ok) {
     const d = data?.detail ?? {}
     const err = new ApiError(res.status, d.code ?? 'error', d.message ?? 'Algo deu errado. Tente de novo.', d.retryAfter, d.problems ?? [], d)
-    if (res.status === 401 && err.code === 'not_authenticated') onSessionLost()
+    if (res.status === 401 && err.code === 'not_authenticated' && !quiet) onSessionLost()
     throw err
   }
   if (data && typeof data === 'object' && 'csrf' in data) csrf = (data as Me).csrf
@@ -81,6 +82,7 @@ export const api = {
   me: () => request<Me>('GET', '/api/auth/me'),
   login: (email: string, password: string) => request<Me>('POST', '/api/auth/login', { email, password }),
   logout: () => request<void>('POST', '/api/auth/logout').finally(() => (csrf = null)),
+  checkPassword: (password: string) => request<{ problem: string | null }>('POST', '/api/auth/check-password', { password }, true),
   changePassword: (currentPassword: string, newPassword: string) =>
     request<Me>('POST', '/api/auth/change-password', { currentPassword, newPassword }),
 
@@ -100,7 +102,8 @@ export const api = {
   schema: () => request<CmsSchema>('GET', '/api/content/schema'),
   contentList: () => request<DocMeta[]>('GET', '/api/content'),
   getDoc: (key: string) => request<DocFull>('GET', `/api/content/${encodeURIComponent(key)}`),
-  saveDraft: (key: string, draft: unknown) => request<DocMeta>('PUT', `/api/content/${encodeURIComponent(key)}`, { draft }),
+  saveDraft: (key: string, draft: unknown, base?: unknown) =>
+    request<DocMeta & { draft: Record<string, unknown> }>('PUT', `/api/content/${encodeURIComponent(key)}`, base ? { draft, base } : { draft }),
   publish: (key: string) => request<{ published: string[] }>('POST', `/api/content/${encodeURIComponent(key)}/publish`),
   discard: (key: string) => request<DocMeta | { deleted: true }>('POST', `/api/content/${encodeURIComponent(key)}/discard`),
   removeDoc: (key: string) => request<DocMeta | { deleted: true }>('DELETE', `/api/content/${encodeURIComponent(key)}`),
@@ -132,7 +135,7 @@ export const api = {
 
   /* Sistema */
   status: () => request<SystemStatus>('GET', '/api/system/status'),
-  backups: () => request<{ name: string; sizeBytes: number }[]>('GET', '/api/system/backups'),
+  backups: () => request<{ name: string; sizeBytes: number; createdAt: string }[]>('GET', '/api/system/backups'),
   createBackup: () => request<{ name: string; sizeBytes: number }>('POST', '/api/system/backups'),
 }
 

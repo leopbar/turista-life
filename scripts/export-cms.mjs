@@ -50,7 +50,18 @@ try {
 
   // Capas de vídeo que já existem no site (as de vídeos novos o painel baixa sozinho).
   const staticThumbs = readdirSync(join(root, 'public', 'images', 'videos')).filter((f) => f.endsWith('.jpg')).map((f) => f.slice(0, -4)).sort()
-  const defaults = { docs: {}, collections: {}, staticThumbs }
+  // Fotos que vêm com o site ("images/…"): o painel recusa um caminho que não esteja aqui (ficaria quebrado).
+  const staticImages = []
+  const listImages = (dir, rel) => {
+    for (const name of readdirSync(dir)) {
+      const p = join(dir, name)
+      if (statSync(p).isDirectory()) listImages(p, `${rel}${name}/`)
+      else staticImages.push(`${rel}${name}`)
+    }
+  }
+  listImages(join(root, 'public', 'images'), 'images/')
+  staticImages.sort()
+  const defaults = { docs: {}, collections: {}, staticThumbs, staticImages }
   for (const d of docs) {
     if (d.key === 'geral.textos') {
       defaults.docs[d.key] = sortedTextos

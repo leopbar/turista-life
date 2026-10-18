@@ -3,7 +3,7 @@ import tw from 'twin.macro'
 import type { Field } from '../../../src/cms/fields'
 import { isMailerliteForm, mailerliteEndpoint } from '../../../src/cms/mailerlite'
 import { Camera, Close, Plus } from '../components/icons'
-import { GROUPS, emptyValue, itemTitle, useSchema } from './model'
+import { GROUPS, blankRequired, emptyValue, itemTitle, useSchema } from './model'
 import { CoordsField } from './CoordsField'
 
 /* ------------------------------------------------------------------ */
@@ -257,6 +257,9 @@ export function FieldEditor({ field: f, value, onChange, path, nested = false }:
     <Shell path={path}>
       <Label htmlFor={id} help={f.help} optional={f.optional}>{f.label}</Label>
       {control}
+      {blankRequired(f, value, path) && !env.problems[path] && (
+        <p tw="mt-1.5 font-sans text-[12px] font-medium text-sun-600">Obrigatório: preencha antes de publicar.</p>
+      )}
     </Shell>
   )
 }

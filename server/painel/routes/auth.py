@@ -13,7 +13,7 @@ from ..db import utcnow, write
 from ..deps import any_session, fail, get_db, get_settings, session_token
 from ..models import AuditEntry, User
 from ..passwords import DUMMY_HASH, hash_password, needs_rehash, password_problem, temp_password_expired, verify_password
-from ..schemas import ChangePasswordIn, LoginIn, Me, UserOut
+from ..schemas import ChangePasswordIn, CheckPasswordIn, LoginIn, Me, UserOut
 from ..security import (
     ActiveSession,
     client_ip,
@@ -126,6 +126,12 @@ def logout(request: Request, response: Response, active: ActiveSession = Depends
         db.add(active.session)
         audit.record(db, 'logout', actor=active.user, ip=client_ip(request, settings))
     response.delete_cookie(settings.cookie_name, path='/', secure=settings.cookie_secure, httponly=True, samesite='strict')
+
+
+@router.post('/check-password')
+def check_password(body: CheckPasswordIn, active: ActiveSession = Depends(any_session)):
+    """O medidor de força pergunta se a senha nova passaria (ex.: se já vazou), para não mostrar "Ok" e depois recusar."""
+    return {'problem': password_problem(body.password, email=active.user.email, name=active.user.name)}
 
 
 @router.post('/change-password', response_model=Me)

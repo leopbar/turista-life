@@ -116,6 +116,7 @@ export function Notebook() {
           <p tw="m-0 font-sans text-[14.5px] leading-relaxed text-muted">
             O site inteiro volta a ser como era em <strong>{parseDate(back.createdAt).toLocaleString('pt-BR')}</strong>, logo antes de "{back.label}".
             Tudo o que foi publicado depois sai do ar, mas continua no caderno: dá para trazer de volta.
+            Rascunhos em andamento não se perdem: continuam guardados, ainda por publicar.
           </p>
           {error && <div tw="mt-4"><Alert>{error}</Alert></div>}
           <div tw="mt-6 flex justify-end gap-3">

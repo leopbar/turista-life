@@ -54,6 +54,10 @@ class ChangePasswordIn(Api):
     new_password: str = Field(min_length=1, max_length=256)
 
 
+class CheckPasswordIn(Api):
+    password: str = Field(max_length=256)
+
+
 def _clean_name(v: str) -> str:
     v = ' '.join(v.split())
     if not v:

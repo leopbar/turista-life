@@ -1,6 +1,7 @@
 """Biblioteca de fotos."""
 
 from fastapi import APIRouter, Depends, Form, Request, UploadFile
+from fastapi.responses import FileResponse
 from starlette.concurrency import run_in_threadpool
 from pydantic import Field
 from sqlalchemy import select
@@ -80,6 +81,16 @@ def update(media_id: str, body: MediaUpdate, request: Request, active: ActiveSes
     return svc.to_dict(m, svc.usage(db).get(m.id))
 
 
+@router.get('/{media_id}/trash-preview')
+def trash_preview(media_id: str, _: ActiveSession = Depends(user_session), db: Session = Depends(get_db), settings: Settings = Depends(get_settings)):
+    """Miniatura de uma foto da lixeira (fora da pasta pública), só para quem está no painel."""
+    m = _get(db, media_id)
+    f = svc.trash_dir(settings, m.id) / f'{min(m.widths)}.webp'
+    if m.deleted_at is None or not f.is_file():
+        fail(404, 'not_found', 'Foto não encontrada.')
+    return FileResponse(f, media_type='image/webp', headers={'Cache-Control': 'private, no-store'})
+
+
 @router.delete('/{media_id}')
 def remove(media_id: str, request: Request, active: ActiveSession = Depends(user_session), db: Session = Depends(get_db), settings: Settings = Depends(get_settings)):
     m = _get(db, media_id)
@@ -95,8 +106,5 @@ def remove(media_id: str, request: Request, active: ActiveSession = Depends(user
 def restore(media_id: str, request: Request, active: ActiveSession = Depends(user_session), db: Session = Depends(get_db), settings: Settings = Depends(get_settings)):
     m = _get(db, media_id)
     with write(db):
-        m.deleted_at = None
-        db.add(m)
-        audit.record(db, 'foto_restaurada', actor=active.user, target=m.original_name, ip=client_ip(request, settings))
-        write_bundle(db, settings)
+        svc.restore(db, m, active.user, client_ip(request, settings), settings)
     return svc.to_dict(m)
