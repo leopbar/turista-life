@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import tw from 'twin.macro'
 import { countries, diaryPage } from '../diaryContent'
 import { REGIONS, loadShapes, regionOf, type RegionShapes } from '../map/geo'
-import { H, INSET_H, INSET_W, W, layoutRegion, type MapPoint } from '../map/layout'
+import { H, INSET_H, INSET_W, W, layoutRegion, type Crossing, type MapPoint } from '../map/layout'
 import { LiveDot } from './ui'
 import { t } from '../cms/runtime'
 
@@ -30,14 +30,27 @@ function usePoints() {
       const r = regionOf(p.coords)
       if (r) byRegion.set(r.id, [...(byRegion.get(r.id) ?? []), p])
     }
+    // Onde a rota troca de aba (ex.: Hanói → Lisboa): uma saída numa aba e a chegada na outra.
+    const crossings = new Map<string, Crossing[]>()
+    const add = (id: string, c: Crossing) => crossings.set(id, [...(crossings.get(id) ?? []), c])
+    for (let i = 1; i < list.length; i++) {
+      const a = list[i - 1]
+      const b = list[i]
+      const ra = regionOf(a.coords)
+      const rb = regionOf(b.coords)
+      if (!ra || !rb || ra.id === rb.id) continue
+      const west = b.coords[1] < a.coords[1]
+      add(ra.id, { kind: 'out', at: a.id, dir: west ? -1 : 1, title: `${t('diario.mapa.segue-para', 'Segue para')} ${b.label}`, sub: west ? `← ${rb.label}` : `${rb.label} →`, target: rb.id })
+      add(rb.id, { kind: 'in', at: b.id, dir: west ? 1 : -1, title: `${t('diario.mapa.vinda-de', 'Vinda de')} ${a.label}`, sub: west ? `${ra.label} →` : `← ${ra.label}`, target: ra.id })
+    }
     const visited = new Map(countries.map((c) => [c.code.toUpperCase(), c.name]))
     const current = list.find((p) => p.current) ?? list[list.length - 1]
-    return { byRegion, countryOf, visited, start: regionOf(current.coords)?.id ?? REGIONS[0].id }
+    return { byRegion, crossings, countryOf, visited, start: regionOf(current.coords)?.id ?? REGIONS[0].id }
   }, [])
 }
 
 export function RouteMap() {
-  const { byRegion, countryOf, visited, start } = usePoints()
+  const { byRegion, crossings, countryOf, visited, start } = usePoints()
   const tabs = REGIONS.filter((r) => byRegion.has(r.id))
   const [active, setActive] = useState(start)
   const region = tabs.find((r) => r.id === active) ?? tabs[0]
@@ -54,8 +67,8 @@ export function RouteMap() {
 
   const data = shapes?.id === region?.id ? shapes.data : null
   const map = useMemo(
-    () => region && layoutRegion(region, byRegion.get(region.id)!, data, visited, (place) => `${t('diario.mapa.zoom-em', 'ZOOM EM')} ${place.toUpperCase()}`),
-    [region, byRegion, data, visited],
+    () => region && layoutRegion(region, byRegion.get(region.id)!, data, visited, (place) => `${t('diario.mapa.zoom-em', 'ZOOM EM')} ${place.toUpperCase()}`, crossings.get(region.id)),
+    [region, byRegion, crossings, data, visited],
   )
   if (!region || !map) return null
 
@@ -119,6 +132,35 @@ export function RouteMap() {
 
           {/* Rota */}
           <path d={map.path} fill="none" stroke="#F07A2A" strokeWidth="3" strokeDasharray="2 10" strokeLinecap="round" />
+
+          {/* Rota seguindo em outra aba: clicar abre a aba */}
+          {map.links.map((l) => {
+            const open = () => setActive(l.target)
+            return (
+              <g
+                key={`${l.kind}-${l.at}`}
+                role="button"
+                tabIndex={0}
+                aria-label={`${l.title}: ver no mapa (${l.sub.replace(/[←→]/g, '').trim()})`}
+                onClick={open}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    open()
+                  }
+                }}
+                style={{ cursor: 'pointer' }}
+              >
+                <path d={l.path} fill="none" stroke="#F07A2A" strokeWidth="3" strokeDasharray="2 10" strokeLinecap="round" />
+                <text x={l.text.x} y={l.text.y} textAnchor={l.text.anchor} fill="#F8F6F1" fontFamily="Poppins, sans-serif" fontSize="24" fontWeight="600" style={halo}>
+                  {l.title}
+                </text>
+                <text x={l.text.x} y={l.text.y + 26} textAnchor={l.text.anchor} fill="#F07A2A" fontFamily="Poppins, sans-serif" fontSize="19" fontWeight="600" style={halo}>
+                  {l.sub}
+                </text>
+              </g>
+            )
+          })}
 
           {/* Zooms das cidades muito próximas */}
           {map.insets.map((z, zi) => (

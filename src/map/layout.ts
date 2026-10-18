@@ -37,6 +37,17 @@ export type Inset = {
   dots: InsetDot[]
   link: [number, number, number, number]
 }
+/** A rota passa de uma aba para outra: a parada ("at") ganha uma linha até a borda do quadro. */
+export type Crossing = {
+  kind: 'out' | 'in'
+  at: string
+  /** Borda de onde a linha sai ou chega: -1 esquerda, 1 direita. */
+  dir: -1 | 1
+  title: string
+  sub: string
+  target: string
+}
+export type CrossingLink = Crossing & { path: string; text: Label }
 export type MapLayout = {
   /** Contornos no quadro: translate + escala em cima dos pixels da região. */
   tx: number
@@ -45,6 +56,7 @@ export type MapLayout = {
   nodes: Node[]
   path: string
   insets: Inset[]
+  links: CrossingLink[]
   countryLabels: { text: string; x: number; y: number }[]
 }
 
@@ -60,17 +72,37 @@ function labelBox(l: Label, title: string, sub: string, size: number): Box {
 }
 
 /** Escolhe o lado do rótulo (direita/esquerda, um pouco acima/abaixo) que não bate em nada. */
-function placeLabel(x: number, y: number, title: string, sub: string, size: number, preferLeft: boolean, taken: Box[], frame: Box) {
+function placeLabel(x: number, y: number, title: string, sub: string, size: number, preferLeft: boolean, taken: Box[], frame: Box, soft = new Set<Box>()) {
   const gap = size * 0.7
   const sides: ('start' | 'end')[] = preferLeft ? ['end', 'start'] : ['start', 'end']
   const options: Label[] = []
   for (const dy of [0, -size * 1.3, size * 1.3]) for (const a of sides) options.push({ x: a === 'start' ? x + gap : x - gap, y: y - size * 0.15 + dy, anchor: a })
   const fits = (b: Box) => b.x0 >= frame.x0 && b.x1 <= frame.x1 && b.y0 >= frame.y0 && b.y1 <= frame.y1
-  const best = options.find((l) => { const b = labelBox(l, title, sub, size); return fits(b) && !hits(b, taken) })
-    ?? options.find((l) => fits(labelBox(l, title, sub, size)))
-    ?? options[0]
+  // Sem lado livre: fica onde bate em menos coisa; cruzar a linha da rota (soft) é bem melhor que cobrir outro rótulo.
+  const crowd = (l: Label) => {
+    const b = labelBox(l, title, sub, size)
+    return fits(b) ? taken.reduce((n, o) => n + (overlaps(b, o) ? (soft.has(o) ? 1 : 100) : 0), 0) : Infinity
+  }
+  const best = options.reduce((a, l) => (crowd(l) < crowd(a) ? l : a))
   taken.push(labelBox(best, title, sub, size))
   return best
+}
+
+/** Trecho curvo da rota entre dois pontos, com caixinhas ao longo dele para os rótulos desviarem. */
+function curve(x0: number, y0: number, x1: number, y1: number, arc = 0.22) {
+  const len = Math.hypot(x1 - x0, y1 - y0)
+  const qx = (x0 + x1) / 2
+  const qy = (y0 + y1) / 2 - Math.min(120, len * arc)
+  const boxes: Box[] = []
+  // As pontas ficam de fora: ali já está a bolinha da parada.
+  const steps = Math.ceil(len / 12)
+  for (let k = 1; k < steps; k++) {
+    const t = k / steps
+    const x = (1 - t) ** 2 * x0 + 2 * (1 - t) * t * qx + t ** 2 * x1
+    const y = (1 - t) ** 2 * y0 + 2 * (1 - t) * t * qy + t ** 2 * y1
+    if (Math.hypot(x - x0, y - y0) > 14 && Math.hypot(x - x1, y - y1) > 14) boxes.push(dot(x, y, 4))
+  }
+  return { d: `M${x0},${y0} Q${qx},${qy} ${x1},${y1}`, boxes }
 }
 
 const mostCommon = (list: string[]) => {
@@ -85,6 +117,7 @@ export function layoutRegion(
   shapes: RegionShapes | null,
   visited: Map<string, string>,
   zoomTitle: (place: string) => string,
+  crossings: Crossing[] = [],
 ): MapLayout {
   const raw = points.map((p) => ({ ...p, xy: project(region, p.coords) }))
 
@@ -162,19 +195,34 @@ export function layoutRegion(
     const n = nodeOf.get(placeOf[i])!
     if (seq[seq.length - 1] !== n) seq.push(n)
   }
-  const path = seq
-    .slice(1)
-    .map((n, i) => {
-      const p = seq[i]
-      const bend = Math.min(120, Math.hypot(n.x - p.x, n.y - p.y) * 0.22)
-      return `M${p.x},${p.y} Q${(p.x + n.x) / 2},${(p.y + n.y) / 2 - bend} ${n.x},${n.y}`
-    })
-    .join(' ')
+  const curves = seq.slice(1).map((n, i) => curve(seq[i].x, seq[i].y, n.x, n.y))
+  const path = curves.map((c) => c.d).join(' ')
 
-  // Rótulos das paradas, sem sobrepor uns aos outros nem às bolinhas.
   const frame: Box = { x0: 8, y0: 8, x1: W - 8, y1: H - 8 }
   const taken: Box[] = nodes.map((n) => dot(n.x, n.y, 12))
-  for (const n of nodes) n.text = placeLabel(n.x, n.y, n.label, n.current ? 'agora' : n.sub, 26, n.x > W * 0.6, taken, frame)
+
+  // Saída/chegada da rota para outra aba: linha até a borda e um aviso clicável junto dela.
+  const links: CrossingLink[] = []
+  for (const c of crossings) {
+    const i = raw.findIndex((p) => p.id === c.at)
+    if (i < 0) continue
+    const n = nodeOf.get(placeOf[i])!
+    const ex = c.dir < 0 ? 0 : W
+    const ey = Math.min(H - 120, Math.max(120, n.y))
+    const k = c.kind === 'out' ? curve(n.x, n.y, ex, ey, 0.06) : curve(ex, ey, n.x, n.y, 0.06)
+    curves.push(k)
+    // Aviso acima da linha, junto da borda (abaixo dela quando não cabe em cima).
+    const text: Label = { x: c.dir < 0 ? 24 : W - 24, y: ey - 60 >= 36 ? ey - 60 : ey + 44, anchor: c.dir < 0 ? 'start' : 'end' }
+    taken.push(labelBox(text, c.title, c.sub, 24))
+    links.push({ ...c, path: k.d, text })
+  }
+
+  // O traço da rota também conta como ocupado: nenhum rótulo fica por cima da linha.
+  const routeBoxes = new Set(curves.flatMap((c) => c.boxes))
+  taken.push(...routeBoxes)
+
+  // Rótulos das paradas, sem sobrepor uns aos outros nem às bolinhas.
+  for (const n of nodes) n.text = placeLabel(n.x, n.y, n.label, n.current ? 'agora' : n.sub, 26, n.x > W * 0.6, taken, frame, routeBoxes)
 
   // Zooms dos grupos, no canto do quadro com menos coisa embaixo.
   const insets: Inset[] = []
@@ -223,12 +271,13 @@ export function layoutRegion(
     const [x, y] = toFrame(c.label)
     for (const [dx, dy] of [[0, 0], [0, -60], [0, 60], [-120, 0], [120, 0], [0, -120], [0, 120]]) {
       const b = { x0: x + dx - w / 2, y0: y + dy - 22, x1: x + dx + w / 2, y1: y + dy + 4 }
-      if (b.x0 < 24 || b.x1 > W - 24 || b.y0 < 30 || b.y1 > H - 30 || hits(b, taken)) continue
+      // O nome do país fica clarinho embaixo de tudo: pode cruzar a linha da rota.
+      if (b.x0 < 24 || b.x1 > W - 24 || b.y0 < 30 || b.y1 > H - 30 || hits(b, taken.filter((o) => !routeBoxes.has(o)))) continue
       taken.push(b)
       countryLabels.push({ text, x: x + dx, y: y + dy })
       break
     }
   }
 
-  return { tx, ty, s, nodes, path, insets, countryLabels }
+  return { tx, ty, s, nodes, path, insets, links, countryLabels }
 }

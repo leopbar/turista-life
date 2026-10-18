@@ -209,6 +209,18 @@
      "long": true,
      "help": "blog.vazio"
     },
+    "diario.mapa.segue-para": {
+     "kind": "text",
+     "label": "Segue para",
+     "long": false,
+     "help": "diario.mapa.segue-para"
+    },
+    "diario.mapa.vinda-de": {
+     "kind": "text",
+     "label": "Vinda de",
+     "long": false,
+     "help": "diario.mapa.vinda-de"
+    },
     "diario.mapa.zoom-em": {
      "kind": "text",
      "label": "ZOOM EM",
