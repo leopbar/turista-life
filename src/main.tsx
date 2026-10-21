@@ -41,7 +41,7 @@ async function boot() {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <GlobalStyles />
-      {/* Em produção o site vive em lbai.dev/turista-life (base definida no vite.config.ts). */}
+      {/* Em produção o site vive em turistalife.com (base definida no vite.config.ts). */}
       <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '') || '/'}>
         <Root />
       </BrowserRouter>

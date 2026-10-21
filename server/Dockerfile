@@ -43,7 +43,7 @@ ENV PAINEL_DATA_DIR=/data \
     PAINEL_SITE_DIST=/srv/site-dist \
     PAINEL_COOKIE_SECURE=1 \
     PAINEL_TRUST_PROXY=1 \
-    PAINEL_ALLOWED_ORIGINS=https://painel-turista-life.lbai.dev
+    PAINEL_ALLOWED_ORIGINS=https://painel.turistalife.com
 VOLUME /data
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=3s CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')" || exit 1

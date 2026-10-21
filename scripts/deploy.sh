@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publica o site e o painel na VPS (ssh "mambo", /opt/turista-life).
+# Publica o site e o painel na VPS (ssh "turista-ovh", /opt/turista-life).
 #
 #   bash scripts/deploy.sh            publica o commit atual (HEAD)
 #   bash scripts/deploy.sh --check    só monta e confere o pacote, sem enviar nada
@@ -13,13 +13,12 @@
 # vive nos volumes Docker da VPS, que o deploy não toca.
 set -euo pipefail
 
-HOST=mambo
+HOST=turista-ovh
 DEST=/opt/turista-life
 URLS=(
-  https://lbai.dev/turista-life/
-  https://lbai.dev/turista-life/cms/site.json
-  https://painel-turista-life.lbai.dev/api/health
-  https://lbai.dev/
+  https://turistalife.com/
+  https://turistalife.com/cms/site.json
+  https://painel.turistalife.com/api/health
 )
 # Nada que case com isto pode estar no Git nem no pacote.
 FORBIDDEN='(^|/)server/data/|(^|/)QA/|\.db$|\.db-(wal|shm|journal)$|(^|/)secret\.key$|(^|/)\.env|(^|/)node_modules/|(^|/)\.claude/'
@@ -80,8 +79,8 @@ fi
 
 # 5. Backup do código atual na VPS, envio e reconstrução (os volumes do painel ficam intactos).
 STAMP=$(date +%Y%m%d-%H%M%S)
-echo "Backup em $HOST:/root/turista-life-backup-$STAMP.tgz"
-ssh "$HOST" "cd /opt && tar czf /root/turista-life-backup-$STAMP.tgz turista-life"
+echo "Backup em $HOST:~/backups/turista-life-backup-$STAMP.tgz"
+ssh "$HOST" "mkdir -p ~/backups && cd /opt && tar czf ~/backups/turista-life-backup-$STAMP.tgz turista-life"
 echo "Enviando o commit $COMMIT..."
 ssh "$HOST" "tar xzf - -C $DEST && echo '$COMMIT' > $DEST/.deployed-commit" < "$PKG"
 ssh "$HOST" "cd $DEST && docker compose up -d --build 2>&1 | tail -5"
@@ -99,5 +98,5 @@ for u in "${URLS[@]}"; do
   echo "$code  $u"
   [[ "$code" == 200 ]] || ok=0
 done
-[[ $ok == 1 ]] || fail "algum endereço não respondeu 200 (backup: /root/turista-life-backup-$STAMP.tgz)."
+[[ $ok == 1 ]] || fail "algum endereço não respondeu 200 (backup: ~/backups/turista-life-backup-$STAMP.tgz no servidor)."
 echo "Publicado: commit $COMMIT."

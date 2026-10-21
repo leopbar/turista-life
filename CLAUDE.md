@@ -27,5 +27,9 @@
 
 ## VPS
 
-- Na VPS só mexer nos containers `turista-life` e `turista-life-painel` e nos arquivos de nginx deles;
-  `nginx -t` antes de `systemctl reload nginx`. O nginx do servidor é 1.24: usar `listen 443 ssl http2;`.
+- Hospedagem: VPS da OVHcloud (ssh `turista-ovh`, usuário `ubuntu` com sudo), domínio `turistalife.com`
+  (DNS no Cloudflare): site em `https://turistalife.com`, painel em `https://painel.turistalife.com`.
+  O deploy vai só para ela; o servidor antigo (`mambo`, lbai.dev) não recebe mais deploy.
+- Na VPS só mexer nos containers `turista-life` e `turista-life-painel` e no nginx deles
+  (`/etc/nginx/sites-available/turistalife.com`); `nginx -t` antes de `systemctl reload nginx`.
+  O nginx do servidor é o 1.28 (aceita `listen 443 ssl http2;`, com aviso de depreciação).

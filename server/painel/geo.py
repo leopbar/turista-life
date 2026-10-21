@@ -11,7 +11,7 @@ import urllib.parse
 import urllib.request
 
 ENDPOINT = 'https://nominatim.openstreetmap.org/search'
-USER_AGENT = 'TuristaLife-Painel/1.0 (+https://lbai.dev/turista-life)'
+USER_AGENT = 'TuristaLife-Painel/1.0 (+https://turistalife.com)'
 
 _lock = threading.Lock()
 _last_call = 0.0

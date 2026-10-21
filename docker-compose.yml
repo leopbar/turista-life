@@ -1,12 +1,12 @@
 # Publicação no VPS: os containers escutam só em 127.0.0.1.
-# O nginx do servidor repassa https://lbai.dev/turista-life/ para o site (3010)
-# e https://painel-turista-life.lbai.dev/ para o painel (3012).
+# O nginx do servidor repassa https://turistalife.com/ para o site (3010)
+# e https://painel.turistalife.com/ para o painel (3012).
 services:
   turista-life:
     build:
       context: .
       args:
-        BASE_PATH: /turista-life/
+        BASE_PATH: /
     image: turista-life
     container_name: turista-life
     restart: unless-stopped
@@ -14,7 +14,7 @@ services:
       - "127.0.0.1:3010:80"
     # Conteúdo publicado pelo painel (site.json e fotos), só leitura.
     volumes:
-      - painel-public:/usr/share/nginx/html/turista-life/cms:ro
+      - painel-public:/usr/share/nginx/html/cms:ro
     depends_on:
       - turista-life-painel
 
