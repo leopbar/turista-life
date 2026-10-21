@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import tw, { type TwStyle } from 'twin.macro'
 import { linkPages, linkSections } from '../../../src/cms/linkTargets'
-import { api } from '../api'
+import { api, type DocMeta } from '../api'
+import { GROUPS, useSchema } from './model'
 
 /* ------------------------------------------------------------------ */
 /* Campo de link: página do site (escolhida numa lista) ou site externo */
@@ -132,5 +133,70 @@ export function LinkField({ id, value, onChange, inputCss }: {
         </>
       )}
     </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* Página de uma coleção (ex.: a página do produto)                    */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Só as páginas de uma coleção (ex.: páginas de produto), numa lista. Embaixo, onde criar uma página nova
+ * (abre em outra aba, para não perder o que já foi digitado aqui) e o botão para trazer a lista de novo.
+ */
+export function CollectionPageField({ id, collection, value, onChange, inputCss }: {
+  id: string; collection: string; value: string; onChange: (v: string) => void; inputCss: TwStyle
+}) {
+  const schema = useSchema()
+  const [items, setItems] = useState<DocMeta[] | null>(null)
+  const [state, setState] = useState<'idle' | 'busy' | 'done' | 'error'>('idle')
+  const load = useCallback(async () => {
+    const list = await api.contentList()
+    setItems(list.filter((d) => d.collection === collection))
+  }, [collection])
+  useEffect(() => {
+    load().catch(() => setItems([]))
+  }, [load])
+
+  const reload = async () => {
+    setState('busy')
+    try {
+      await load()
+      setState('done')
+      setTimeout(() => setState('idle'), 2500)
+    } catch {
+      setState('error')
+    }
+  }
+
+  const def = schema?.collections.find((c) => c.key === collection)
+  const where = def ? `${GROUPS.find((g) => g.id === def.group)?.label ?? ''} → Novo: ${def.itemLabel.toLowerCase()}` : ''
+  // O servidor só aceita uma página já publicada: as outras aparecem na lista com o aviso.
+  const note = (status: string) => (status === 'novo' ? ' (ainda não publicada)' : status === 'sair' ? ' (saindo do site)' : '')
+  const other = value && items && !items.some((d) => d.route === value)
+
+  return (
+    <>
+      <select id={id} css={inputCss} value={value} onChange={(e) => onChange(e.target.value)}>
+        <option value="">{items === null ? 'Carregando a lista…' : 'Escolha a página…'}</option>
+        {other && <option value={value}>Outro endereço: {value}</option>}
+        {items?.map((d) => <option key={d.key} value={d.route}>{d.label.replace(/^[^"]*"(.*)"$/, '$1') + note(d.status)}</option>)}
+      </select>
+      <div tw="mt-1.5 flex flex-wrap items-start justify-between gap-x-3 gap-y-1 font-sans text-[12px] leading-snug text-muted">
+        <p tw="m-0 min-w-0 flex-1 basis-[240px]">
+          {collection === 'productPage' ? 'Produto novo? Crie primeiro a página dele em' : 'Não está na lista? Crie primeiro em'}{' '}
+          <a href={`/conteudo?novo=${encodeURIComponent(collection)}`} target="_blank" rel="noopener" tw="font-semibold text-pine-800 underline underline-offset-2">{where} ↗</a>{' '}
+          (abre em outra aba) e publique. Depois clique em "Atualizar lista" e escolha aqui.
+        </p>
+        <button
+          type="button"
+          onClick={reload}
+          disabled={state === 'busy'}
+          tw="shrink-0 cursor-pointer rounded-full border-0 bg-white px-3 py-1 font-sans text-[12px] font-medium text-pine-900 ring-1 ring-line hover:bg-cream disabled:cursor-wait"
+        >
+          {state === 'busy' ? 'Atualizando…' : state === 'done' ? 'Lista atualizada ✓' : state === 'error' ? 'Não deu, tente de novo' : 'Atualizar lista'}
+        </button>
+      </div>
+    </>
   )
 }

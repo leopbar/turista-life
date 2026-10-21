@@ -48,6 +48,11 @@ function compareField(a, b, trail) {
     return
   }
   if (a.optional && !b.optional) add(ORANGE, name(trail), 'passou a ser obrigatório: se estiver vazio em produção, a publicação é recusada.')
+  // Obrigatório só numa situação (requiredWhen): cada situação nova também pode recusar conteúdo que já existe.
+  const when = (f) => (f.requiredWhen ? f.requiredWhen.values.map((v) => `${f.requiredWhen.field} = ${v}`) : [])
+  const newWhen = when(b).filter((w) => !when(a).includes(w))
+  if (b.optional && newWhen.length) add(ORANGE, name(trail), `passou a ser obrigatório quando ${newWhen.join(' ou ')}: se estiver vazio em produção, a publicação é recusada.`)
+  if (b.pick && a.pick !== b.pick) add(ORANGE, name(trail), `passou a aceitar só páginas publicadas de "${b.pick}": um link para outra página dessa lista que não esteja no ar é recusado na publicação.`)
   if (b.max !== undefined && (a.max === undefined || b.max < a.max)) add(ORANGE, name(trail), `limite máximo menor (${a.max ?? 'sem limite'} → ${b.max}): textos/valores maiores passam a ser recusados.`)
   if (b.min !== undefined && (a.min === undefined || b.min > a.min)) add(ORANGE, name(trail), `mínimo maior (${a.min ?? 'sem mínimo'} → ${b.min}): valores menores passam a ser recusados.`)
   if (a.long && !b.long && a.kind === 'text') add(ORANGE, name(trail), 'deixou de ser texto longo: textos grandes passam a ser recusados.')

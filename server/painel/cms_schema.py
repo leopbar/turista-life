@@ -168,6 +168,11 @@ def check_fields(obj: dict, fields: dict, path: str, out: Problems) -> None:
         if k not in fields:
             out.add(_at(path, k), f'Campo desconhecido: {k}.')
     for k, f in fields.items():
+        # Obrigatório só numa situação (ex.: a página do produto, quando ele está à venda).
+        when = f.get('requiredWhen')
+        if out.publishing and when and obj.get(when['field']) in when['values'] and not (isinstance(obj.get(k), str) and obj[k].strip()):
+            out.add(_at(path, k), f'Falta escolher "{f.get("label", k)}".')
+            continue
         if k not in obj or obj[k] is None:
             if not f.get('optional'):
                 out.add(_at(path, k), f'Falta preencher "{f.get("label", k)}".')
@@ -246,7 +251,7 @@ def values_of_kind(schema: Schema, key: str, value: Any, kind: str) -> list[tupl
 
 def _refs(v: Any, f: dict, path: str, found: list):
     kind = f['kind']
-    if kind == 'ref' and isinstance(v, str):
+    if (kind == 'ref' and isinstance(v, str)) or (kind == 'url' and f.get('pick') and isinstance(v, str) and v):
         found.append((path, f, v))
     elif kind == 'list' and isinstance(v, list):
         for i, x in enumerate(v):
@@ -277,6 +282,15 @@ def broken_refs(schema: Schema, docs: dict[str, Any], label_of) -> list[str]:
             if k in value:
                 _refs(value[k], f, k, found)
         for _path, f, target in found:
+            if f['kind'] == 'url':
+                # Página de uma coleção ("/produtos/guia-de-bali" → productPage:guia-de-bali): precisa estar no ar.
+                # Um endereço de fora da coleção (link antigo para outra página) continua valendo.
+                c = schema.collections.get(f['pick'])
+                prefix = c['route'].split('{id}')[0] if c else None
+                item = target.split('#')[0].split('?')[0][len(prefix):] if prefix and target.startswith(prefix) else None
+                if item is not None and f'{f["pick"]}:{item}' not in docs:
+                    problems.append(f'{label_of(key)} leva para "{target}" em "{f["label"]}", mas essa página não está publicada.')
+                continue
             cache_key = (f['source'], f['list'])
             if cache_key not in ids_cache:
                 source = docs.get(f['source']) or {}

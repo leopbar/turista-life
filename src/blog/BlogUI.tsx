@@ -108,7 +108,8 @@ export function VideoEmbed({ id, title, vertical = false, poster }: { id: string
 export function GuideBlock({ id, text }: { id: GuideId; text?: string }) {
   const g = guideById(id)
   const available = g.status === 'available'
-  const href = available ? g.page! : `/produtos#${g.id}`
+  // Guia à venda sem página (o painel exige, mas por garantia): leva para o card dele na página Produtos.
+  const href = (available && (g.page || g.href)) || `/produtos#${g.id}`
   return (
     <aside className="group" tw="relative my-4 grid items-center gap-6 overflow-hidden rounded-[22px] bg-pine-800 p-6 text-white shadow-lift sm:grid-cols-[170px_1fr] sm:p-8">
       <PlaneTrail tw="absolute -right-4 -top-2 w-40 text-white/10" />

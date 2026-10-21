@@ -134,9 +134,21 @@ export function pathLabels(fields: Fields, value: unknown, path: string): string
  * de uma lista de textos ficam de fora (a linha vazia só não aparece).
  */
 export function blankRequired(f: Field, value: unknown, path: string): boolean {
-  if ((f.kind !== 'text' && f.kind !== 'image') || f.optional) return false
+  if (f.optional) return false
+  if (f.requiredWhen) return typeof value !== 'string' || !value.trim()
+  if (f.kind !== 'text' && f.kind !== 'image') return false
   if (/(^|\.)\d+$/.test(path)) return false
   return typeof value !== 'string' || !value.trim()
+}
+
+/**
+ * O campo como vale agora, dentro do grupo `parent`: um campo com `requiredWhen` (ex.: página do produto)
+ * deixa de ser opcional quando o outro campo tem um dos valores (ex.: situação "À venda"). Mesma regra do servidor.
+ */
+export function effectiveField(f: Field, parent: unknown): Field {
+  const when = f.requiredWhen
+  if (!when || !parent || typeof parent !== 'object') return f
+  return when.values.includes(String((parent as Record<string, unknown>)[when.field] ?? '')) ? { ...f, optional: false } : f
 }
 
 /** Nomes ("Linha do tempo › Momento 3 › Título") dos campos obrigatórios em branco, para avisar antes de publicar. */
@@ -146,10 +158,11 @@ export function missingRequired(fields: Fields, value: unknown): string[] {
     if (out.length >= 8) return
     if (f.kind === 'object') {
       if (!v || typeof v !== 'object') return
-      for (const [k, sub] of Object.entries(f.fields)) {
+      for (const [k, raw] of Object.entries(f.fields)) {
+        const sub = effectiveField(raw, v)
         const x = (v as Record<string, unknown>)[k]
         if (x !== undefined && x !== null) visit(sub, x, path ? `${path}.${k}` : k)
-        else if (!sub.optional && (sub.kind === 'text' || sub.kind === 'image')) out.push(path ? `${path}.${k}` : k)
+        else if (!sub.optional && (sub.kind === 'text' || sub.kind === 'image' || sub.requiredWhen)) out.push(path ? `${path}.${k}` : k)
       }
     } else if (f.kind === 'list' && Array.isArray(v)) {
       v.forEach((x, i) => visit(f.of, x, path ? `${path}.${i}` : String(i)))

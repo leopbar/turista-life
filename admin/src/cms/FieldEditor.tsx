@@ -3,9 +3,9 @@ import tw from 'twin.macro'
 import type { Field } from '../../../src/cms/fields'
 import { isMailerliteForm, mailerliteEndpoint } from '../../../src/cms/mailerlite'
 import { Camera, Close, Plus } from '../components/icons'
-import { GROUPS, blankRequired, emptyValue, itemTitle, useSchema } from './model'
+import { GROUPS, blankRequired, effectiveField, emptyValue, itemTitle, useSchema } from './model'
 import { CoordsField } from './CoordsField'
-import { LinkField } from './LinkField'
+import { CollectionPageField, LinkField } from './LinkField'
 
 /* ------------------------------------------------------------------ */
 /* Contexto do formulário: erros, campo em foco, fotos e referências  */
@@ -106,7 +106,9 @@ export function FieldEditor({ field: f, value, onChange, path, nested = false }:
         : <input id={id} css={input} value={str} maxLength={f.max} onChange={(e) => setText(e.target.value)} />
       break
     case 'url':
-      control = <LinkField id={id} value={str} onChange={setText} inputCss={input} />
+      control = f.pick
+        ? <CollectionPageField id={id} collection={f.pick} value={str} onChange={setText} inputCss={input} />
+        : <LinkField id={id} value={str} onChange={setText} inputCss={input} />
       break
     case 'image':
       control = (
@@ -330,7 +332,7 @@ function ObjectEditor({ field: f, value, onChange, path, nested }: {
     <div tw="flex flex-col gap-4">
       {Object.entries(f.fields).map(([k, sub]) => (
         <FieldEditor
-          key={k} field={sub} value={obj[k]} path={at(k)} nested
+          key={k} field={effectiveField(sub, obj)} value={obj[k]} path={at(k)} nested
           onChange={(v) => {
             const next = { ...obj }
             if (v === undefined) delete next[k]

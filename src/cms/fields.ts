@@ -4,12 +4,19 @@
  * exportada para JSON por scripts/export-cms.mjs. Por isso: só dados, nenhuma função.
  */
 
-type Base = { label: string; help?: string; optional?: boolean }
+type Base = {
+  label: string; help?: string; optional?: boolean
+  /** Obrigatório só quando outro campo do mesmo grupo tem um destes valores (ex.: a página do produto, quando ele está à venda). */
+  requiredWhen?: { field: string; values: string[] }
+}
 
 export type Field =
   | (Base & { kind: 'text'; long?: boolean; max?: number })
-  /** Link: https://, mailto:, ou caminho do próprio site ("/produtos"). */
-  | (Base & { kind: 'url' })
+  /**
+   * Link: https://, mailto:, ou caminho do próprio site ("/produtos").
+   * Com `pick` (uma coleção, ex.: 'productPage'), só vale escolher uma página dessa coleção, já publicada.
+   */
+  | (Base & { kind: 'url'; pick?: string })
   /** Foto: caminho relativo ao site ("images/x.jpg" ou "cms/media/…"). */
   | (Base & { kind: 'image' })
   | (Base & { kind: 'number'; min?: number; max?: number })
@@ -65,7 +72,7 @@ export type CollectionDef = {
 /* Atalhos para escrever o mapa sem repetição. */
 export const text = (label: string, extra: Partial<Base> & { long?: boolean; max?: number } = {}): Field => ({ kind: 'text', label, ...extra })
 export const long = (label: string, extra: Partial<Base> = {}): Field => ({ kind: 'text', label, long: true, ...extra })
-export const url = (label: string, extra: Partial<Base> = {}): Field => ({ kind: 'url', label, ...extra })
+export const url = (label: string, extra: Partial<Base> & { pick?: string } = {}): Field => ({ kind: 'url', label, ...extra })
 export const mailerlite = (label: string, extra: Partial<Base> = {}): Field => ({ kind: 'mailerlite', label, ...extra })
 export const image = (label = 'Foto', extra: Partial<Base> = {}): Field => ({ kind: 'image', label, ...extra })
 export const bool = (label: string, extra: Partial<Base> = {}): Field => ({ kind: 'bool', label, optional: true, ...extra })

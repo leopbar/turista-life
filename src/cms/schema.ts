@@ -34,7 +34,8 @@ const catalogItem: Field = obj('Produto', {
   price: opt(text('Preço (ex.: R$ 49)')),
   cta: opt(text('Texto do botão')),
   href: opt(url('Link de compra')),
-  page: opt(url('Página do produto (ex.: /produtos/guia-de-bali)')),
+  // O botão do card leva para a página do produto: sem ela, o produto à venda (ou grátis) fica sem destino.
+  page: opt(url('Página do produto', { pick: 'productPage', requiredWhen: { field: 'status', values: ['available', 'free'] } })),
   notify: opt(long('Mensagem depois de entrar na lista de espera')),
   waitlistForm: opt(mailerlite('Formulário próprio da lista de espera', { help: 'Vazio = usa o da página Produtos' })),
   cover: cover(),

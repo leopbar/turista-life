@@ -102,6 +102,8 @@ export function ProductsPage() {
 
 function AvailableCard({ item }: { item: CatalogItem }) {
   const button = tw`inline-flex items-center justify-center gap-2 rounded-full bg-sun-500 px-6 py-3 font-sans text-[14px] font-semibold text-white no-underline transition hover:bg-sun-600`
+  // O painel exige a página do produto; se mesmo assim faltar, vale o link de compra, e sem nenhum o card fica sem botão.
+  const href = item.page || item.href
   return (
     <article id={item.id} className="group" tw="grid scroll-mt-28 gap-6 rounded-[22px] bg-white p-6 shadow-card ring-2 ring-transparent transition duration-300 hover:(-translate-y-1 shadow-lift ring-sun-500/30) sm:grid-cols-[200px_1fr]">
       <div tw="relative rounded-2xl bg-cream py-7">
@@ -121,9 +123,11 @@ function AvailableCard({ item }: { item: CatalogItem }) {
               <span tw="font-serif text-[24px] font-bold leading-tight text-pine-900">{item.price}</span>
             </p>
           )}
-          <SmartLink href={item.page!} css={button}>
-            {item.cta} <Arrow />
-          </SmartLink>
+          {href && (
+            <SmartLink href={href} css={button}>
+              {item.cta} <Arrow />
+            </SmartLink>
+          )}
         </div>
       </div>
     </article>
@@ -150,6 +154,7 @@ function UpcomingCard({ item }: { item: CatalogItem }) {
 }
 
 function FreeCard({ item }: { item: CatalogItem }) {
+  const href = item.page || item.href
   return (
     <article id={item.id} className="group" tw="flex scroll-mt-28 flex-col rounded-[18px] bg-white p-5 shadow-card transition duration-300 hover:(-translate-y-1 shadow-lift)">
       <div tw="relative rounded-xl bg-cream py-6">
@@ -161,14 +166,16 @@ function FreeCard({ item }: { item: CatalogItem }) {
       <p tw="mt-5 font-sans text-[13px] text-muted">{item.kind}</p>
       <h3 tw="mt-0.5 font-sans text-[16px] font-semibold leading-snug text-ink">{item.title}</h3>
       <p tw="mt-2 font-sans text-[13px] leading-relaxed text-muted">{item.text}</p>
-      <div tw="mt-auto pt-5">
-        <SmartLink
-          href={item.page!}
-          tw="inline-flex w-full items-center justify-center gap-2 rounded-full bg-pine-900 px-4 py-3 font-sans text-[13px] font-semibold text-white no-underline transition hover:bg-pine-700"
-        >
-          {item.cta} <Arrow />
-        </SmartLink>
-      </div>
+      {href && (
+        <div tw="mt-auto pt-5">
+          <SmartLink
+            href={href}
+            tw="inline-flex w-full items-center justify-center gap-2 rounded-full bg-pine-900 px-4 py-3 font-sans text-[13px] font-semibold text-white no-underline transition hover:bg-pine-700"
+          >
+            {item.cta} <Arrow />
+          </SmartLink>
+        </div>
+      )}
     </article>
   )
 }

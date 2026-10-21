@@ -142,6 +142,48 @@ def test_nao_publica_o_que_quebraria_outra_pagina(admin: Painel):
     assert r.status_code == 409 and 'bali' in r.json()['detail']['problems'][0]['message']
 
 
+def test_produto_a_venda_precisa_de_pagina_publicada(admin: Painel, settings):
+    page = admin.get('/api/content/produtos.page').json()['draft']
+    novo = {
+        'id': 'guia-brasil', 'kind': 'Guia de destino', 'title': 'Guia do Brasil', 'text': 'Um guia do Brasil.', 'status': 'available',
+        'cover': page['catalog'][0]['cover'],
+    }
+    publish = lambda: admin.post('/api/content/produtos.page/publish')  # noqa: E731
+
+    # À venda sem página: o rascunho salva, mas não publica (o site ficaria com o card sem destino).
+    assert _put(admin, 'produtos.page', {**page, 'catalog': [*page['catalog'], novo]}).status_code == 200
+    r = publish()
+    assert r.status_code == 422
+    assert {p['path'] for p in r.json()['detail']['problems']} == {f'catalog.{len(page["catalog"])}.page'}
+
+    # Página que ainda não foi publicada: também não.
+    base = admin.get('/api/content/productPage:guia-de-bali').json()['draft']
+    assert admin.post('/api/collections/productPage', json={'item': {**base, 'slug': 'guia-brasil', 'title': 'Guia do Brasil'}}).status_code == 201
+    com_pagina = {**novo, 'page': '/produtos/guia-brasil'}
+    assert _put(admin, 'produtos.page', {**page, 'catalog': [*page['catalog'], com_pagina]}).status_code == 200
+    r = publish()
+    assert r.status_code == 409 and 'não está publicada' in r.json()['detail']['problems'][0]['message']
+
+    # Página publicada: vai para o ar.
+    assert admin.post('/api/content/productPage:guia-brasil/publish').status_code == 200
+    assert publish().status_code == 200
+    assert site_json(settings)['docs']['produtos.page']['catalog'][-1]['page'] == '/produtos/guia-brasil'
+
+    # Tirar do site uma página que um produto usa quebraria o botão dele.
+    admin.delete('/api/content/productPage:guia-brasil')
+    r = admin.post('/api/content/productPage:guia-brasil/publish')
+    assert r.status_code == 409 and '/produtos/guia-brasil' in r.json()['detail']['problems'][0]['message']
+
+
+def test_produto_em_breve_nao_precisa_de_pagina(admin: Painel):
+    page = admin.get('/api/content/produtos.page').json()['draft']
+    em_breve = next(p for p in page['catalog'] if p['status'] == 'soon')
+    assert 'page' not in em_breve
+    catalog = [{**p, 'title': p['title'] + ' (novo nome)'} if p is em_breve else p for p in page['catalog']]
+    assert _put(admin, 'produtos.page', {**page, 'catalog': catalog}).status_code == 200
+    assert admin.post('/api/content/produtos.page/publish').status_code == 200
+
+
 def test_agendar_publicacao(admin: Painel, app, db, settings):
     doc = admin.get('/api/content/inicio.hero').json()['draft']
     _put(admin, 'inicio.hero', {**doc, 'title': 'Lançamento agendado'})

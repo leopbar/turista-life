@@ -1503,7 +1503,15 @@
        },
        "page": {
         "kind": "url",
-        "label": "Página do produto (ex.: /produtos/guia-de-bali)",
+        "label": "Página do produto",
+        "pick": "productPage",
+        "requiredWhen": {
+         "field": "status",
+         "values": [
+          "available",
+          "free"
+         ]
+        },
         "optional": true
        },
        "notify": {
@@ -1641,7 +1649,15 @@
        },
        "page": {
         "kind": "url",
-        "label": "Página do produto (ex.: /produtos/guia-de-bali)",
+        "label": "Página do produto",
+        "pick": "productPage",
+        "requiredWhen": {
+         "field": "status",
+         "values": [
+          "available",
+          "free"
+         ]
+        },
         "optional": true
        },
        "notify": {
