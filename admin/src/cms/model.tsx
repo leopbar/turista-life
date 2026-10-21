@@ -55,7 +55,15 @@ export const STATUS: Record<DocStatus, { label: string; tone: 'ok' | 'draft' | '
 
 const parts = (path: string) => (path ? path.split('.') : [])
 
+/**
+ * Os textos fixos têm ponto no próprio nome ("produtos.espera.botao"). Quando o caminho inteiro é um
+ * nome que existe no objeto, ele vale como um nome só (e não como "produtos › espera › botao").
+ */
+const isWhole = (o: unknown, path: string) =>
+  path.includes('.') && !!o && typeof o === 'object' && !Array.isArray(o) && Object.prototype.hasOwnProperty.call(o, path)
+
 export function getAt(value: unknown, path: string): unknown {
+  if (isWhole(value, path)) return (value as Record<string, unknown>)[path]
   let v = value
   for (const p of parts(path)) {
     if (v === null || v === undefined) return undefined
@@ -67,6 +75,12 @@ export function getAt(value: unknown, path: string): unknown {
 export function setAt<T>(value: T, path: string, next: unknown): T {
   const ps = parts(path)
   if (!ps.length) return next as T
+  if (isWhole(value, path)) {
+    const copy = { ...(value as Record<string, unknown>) }
+    if (next === undefined) delete copy[path]
+    else copy[path] = next
+    return copy as T
+  }
   const [head, ...rest] = ps
   const copy: unknown = Array.isArray(value) ? [...value] : { ...(value as object) }
   const child = (value as Record<string, unknown> | undefined)?.[head]
@@ -78,6 +92,7 @@ export function setAt<T>(value: T, path: string, next: unknown): T {
 
 /** O campo (do mapa) que corresponde a um caminho do conteúdo. */
 export function fieldAt(fields: Fields, value: unknown, path: string): Field | undefined {
+  if (isWhole(fields, path)) return fields[path]
   let current = { kind: 'object', label: '', fields } as Field | undefined
   let v: unknown = value
   for (const p of parts(path)) {
@@ -99,6 +114,7 @@ export function fieldAt(fields: Fields, value: unknown, path: string): Field | u
 
 /** Nomes dos campos do caminho, para mostrar "Linha do tempo › Momento 3 › Título". */
 export function pathLabels(fields: Fields, value: unknown, path: string): string[] {
+  if (isWhole(fields, path)) return [fields[path].label]
   const out: string[] = []
   const ps = parts(path)
   for (let i = 1; i <= ps.length; i++) {

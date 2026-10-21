@@ -256,6 +256,23 @@ function LayoutEditor({ fields, value, onChange }: { fields: Fields; value: Layo
 }
 
 /* ------------------------------------------------------------------ */
+/* Textos fixos: só os da parte do site do texto clicado              */
+/* ------------------------------------------------------------------ */
+
+/** O começo do nome do texto fixo ("produtos.espera.botao" → "produtos") diz a que parte do site ele pertence. */
+const TEXT_GROUPS: Record<string, string> = {
+  inicio: 'Página inicial', sobre: 'Sobre mim', produtos: 'Produtos', produto: 'Páginas de produto', recomendacoes: 'Recomendações',
+  parcerias: 'Parcerias', diario: 'Diário', blog: 'Blog', geral: 'Em todo o site',
+}
+
+function textGroup(fields: Fields, focusPath: string | undefined) {
+  if (!focusPath || !(focusPath in fields)) return null
+  const prefix = focusPath.split('.')[0]
+  const own = Object.fromEntries(Object.entries(fields).filter(([id]) => id.startsWith(`${prefix}.`)))
+  return { label: TEXT_GROUPS[prefix] ?? prefix, fields: own, count: Object.keys(own).length }
+}
+
+/* ------------------------------------------------------------------ */
 /* Gaveta de edição de um documento                                    */
 /* ------------------------------------------------------------------ */
 
@@ -273,11 +290,15 @@ export function DocEditor({ session, focusPath, onClose, onPublished, onChanged 
   const [stamp, setStamp] = useState(false)
   const [confirm, setConfirm] = useState<'publish' | 'schedule' | 'discard' | 'remove' | null>(null)
   const [when, setWhen] = useState('')
+  const [allTexts, setAllTexts] = useState(false)
   const { doc, draft } = session
 
   const def = schema && doc ? definitionOf(schema, doc.key) : undefined
   const summary = useMemo(() => (def && draft && doc ? changeSummary(def.fields, draft, doc.published) : []), [def, draft, doc])
   const missing = useMemo(() => (def && draft ? missingRequired(def.fields, draft) : []), [def, draft])
+  // Clicou num texto fixo do site: a gaveta mostra só os textos daquela parte, não os do site inteiro.
+  const group = useMemo(() => (def && doc?.key === 'geral.textos' ? textGroup(def.fields, focusPath) : null), [def, doc?.key, focusPath])
+  useEffect(() => setAllTexts(false), [focusPath])
   if (!schema || !doc || !draft || !def) {
     return <div tw="p-8 font-sans text-[14px] text-muted">{session.message ?? 'Abrindo…'}</div>
   }
@@ -366,7 +387,27 @@ export function DocEditor({ session, focusPath, onClose, onPublished, onChanged 
             doc.key.startsWith('layout.') ? (
               <LayoutEditor fields={def.fields} value={draft as LayoutValue} onChange={(v) => session.setDraft(v as unknown as Record<string, unknown>)} />
             ) : (
-              <FieldEditor field={{ kind: 'object', label: '', fields: def.fields }} value={draft} path="" onChange={(v) => session.setDraft(v as Record<string, unknown>)} />
+              <>
+                {group && !allTexts && (
+                  <p tw="m-0 mb-4 flex flex-wrap items-baseline gap-x-2 gap-y-1 rounded-xl bg-mist px-4 py-2.5 font-sans text-[12.5px] text-pine-900">
+                    <span>Textos fixos de <strong>{group.label}</strong> ({group.count} de {Object.keys(def.fields).length})</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAllTexts(true)
+                        // Com a lista inteira, o texto clicado continua na tela.
+                        requestAnimationFrame(() => document.querySelector(`[data-path="${focusPath}"]`)?.scrollIntoView({ block: 'center' }))
+                      }}
+                      tw="ml-auto cursor-pointer border-0 bg-transparent p-0 font-sans text-[12.5px] font-semibold text-pine-800 underline">
+                      Ver todos os textos fixos
+                    </button>
+                  </p>
+                )}
+                <FieldEditor
+                  field={{ kind: 'object', label: '', fields: group && !allTexts ? group.fields : def.fields }}
+                  value={draft} path="" onChange={(v) => session.setDraft(v as Record<string, unknown>)}
+                />
+              </>
             )
           ) : (
             <Versions
