@@ -84,9 +84,15 @@ function stega(key: string, value: unknown) {
 /* Contorno e clique                                                   */
 /* ------------------------------------------------------------------ */
 
-export type Target = { key: string; path: string; kind: 'text' | 'image' }
+export type Target = { key: string; path: string; kind: 'text' | 'image' | 'link' }
 
 function targetsOf(el: Element): Target[] {
+  // Elemento sem texto marcado com cmsTarget() (ex.: ícone de rede social): abre o campo do link.
+  const marked = el.getAttribute('data-cms')
+  if (marked) {
+    const [key, path] = marked.split('|')
+    return [{ key, path, kind: 'link' }]
+  }
   if (el instanceof HTMLImageElement) {
     const m = (el.getAttribute('src') ?? '').match(/[#&]cms=([^&]+)/)
     if (m) {
@@ -142,7 +148,7 @@ function setup() {
     if (!hit || !editing) return void (box.style.display = 'none')
     const r = hit.el.getBoundingClientRect()
     Object.assign(box.style, { display: 'block', top: `${r.top - 4}px`, left: `${r.left - 4}px`, width: `${r.width + 8}px`, height: `${r.height + 8}px` })
-    tag.textContent = hit.targets[0].kind === 'image' ? '📷 Trocar foto' : '✎ Editar texto'
+    tag.textContent = { image: '📷 Trocar foto', link: '🔗 Editar link', text: '✎ Editar texto' }[hit.targets[0].kind]
   }
 
   document.addEventListener('mouseover', (e) => show(findTarget(e.target as Element)), true)

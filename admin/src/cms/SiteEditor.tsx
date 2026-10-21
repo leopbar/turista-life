@@ -9,7 +9,7 @@ import { usePickImage } from './Media'
 import { GROUPS, STATUS, definitionOf, pathLabels, previewUrl, useSchema } from './model'
 import { useDocSession } from './session'
 
-type Target = { key: string; path: string; kind: 'text' | 'image' }
+type Target = { key: string; path: string; kind: 'text' | 'image' | 'link' }
 type Rect = { top: number; left: number; width: number; height: number }
 type Pending = { kind: 'text'; path: string; rect: Rect } | { kind: 'image'; path: string } | null
 
@@ -69,7 +69,9 @@ export function SiteEditor() {
         setOpenKey(t.key)
         setFocusPath(t.path)
         setInline(null)
-        setPending(t.kind === 'image' ? { kind: 'image', path: t.path } : { kind: 'text', path: t.path, rect: msg.rect! })
+        // Link (ex.: ícone de rede social): não tem texto para a caixinha rápida, abre a gaveta no campo.
+        if (t.kind === 'link') setDrawer(true)
+        else setPending(t.kind === 'image' ? { kind: 'image', path: t.path } : { kind: 'text', path: t.path, rect: msg.rect! })
       }
     }
     addEventListener('message', onMessage)

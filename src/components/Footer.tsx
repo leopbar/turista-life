@@ -4,12 +4,12 @@ import { useNewsletter } from '../newsletter'
 import { NewsletterHoneypot } from './NewsletterHoneypot'
 import { Container, Logo, PlaneTrail, SmartLink } from './ui'
 import { Arrow, Instagram, TikTok, YouTube } from './icons'
-import { t } from '../cms/runtime'
+import { cmsTarget, t } from '../cms/runtime'
 
 const socials = [
-  { label: 'YouTube', href: links.youtube, Icon: YouTube },
-  { label: 'Instagram', href: links.instagram, Icon: Instagram },
-  { label: 'TikTok', href: links.tiktok, Icon: TikTok },
+  { label: 'YouTube', href: links.youtube, Icon: YouTube, field: 'youtube' },
+  { label: 'Instagram', href: links.instagram, Icon: Instagram, field: 'instagram' },
+  { label: 'TikTok', href: links.tiktok, Icon: TikTok, field: 'tiktok' },
 ]
 
 export function Footer() {
@@ -23,8 +23,8 @@ export function Footer() {
             <Logo />
             <p tw="font-sans text-[13px] leading-relaxed text-white/70">{footer.tagline}</p>
             <div tw="flex gap-2">
-              {socials.map(({ label, href, Icon }) => (
-                <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} tw="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-sun-500">
+              {socials.map(({ label, href, Icon, field }) => (
+                <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} {...cmsTarget('geral.links', field)} tw="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-sun-500">
                   <Icon width={18} height={18} />
                 </a>
               ))}

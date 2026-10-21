@@ -4,7 +4,7 @@ import { mediaKit as kit } from '../pagesContent'
 import { links } from '../content'
 import { Button, Container, Eyebrow, Lead, PageHero, Section, Title } from '../components/ui'
 import { Arrow, Check, Copy, Instagram, Mail, TikTok, YouTube } from '../components/icons'
-import { imgProps, t } from '../cms/runtime'
+import { cmsTarget, imgProps, t } from '../cms/runtime'
 import { Sections } from '../cms/Sections'
 
 export function MediaKitPage() {
@@ -218,11 +218,11 @@ function Contact() {
         </div>
         <div tw="mt-4 flex gap-3">
           {[
-            { label: 'Instagram', href: links.instagram, I: Instagram },
-            { label: 'YouTube', href: links.youtube, I: YouTube },
-            { label: 'TikTok', href: links.tiktok, I: TikTok },
-          ].map(({ label, href, I }) => (
-            <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} tw="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white transition hover:bg-sun-500">
+            { label: 'Instagram', href: links.instagram, I: Instagram, field: 'instagram' },
+            { label: 'YouTube', href: links.youtube, I: YouTube, field: 'youtube' },
+            { label: 'TikTok', href: links.tiktok, I: TikTok, field: 'tiktok' },
+          ].map(({ label, href, I, field }) => (
+            <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} {...cmsTarget('geral.links', field)} tw="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white transition hover:bg-sun-500">
               <I />
             </a>
           ))}

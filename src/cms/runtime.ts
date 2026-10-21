@@ -30,6 +30,12 @@ const g = (): CmsGlobal => ((globalThis as unknown as { __TL_CMS__?: CmsGlobal }
 export const isPreview = () => g().preview
 export const bundle = () => g().bundle
 
+/**
+ * Elemento sem texto que abre um campo do painel ao ser clicado na pré-visualização (ex.: o ícone do Instagram
+ * abre "Redes sociais e contato" no campo do Instagram). Fora da pré-visualização não acrescenta nada.
+ */
+export const cmsTarget = (key: string, path: string): { 'data-cms'?: string } => (isPreview() ? { 'data-cms': `${key}|${path}` } : {})
+
 /** Caminhos de foto no conteúdo são relativos ao site ("images/x.jpg", "cms/media/…"). */
 const ASSET = /^(images|cms)\//
 

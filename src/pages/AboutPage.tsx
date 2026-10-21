@@ -3,7 +3,7 @@ import { aboutPage as page } from '../aboutContent'
 import { links } from '../content'
 import { Button, Container, CtaBand, Eyebrow, Lead, PageHero, PlaneTrail, Section, SmartLink, Title } from '../components/ui'
 import { Arrow, Check, Instagram, TikTok, YouTube } from '../components/icons'
-import { imgProps, t } from '../cms/runtime'
+import { cmsTarget, imgProps, t } from '../cms/runtime'
 import { Sections } from '../cms/Sections'
 
 export function AboutPage() {
@@ -34,11 +34,11 @@ export function AboutPage() {
                 </ul>
                 <div tw="mt-2 flex items-center gap-3">
                   {[
-                    { label: 'YouTube', href: links.youtube, I: YouTube },
-                    { label: 'Instagram', href: links.instagram, I: Instagram },
-                    { label: 'TikTok', href: links.tiktok, I: TikTok },
-                  ].map(({ label, href, I }) => (
-                    <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} tw="grid h-11 w-11 place-items-center rounded-full bg-pine-800 text-white transition hover:bg-sun-500">
+                    { label: 'YouTube', href: links.youtube, I: YouTube, field: 'youtube' },
+                    { label: 'Instagram', href: links.instagram, I: Instagram, field: 'instagram' },
+                    { label: 'TikTok', href: links.tiktok, I: TikTok, field: 'tiktok' },
+                  ].map(({ label, href, I, field }) => (
+                    <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} {...cmsTarget('geral.links', field)} tw="grid h-11 w-11 place-items-center rounded-full bg-pine-800 text-white transition hover:bg-sun-500">
                       <I />
                     </a>
                   ))}
