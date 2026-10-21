@@ -352,6 +352,39 @@ def _fill_publish_date(schema: Schema, doc: Document) -> None:
         doc.draft = {**doc.draft, 'date': utcnow().date().isoformat()}
 
 
+def _drop_orphan_stops(db: Session, now: datetime, actor_email: str) -> None:
+    """Tira dos destinos do blog as paradas que já não existem em "Rota: países e paradas".
+
+    A parada apagada sumia da página do destino sem avisar e o código dela ficava guardado
+    à toa (e voltaria a aparecer se alguém criasse outra parada com o mesmo identificador).
+    """
+    countries = db.get(Document, 'diario.countries')
+    dests = db.get(Document, 'blog.destinations')
+    if countries is None or dests is None or not isinstance(countries.published, dict):
+        return
+    alive = {
+        s.get('id') for c in countries.published.get('items', []) if isinstance(c, dict)
+        for s in c.get('items', []) if isinstance(s, dict) and s.get('type') == 'stop'
+    }
+
+    def clean(value: Any) -> Any:
+        if not isinstance(value, dict):
+            return value
+        items = [{**d, 'stops': [x for x in d['stops'] if x in alive]} if isinstance(d, dict) and isinstance(d.get('stops'), list) else d
+                 for d in value.get('items', [])]
+        return {**value, 'items': items}
+
+    synced = dests.draft == dests.published
+    published = clean(dests.published)
+    if published != dests.published:
+        dests.published = published
+        dests.published_at = now
+        dests.published_by = actor_email
+        db.add(Version(key=dests.key, data=published, position=dests.position, action='publicado', created_at=now, created_by=actor_email))
+    dests.draft = published if synced else clean(dests.draft)
+    db.add(dests)
+
+
 def publish(db: Session, keys: list[str], actor_email: str, ip: str | None, settings: Settings, *, action: str = 'publicado', actor: User | None = None) -> list[str]:
     """Publica o rascunho dos documentos. Confere tudo antes: ou publica todos, ou nenhum."""
     schema = load_schema()
@@ -390,6 +423,9 @@ def publish(db: Session, keys: list[str], actor_email: str, ip: str | None, sett
             db.add(doc)
             db.add(Version(key=doc.key, data=doc.draft, position=doc.position, action=action, created_at=now, created_by=actor_email))
     db.flush()
+    if any(d.key == 'diario.countries' and not d.draft_deleted for d in docs):
+        _drop_orphan_stops(db, now, actor_email)
+        db.flush()
     audit.record(
         db, 'conteudo_publicado' if action == 'publicado' else f'conteudo_{action}', actor=actor,
         actor_email=None if actor else actor_email, target=', '.join(labels)[:254], ip=ip,

@@ -358,3 +358,24 @@ def test_campo_que_saiu_do_mapa_sai_do_conteudo_guardado(admin: Painel, db):
     doc = db.get(Document, 'produtos.page')
     assert 'waitlistUrl' not in doc.draft and 'waitlistUrl' not in doc.published
     assert admin.post('/api/content/produtos.page/publish').status_code == 200
+
+
+def test_apagar_cidade_limpa_a_parada_dos_destinos(admin: Painel, settings):
+    """Parada apagada do Diário não fica guardada, sem uso, na lista de paradas do destino do blog."""
+    def put_publish(key, draft):
+        assert admin.client.put(f'/api/content/{key}', json={'draft': draft}, headers={'X-CSRF-Token': admin.csrf}).status_code == 200
+        assert admin.post(f'/api/content/{key}/publish').status_code == 200
+
+    countries = admin.get('/api/content/diario.countries').json()['draft']
+    bali = admin.get('/api/content/blog.destinations').json()['draft']['items'][0]
+    assert 'ubud' in bali['stops']
+    for c in countries['items']:
+        c['items'] = [s for s in c['items'] if s.get('id') != 'ubud']
+    put_publish('diario.countries', countries)
+
+    dests = admin.get('/api/content/blog.destinations').json()
+    assert dests['status'] == 'publicado'
+    for d in (dests['published'], dests['draft']):
+        stops = d['items'][0]['stops']
+        assert 'ubud' not in stops and 'canggu' in stops
+    assert 'ubud' not in site_json(settings)['docs']['blog.destinations']['items'][0]['stops']
