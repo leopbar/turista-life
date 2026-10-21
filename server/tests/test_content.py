@@ -184,6 +184,52 @@ def test_produto_em_breve_nao_precisa_de_pagina(admin: Painel):
     assert admin.post('/api/content/produtos.page/publish').status_code == 200
 
 
+def test_textos_fixos_ficam_na_pagina_onde_aparecem(admin: Painel, settings):
+    produtos = admin.get('/api/content/produtos.page').json()['draft']
+    assert produtos['textos']['espera']['produtos_espera_embreve'] == 'Inscrições para o aviso abrem em breve.'
+    # No bloco comum ficam só os textos que aparecem em várias páginas.
+    comuns = admin.get('/api/content/geral.textos').json()['draft']
+    assert 'geral.migalha.inicio' in comuns and 'produtos.espera.embreve' not in comuns
+
+    novo = {**produtos, 'textos': {**produtos['textos'], 'espera': {**produtos['textos']['espera'], 'produtos_espera_botao': 'Quero saber'}}}
+    assert _put(admin, 'produtos.page', novo).status_code == 200
+    assert admin.post('/api/content/produtos.page/publish').status_code == 200
+    assert site_json(settings)['docs']['produtos.page']['textos']['espera']['produtos_espera_botao'] == 'Quero saber'
+
+    # Em branco não publica: o site mostraria o texto do código e a pessoa acharia que não salvou.
+    vazio = {**novo, 'textos': {**novo['textos'], 'espera': {**novo['textos']['espera'], 'produtos_espera_botao': ' '}}}
+    assert _put(admin, 'produtos.page', vazio).status_code == 200
+    r = admin.post('/api/content/produtos.page/publish')
+    assert r.status_code == 422 and r.json()['detail']['problems'][0]['path'] == 'textos.espera.produtos_espera_botao'
+
+
+def test_texto_fixo_editado_antes_vai_junto_para_a_pagina(app, db):
+    # Como estava antes: os textos fixos todos em "geral.textos" e as páginas sem "Textos fixos desta página".
+    with write(db):
+        textos = db.get(Document, 'geral.textos')
+        textos.published = {**textos.published, 'produtos.espera.botao': 'Quero saber', 'diario.parada.pros': 'Pontos fortes'}
+        textos.draft = {**textos.published, 'produtos.espera.embreve': 'A lista abre logo.'}
+        for key in ('produtos.page', 'diario.page'):
+            page = db.get(Document, key)
+            page.draft = {k: v for k, v in page.draft.items() if k != 'textos'}
+            page.published = {k: v for k, v in page.published.items() if k != 'textos'}
+    with write(db):
+        content.seed(db)
+    produtos = db.get(Document, 'produtos.page')
+    assert produtos.published['textos']['espera']['produtos_espera_botao'] == 'Quero saber'
+    # O que estava só no rascunho continua só no rascunho.
+    assert produtos.draft['textos']['espera']['produtos_espera_embreve'] == 'A lista abre logo.'
+    assert produtos.published['textos']['espera']['produtos_espera_embreve'] == 'Inscrições para o aviso abrem em breve.'
+    # Texto igual ao do código: nada a levar.
+    assert db.get(Document, 'diario.page').published['textos']['paradas']['diario_parada_pros'] == 'Pontos fortes'
+    assert 'produtos.espera.botao' not in db.get(Document, 'geral.textos').published
+
+    # Na próxima vez que o painel sobe, nada muda (o texto já saiu de "geral.textos").
+    with write(db):
+        content.seed(db)
+    assert db.get(Document, 'produtos.page').published['textos']['espera']['produtos_espera_botao'] == 'Quero saber'
+
+
 def test_agendar_publicacao(admin: Painel, app, db, settings):
     doc = admin.get('/api/content/inicio.hero').json()['draft']
     _put(admin, 'inicio.hero', {**doc, 'title': 'Lançamento agendado'})

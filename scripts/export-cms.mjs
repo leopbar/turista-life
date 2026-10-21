@@ -1,6 +1,6 @@
 /**
  * Exporta para o painel (server/painel/data/):
- *   cms-schema.json   o mapa de campos editáveis (src/cms/schema.ts + os textos fixos t('…'))
+ *   cms-schema.json   o mapa de campos editáveis (src/cms/schema.ts + os textos fixos t('…'), ver src/cms/fixedTexts.ts)
  *   cms-defaults.json o conteúdo escrito hoje no código: é o ponto de partida do painel
  *
  * Rodar sempre que o mapa ou o conteúdo do código mudar:  node scripts/export-cms.mjs
@@ -46,7 +46,15 @@ try {
     }
   }
   walk(join(root, 'src'))
-  const sortedTextos = Object.fromEntries(Object.entries(textos).sort(([a], [b]) => a.localeCompare(b)))
+  // Cada texto fixo tem lugar no painel: na página onde aparece (pageTexts) ou no bloco comum (sharedTexts).
+  const { pageTexts, sharedTexts, textHome, textKey } = await load('/src/cms/fixedTexts.ts')
+  for (const id of Object.keys(textos)) {
+    if (!textHome[id] && !(id in sharedTexts)) throw new Error(`Texto fixo "${id}" sem lugar no painel: coloque em src/cms/fixedTexts.ts`)
+  }
+  for (const id of [...Object.keys(textHome), ...Object.keys(sharedTexts)]) {
+    if (!(id in textos)) throw new Error(`Texto fixo "${id}" está em src/cms/fixedTexts.ts, mas não existe mais no código`)
+  }
+  const sharedValues = Object.fromEntries(Object.keys(sharedTexts).sort((a, b) => a.localeCompare(b)).map((id) => [id, textos[id]]))
 
   // Capas de vídeo que já existem no site (as de vídeos novos o painel baixa sozinho).
   const staticThumbs = readdirSync(join(root, 'public', 'images', 'videos')).filter((f) => f.endsWith('.jpg')).map((f) => f.slice(0, -4)).sort()
@@ -61,15 +69,26 @@ try {
   }
   listImages(join(root, 'public', 'images'), 'images/')
   staticImages.sort()
-  const defaults = { docs: {}, collections: {}, staticThumbs, staticImages }
+  // Onde mora cada texto fixo de página: o servidor usa para levar o que já foi editado em "geral.textos" para lá.
+  const homes = Object.fromEntries(Object.entries(textHome).map(([id, h]) => [id, [h.doc, h.group, h.key]]))
+  const defaults = { docs: {}, collections: {}, staticThumbs, staticImages, textHome: homes }
   for (const d of docs) {
     if (d.key === 'geral.textos') {
-      defaults.docs[d.key] = sortedTextos
-      d.fields = Object.fromEntries(Object.entries(sortedTextos).map(([id, v]) => [id, { kind: 'text', label: v, long: v.length > 80, help: id }]))
+      defaults.docs[d.key] = sharedValues
+      d.fields = Object.fromEntries(Object.entries(sharedValues).map(([id, v]) => [id, { kind: 'text', label: sharedTexts[id], long: v.length > 80 }]))
       continue
     }
     if (!registry.has(d.key)) throw new Error(`Documento sem conteúdo no código: ${d.key}`)
     defaults.docs[d.key] = strip(registry.get(d.key))
+    // "Textos fixos desta página": o texto escrito no código é o valor inicial.
+    if (pageTexts[d.key]) {
+      defaults.docs[d.key].textos = Object.fromEntries(Object.entries(pageTexts[d.key]).map(([g, group]) => [
+        g, Object.fromEntries(Object.keys(group.texts).map((id) => [textKey(id), textos[id]])),
+      ]))
+      for (const [g, group] of Object.entries(pageTexts[d.key])) {
+        for (const id of Object.keys(group.texts)) if (textos[id].length > 80) d.fields.textos.fields[g].fields[textKey(id)].long = true
+      }
+    }
   }
   for (const c of collections) {
     if (!registry.has(c.key)) throw new Error(`Coleção sem conteúdo no código: ${c.key}`)

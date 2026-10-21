@@ -66,79 +66,11 @@
    "sent": "Quase lá! Confirma a inscrição no e-mail que acabamos de enviar."
   },
   "geral.textos": {
-   "blog.artigo.autora": "Laura Irigoyen",
-   "blog.artigo.continue": "Continue lendo",
-   "blog.artigo.ver-destino": "Veja todos os artigos, vídeos e o guia do destino",
-   "blog.destino.artigos": "Artigos",
-   "blog.destino.rota": "Na rota",
-   "blog.destino.videos": "Vídeos",
-   "blog.destinos.chamada": "Por destino",
-   "blog.destinos.titulo": "Escolha para onde você vai",
-   "blog.migalha": "Blog",
-   "blog.recs.titulo": "Recomendações",
-   "blog.recs.ver-todas": "Ver todas as recomendações",
-   "blog.vazio": "Ainda não tem artigo sobre esse assunto neste país. A cada destino novo, entram mais.",
-   "diario.mapa.segue-para": "Segue para",
-   "diario.mapa.vinda-de": "Vinda de",
-   "diario.mapa.zoom-em": "ZOOM EM",
-   "diario.marco.ganhei": "Ganhei com a internet",
-   "diario.marco.titulo": "Construindo minha liberdade geográfica",
-   "diario.parada.contras": "Pontos fracos",
-   "diario.parada.destaques": "Pontos-chave",
-   "diario.parada.pros": "Pontos fortes",
-   "diario.parada.sem-video": "O vídeo daqui sai em breve no canal.",
-   "diario.partida.foto": "Laura em Sydney com a Opera House ao fundo",
-   "diario.proximo.botao": "Me conte primeiro",
-   "diario.proximo.ok": "Combinado! Você fica sabendo assim que eu chegar.",
-   "diario.proximo.pergunta": "Para onde eu vou depois de Krabi?",
-   "diario.rota.chamada": "A rota",
-   "diario.rota.partida": "Partida",
-   "diario.rota.proximo": "Próximo destino",
-   "diario.rota.titulo": "Por onde eu já passei",
    "geral.dica-da-laura": "Dica da Laura",
    "geral.em-breve": "Em breve",
    "geral.email.rotulo": "Seu e-mail",
-   "geral.faq.chamada": "Dúvidas",
-   "geral.faq.titulo": "Perguntas frequentes",
    "geral.migalha.inicio": "Início",
-   "inicio.capa.foto": "Laura sorrindo no mirante da Diamond Beach, em Nusa Penida, com o mar turquesa ao fundo",
-   "inicio.sobre.foto": "Laura em Sydney, na Austrália",
-   "parcerias.audiencia.chamada": "Audiência",
-   "parcerias.audiencia.titulo": "Quem assiste ao meu conteúdo",
-   "parcerias.combina.chamada": "Combina com",
-   "parcerias.combina.titulo": "Marcas de viagem, dinheiro e trabalho remoto",
-   "parcerias.formatos.chamada": "Formatos",
-   "parcerias.formatos.titulo": "Como podemos trabalhar juntos",
-   "parcerias.pilares.chamada": "Conteúdo",
-   "parcerias.pilares.marcas": "Para marcas de:",
-   "parcerias.pilares.titulo": "Os três pilares do canal",
-   "parcerias.processo.chamada": "Processo",
-   "parcerias.processo.titulo": "Do primeiro contato ao relatório",
-   "parcerias.sobre.chamada": "Sobre",
-   "parcerias.sobre.foto": "Laura Irigoyen em Sydney",
-   "parcerias.sobre.nome": "Laura Irigoyen",
-   "produto.conteudo.titulo": "O que você vai encontrar",
-   "produto.gratis": "Grátis",
-   "produto.para-quem.chamada": "Para quem é indicado",
-   "produto.para-quem.titulo": "É para você se…",
-   "produto.valor": "Valor",
-   "produtos.capa.marca": "Turista Life",
-   "produtos.espera.botao": "Me avise",
-   "produtos.espera.confirmar": "Falta só confirmar: enviamos um e-mail para você (confira também o spam).",
-   "produtos.espera.embreve": "Inscrições para o aviso abrem em breve.",
-   "produtos.espera.rotulo": "Seu e-mail para ser avisado",
-   "produtos.migalha": "Produtos",
-   "recomendacoes.cupom": "Cupom",
-   "recomendacoes.cupom.copiado": "Copiado!",
-   "recomendacoes.filtro.todas": "Todas",
-   "recomendacoes.porque": "Por que eu uso:",
-   "sobre.bastidores.foto": "Laura trabalhando no computador num café em Bali",
-   "sobre.curiosidades.chamada": "Curiosidades",
-   "sobre.historia.chamada": "Minha história",
-   "sobre.historia.titulo": "De Porto Alegre para o mundo",
-   "sobre.redes.usuario": "@turista.life",
-   "sobre.trabalhos.chamada": "Austrália",
-   "sobre.valores.chamada": "Valores"
+   "produtos.capa.marca": "Turista Life"
   },
   "inicio.hero": {
    "title": "Viajar mais. Viver mais.",
@@ -158,7 +90,12 @@
     "sua casa."
    ],
    "showTrail": true,
-   "image": "images/hero-laura.jpg"
+   "image": "images/hero-laura.jpg",
+   "textos": {
+    "capa": {
+     "inicio_capa_foto": "Laura sorrindo no mirante da Diamond Beach, em Nusa Penida, com o mar turquesa ao fundo"
+    }
+   }
   },
   "inicio.about": {
    "eyebrow": "Sobre a Turista Life",
@@ -179,6 +116,11 @@
      "De Sydney",
      "para o mundo!"
     ]
+   },
+   "textos": {
+    "sobre": {
+     "inicio_sobre_foto": "Laura em Sydney, na Austrália"
+    }
    }
   },
   "inicio.journey": {
@@ -500,6 +442,17 @@
      "label": "Acompanhe a jornada",
      "href": "https://www.youtube.com/@turistalife"
     }
+   },
+   "textos": {
+    "secoes": {
+     "sobre_redes_usuario": "@turista.life",
+     "sobre_historia_chamada": "Minha história",
+     "sobre_historia_titulo": "De Porto Alegre para o mundo",
+     "sobre_trabalhos_chamada": "Austrália",
+     "sobre_valores_chamada": "Valores",
+     "sobre_curiosidades_chamada": "Curiosidades",
+     "sobre_bastidores_foto": "Laura trabalhando no computador num café em Bali"
+    }
    }
   },
   "produtos.page": {
@@ -680,6 +633,26 @@
     "cta": {
      "label": "Quero o guia grátis",
      "href": "https://turista-life-laura-irigoyen-ifwilc.subscribepage.io/"
+    }
+   },
+   "textos": {
+    "espera": {
+     "produtos_espera_embreve": "Inscrições para o aviso abrem em breve.",
+     "produtos_espera_botao": "Me avise",
+     "produtos_espera_rotulo": "Seu e-mail para ser avisado",
+     "produtos_espera_confirmar": "Falta só confirmar: enviamos um e-mail para você (confira também o spam)."
+    },
+    "faq": {
+     "geral_faq_chamada": "Dúvidas",
+     "geral_faq_titulo": "Perguntas frequentes"
+    },
+    "produto": {
+     "produtos_migalha": "Produtos",
+     "produto_para-quem_chamada": "Para quem é indicado",
+     "produto_para-quem_titulo": "É para você se…",
+     "produto_conteudo_titulo": "O que você vai encontrar",
+     "produto_valor": "Valor",
+     "produto_gratis": "Grátis"
     }
    }
   },
@@ -898,6 +871,14 @@
      "label": "Ver no YouTube",
      "href": "https://www.youtube.com/@turistalife"
     }
+   },
+   "textos": {
+    "cards": {
+     "recomendacoes_filtro_todas": "Todas",
+     "recomendacoes_porque": "Por que eu uso:",
+     "recomendacoes_cupom": "Cupom",
+     "recomendacoes_cupom_copiado": "Copiado!"
+    }
    }
   },
   "parcerias.page": {
@@ -1062,6 +1043,34 @@
      "label": "Enviar e-mail",
      "href": "mailto:contatoturistalife@gmail.com?subject=Parceria%20Turista%20Life"
     }
+   },
+   "textos": {
+    "sobre": {
+     "parcerias_sobre_chamada": "Sobre",
+     "parcerias_sobre_nome": "Laura Irigoyen",
+     "parcerias_sobre_foto": "Laura Irigoyen em Sydney"
+    },
+    "audiencia": {
+     "parcerias_audiencia_chamada": "Audiência",
+     "parcerias_audiencia_titulo": "Quem assiste ao meu conteúdo"
+    },
+    "pilares": {
+     "parcerias_pilares_chamada": "Conteúdo",
+     "parcerias_pilares_titulo": "Os três pilares do canal",
+     "parcerias_pilares_marcas": "Para marcas de:"
+    },
+    "formatos": {
+     "parcerias_formatos_chamada": "Formatos",
+     "parcerias_formatos_titulo": "Como podemos trabalhar juntos"
+    },
+    "combina": {
+     "parcerias_combina_chamada": "Combina com",
+     "parcerias_combina_titulo": "Marcas de viagem, dinheiro e trabalho remoto"
+    },
+    "processo": {
+     "parcerias_processo_chamada": "Processo",
+     "parcerias_processo_titulo": "Do primeiro contato ao relatório"
+    }
    }
   },
   "diario.page": {
@@ -1089,6 +1098,35 @@
    "next": {
     "title": "Próximo destino",
     "text": "A primeira temporada pela Ásia continua por mais alguns países. O próximo eu só conto quando estiver lá."
+   },
+   "textos": {
+    "rota": {
+     "diario_rota_chamada": "A rota",
+     "diario_rota_titulo": "Por onde eu já passei",
+     "diario_rota_partida": "Partida",
+     "diario_rota_proximo": "Próximo destino",
+     "diario_mapa_segue-para": "Segue para",
+     "diario_mapa_vinda-de": "Vinda de",
+     "diario_mapa_zoom-em": "ZOOM EM"
+    },
+    "partida": {
+     "diario_partida_foto": "Laura em Sydney com a Opera House ao fundo"
+    },
+    "paradas": {
+     "diario_parada_destaques": "Pontos-chave",
+     "diario_parada_pros": "Pontos fortes",
+     "diario_parada_contras": "Pontos fracos",
+     "diario_parada_sem-video": "O vídeo daqui sai em breve no canal."
+    },
+    "marco": {
+     "diario_marco_titulo": "Construindo minha liberdade geográfica",
+     "diario_marco_ganhei": "Ganhei com a internet"
+    },
+    "proximo": {
+     "diario_proximo_pergunta": "Para onde eu vou depois de Krabi?",
+     "diario_proximo_botao": "Me conte primeiro",
+     "diario_proximo_ok": "Combinado! Você fica sabendo assim que eu chegar."
+    }
    }
   },
   "diario.countries": {
@@ -1634,7 +1672,27 @@
     "position": "50% 40%"
    },
    "disclosure": "Alguns links desta página são de afiliado: se você comprar por eles, eu recebo uma pequena comissão, sem custo extra para você.",
-   "soonRec": "Ainda estou escolhendo a minha indicação para esta categoria. Em breve aparece aqui."
+   "soonRec": "Ainda estou escolhendo a minha indicação para esta categoria. Em breve aparece aqui.",
+   "textos": {
+    "blog": {
+     "blog_destinos_chamada": "Por destino",
+     "blog_destinos_titulo": "Escolha para onde você vai",
+     "blog_vazio": "Ainda não tem artigo sobre esse assunto neste país. A cada destino novo, entram mais."
+    },
+    "artigo": {
+     "blog_migalha": "Blog",
+     "blog_artigo_autora": "Laura Irigoyen",
+     "blog_artigo_ver-destino": "Veja todos os artigos, vídeos e o guia do destino",
+     "blog_artigo_continue": "Continue lendo",
+     "blog_recs_titulo": "Recomendações",
+     "blog_recs_ver-todas": "Ver todas as recomendações"
+    },
+    "destino": {
+     "blog_destino_artigos": "Artigos",
+     "blog_destino_videos": "Vídeos",
+     "blog_destino_rota": "Na rota"
+    }
+   }
   },
   "blog.categories": {
    "items": [
@@ -4647,5 +4705,347 @@
   "images/videos/rtEBiuBCNxE.jpg",
   "images/videos/wfKyB2O7MOk.jpg",
   "images/work.jpg"
- ]
+ ],
+ "textHome": {
+  "inicio.capa.foto": [
+   "inicio.hero",
+   "capa",
+   "inicio_capa_foto"
+  ],
+  "inicio.sobre.foto": [
+   "inicio.about",
+   "sobre",
+   "inicio_sobre_foto"
+  ],
+  "sobre.redes.usuario": [
+   "sobre.page",
+   "secoes",
+   "sobre_redes_usuario"
+  ],
+  "sobre.historia.chamada": [
+   "sobre.page",
+   "secoes",
+   "sobre_historia_chamada"
+  ],
+  "sobre.historia.titulo": [
+   "sobre.page",
+   "secoes",
+   "sobre_historia_titulo"
+  ],
+  "sobre.trabalhos.chamada": [
+   "sobre.page",
+   "secoes",
+   "sobre_trabalhos_chamada"
+  ],
+  "sobre.valores.chamada": [
+   "sobre.page",
+   "secoes",
+   "sobre_valores_chamada"
+  ],
+  "sobre.curiosidades.chamada": [
+   "sobre.page",
+   "secoes",
+   "sobre_curiosidades_chamada"
+  ],
+  "sobre.bastidores.foto": [
+   "sobre.page",
+   "secoes",
+   "sobre_bastidores_foto"
+  ],
+  "produtos.espera.embreve": [
+   "produtos.page",
+   "espera",
+   "produtos_espera_embreve"
+  ],
+  "produtos.espera.botao": [
+   "produtos.page",
+   "espera",
+   "produtos_espera_botao"
+  ],
+  "produtos.espera.rotulo": [
+   "produtos.page",
+   "espera",
+   "produtos_espera_rotulo"
+  ],
+  "produtos.espera.confirmar": [
+   "produtos.page",
+   "espera",
+   "produtos_espera_confirmar"
+  ],
+  "geral.faq.chamada": [
+   "produtos.page",
+   "faq",
+   "geral_faq_chamada"
+  ],
+  "geral.faq.titulo": [
+   "produtos.page",
+   "faq",
+   "geral_faq_titulo"
+  ],
+  "produtos.migalha": [
+   "produtos.page",
+   "produto",
+   "produtos_migalha"
+  ],
+  "produto.para-quem.chamada": [
+   "produtos.page",
+   "produto",
+   "produto_para-quem_chamada"
+  ],
+  "produto.para-quem.titulo": [
+   "produtos.page",
+   "produto",
+   "produto_para-quem_titulo"
+  ],
+  "produto.conteudo.titulo": [
+   "produtos.page",
+   "produto",
+   "produto_conteudo_titulo"
+  ],
+  "produto.valor": [
+   "produtos.page",
+   "produto",
+   "produto_valor"
+  ],
+  "produto.gratis": [
+   "produtos.page",
+   "produto",
+   "produto_gratis"
+  ],
+  "recomendacoes.filtro.todas": [
+   "recomendacoes.page",
+   "cards",
+   "recomendacoes_filtro_todas"
+  ],
+  "recomendacoes.porque": [
+   "recomendacoes.page",
+   "cards",
+   "recomendacoes_porque"
+  ],
+  "recomendacoes.cupom": [
+   "recomendacoes.page",
+   "cards",
+   "recomendacoes_cupom"
+  ],
+  "recomendacoes.cupom.copiado": [
+   "recomendacoes.page",
+   "cards",
+   "recomendacoes_cupom_copiado"
+  ],
+  "parcerias.sobre.chamada": [
+   "parcerias.page",
+   "sobre",
+   "parcerias_sobre_chamada"
+  ],
+  "parcerias.sobre.nome": [
+   "parcerias.page",
+   "sobre",
+   "parcerias_sobre_nome"
+  ],
+  "parcerias.sobre.foto": [
+   "parcerias.page",
+   "sobre",
+   "parcerias_sobre_foto"
+  ],
+  "parcerias.audiencia.chamada": [
+   "parcerias.page",
+   "audiencia",
+   "parcerias_audiencia_chamada"
+  ],
+  "parcerias.audiencia.titulo": [
+   "parcerias.page",
+   "audiencia",
+   "parcerias_audiencia_titulo"
+  ],
+  "parcerias.pilares.chamada": [
+   "parcerias.page",
+   "pilares",
+   "parcerias_pilares_chamada"
+  ],
+  "parcerias.pilares.titulo": [
+   "parcerias.page",
+   "pilares",
+   "parcerias_pilares_titulo"
+  ],
+  "parcerias.pilares.marcas": [
+   "parcerias.page",
+   "pilares",
+   "parcerias_pilares_marcas"
+  ],
+  "parcerias.formatos.chamada": [
+   "parcerias.page",
+   "formatos",
+   "parcerias_formatos_chamada"
+  ],
+  "parcerias.formatos.titulo": [
+   "parcerias.page",
+   "formatos",
+   "parcerias_formatos_titulo"
+  ],
+  "parcerias.combina.chamada": [
+   "parcerias.page",
+   "combina",
+   "parcerias_combina_chamada"
+  ],
+  "parcerias.combina.titulo": [
+   "parcerias.page",
+   "combina",
+   "parcerias_combina_titulo"
+  ],
+  "parcerias.processo.chamada": [
+   "parcerias.page",
+   "processo",
+   "parcerias_processo_chamada"
+  ],
+  "parcerias.processo.titulo": [
+   "parcerias.page",
+   "processo",
+   "parcerias_processo_titulo"
+  ],
+  "diario.rota.chamada": [
+   "diario.page",
+   "rota",
+   "diario_rota_chamada"
+  ],
+  "diario.rota.titulo": [
+   "diario.page",
+   "rota",
+   "diario_rota_titulo"
+  ],
+  "diario.rota.partida": [
+   "diario.page",
+   "rota",
+   "diario_rota_partida"
+  ],
+  "diario.rota.proximo": [
+   "diario.page",
+   "rota",
+   "diario_rota_proximo"
+  ],
+  "diario.mapa.segue-para": [
+   "diario.page",
+   "rota",
+   "diario_mapa_segue-para"
+  ],
+  "diario.mapa.vinda-de": [
+   "diario.page",
+   "rota",
+   "diario_mapa_vinda-de"
+  ],
+  "diario.mapa.zoom-em": [
+   "diario.page",
+   "rota",
+   "diario_mapa_zoom-em"
+  ],
+  "diario.partida.foto": [
+   "diario.page",
+   "partida",
+   "diario_partida_foto"
+  ],
+  "diario.parada.destaques": [
+   "diario.page",
+   "paradas",
+   "diario_parada_destaques"
+  ],
+  "diario.parada.pros": [
+   "diario.page",
+   "paradas",
+   "diario_parada_pros"
+  ],
+  "diario.parada.contras": [
+   "diario.page",
+   "paradas",
+   "diario_parada_contras"
+  ],
+  "diario.parada.sem-video": [
+   "diario.page",
+   "paradas",
+   "diario_parada_sem-video"
+  ],
+  "diario.marco.titulo": [
+   "diario.page",
+   "marco",
+   "diario_marco_titulo"
+  ],
+  "diario.marco.ganhei": [
+   "diario.page",
+   "marco",
+   "diario_marco_ganhei"
+  ],
+  "diario.proximo.pergunta": [
+   "diario.page",
+   "proximo",
+   "diario_proximo_pergunta"
+  ],
+  "diario.proximo.botao": [
+   "diario.page",
+   "proximo",
+   "diario_proximo_botao"
+  ],
+  "diario.proximo.ok": [
+   "diario.page",
+   "proximo",
+   "diario_proximo_ok"
+  ],
+  "blog.destinos.chamada": [
+   "blog.page",
+   "blog",
+   "blog_destinos_chamada"
+  ],
+  "blog.destinos.titulo": [
+   "blog.page",
+   "blog",
+   "blog_destinos_titulo"
+  ],
+  "blog.vazio": [
+   "blog.page",
+   "blog",
+   "blog_vazio"
+  ],
+  "blog.migalha": [
+   "blog.page",
+   "artigo",
+   "blog_migalha"
+  ],
+  "blog.artigo.autora": [
+   "blog.page",
+   "artigo",
+   "blog_artigo_autora"
+  ],
+  "blog.artigo.ver-destino": [
+   "blog.page",
+   "artigo",
+   "blog_artigo_ver-destino"
+  ],
+  "blog.artigo.continue": [
+   "blog.page",
+   "artigo",
+   "blog_artigo_continue"
+  ],
+  "blog.recs.titulo": [
+   "blog.page",
+   "artigo",
+   "blog_recs_titulo"
+  ],
+  "blog.recs.ver-todas": [
+   "blog.page",
+   "artigo",
+   "blog_recs_ver-todas"
+  ],
+  "blog.destino.artigos": [
+   "blog.page",
+   "destino",
+   "blog_destino_artigos"
+  ],
+  "blog.destino.videos": [
+   "blog.page",
+   "destino",
+   "blog_destino_videos"
+  ],
+  "blog.destino.rota": [
+   "blog.page",
+   "destino",
+   "blog_destino_rota"
+  ]
+ }
 }

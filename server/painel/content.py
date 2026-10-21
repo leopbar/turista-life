@@ -67,10 +67,39 @@ def _fill(value: Any, default: Any) -> Any:
 
 
 def _prune(value: Any, fields: dict) -> Any:
-    """Campos que saíram do mapa (ex.: renomeados) saem do conteúdo guardado; senão a próxima publicação falharia."""
+    """Campos que saíram do mapa (ex.: renomeados) saem do conteúdo guardado; senão a próxima publicação falharia.
+    Vale também dentro de grupos (ex.: um texto fixo que saiu de "Textos fixos desta página")."""
     if not isinstance(value, dict) or not fields:
         return value
-    return {k: v for k, v in value.items() if k in fields}
+    return {k: _prune(v, fields[k].get('fields') or {}) if fields[k].get('kind') == 'object' else v for k, v in value.items() if k in fields}
+
+
+def _moved_texts(textos: Document | None, defaults: dict) -> dict[str, dict[str, list[tuple[str, str, str]]]]:
+    """Textos fixos que saíram de "geral.textos" para "Textos fixos desta página" (textHome, ver src/cms/fixedTexts.ts).
+
+    O que já tinha sido editado vai junto para a página, no rascunho e no publicado. Depois disso eles saem de
+    "geral.textos" (seed) e esta função não acha mais nada.
+    """
+    out: dict[str, dict[str, list[tuple[str, str, str]]]] = {}
+    if textos is None:
+        return out
+    for text_id, (doc_key, group, key) in defaults.get('textHome', {}).items():
+        code = defaults['docs'].get(doc_key, {}).get('textos', {}).get(group, {}).get(key)
+        for attr in ('draft', 'published'):
+            v = (getattr(textos, attr) or {}).get(text_id)
+            if isinstance(v, str) and v.strip() and v != code:
+                out.setdefault(doc_key, {}).setdefault(attr, []).append((group, key, v))
+    return out
+
+
+def _with_texts(value: Any, changes: list[tuple[str, str, str]]) -> Any:
+    if not changes or not isinstance(value, dict) or not isinstance(value.get('textos'), dict):
+        return value
+    textos = {g: dict(v) if isinstance(v, dict) else v for g, v in value['textos'].items()}
+    for group, key, v in changes:
+        if isinstance(textos.get(group), dict) and key in textos[group]:
+            textos[group][key] = v
+    return {**value, 'textos': textos}
 
 
 def seed(db: Session) -> int:
@@ -89,22 +118,24 @@ def seed(db: Session) -> int:
         db.add(Version(key=key, data=value, position=position, action='original', created_at=now, created_by='conteúdo original'))
         added += 1
 
+    # Antes de "geral.textos" perder os textos que foram para a página onde aparecem.
+    moved = _moved_texts(existing.get('geral.textos'), defaults)
     for key in schema.docs:
         default = defaults['docs'].get(key, {})
         doc = existing.get(key)
         if doc is None:
             add(key, default, None, 0)
         elif key == 'geral.textos':
-            # Textos fixos novos entram; os que sumiram do código saem.
+            # Textos fixos novos entram; os que sumiram do código (ou foram para uma página) saem.
             known = set(default)
             for attr in ('draft', 'published'):
                 current = getattr(doc, attr) or {}
                 setattr(doc, attr, {k: current.get(k, v) for k, v in default.items() if k in known})
         else:
             fields = schema.fields(key) or {}
-            doc.draft = _prune(_fill(doc.draft, default), fields)
+            doc.draft = _with_texts(_prune(_fill(doc.draft, default), fields), moved.get(key, {}).get('draft', []))
             if doc.published is not None:
-                doc.published = _prune(_fill(doc.published, default), fields)
+                doc.published = _with_texts(_prune(_fill(doc.published, default), fields), moved.get(key, {}).get('published', []))
 
     for ckey, c in schema.collections.items():
         if any(k.startswith(f'{ckey}:') for k in existing):

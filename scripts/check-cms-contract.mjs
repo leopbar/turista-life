@@ -103,7 +103,13 @@ function compareDefs(listA, listB, isCollection) {
     if (isCollection && a.idField !== b.idField) add(RED, where, `campo de endereço trocado (${a.idField} → ${b.idField}): os itens existentes perdem o endereço.`)
     // Textos fixos t('id', …): o "nome" é o próprio texto; o que importa é o id.
     if (key === 'geral.textos') {
-      for (const id of Object.keys(a.fields || {})) if (!(id in (b.fields || {}))) add(RED, `Textos fixos › \`${id}\``, 'texto removido ou com id trocado: a versão editada no painel é descartada.')
+      for (const id of Object.keys(a.fields || {})) {
+        if (id in (b.fields || {})) continue
+        // Foi para "Textos fixos desta página" (src/cms/fixedTexts.ts): o servidor leva junto o que já foi editado.
+        const home = headTextHome[id]
+        if (home) add(GREEN, `Textos fixos › \`${id}\``, `foi para "Textos fixos desta página" em \`${home[0]}\`: o que foi editado vai junto.`)
+        else add(RED, `Textos fixos › \`${id}\``, 'texto removido ou com id trocado: a versão editada no painel é descartada.')
+      }
       for (const id of Object.keys(b.fields || {})) if (!(id in (a.fields || {}))) add(GREEN, `Textos fixos › \`${id}\``, 'texto novo.')
       continue
     }
@@ -119,6 +125,7 @@ if (!baseSchema) {
   process.exit(0)
 }
 const headSchema = now(SCHEMA)
+const headTextHome = now(DEFAULTS).textHome || {}
 compareDefs(baseSchema.docs, headSchema.docs, false)
 compareDefs(baseSchema.collections, headSchema.collections, true)
 

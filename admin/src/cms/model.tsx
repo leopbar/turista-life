@@ -56,8 +56,8 @@ export const STATUS: Record<DocStatus, { label: string; tone: 'ok' | 'draft' | '
 const parts = (path: string) => (path ? path.split('.') : [])
 
 /**
- * Os textos fixos têm ponto no próprio nome ("produtos.espera.botao"). Quando o caminho inteiro é um
- * nome que existe no objeto, ele vale como um nome só (e não como "produtos › espera › botao").
+ * Os textos usados em várias páginas têm ponto no próprio nome ("geral.migalha.inicio"). Quando o caminho inteiro
+ * é um nome que existe no objeto, ele vale como um nome só (e não como "geral › migalha › inicio").
  */
 const isWhole = (o: unknown, path: string) =>
   path.includes('.') && !!o && typeof o === 'object' && !Array.isArray(o) && Object.prototype.hasOwnProperty.call(o, path)

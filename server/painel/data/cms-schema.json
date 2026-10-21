@@ -152,447 +152,34 @@
   },
   {
    "key": "geral.textos",
-   "label": "Títulos e textos fixos",
+   "label": "Textos usados em várias páginas",
    "group": "geral",
    "route": "/",
    "fields": {
-    "blog.artigo.autora": {
-     "kind": "text",
-     "label": "Laura Irigoyen",
-     "long": false,
-     "help": "blog.artigo.autora"
-    },
-    "blog.artigo.continue": {
-     "kind": "text",
-     "label": "Continue lendo",
-     "long": false,
-     "help": "blog.artigo.continue"
-    },
-    "blog.artigo.ver-destino": {
-     "kind": "text",
-     "label": "Veja todos os artigos, vídeos e o guia do destino",
-     "long": false,
-     "help": "blog.artigo.ver-destino"
-    },
-    "blog.destino.artigos": {
-     "kind": "text",
-     "label": "Artigos",
-     "long": false,
-     "help": "blog.destino.artigos"
-    },
-    "blog.destino.rota": {
-     "kind": "text",
-     "label": "Na rota",
-     "long": false,
-     "help": "blog.destino.rota"
-    },
-    "blog.destino.videos": {
-     "kind": "text",
-     "label": "Vídeos",
-     "long": false,
-     "help": "blog.destino.videos"
-    },
-    "blog.destinos.chamada": {
-     "kind": "text",
-     "label": "Por destino",
-     "long": false,
-     "help": "blog.destinos.chamada"
-    },
-    "blog.destinos.titulo": {
-     "kind": "text",
-     "label": "Escolha para onde você vai",
-     "long": false,
-     "help": "blog.destinos.titulo"
-    },
-    "blog.migalha": {
-     "kind": "text",
-     "label": "Blog",
-     "long": false,
-     "help": "blog.migalha"
-    },
-    "blog.recs.titulo": {
-     "kind": "text",
-     "label": "Recomendações",
-     "long": false,
-     "help": "blog.recs.titulo"
-    },
-    "blog.recs.ver-todas": {
-     "kind": "text",
-     "label": "Ver todas as recomendações",
-     "long": false,
-     "help": "blog.recs.ver-todas"
-    },
-    "blog.vazio": {
-     "kind": "text",
-     "label": "Ainda não tem artigo sobre esse assunto neste país. A cada destino novo, entram mais.",
-     "long": true,
-     "help": "blog.vazio"
-    },
-    "diario.mapa.segue-para": {
-     "kind": "text",
-     "label": "Segue para",
-     "long": false,
-     "help": "diario.mapa.segue-para"
-    },
-    "diario.mapa.vinda-de": {
-     "kind": "text",
-     "label": "Vinda de",
-     "long": false,
-     "help": "diario.mapa.vinda-de"
-    },
-    "diario.mapa.zoom-em": {
-     "kind": "text",
-     "label": "ZOOM EM",
-     "long": false,
-     "help": "diario.mapa.zoom-em"
-    },
-    "diario.marco.ganhei": {
-     "kind": "text",
-     "label": "Ganhei com a internet",
-     "long": false,
-     "help": "diario.marco.ganhei"
-    },
-    "diario.marco.titulo": {
-     "kind": "text",
-     "label": "Construindo minha liberdade geográfica",
-     "long": false,
-     "help": "diario.marco.titulo"
-    },
-    "diario.parada.contras": {
-     "kind": "text",
-     "label": "Pontos fracos",
-     "long": false,
-     "help": "diario.parada.contras"
-    },
-    "diario.parada.destaques": {
-     "kind": "text",
-     "label": "Pontos-chave",
-     "long": false,
-     "help": "diario.parada.destaques"
-    },
-    "diario.parada.pros": {
-     "kind": "text",
-     "label": "Pontos fortes",
-     "long": false,
-     "help": "diario.parada.pros"
-    },
-    "diario.parada.sem-video": {
-     "kind": "text",
-     "label": "O vídeo daqui sai em breve no canal.",
-     "long": false,
-     "help": "diario.parada.sem-video"
-    },
-    "diario.partida.foto": {
-     "kind": "text",
-     "label": "Laura em Sydney com a Opera House ao fundo",
-     "long": false,
-     "help": "diario.partida.foto"
-    },
-    "diario.proximo.botao": {
-     "kind": "text",
-     "label": "Me conte primeiro",
-     "long": false,
-     "help": "diario.proximo.botao"
-    },
-    "diario.proximo.ok": {
-     "kind": "text",
-     "label": "Combinado! Você fica sabendo assim que eu chegar.",
-     "long": false,
-     "help": "diario.proximo.ok"
-    },
-    "diario.proximo.pergunta": {
-     "kind": "text",
-     "label": "Para onde eu vou depois de Krabi?",
-     "long": false,
-     "help": "diario.proximo.pergunta"
-    },
-    "diario.rota.chamada": {
-     "kind": "text",
-     "label": "A rota",
-     "long": false,
-     "help": "diario.rota.chamada"
-    },
-    "diario.rota.partida": {
-     "kind": "text",
-     "label": "Partida",
-     "long": false,
-     "help": "diario.rota.partida"
-    },
-    "diario.rota.proximo": {
-     "kind": "text",
-     "label": "Próximo destino",
-     "long": false,
-     "help": "diario.rota.proximo"
-    },
-    "diario.rota.titulo": {
-     "kind": "text",
-     "label": "Por onde eu já passei",
-     "long": false,
-     "help": "diario.rota.titulo"
-    },
     "geral.dica-da-laura": {
      "kind": "text",
-     "label": "Dica da Laura",
-     "long": false,
-     "help": "geral.dica-da-laura"
+     "label": "Título das dicas (diário e recomendações)",
+     "long": false
     },
     "geral.em-breve": {
      "kind": "text",
-     "label": "Em breve",
-     "long": false,
-     "help": "geral.em-breve"
+     "label": "Etiqueta de \"em breve\" (blog e recomendações)",
+     "long": false
     },
     "geral.email.rotulo": {
      "kind": "text",
-     "label": "Seu e-mail",
-     "long": false,
-     "help": "geral.email.rotulo"
-    },
-    "geral.faq.chamada": {
-     "kind": "text",
-     "label": "Dúvidas",
-     "long": false,
-     "help": "geral.faq.chamada"
-    },
-    "geral.faq.titulo": {
-     "kind": "text",
-     "label": "Perguntas frequentes",
-     "long": false,
-     "help": "geral.faq.titulo"
+     "label": "Campo de e-mail (newsletter, lista de espera e diário)",
+     "long": false
     },
     "geral.migalha.inicio": {
      "kind": "text",
-     "label": "Início",
-     "long": false,
-     "help": "geral.migalha.inicio"
-    },
-    "inicio.capa.foto": {
-     "kind": "text",
-     "label": "Laura sorrindo no mirante da Diamond Beach, em Nusa Penida, com o mar turquesa ao fundo",
-     "long": true,
-     "help": "inicio.capa.foto"
-    },
-    "inicio.sobre.foto": {
-     "kind": "text",
-     "label": "Laura em Sydney, na Austrália",
-     "long": false,
-     "help": "inicio.sobre.foto"
-    },
-    "parcerias.audiencia.chamada": {
-     "kind": "text",
-     "label": "Audiência",
-     "long": false,
-     "help": "parcerias.audiencia.chamada"
-    },
-    "parcerias.audiencia.titulo": {
-     "kind": "text",
-     "label": "Quem assiste ao meu conteúdo",
-     "long": false,
-     "help": "parcerias.audiencia.titulo"
-    },
-    "parcerias.combina.chamada": {
-     "kind": "text",
-     "label": "Combina com",
-     "long": false,
-     "help": "parcerias.combina.chamada"
-    },
-    "parcerias.combina.titulo": {
-     "kind": "text",
-     "label": "Marcas de viagem, dinheiro e trabalho remoto",
-     "long": false,
-     "help": "parcerias.combina.titulo"
-    },
-    "parcerias.formatos.chamada": {
-     "kind": "text",
-     "label": "Formatos",
-     "long": false,
-     "help": "parcerias.formatos.chamada"
-    },
-    "parcerias.formatos.titulo": {
-     "kind": "text",
-     "label": "Como podemos trabalhar juntos",
-     "long": false,
-     "help": "parcerias.formatos.titulo"
-    },
-    "parcerias.pilares.chamada": {
-     "kind": "text",
-     "label": "Conteúdo",
-     "long": false,
-     "help": "parcerias.pilares.chamada"
-    },
-    "parcerias.pilares.marcas": {
-     "kind": "text",
-     "label": "Para marcas de:",
-     "long": false,
-     "help": "parcerias.pilares.marcas"
-    },
-    "parcerias.pilares.titulo": {
-     "kind": "text",
-     "label": "Os três pilares do canal",
-     "long": false,
-     "help": "parcerias.pilares.titulo"
-    },
-    "parcerias.processo.chamada": {
-     "kind": "text",
-     "label": "Processo",
-     "long": false,
-     "help": "parcerias.processo.chamada"
-    },
-    "parcerias.processo.titulo": {
-     "kind": "text",
-     "label": "Do primeiro contato ao relatório",
-     "long": false,
-     "help": "parcerias.processo.titulo"
-    },
-    "parcerias.sobre.chamada": {
-     "kind": "text",
-     "label": "Sobre",
-     "long": false,
-     "help": "parcerias.sobre.chamada"
-    },
-    "parcerias.sobre.foto": {
-     "kind": "text",
-     "label": "Laura Irigoyen em Sydney",
-     "long": false,
-     "help": "parcerias.sobre.foto"
-    },
-    "parcerias.sobre.nome": {
-     "kind": "text",
-     "label": "Laura Irigoyen",
-     "long": false,
-     "help": "parcerias.sobre.nome"
-    },
-    "produto.conteudo.titulo": {
-     "kind": "text",
-     "label": "O que você vai encontrar",
-     "long": false,
-     "help": "produto.conteudo.titulo"
-    },
-    "produto.gratis": {
-     "kind": "text",
-     "label": "Grátis",
-     "long": false,
-     "help": "produto.gratis"
-    },
-    "produto.para-quem.chamada": {
-     "kind": "text",
-     "label": "Para quem é indicado",
-     "long": false,
-     "help": "produto.para-quem.chamada"
-    },
-    "produto.para-quem.titulo": {
-     "kind": "text",
-     "label": "É para você se…",
-     "long": false,
-     "help": "produto.para-quem.titulo"
-    },
-    "produto.valor": {
-     "kind": "text",
-     "label": "Valor",
-     "long": false,
-     "help": "produto.valor"
+     "label": "Caminho no topo: primeiro item (link para a página inicial)",
+     "long": false
     },
     "produtos.capa.marca": {
      "kind": "text",
-     "label": "Turista Life",
-     "long": false,
-     "help": "produtos.capa.marca"
-    },
-    "produtos.espera.botao": {
-     "kind": "text",
-     "label": "Me avise",
-     "long": false,
-     "help": "produtos.espera.botao"
-    },
-    "produtos.espera.confirmar": {
-     "kind": "text",
-     "label": "Falta só confirmar: enviamos um e-mail para você (confira também o spam).",
-     "long": false,
-     "help": "produtos.espera.confirmar"
-    },
-    "produtos.espera.embreve": {
-     "kind": "text",
-     "label": "Inscrições para o aviso abrem em breve.",
-     "long": false,
-     "help": "produtos.espera.embreve"
-    },
-    "produtos.espera.rotulo": {
-     "kind": "text",
-     "label": "Seu e-mail para ser avisado",
-     "long": false,
-     "help": "produtos.espera.rotulo"
-    },
-    "produtos.migalha": {
-     "kind": "text",
-     "label": "Produtos",
-     "long": false,
-     "help": "produtos.migalha"
-    },
-    "recomendacoes.cupom": {
-     "kind": "text",
-     "label": "Cupom",
-     "long": false,
-     "help": "recomendacoes.cupom"
-    },
-    "recomendacoes.cupom.copiado": {
-     "kind": "text",
-     "label": "Copiado!",
-     "long": false,
-     "help": "recomendacoes.cupom.copiado"
-    },
-    "recomendacoes.filtro.todas": {
-     "kind": "text",
-     "label": "Todas",
-     "long": false,
-     "help": "recomendacoes.filtro.todas"
-    },
-    "recomendacoes.porque": {
-     "kind": "text",
-     "label": "Por que eu uso:",
-     "long": false,
-     "help": "recomendacoes.porque"
-    },
-    "sobre.bastidores.foto": {
-     "kind": "text",
-     "label": "Laura trabalhando no computador num café em Bali",
-     "long": false,
-     "help": "sobre.bastidores.foto"
-    },
-    "sobre.curiosidades.chamada": {
-     "kind": "text",
-     "label": "Curiosidades",
-     "long": false,
-     "help": "sobre.curiosidades.chamada"
-    },
-    "sobre.historia.chamada": {
-     "kind": "text",
-     "label": "Minha história",
-     "long": false,
-     "help": "sobre.historia.chamada"
-    },
-    "sobre.historia.titulo": {
-     "kind": "text",
-     "label": "De Porto Alegre para o mundo",
-     "long": false,
-     "help": "sobre.historia.titulo"
-    },
-    "sobre.redes.usuario": {
-     "kind": "text",
-     "label": "@turista.life",
-     "long": false,
-     "help": "sobre.redes.usuario"
-    },
-    "sobre.trabalhos.chamada": {
-     "kind": "text",
-     "label": "Austrália",
-     "long": false,
-     "help": "sobre.trabalhos.chamada"
-    },
-    "sobre.valores.chamada": {
-     "kind": "text",
-     "label": "Valores",
-     "long": false,
-     "help": "sobre.valores.chamada"
+     "label": "Assinatura nas capas dos produtos",
+     "long": false
     }
    }
   },
@@ -661,6 +248,23 @@
      "kind": "bool",
      "label": "Mostrar a seta (avião) no canto da capa",
      "optional": true
+    },
+    "textos": {
+     "kind": "object",
+     "label": "Textos fixos desta página",
+     "fields": {
+      "capa": {
+       "kind": "object",
+       "label": "Capa",
+       "fields": {
+        "inicio_capa_foto": {
+         "kind": "text",
+         "label": "Descrição da foto (para quem usa leitor de tela)",
+         "long": true
+        }
+       }
+      }
+     }
     }
    }
   },
@@ -719,6 +323,22 @@
         "long": true
        },
        "itemLabel": "Linha"
+      }
+     }
+    },
+    "textos": {
+     "kind": "object",
+     "label": "Textos fixos desta página",
+     "fields": {
+      "sobre": {
+       "kind": "object",
+       "label": "Como tudo começou",
+       "fields": {
+        "inicio_sobre_foto": {
+         "kind": "text",
+         "label": "Descrição da foto (para quem usa leitor de tela)"
+        }
+       }
       }
      }
     }
@@ -1360,6 +980,46 @@
        }
       }
      }
+    },
+    "textos": {
+     "kind": "object",
+     "label": "Textos fixos desta página",
+     "fields": {
+      "secoes": {
+       "kind": "object",
+       "label": "Seções da página",
+       "fields": {
+        "sobre_redes_usuario": {
+         "kind": "text",
+         "label": "Usuário nas redes (ao lado dos ícones)"
+        },
+        "sobre_historia_chamada": {
+         "kind": "text",
+         "label": "Minha história: chamada acima do título"
+        },
+        "sobre_historia_titulo": {
+         "kind": "text",
+         "label": "Minha história: título"
+        },
+        "sobre_trabalhos_chamada": {
+         "kind": "text",
+         "label": "Trabalhos: chamada acima do título"
+        },
+        "sobre_valores_chamada": {
+         "kind": "text",
+         "label": "Valores: chamada acima do título"
+        },
+        "sobre_curiosidades_chamada": {
+         "kind": "text",
+         "label": "Curiosidades: chamada acima do título"
+        },
+        "sobre_bastidores_foto": {
+         "kind": "text",
+         "label": "Bastidores: descrição da foto (para quem usa leitor de tela)"
+        }
+       }
+      }
+     }
     }
    }
   },
@@ -1762,6 +1422,78 @@
        }
       }
      }
+    },
+    "textos": {
+     "kind": "object",
+     "label": "Textos fixos desta página",
+     "fields": {
+      "espera": {
+       "kind": "object",
+       "label": "Lista de espera (produtos em breve)",
+       "fields": {
+        "produtos_espera_embreve": {
+         "kind": "text",
+         "label": "Aviso enquanto a lista de espera não abre"
+        },
+        "produtos_espera_botao": {
+         "kind": "text",
+         "label": "Botão para entrar na lista"
+        },
+        "produtos_espera_rotulo": {
+         "kind": "text",
+         "label": "Nome do campo de e-mail (para quem usa leitor de tela)"
+        },
+        "produtos_espera_confirmar": {
+         "kind": "text",
+         "label": "Aviso depois de entrar na lista (confirmar o e-mail)"
+        }
+       }
+      },
+      "faq": {
+       "kind": "object",
+       "label": "Perguntas frequentes (aqui e nas páginas de produto)",
+       "fields": {
+        "geral_faq_chamada": {
+         "kind": "text",
+         "label": "Chamada acima do título"
+        },
+        "geral_faq_titulo": {
+         "kind": "text",
+         "label": "Título"
+        }
+       }
+      },
+      "produto": {
+       "kind": "object",
+       "label": "Páginas de produto (iguais em todas)",
+       "fields": {
+        "produtos_migalha": {
+         "kind": "text",
+         "label": "Caminho no topo: link para Produtos"
+        },
+        "produto_para-quem_chamada": {
+         "kind": "text",
+         "label": "Para quem é: chamada acima do título"
+        },
+        "produto_para-quem_titulo": {
+         "kind": "text",
+         "label": "Para quem é: título"
+        },
+        "produto_conteudo_titulo": {
+         "kind": "text",
+         "label": "O que tem dentro: título"
+        },
+        "produto_valor": {
+         "kind": "text",
+         "label": "Rótulo do preço (também nos cards desta página)"
+        },
+        "produto_gratis": {
+         "kind": "text",
+         "label": "Preço dos materiais gratuitos"
+        }
+       }
+      }
+     }
     }
    }
   },
@@ -2022,6 +1754,34 @@
         "href": {
          "kind": "url",
          "label": "Link do botão"
+        }
+       }
+      }
+     }
+    },
+    "textos": {
+     "kind": "object",
+     "label": "Textos fixos desta página",
+     "fields": {
+      "cards": {
+       "kind": "object",
+       "label": "Filtro e cards (aqui, na página inicial e no blog)",
+       "fields": {
+        "recomendacoes_filtro_todas": {
+         "kind": "text",
+         "label": "Filtro: opção que mostra todas"
+        },
+        "recomendacoes_porque": {
+         "kind": "text",
+         "label": "Antes do motivo (letra cursiva)"
+        },
+        "recomendacoes_cupom": {
+         "kind": "text",
+         "label": "Rótulo do cupom"
+        },
+        "recomendacoes_cupom_copiado": {
+         "kind": "text",
+         "label": "Aviso ao copiar o cupom"
         }
        }
       }
@@ -2305,6 +2065,104 @@
        "label": "Foto de fundo"
       }
      }
+    },
+    "textos": {
+     "kind": "object",
+     "label": "Textos fixos desta página",
+     "fields": {
+      "sobre": {
+       "kind": "object",
+       "label": "Sobre",
+       "fields": {
+        "parcerias_sobre_chamada": {
+         "kind": "text",
+         "label": "Chamada acima do título"
+        },
+        "parcerias_sobre_nome": {
+         "kind": "text",
+         "label": "Nome na foto (letra cursiva)"
+        },
+        "parcerias_sobre_foto": {
+         "kind": "text",
+         "label": "Descrição da foto (para quem usa leitor de tela)"
+        }
+       }
+      },
+      "audiencia": {
+       "kind": "object",
+       "label": "Audiência",
+       "fields": {
+        "parcerias_audiencia_chamada": {
+         "kind": "text",
+         "label": "Chamada acima do título"
+        },
+        "parcerias_audiencia_titulo": {
+         "kind": "text",
+         "label": "Título"
+        }
+       }
+      },
+      "pilares": {
+       "kind": "object",
+       "label": "Pilares do canal",
+       "fields": {
+        "parcerias_pilares_chamada": {
+         "kind": "text",
+         "label": "Chamada acima do título"
+        },
+        "parcerias_pilares_titulo": {
+         "kind": "text",
+         "label": "Título"
+        },
+        "parcerias_pilares_marcas": {
+         "kind": "text",
+         "label": "Antes da lista de marcas de cada pilar"
+        }
+       }
+      },
+      "formatos": {
+       "kind": "object",
+       "label": "Formatos",
+       "fields": {
+        "parcerias_formatos_chamada": {
+         "kind": "text",
+         "label": "Chamada acima do título"
+        },
+        "parcerias_formatos_titulo": {
+         "kind": "text",
+         "label": "Título"
+        }
+       }
+      },
+      "combina": {
+       "kind": "object",
+       "label": "Combina com",
+       "fields": {
+        "parcerias_combina_chamada": {
+         "kind": "text",
+         "label": "Chamada acima do título"
+        },
+        "parcerias_combina_titulo": {
+         "kind": "text",
+         "label": "Título"
+        }
+       }
+      },
+      "processo": {
+       "kind": "object",
+       "label": "Processo",
+       "fields": {
+        "parcerias_processo_chamada": {
+         "kind": "text",
+         "label": "Chamada acima do título"
+        },
+        "parcerias_processo_titulo": {
+         "kind": "text",
+         "label": "Título"
+        }
+       }
+      }
+     }
     }
    }
   },
@@ -2409,6 +2267,110 @@
        "kind": "text",
        "label": "Texto",
        "long": true
+      }
+     }
+    },
+    "textos": {
+     "kind": "object",
+     "label": "Textos fixos desta página",
+     "fields": {
+      "rota": {
+       "kind": "object",
+       "label": "A rota (mapa)",
+       "fields": {
+        "diario_rota_chamada": {
+         "kind": "text",
+         "label": "Chamada acima do título"
+        },
+        "diario_rota_titulo": {
+         "kind": "text",
+         "label": "Título"
+        },
+        "diario_rota_partida": {
+         "kind": "text",
+         "label": "Atalho para o ponto de partida"
+        },
+        "diario_rota_proximo": {
+         "kind": "text",
+         "label": "Atalho para o próximo destino"
+        },
+        "diario_mapa_segue-para": {
+         "kind": "text",
+         "label": "No mapa, antes do lugar seguinte (\"Segue para Bali\")"
+        },
+        "diario_mapa_vinda-de": {
+         "kind": "text",
+         "label": "No mapa, antes do lugar anterior (\"Vinda de Sydney\")"
+        },
+        "diario_mapa_zoom-em": {
+         "kind": "text",
+         "label": "No mapa, antes do lugar ampliado (\"ZOOM EM BALI\")"
+        }
+       }
+      },
+      "partida": {
+       "kind": "object",
+       "label": "Ponto de partida",
+       "fields": {
+        "diario_partida_foto": {
+         "kind": "text",
+         "label": "Descrição da foto (para quem usa leitor de tela)"
+        }
+       }
+      },
+      "paradas": {
+       "kind": "object",
+       "label": "Cada parada",
+       "fields": {
+        "diario_parada_destaques": {
+         "kind": "text",
+         "label": "Título dos destaques"
+        },
+        "diario_parada_pros": {
+         "kind": "text",
+         "label": "Título dos pontos fortes"
+        },
+        "diario_parada_contras": {
+         "kind": "text",
+         "label": "Título dos pontos fracos"
+        },
+        "diario_parada_sem-video": {
+         "kind": "text",
+         "label": "Aviso quando a parada ainda não tem vídeo"
+        }
+       }
+      },
+      "marco": {
+       "kind": "object",
+       "label": "Fechamento do mês (liberdade geográfica)",
+       "fields": {
+        "diario_marco_titulo": {
+         "kind": "text",
+         "label": "Título"
+        },
+        "diario_marco_ganhei": {
+         "kind": "text",
+         "label": "Legenda do valor ganho"
+        }
+       }
+      },
+      "proximo": {
+       "kind": "object",
+       "label": "Próximo destino",
+       "fields": {
+        "diario_proximo_pergunta": {
+         "kind": "text",
+         "label": "Pergunta (título)"
+        },
+        "diario_proximo_botao": {
+         "kind": "text",
+         "label": "Botão"
+        },
+        "diario_proximo_ok": {
+         "kind": "text",
+         "label": "Mensagem depois de enviar o e-mail"
+        }
+       }
       }
      }
     }
@@ -2695,6 +2657,79 @@
      "kind": "text",
      "label": "Texto das recomendações \"Em breve\"",
      "long": true
+    },
+    "textos": {
+     "kind": "object",
+     "label": "Textos fixos desta página",
+     "fields": {
+      "blog": {
+       "kind": "object",
+       "label": "Página Blog",
+       "fields": {
+        "blog_destinos_chamada": {
+         "kind": "text",
+         "label": "Destinos: chamada acima do título"
+        },
+        "blog_destinos_titulo": {
+         "kind": "text",
+         "label": "Destinos: título"
+        },
+        "blog_vazio": {
+         "kind": "text",
+         "label": "Aviso quando o filtro não encontra artigos",
+         "long": true
+        }
+       }
+      },
+      "artigo": {
+       "kind": "object",
+       "label": "Páginas de artigo (iguais em todos)",
+       "fields": {
+        "blog_migalha": {
+         "kind": "text",
+         "label": "Caminho no topo: link para o Blog (também nas páginas de destino)"
+        },
+        "blog_artigo_autora": {
+         "kind": "text",
+         "label": "Nome da autora"
+        },
+        "blog_artigo_ver-destino": {
+         "kind": "text",
+         "label": "Link para a página do destino"
+        },
+        "blog_artigo_continue": {
+         "kind": "text",
+         "label": "Título dos outros artigos, no fim"
+        },
+        "blog_recs_titulo": {
+         "kind": "text",
+         "label": "Recomendações no artigo: título (letra cursiva)"
+        },
+        "blog_recs_ver-todas": {
+         "kind": "text",
+         "label": "Recomendações no artigo: link para ver todas"
+        }
+       }
+      },
+      "destino": {
+       "kind": "object",
+       "label": "Páginas de destino (iguais em todos)",
+       "fields": {
+        "blog_destino_artigos": {
+         "kind": "text",
+         "label": "Artigos: chamada acima da lista"
+        },
+        "blog_destino_videos": {
+         "kind": "text",
+         "label": "Vídeos: chamada acima da lista"
+        },
+        "blog_destino_rota": {
+         "kind": "text",
+         "label": "Na rota: frase em letra cursiva"
+        }
+       }
+      }
+     }
     }
    }
   },

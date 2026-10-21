@@ -6,6 +6,7 @@ import {
   bool, button, cover, cta, heroFields, image, list, long, mailerlite, num, obj, opt, position, ref, sectionHead, select, text, texts, url,
   type CollectionDef, type DocDef, type Field, type Fields,
 } from './fields'
+import { pageTexts, textKey } from './fixedTexts'
 import { layoutDefs } from './layoutDefs'
 
 /* ------------------------------------------------------------------ */
@@ -72,8 +73,9 @@ export const docs: DocDef[] = [
     fields: { tagline: long('Frase do rodapé'), newsletter: text('Chamada da newsletter'), sent: long('Mensagem de sucesso da newsletter') },
   },
   {
-    key: 'geral.textos', label: 'Títulos e textos fixos', group: 'geral', route: '/',
-    // Preenchido sozinho com os textos t('…') espalhados pelos componentes (scripts/export-cms.mjs).
+    key: 'geral.textos', label: 'Textos usados em várias páginas', group: 'geral', route: '/',
+    // Preenchido sozinho com os textos t('…') de sharedTexts (src/cms/fixedTexts.ts) pelo scripts/export-cms.mjs.
+    // Os outros textos fixos ficam em "Textos fixos desta página", dentro da página onde aparecem.
     fields: {},
   },
 
@@ -354,6 +356,15 @@ export const collections: CollectionDef[] = [
 /* ------------------------------------------------------------------ */
 /* Seções das páginas (ligar, desligar, reordenar)                     */
 /* ------------------------------------------------------------------ */
+
+/* Textos fixos de cada página ("Me avise", "Continue lendo"…): editados na própria página (src/cms/fixedTexts.ts). */
+for (const d of docs) {
+  const groups = pageTexts[d.key]
+  if (!groups) continue
+  d.fields.textos = obj('Textos fixos desta página', Object.fromEntries(Object.entries(groups).map(([g, group]) => [
+    g, obj(group.label, Object.fromEntries(Object.entries(group.texts).map(([id, label]) => [textKey(id), text(label)]))),
+  ])))
+}
 
 const pageGroup: Record<string, DocDef['group']> = {
   home: 'inicio', sobre: 'sobre', produtos: 'produtos', recomendacoes: 'recomendacoes', parcerias: 'parcerias', diario: 'diario', blog: 'blog',

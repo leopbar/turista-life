@@ -9,7 +9,9 @@
  * do campo, para o painel saber o que a pessoa clicou, e o painel pode trocar o conteúdo ao vivo.
  */
 
-export type MediaMeta = { alt: string; focal: [number, number]; w: number; h: number; widths: number[] }
+import { textHome } from './fixedTexts'
+
+export type MediaMeta ={ alt: string; focal: [number, number]; w: number; h: number; widths: number[] }
 
 export type Bundle = {
   version: number
@@ -81,11 +83,22 @@ export function collection<T>(key: string, fallback: T[], idOf: (item: T) => str
   return items
 }
 
-/** Texto fixo de componente ("Minha história"). Editável no documento "Títulos e textos fixos". */
+/**
+ * Texto fixo de componente ("Minha história"). Editável em "Textos fixos desta página", dentro da página onde
+ * aparece (src/cms/fixedTexts.ts), ou em "Textos usados em várias páginas" quando aparece em várias.
+ */
 let textos: Record<string, string> | null = null
 export function t(id: string, fallback: string): string {
-  textos ??= doc<Record<string, string>>('geral.textos', {})
-  const v = textos[id]
+  const home = textHome[id]
+  let v: unknown
+  if (home) {
+    // O documento da página já foi entregue pelo arquivo de conteúdo dela (com a marca da pré-visualização).
+    const page = (registry.get(home.doc) ?? bundle()?.docs?.[home.doc]) as { textos?: Record<string, Record<string, unknown>> } | undefined
+    v = page?.textos?.[home.group]?.[home.key]
+  } else {
+    textos ??= doc<Record<string, string>>('geral.textos', {})
+    v = textos[id]
+  }
   return typeof v === 'string' && v.trim() ? v : fallback
 }
 
