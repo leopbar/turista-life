@@ -72,6 +72,17 @@ export function Footer() {
             Explorar o mundo é viver melhor. <PlaneTrail tw="w-12 text-white/70" />
           </span>
         </div>
+
+        <div tw="flex flex-col items-center gap-1 text-center font-sans">
+          <p tw="inline-flex items-center gap-2 text-[13px] text-white/80">
+            <span aria-hidden="true" tw="font-mono text-white/60">&lt;/&gt;</span>
+            <span>
+              Crafted by <span role="img" aria-label="love">❤️</span>{' '}
+              <a href="mailto:lbarretti@gmail.com" tw="font-semibold text-white underline underline-offset-4 hover:text-sun-500">Leonardo Barretti</a>
+            </span>
+          </p>
+          <p tw="text-[11px] text-white/50">Um site feito de amizade, criatividade e código.</p>
+        </div>
       </Container>
     </footer>
   )
