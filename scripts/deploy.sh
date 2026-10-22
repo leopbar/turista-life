@@ -61,8 +61,8 @@ if ! git fetch -q origin main; then
   problem="não consegui falar com o GitHub (git fetch)."
 elif ! git merge-base --is-ancestor HEAD origin/main; then
   problem="o commit $COMMIT ainda não está no GitHub (falta o git push)."
-elif ! run=$(gh run list --repo "$REPO" --workflow ci.yml --commit "$(git rev-parse HEAD)" --limit 1 \
-               --json status,conclusion,url -q '.[] | "\(.status) \(.conclusion) \(.url)"'); then
+elif ! run=$(gh run list --repo "$REPO" --workflow ci.yml --limit 30 --json status,conclusion,url,headSha \
+               -q ".[] | select(.headSha == \"$(git rev-parse HEAD)\") | \"\(.status) \(.conclusion) \(.url)\"" | head -n 1); then
   problem="não consegui consultar o CI no GitHub (o gh está logado? o .github/workflows/ci.yml já foi enviado?)."
 else
   read -r status conclusion url <<<"$run"
