@@ -37,7 +37,7 @@ export function Activity() {
   return (
     <div tw="mx-auto max-w-[820px]">
       <h1 tw="m-0 font-serif text-[2.4rem] font-bold text-ink">Atividades</h1>
-      <p tw="mt-2 font-sans text-[14.5px] text-muted">Tudo o que acontece no painel fica anotado aqui. Ninguém consegue apagar nem mudar estas anotações.</p>
+      <p tw="mt-2 font-sans text-[14.5px] text-muted">Tudo o que acontece no painel fica anotado aqui por 1 ano. Ninguém consegue apagar nem mudar estas anotações.</p>
 
       {chain && (
         <div css={[tw`mt-6 flex items-center gap-3 rounded-2xl px-4 py-3 font-sans text-[13.5px]`, chain.ok ? tw`bg-mist text-pine-900` : tw`bg-[#FEF3F2] text-[#912018]`]}>
